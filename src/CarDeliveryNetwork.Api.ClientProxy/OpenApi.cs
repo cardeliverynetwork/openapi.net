@@ -54,6 +54,19 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
+        /// Attempts to create the specified job on Car Delivery Network
+        /// </summary>
+        /// <param name="job">The job to create</param>
+        /// <returns>The successfully created job</returns>
+        public Job CreateJob(CarDeliveryNetwork.Api.Data.Job job)
+        {
+            var createdJobs = CreateJobs(new Jobs() { job });
+            return createdJobs != null && createdJobs.Count > 0
+                ? createdJobs[0]
+                : null;
+        }
+
+        /// <summary>
         /// Attempts to create the specified jobs on Car Delivery Network
         /// </summary>
         /// <param name="job">The collection of jobs to create</param>
@@ -63,14 +76,6 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (jobs == null || jobs.Count == 0)
                 throw new Exception("Jobs collection was null or empty");
             return Jobs.FromString(Call("Jobs", "POST", false, jobs), _interfaceFormat);
-        }
-
-        public Jobs UpdateJob(CarDeliveryNetwork.Api.Data.Job job, bool useRemoteId = false)
-        {
-            if (job == null)
-                throw new Exception("Job is null");
-            var resource = string.Format("Jobs/{1}", useRemoteId ? job.RemoteId : job.Id.ToString());
-            return Jobs.FromString(Call(resource, "PUT", useRemoteId, job), _interfaceFormat);
         }
 
         public void AllocateJobsToFleet(
@@ -101,32 +106,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             Call(resource, "PUT", useRemoteId, jobs);
         }
 
-        /// <summary>
-        /// Attempts to create the specified job on Car Delivery Network
-        /// </summary>
-        /// <param name="job">The job to create</param>
-        /// <returns>The successfully created job</returns>
-        public Job CreateJob(CarDeliveryNetwork.Api.Data.Job job)
-        {
-            var createdJobs = CreateJobs(new Jobs() { job });
-            return createdJobs != null && createdJobs.Count > 0
-                ? createdJobs[0]
-                : null;
-        }
-
-        public void JobsToNetwork(CarDeliveryNetwork.Api.Data.Jobs jobs, int networkId)
-        {
-            if (jobs == null || jobs.Count == 0)
-                throw new Exception("Jobs collection was null or empty");
-
-            var jobIds = string.Empty;
-            foreach (var job in jobs)
-                jobIds += string.Format("{0};", job.Id);
-
-            Call(string.Format("Jobs/{0}/Networks/{1}", jobIds, networkId), "PUT");
-        }
-
-        public string Call(string resuorce, string method, bool isUsingRemoteIds = false, IApiEntity data = null)
+        private string Call(string resuorce, string method, bool isUsingRemoteIds = false, IApiEntity data = null)
         {
             var requestUri = string.Format("{0}/{1}?isremoteid={2}&apikey={3}", Uri, resuorce, isUsingRemoteIds, ApiKey);
             var req = WebRequest.Create(requestUri) as HttpWebRequest;
@@ -183,5 +163,40 @@ namespace CarDeliveryNetwork.Api.ClientProxy
                 throw;
             }
         }
+
+        #region Not implemented
+
+        /// <summary>
+        /// Attempts to update the specified jobs on Car Delivery Network
+        /// </summary>
+        /// <param name="job">The job to update</param>
+        /// <param name="useRemoteId">When true, indicates that the job should be identified by its RemoteId</param>
+        /// <returns></returns>
+        private Jobs UpdateJob(CarDeliveryNetwork.Api.Data.Job job, bool useRemoteId = false)
+        {
+            if (job == null)
+                throw new Exception("Job is null");
+            var resource = string.Format("Jobs/{1}", useRemoteId ? job.RemoteId : job.Id.ToString());
+            return Jobs.FromString(Call(resource, "PUT", useRemoteId, job), _interfaceFormat);
+        }
+
+        /// <summary>
+        /// Wttempts to put the specified list of jobs into the network of the specified Id
+        /// </summary>
+        /// <param name="jobs">Jobs to put into network</param>
+        /// <param name="networkId">The target network</param>
+        private void JobsToNetwork(CarDeliveryNetwork.Api.Data.Jobs jobs, int networkId)
+        {
+            if (jobs == null || jobs.Count == 0)
+                throw new Exception("Jobs collection was null or empty");
+
+            var jobIds = string.Empty;
+            foreach (var job in jobs)
+                jobIds += string.Format("{0};", job.Id);
+
+            Call(string.Format("Jobs/{0}/Networks/{1}", jobIds, networkId), "PUT");
+        }
+
+        #endregion
     }
 }
