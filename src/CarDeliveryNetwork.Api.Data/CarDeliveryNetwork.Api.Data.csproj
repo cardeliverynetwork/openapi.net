@@ -49,6 +49,7 @@
     <Compile Include="Action.cs" />
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="Bid.cs" />
+    <Compile Include="Contract.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="Fleet.cs" />
     <Compile Include="IApiEntity.cs" />
