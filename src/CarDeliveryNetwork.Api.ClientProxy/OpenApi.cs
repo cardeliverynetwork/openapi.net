@@ -106,7 +106,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             Call(resource, "PUT", useRemoteId, jobs);
         }
 
-        private string Call(string resuorce, string method, bool isUsingRemoteIds = false, IApiEntity data = null)
+        public string Call(string resuorce, string method, bool isUsingRemoteIds = false, IApiEntity data = null)
         {
             var requestUri = string.Format("{0}/{1}?isremoteid={2}&apikey={3}", Uri, resuorce, isUsingRemoteIds, ApiKey);
             var req = WebRequest.Create(requestUri) as HttpWebRequest;
