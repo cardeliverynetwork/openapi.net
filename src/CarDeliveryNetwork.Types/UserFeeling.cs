@@ -2,7 +2,7 @@
 namespace CarDeliveryNetwork.Types
 {
     /// <summary>
-    /// An enumeration that specifies the current feeling of a Car Delivery Network user
+    /// An enumeration that specifies the current feeling of a Car Delivery Network user.
     /// </summary>
     public enum UserFeeling
     {

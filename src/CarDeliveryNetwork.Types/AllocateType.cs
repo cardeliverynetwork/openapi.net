@@ -2,7 +2,7 @@
 namespace CarDeliveryNetwork.Types
 {
     /// <summary>
-    /// Enum of types of job allocation
+    /// Enum of types of job allocation.
     /// </summary>
     public enum AllocateType
     {

@@ -2,7 +2,7 @@
 namespace CarDeliveryNetwork.Types
 {
     /// <summary>
-    /// An enumeration for test results
+    /// An enumeration for test results.
     /// </summary>
     public enum TestResult
     {

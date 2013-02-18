@@ -2,7 +2,7 @@
 namespace CarDeliveryNetwork.Types
 {
     /// <summary>
-    /// Enum of Car Delivery Network jobs status'
+    /// Enum of Car Delivery Network jobs status'.
     /// </summary>
     public enum JobStatus
     {

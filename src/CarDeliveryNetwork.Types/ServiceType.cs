@@ -2,7 +2,7 @@
 namespace CarDeliveryNetwork.Types
 {
     /// <summary>
-    /// An enumeration that specifies the service type of a Car Delivery Network job
+    /// An enumeration that specifies the service type of a Car Delivery Network job.
     /// </summary>
     public enum ServiceType
     {
