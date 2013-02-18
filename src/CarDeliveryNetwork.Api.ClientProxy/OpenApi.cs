@@ -16,20 +16,20 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         private MessageFormat _interfaceFormat;
 
         /// <summary>
-        /// The Url of the target CDN API 
+        /// The Url of the target CDN API.
         /// </summary>
         public string Uri { get; set; }
 
         /// <summary>
-        /// The calling users's CDN API key
+        /// The calling users's CDN API key.
         /// </summary>
         public string ApiKey { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.ClientProxy.OpenApi"/> class.
         /// </summary>
-        /// <param name="uri">The uri of the target service</param>
-        /// <param name="apiKey">Your API key</param>
+        /// <param name="uri">The uri of the target service.</param>
+        /// <param name="apiKey">Your API key.</param>
         public OpenApi(string uri = null, string apiKey = null)
         {
             Uri = uri;
@@ -38,10 +38,10 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
-        /// Gets the job of the specified RemoteId from Car Delivery Network
+        /// Gets the job of the specified RemoteId from Car Delivery Network.
         /// </summary>
-        /// <param name="remoteId">RemoteId of the job to get</param>
-        /// <returns>The job of the specified RemoteId</returns>
+        /// <param name="remoteId">RemoteId of the job to get.</param>
+        /// <returns>The job of the specified RemoteId.</returns>
         public Job GetJob(string remoteId)
         {
             if(string.IsNullOrEmpty(remoteId))
@@ -51,10 +51,10 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
-        /// Gets the job of the specified Id from Car Delivery Network
+        /// Gets the job of the specified Id from Car Delivery Network.
         /// </summary>
-        /// <param name="id">Id of the job to get</param>
-        /// <returns>The job of the specified Id</returns>
+        /// <param name="id">Id of the job to get.</param>
+        /// <returns>The job of the specified Id.</returns>
         public Job GetJob(int id)
         {
             if (id == 0)
@@ -64,10 +64,10 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
-        /// Attempts to create the specified job on Car Delivery Network
+        /// Attempts to create the specified job on Car Delivery Network.
         /// </summary>
-        /// <param name="job">The job to create</param>
-        /// <returns>The successfully created job</returns>
+        /// <param name="job">The job to create.</param>
+        /// <returns>The successfully created job.</returns>
         public Job CreateJob(CarDeliveryNetwork.Api.Data.Job job)
         {
             var createdJobs = CreateJobs(new Jobs() { job });
@@ -77,10 +77,10 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
-        /// Attempts to create the specified jobs on Car Delivery Network
+        /// Attempts to create the specified jobs on Car Delivery Network.
         /// </summary>
-        /// <param name="jobs">The collection of jobs to create</param>
-        /// <returns>A collection of the successfully created jobs</returns>
+        /// <param name="jobs">The collection of jobs to create.</param>
+        /// <returns>A collection of the successfully created jobs.</returns>
         public Jobs CreateJobs(CarDeliveryNetwork.Api.Data.Jobs jobs)
         {
             if (jobs == null || jobs.Count == 0)
@@ -89,13 +89,13 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
-        /// Calls the API with the specified resource and method
+        /// Calls the API with the specified resource and method.
         /// </summary>
-        /// <param name="resuorce">The target resource</param>
-        /// <param name="method">The HTTP method to perform on the target resource</param>
-        /// <param name="isUsingRemoteIds">When true, the target resource is identified by a client specified RemoteId</param>
-        /// <param name="data">The data body for POST and PUT methods</param>
-        /// <returns>The response string from the API call</returns>
+        /// <param name="resuorce">The target resource.</param>
+        /// <param name="method">The HTTP method to perform on the target resource.</param>
+        /// <param name="isUsingRemoteIds">When true, the target resource is identified by a client specified RemoteId.</param>
+        /// <param name="data">The data body for POST and PUT methods.</param>
+        /// <returns>The response string from the API call.</returns>
         public string Call(string resuorce, string method, bool isUsingRemoteIds = false, IApiEntity data = null)
         {
             var requestUri = string.Format("{0}/{1}?isremoteid={2}&apikey={3}", Uri, resuorce, isUsingRemoteIds, ApiKey);
@@ -157,10 +157,10 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         #region Not implemented
 
         /// <summary>
-        /// Attempts to update the specified jobs on Car Delivery Network
+        /// Attempts to update the specified jobs on Car Delivery Network.
         /// </summary>
-        /// <param name="job">The job to update</param>
-        /// <param name="useRemoteId">When true, indicates that the job should be identified by its RemoteId</param>
+        /// <param name="job">The job to update.</param>
+        /// <param name="useRemoteId">When true, indicates that the job should be identified by its RemoteId.</param>
         /// <returns></returns>
         private Jobs UpdateJob(CarDeliveryNetwork.Api.Data.Job job, bool useRemoteId = false)
         {
@@ -171,10 +171,10 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
-        /// Wttempts to put the specified list of jobs into the network of the specified Id
+        /// Wttempts to put the specified list of jobs into the network of the specified Id.
         /// </summary>
-        /// <param name="jobs">Jobs to put into network</param>
-        /// <param name="networkId">The target network</param>
+        /// <param name="jobs">Jobs to put into network.</param>
+        /// <param name="networkId">The target network.</param>
         private void JobsToNetwork(CarDeliveryNetwork.Api.Data.Jobs jobs, int networkId)
         {
             if (jobs == null || jobs.Count == 0)
