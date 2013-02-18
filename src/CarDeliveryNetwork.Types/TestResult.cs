@@ -1,4 +1,5 @@
-﻿namespace CarDeliveryNetwork.Types
+﻿
+namespace CarDeliveryNetwork.Types
 {
     /// <summary>
     /// An enumeration for test results

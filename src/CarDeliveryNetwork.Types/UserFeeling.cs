@@ -1,5 +1,4 @@
 ﻿
-
 namespace CarDeliveryNetwork.Types
 {
     /// <summary>

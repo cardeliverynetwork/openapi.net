@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 
-
 namespace CarDeliveryNetwork.Types
 {
     /// <summary>
