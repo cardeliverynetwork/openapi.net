@@ -4,7 +4,6 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using CarDeliveryNetwork.Types;
 
-
 namespace CarDeliveryNetwork.Api.Data
 {
     class Serialization

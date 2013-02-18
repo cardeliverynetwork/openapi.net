@@ -1,5 +1,4 @@
 ﻿
-
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>

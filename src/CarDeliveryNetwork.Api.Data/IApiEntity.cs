@@ -1,6 +1,5 @@
 ﻿using CarDeliveryNetwork.Types;
 
-
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>
