@@ -30,7 +30,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Networks"/> class
         /// that is empty and has the specified initial capacity.
         /// </summary>
-        /// <param name="capacity">The number of elements that the new list can initially store</param>
+        /// <param name="capacity">The number of elements that the new list can initially store.</param>
         public Networks(int capacity) : base(capacity) { }
 
         /// <summary>

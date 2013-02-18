@@ -8,9 +8,9 @@ namespace CarDeliveryNetwork.Api.Data
     /// If you only specify the Id or RemoteId then the contact must be already present
 	/// To create a new contact you must specify the OrganisationName, City, StateRegion
 	/// If you specify a contact that is already in the database all fields present will
-	/// updated the the fields in the Job contact
+	/// updated the the fields in the Job contact.
 	/// The more address detail provided for a contact the more accurate a map location will be. 
-	/// The system will use google maps and the data provided to pin point a contact on a map 
+	/// The system will use google maps and the data provided to pin point a contact on a map.
     /// </remarks>
     public class ContactDetails : ApiEntityBase<ContactDetails>
     {

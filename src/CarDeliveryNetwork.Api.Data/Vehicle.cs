@@ -16,7 +16,7 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Registration { get; set; }
 
         /// <summary>
-        /// Optional (17) - The vehicle identification number. A valid VIN is 6-17 characters
+        /// Optional (17) - The vehicle identification number. A valid VIN is 6-17 characters.
         /// </summary>
         public virtual string Vin { get; set; }
 
