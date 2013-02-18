@@ -8,17 +8,27 @@ using CarDeliveryNetwork.Types;
 
 namespace CarDeliveryNetwork.Api.ClientProxy
 {
+    /// <summary>
+    /// A wrapper class for the CDN OpenApi
+    /// </summary>
     public class OpenApi
     {
         private MessageFormat _interfaceFormat;
 
+        /// <summary>
+        /// The Url of the target CDN API 
+        /// </summary>
         public string Uri { get; set; }
+
+        /// <summary>
+        /// The calling users's CDN API key
+        /// </summary>
         public string ApiKey { get; set; }
 
         /// <summary>
-        /// Constructs a new instance of the Car Delivery Network OpenApi client proxy
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.ClientProxy.OpenApi"/> class.
         /// </summary>
-        /// <param name="uri">The uri of the target service </param>
+        /// <param name="uri">The uri of the target service</param>
         /// <param name="apiKey">Your API key</param>
         public OpenApi(string uri = null, string apiKey = null)
         {
@@ -30,7 +40,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <summary>
         /// Gets the job of the specified RemoteId from Car Delivery Network
         /// </summary>
-        /// <param name="id">RemoteId of the job to get</param>
+        /// <param name="remoteId">RemoteId of the job to get</param>
         /// <returns>The job of the specified RemoteId</returns>
         public Job GetJob(string remoteId)
         {
@@ -69,7 +79,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <summary>
         /// Attempts to create the specified jobs on Car Delivery Network
         /// </summary>
-        /// <param name="job">The collection of jobs to create</param>
+        /// <param name="jobs">The collection of jobs to create</param>
         /// <returns>A collection of the successfully created jobs</returns>
         public Jobs CreateJobs(CarDeliveryNetwork.Api.Data.Jobs jobs)
         {
@@ -78,34 +88,14 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             return Jobs.FromString(Call("Jobs", "POST", false, jobs), _interfaceFormat);
         }
 
-        public void AllocateJobsToFleet(
-            CarDeliveryNetwork.Api.Data.Fleet fleet, 
-            CarDeliveryNetwork.Api.Data.Jobs jobs, 
-            bool useRemoteId = false)
-        {
-            if (fleet == null)
-                throw new Exception("Fleet was null");
-            if (jobs == null || jobs.Count == 0)
-                throw new Exception("Jobs collection was null or empty");
-
-            var resource = string.Format("Fleets/{0}", useRemoteId ? fleet.RemoteId : fleet.Id.ToString());
-            Call(resource, "PUT", useRemoteId, jobs);
-        }
-
-        public void AllocateJobsToNetwork(
-            CarDeliveryNetwork.Api.Data.Network network,
-            CarDeliveryNetwork.Api.Data.Jobs jobs,
-            bool useRemoteId = false)
-        {
-            if (network == null)
-                throw new Exception("Network was null");
-            if (jobs == null || jobs.Count == 0)
-                throw new Exception("Jobs collection was null or empty");
-
-            var resource = string.Format("Networks/{0}", useRemoteId ? network.RemoteId : network.Id.ToString());
-            Call(resource, "PUT", useRemoteId, jobs);
-        }
-
+        /// <summary>
+        /// Calls the API with the specified resource and method
+        /// </summary>
+        /// <param name="resuorce">The target resource</param>
+        /// <param name="method">The HTTP method to perform on the target resource</param>
+        /// <param name="isUsingRemoteIds">When true, the target resource is identified by a client specified RemoteId</param>
+        /// <param name="data">The data body for POST and PUT methods</param>
+        /// <returns>The response string from the API call</returns>
         public string Call(string resuorce, string method, bool isUsingRemoteIds = false, IApiEntity data = null)
         {
             var requestUri = string.Format("{0}/{1}?isremoteid={2}&apikey={3}", Uri, resuorce, isUsingRemoteIds, ApiKey);

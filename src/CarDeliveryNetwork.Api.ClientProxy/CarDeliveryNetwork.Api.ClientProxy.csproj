@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\CarDeliveryNetwork.Api.ClientProxy.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,7 +44,9 @@
     <Compile Include="Exceptions\BadRequestException.cs" />
     <Compile Include="Exceptions\InternalServerErrorException.cs" />
     <Compile Include="Exceptions\ForbiddenException.cs" />
+    <Compile Include="Exceptions\NamespaceDoc.cs" />
     <Compile Include="Exceptions\UnauthorizedException.cs" />
+    <Compile Include="NamespaceDoc.cs" />
     <Compile Include="OpenApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
