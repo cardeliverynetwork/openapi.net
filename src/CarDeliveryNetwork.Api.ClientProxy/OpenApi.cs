@@ -176,7 +176,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         {
             if (job == null)
                 throw new Exception("Job is null");
-            var resource = string.Format("Jobs/{1}", useRemoteId ? job.RemoteId : job.Id.ToString());
+            var resource = string.Format("Jobs/{0}", useRemoteId ? job.RemoteId : job.Id.ToString());
             return Jobs.FromString(Call(resource, "PUT", useRemoteId, job), _interfaceFormat);
         }
 
