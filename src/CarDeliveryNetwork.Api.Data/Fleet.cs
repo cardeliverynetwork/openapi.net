@@ -9,9 +9,14 @@ namespace CarDeliveryNetwork.Api.Data
     public class Fleet : ApiEntityBase<Fleet>
     {
         /// <summary>
-        /// The fleet name
+        /// The fleet's name
         /// </summary>
         public virtual string Name { get; set; }
+
+        /// <summary>
+        /// The fleet's SCAC
+        /// </summary>
+        public virtual string Scac { get; set; }
     }
 
 
