@@ -36,6 +36,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Variant { get; set; }
 
         /// <summary>
+        /// Optional (50) - The vehicle's locatoin or bay number
+        /// </summary>
+        public virtual string Location { get; set; }
+
+        /// <summary>
+        /// Optional (50) - A movement number specific to this vehicle
+        /// </summary>
+        public virtual string MovementNumber { get; set; }
+
+        /// <summary>
         /// Optional (255) - Notes relating to this vehicle.
         /// </summary>
         public virtual string Notes { get; set; }
