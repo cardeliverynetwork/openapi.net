@@ -126,6 +126,14 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string AllocatedCarrierScac { get; set; }
 
         /// <summary>
+        /// Optional - The RemoteId of the assigned driver
+        /// </summary>
+        /// <remarks>
+        /// The assigned driver must be of the carrier specified in AllocatedCarrierScac.
+        /// </remarks>
+        public virtual string AssignedDriverRemoteId { get; set; }
+
+        /// <summary>
         /// Readonly - The number of vehicles on this job
         /// </summary>
         public virtual int VehicleCount
