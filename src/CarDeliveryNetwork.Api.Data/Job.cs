@@ -117,6 +117,15 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<Vehicle> Vehicles { get; set; }
 
         /// <summary>
+        /// Optional - The SCAC of the allocated carrier
+        /// </summary>
+        /// <remarks>
+        /// Specifying SCAC during job creation will ignore the Status field and attempt to 
+        /// allocate the job directly to this carrier.  Status will be set to 'Allocated'
+        /// </remarks>
+        public virtual string AllocatedCarrierScac { get; set; }
+
+        /// <summary>
         /// Readonly - The number of vehicles on this job
         /// </summary>
         public virtual int VehicleCount
