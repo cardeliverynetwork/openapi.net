@@ -84,7 +84,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         public Jobs CreateJobs(CarDeliveryNetwork.Api.Data.Jobs jobs)
         {
             if (jobs == null || jobs.Count == 0)
-                throw new Exception("Jobs collection was null or empty");
+                throw new ArgumentException("Jobs collection was null or empty");
             return Jobs.FromString(Call("Jobs", "POST", false, jobs), _interfaceFormat);
         }
 
@@ -155,6 +155,17 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         #region Not implemented
+
+        private void PerformAction(string resourceName, int id, CarDeliveryNetwork.Api.Data.Action action)
+        {
+            if (action == null)
+                throw new ArgumentException("Action cannot be null");
+            if (string.IsNullOrEmpty(action.Name))
+                throw new ArgumentException("Action.Name must be populated");
+
+            var resource = string.Format("{0}/{1}", resourceName, id);
+            Call(resource, "POST", false, action);
+        }
 
         /// <summary>
         /// Attempts to update the specified jobs on Car Delivery Network.
