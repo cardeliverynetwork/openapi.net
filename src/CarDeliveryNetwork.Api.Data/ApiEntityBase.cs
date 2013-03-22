@@ -71,5 +71,21 @@ namespace CarDeliveryNetwork.Api.Data
         {
             return Serialization.Deserialise<T>(serializedObject, format);
         }
+
+        public static string GetSafeApiString(string value, bool trim = true, bool? toUpper = null)
+        {
+            if (value == null)
+                return null;
+
+            if(trim)
+                value = value.Trim();
+
+            if(toUpper.HasValue)
+                value = toUpper.Value
+                    ? value.ToUpper()
+                    : value.ToLower();
+
+            return value;
+        }
     }
 }
