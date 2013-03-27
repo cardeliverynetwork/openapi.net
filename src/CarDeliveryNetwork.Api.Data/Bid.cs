@@ -121,7 +121,7 @@ namespace CarDeliveryNetwork.Api.Data
         }
 
         /// <summary>
-        /// Initializes the child objects associated with this user.
+        /// Initializes the child objects associated with this Bid.
         /// </summary>
         protected virtual void InitObjects()
         {
