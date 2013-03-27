@@ -16,7 +16,11 @@ Please read the [wiki](https://github.com/cardeliverynetwork/openapi.net/wiki) a
 
 Necessary prerequisites
 ---
-Visual Studio 2010 and .NET 4.0 or Mono 2.10.x
+* Visual Studio 2010
+* .NET 4.0 
+
+or 
+* [Mono](http://www.mono-project.com) 2.10.x
 
 [Download the latest build](http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt7/.lastSuccessful/artifacts.zip)
 ---
