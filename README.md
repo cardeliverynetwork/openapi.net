@@ -1,8 +1,5 @@
 Car Delivery Network OpenApi for .NET
 ===
----
-[Download the latest build](http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt7/.lastSuccessful/artifacts.zip)
----
 
 Description
 ---
@@ -20,6 +17,9 @@ Please read the [wiki](https://github.com/cardeliverynetwork/csharp-apiclient/wi
 Necessary prerequisites
 ---
 Visual Studio 2010 and .NET 4.0
+
+[Download the latest build](http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt7/.lastSuccessful/artifacts.zip)
+---
 
 [Examples](https://github.com/cardeliverynetwork/csharp-apiclient/wiki/Code-Examples)
 ---
