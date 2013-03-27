@@ -1,5 +1,8 @@
 Car Delivery Network OpenApi for .NET
 ===
+---
+[Download the latest build](http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt7/.lastSuccessful/artifacts.zip)
+---
 
 Description
 ---
