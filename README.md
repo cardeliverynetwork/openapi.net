@@ -10,10 +10,6 @@ Documentation
 * [Class/Namespace docs](https://go.cardeliverynetwork.com/uk/docs/OpenApi/index.html)
 * [The underlying API interface](https://go.cardeliverynetwork.com/uk/OpenApi/help)
 
-Issues
----
-Please read the [wiki](https://github.com/cardeliverynetwork/openapi.net/wiki) about what information is best to help people fix your issues, then create an issue on the [issues](https://github.com/cardeliverynetwork/csharp-apiclient/issues) tab.
-
 Necessary prerequisites
 ---
 * Visual Studio 2010
@@ -27,6 +23,10 @@ or
 
 [Examples](https://github.com/cardeliverynetwork/openapi.net/wiki/Code-Examples)
 ---
+
+Issues
+---
+Please read the [wiki](https://github.com/cardeliverynetwork/openapi.net/wiki) about what information is best to help people fix your issues, then create an issue on the [issues](https://github.com/cardeliverynetwork/csharp-apiclient/issues) tab.
 
 Committers
 ---
