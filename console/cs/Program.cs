@@ -25,12 +25,14 @@ namespace console
             var api = new OpenApi(ServiceUrl, ServiceApiKey);
 
             // Create a job
-            var newjob = api.CreateJob(GetTestJob());
+           // var newjob = api.CreateJob(GetTestJob());
 
             // Get some details about a job
-            var targetJobId = 9601;
+            var targetJobId = 9697;
             var job = api.GetJob(targetJobId);
             var docs = api.GetJobDocuments(targetJobId);
+            api.CancelJob(targetJobId, "Cancelled by customer.");
+
         }
 
         private static Job GetTestJob()

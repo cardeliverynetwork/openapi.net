@@ -113,6 +113,39 @@ namespace CarDeliveryNetwork.Api.ClientProxy
                 throw new ArgumentException("Jobs collection was null or empty");
             return Jobs.FromString(Call("Jobs", "POST", false, jobs), _interfaceFormat);
         }
+       
+        /// <summary>
+        /// Cancels the job of the specified Id giving the specified reason
+        /// </summary>
+        /// <param name="id">Id of job to cancel</param>
+        /// <param name="reason">Reason for job cancellation</param>
+        public void CancelJob(int id, string reason)
+        {
+            if (id == 0)
+                throw new Exception("Id must be greater than zero");
+            PerformJobAction(id, new CarDeliveryNetwork.Api.Data.Action { Name = "cancel", Note = reason });
+        }
+
+        private void PerformJobAction(int id, CarDeliveryNetwork.Api.Data.Action action)
+        {
+            PerformAction("Jobs", id, action);
+        }
+
+        private void PerformJourneyAction(int id, CarDeliveryNetwork.Api.Data.Action action)
+        {
+            PerformAction("Journeys", id, action);
+        }
+
+        private void PerformAction(string resourceName, int id, CarDeliveryNetwork.Api.Data.Action action)
+        {
+            if (action == null)
+                throw new ArgumentException("Action cannot be null");
+            if (string.IsNullOrEmpty(action.Name))
+                throw new ArgumentException("Action.Name must be populated");
+
+            var resource = string.Format("{0}/{1}/Action", resourceName, id);
+            Call(resource, "POST", false, action);
+        }
 
         /// <summary>
         /// Calls the API with the specified resource and method.
@@ -181,17 +214,6 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         #region Not implemented
-
-        private void PerformAction(string resourceName, int id, CarDeliveryNetwork.Api.Data.Action action)
-        {
-            if (action == null)
-                throw new ArgumentException("Action cannot be null");
-            if (string.IsNullOrEmpty(action.Name))
-                throw new ArgumentException("Action.Name must be populated");
-
-            var resource = string.Format("{0}/{1}", resourceName, id);
-            Call(resource, "POST", false, action);
-        }
 
         /// <summary>
         /// Attempts to update the specified jobs on Car Delivery Network.
