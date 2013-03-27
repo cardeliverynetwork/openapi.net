@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Solution Include="CarDeliveryNetwork.Api.ClientProxy.sln" />
+    <Solution Include="src\CarDeliveryNetwork.Api.ClientProxy.sln" />
   </ItemGroup>
 
   <Target Name="UpdateAssemblyInfo">
