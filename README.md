@@ -12,7 +12,7 @@ Documentation
 
 Issues
 ---
-Please read the [wiki](https://github.com/cardeliverynetwork/csharp-apiclient/wiki) about what information is best to help people fix your issues, then create an issue on the [issues](https://github.com/cardeliverynetwork/csharp-apiclient/issues) tab.
+Please read the [wiki](https://github.com/cardeliverynetwork/openapi.net/wiki) about what information is best to help people fix your issues, then create an issue on the [issues](https://github.com/cardeliverynetwork/csharp-apiclient/issues) tab.
 
 Necessary prerequisites
 ---
@@ -21,12 +21,12 @@ Visual Studio 2010 and .NET 4.0
 [Download the latest build](http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt7/.lastSuccessful/artifacts.zip)
 ---
 
-[Examples](https://github.com/cardeliverynetwork/csharp-apiclient/wiki/Code-Examples)
+[Examples](https://github.com/cardeliverynetwork/openapi.net/wiki/Code-Examples)
 ---
 
 Committers
 ---
-[Contributors](https://github.com/cardeliverynetwork/csharp-apiclient/contributors)
+[Contributors](https://github.com/cardeliverynetwork/openapi.net/contributors)
 
 License
 ---
