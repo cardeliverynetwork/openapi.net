@@ -72,6 +72,13 @@ namespace CarDeliveryNetwork.Api.Data
             return Serialization.Deserialise<T>(serializedObject, format);
         }
 
+        /// <summary>
+        /// Takes the specified raw imported value, trims and performs ToUpper/ToLower as specified
+        /// </summary>
+        /// <param name="value">The raw imported value</param>
+        /// <param name="trim">Trims whitespace from the ends of the string</param>
+        /// <param name="toUpper">True: Upper case retrned, False: Lower case returnd, Null: Case not changed</param>
+        /// <returns>The value with the specified tasks performed on it</returns>
         public static string GetSafeApiString(string value, bool trim = true, bool? toUpper = null)
         {
             if (value == null)

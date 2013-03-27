@@ -117,6 +117,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<Vehicle> Vehicles { get; set; }
 
         /// <summary>
+        /// Readonly - A list of documents associated with this job
+        /// </summary>
+        public virtual List<Document> Documents { get; set; }
+
+        /// <summary>
         /// Optional - The SCAC of the allocated carrier
         /// </summary>
         /// <remarks>
@@ -163,6 +168,7 @@ namespace CarDeliveryNetwork.Api.Data
             Pickup = new ContactDetails();
             Dropoff = new ContactDetails();
             Vehicles = new List<Vehicle>();
+            Documents = new List<Document>();
         }
     }
 
