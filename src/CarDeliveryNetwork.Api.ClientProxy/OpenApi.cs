@@ -64,6 +64,32 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
+        /// Gets the the list of documents for the job of the specified id.
+        /// </summary>
+        /// <param name="id">Job Id</param>
+        /// <returns>Documents on the job of the specified Id</returns>
+        public Documents GetJobDocuments(int id)
+        {
+            if (id == 0)
+                throw new Exception("Id must be greater than zero");
+            var resource = string.Format("Jobs/{0}/Documents", id);
+            return Documents.FromString(Call(resource, "GET"), _interfaceFormat);
+        }
+
+        /// <summary>
+        /// Gets the the list of documents for the job of the specified Remoteid.
+        /// </summary>
+        /// <param name="remoteId">Job Remoteid</param>
+        /// <returns>Documents on the job of the specified Remoteid</returns>
+        public Documents GetJobDocuments(string remoteId)
+        {
+            if (string.IsNullOrEmpty(remoteId))
+                throw new Exception("RemoteId must be non null and at least 1 character in length");
+            var resource = string.Format("Jobs/{0}/Documents", remoteId);
+            return Documents.FromString(Call(resource, "GET", true), _interfaceFormat);
+        }
+
+        /// <summary>
         /// Attempts to create the specified job on Car Delivery Network.
         /// </summary>
         /// <param name="job">The job to create.</param>
