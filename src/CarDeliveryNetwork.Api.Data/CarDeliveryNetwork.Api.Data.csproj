@@ -45,6 +45,7 @@
     <Compile Include="Action.cs" />
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="Bid.cs" />
+    <Compile Include="DamageItem.cs" />
     <Compile Include="Export.cs" />
     <Compile Include="Contract.cs" />
     <Compile Include="Device.cs" />
