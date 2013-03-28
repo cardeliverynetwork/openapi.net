@@ -8,15 +8,15 @@ namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>
     /// A Car Delivery Network Damage Item entity
-    /// </summary
+    /// </summary>
     public class DamageItem : ApiEntityBase<Bid>
     {
         public abstract class DamageProperty : IApiEntity
         {
             /// <summary>
-            /// Description
+            /// Code
             /// </summary>
-            public virtual string CommonId { get; set; }
+            public virtual string Code { get; set; }
 
             /// <summary>
             /// Description
