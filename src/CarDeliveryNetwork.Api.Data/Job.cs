@@ -122,9 +122,14 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<Document> Documents { get; set; }
 
         /// <summary>
+        /// Readonly - The date the job was signed off as collected
+        /// </summary>
+        public virtual DateTime? PickupTime { get; set; }
+
+        /// <summary>
         /// Readonly - The date the job was signed off as delivered
         /// </summary>
-        public virtual DateTime? DeliveredDate { get; set; }
+        public virtual DateTime? DropoffTime { get; set; }
 
         /// <summary>
         /// Optional - The SCAC of the allocated carrier
