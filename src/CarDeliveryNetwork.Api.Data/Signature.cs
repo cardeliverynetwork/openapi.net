@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace CarDeliveryNetwork.Api.Data
@@ -17,6 +18,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// SignedBy
         /// </summary>
         public string SignedBy { get; set; }
+
+        /// <summary>
+        /// The sign time, or time the signature was declared as not available
+        /// </summary>
+        public DateTime? Time { get; set; }
 
         /// <summary>
         /// Returns a serial representation of the object in JSON format.

@@ -46,28 +46,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         public virtual ServiceType ServiceRequired { get; set; }
 
-        /// <summary>
-        /// Mandatory (.net JSON Date) - The requested pickup date for this job.
-        /// </summary>
-        public virtual DateTime? RequestedPickup { get; set; }
-
-        /// <summary>
-        /// Mandatory - When true, indicates that RequestedPickup is an exact date.  Pickup must be ON this date.
-        /// When false, indicates that RequestedPickup is not exact.  Pickup should be FROM this date.
-        /// </summary>
-        public virtual bool RequestedPickupIsExactDate { get; set; }
-
-        /// <summary>
-        /// Mandatory (.net JSON Date) - The requested pickup date for this job.
-        /// </summary>
-        public virtual DateTime? RequestedDropoff { get; set; }
-
-        /// <summary>
-        /// Mandatory - When true, indicates that RequestedDropoff is an exact date.  Dropoff must be ON this date.
-        /// When false, indicates that RequestedDropoff is not exact.  Dropoff should be BY this date.
-        /// </summary>
-        public virtual bool RequestedDropoffIsExactDate { get; set; }
-
+  
         /// <summary>
         /// Optional - The estimated mileage of the job. If not specified system will try to calculate the mileage based on google mapping.
         /// </summary>
@@ -104,12 +83,12 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// Mandatory - The pick-up details for this job.
         /// </summary>
-        public virtual ContactDetails Pickup { get; set; }
+        public virtual EndPoint Pickup { get; set; }
 
         /// <summary>
         /// Mandatory - The drop-off details for this job.
         /// </summary>
-        public virtual ContactDetails Dropoff { get; set; }
+        public virtual EndPoint Dropoff { get; set; }
 
         /// <summary>
         /// Mandatory - A collection of vehicles associated with this job.
@@ -120,26 +99,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// Readonly - A list of documents associated with this job
         /// </summary>
         public virtual List<Document> Documents { get; set; }
-
-        /// <summary>
-        /// Readonly - The pickup signature
-        /// </summary>
-        public virtual Signature PickupSignature { get; set; }
-
-        /// <summary>
-        /// Readonly - The dropoff signature
-        /// </summary>
-        public virtual Signature DropoffSignature { get; set; }
-
-        /// <summary>
-        /// Readonly - The date the job was signed off as collected
-        /// </summary>
-        public virtual DateTime? PickupTime { get; set; }
-
-        /// <summary>
-        /// Readonly - The date the job was signed off as delivered
-        /// </summary>
-        public virtual DateTime? DropoffTime { get; set; }
 
         /// <summary>
         /// Optional - The SCAC of the allocated carrier
@@ -185,12 +144,10 @@ namespace CarDeliveryNetwork.Api.Data
         protected virtual void InitObjects()
         {
             Customer = new ContactDetails();
-            Pickup = new ContactDetails();
-            Dropoff = new ContactDetails();
+            Pickup = new EndPoint();
+            Dropoff = new EndPoint();
             Vehicles = new List<Vehicle>();
             Documents = new List<Document>();
-            PickupSignature = new Signature();
-            DropoffSignature = new Signature();
         }
     }
 
