@@ -122,6 +122,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<Document> Documents { get; set; }
 
         /// <summary>
+        /// Readonly - The pickup signature
+        /// </summary>
+        public virtual Signature PickupSignature { get; set; }
+
+        /// <summary>
+        /// Readonly - The dropoff signature
+        /// </summary>
+        public virtual Signature DropoffSignature { get; set; }
+
+        /// <summary>
         /// Readonly - The date the job was signed off as collected
         /// </summary>
         public virtual DateTime? PickupTime { get; set; }
@@ -179,6 +189,8 @@ namespace CarDeliveryNetwork.Api.Data
             Dropoff = new ContactDetails();
             Vehicles = new List<Vehicle>();
             Documents = new List<Document>();
+            PickupSignature = new Signature();
+            DropoffSignature = new Signature();
         }
     }
 
