@@ -25,6 +25,11 @@ namespace CarDeliveryNetwork.Api.Data
         public DateTime? Time { get; set; }
 
         /// <summary>
+        /// The reason that a signature was not supplied
+        /// </summary>
+        public string NotSignedReason { get; set; }
+
+        /// <summary>
         /// Returns a serial representation of the object in JSON format.
         /// </summary>
         /// <returns>The serialized object.</returns>
