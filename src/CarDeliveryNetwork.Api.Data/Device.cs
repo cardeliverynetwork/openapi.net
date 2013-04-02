@@ -65,6 +65,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// capacity to accommodate the number of elements copied.
         /// </summary>
         /// <param name="devices">The collection of devices whose elements are copied to the new collection.</param>
-        public Devices(List<Device> devices) : base(devices) { }
+        public Devices(IEnumerable<Device> devices) : base(devices) { }
     }
 }

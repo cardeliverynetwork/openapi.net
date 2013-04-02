@@ -39,6 +39,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// capacity to accommodate the number of elements copied.
         /// </summary>
         /// <param name="networks">The collection of networks whose elements are copied to the new collection.</param>
-        public Networks(List<Network> networks) : base(networks) { }
+        public Networks(IEnumerable<Network> networks) : base(networks) { }
     }
 }

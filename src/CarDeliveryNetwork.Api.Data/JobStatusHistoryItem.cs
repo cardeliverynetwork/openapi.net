@@ -1,27 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using CarDeliveryNetwork.Types;
 
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>
-    /// A Car Delivery Network Document entity
+    /// A Car Delivery Network JobHistoryItem entity.
     /// </summary>
-    public class Document : IApiEntity
+    public class JobStatusHistoryItem : IApiEntity
     {
         /// <summary>
-        /// The url of the document
+        /// Changed
         /// </summary>
-        public string Url { get; set; }
+        public virtual DateTime Changed { get; set; }
 
         /// <summary>
-        /// Title
+        /// Status
         /// </summary>
-        public string Title { get; set; }
+        public virtual JobStatus Status { get; set; }
 
         /// <summary>
-        /// Comment
+        /// Notes
         /// </summary>
-        public string Comment { get; set; }
+        public virtual string Notes { get; set; }
 
         /// <summary>
         /// Returns a serial representation of the object in JSON format.
@@ -43,31 +45,32 @@ namespace CarDeliveryNetwork.Api.Data
         }
     }
 
+
     /// <summary>
-    /// A collection of Car Delivery Network Document entities.
+    /// A collection of Car Delivery Network JobHistoryItem entities.
     /// </summary>
     [CollectionDataContract]
-    public class Documents : ApiEntityCollectionBase<Document, Documents>, IApiEntity
+    public class JobStatusHistoryItems : ApiEntityCollectionBase<JobStatusHistoryItem, JobStatusHistoryItems>, IApiEntity
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Documents"/> class
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.JobStatusHistoryItems"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public Documents() : base() { }
+        public JobStatusHistoryItems() : base() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Documents"/> class
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.JobStatusHistoryItems"/> class
         /// that is empty and has the specified initial capacity.
         /// </summary>
         /// <param name="capacity">The number of elements that the new list can initially store</param>
-        public Documents(int capacity) : base(capacity) { }
+        public JobStatusHistoryItems(int capacity) : base(capacity) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Documents"/> class
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.JobStatusHistoryItems"/> class
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="Documents">The collection of Documents whose elements are copied to the new collection.</param>
-        public Documents(IEnumerable<Document> Documents) : base(Documents) { }
+        /// <param name="JobHistoryItems">The collection of JobHistoryItems whose elements are copied to the new collection.</param>
+        public JobStatusHistoryItems(IEnumerable<JobStatusHistoryItem> JobHistoryItems) : base(JobHistoryItems) { }
     }
 }

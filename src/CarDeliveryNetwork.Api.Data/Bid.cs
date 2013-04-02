@@ -156,6 +156,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// capacity to accommodate the number of elements copied.
         /// </summary>
         /// <param name="Bids">The collection of Bids whose elements are copied to the new collection.</param>
-        public Bids(List<Bid> Bids) : base(Bids) { }
+        public Bids(IEnumerable<Bid> Bids) : base(Bids) { }
     }
 }

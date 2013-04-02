@@ -99,6 +99,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// capacity to accommodate the number of elements copied.
         /// </summary>
         /// <param name="DamageItems">The collection of DamageItems whose elements are copied to the new collection.</param>
-        public DamageItems(List<DamageItem> DamageItems) : base(DamageItems) { }
+        public DamageItems(IEnumerable<DamageItem> DamageItems) : base(DamageItems) { }
     }
 }

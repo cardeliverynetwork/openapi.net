@@ -45,6 +45,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// capacity to accommodate the number of elements copied.
         /// </summary>
         /// <param name="fleets">The collection of fleets whose elements are copied to the new collection.</param>
-        public Fleets(List<Fleet> fleets) : base(fleets) { }
+        public Fleets(IEnumerable<Fleet> fleets) : base(fleets) { }
     }
 }

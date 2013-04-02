@@ -176,6 +176,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// capacity to accommodate the number of elements copied.
         /// </summary>
         /// <param name="jobs">The collection of jobs whose elements are copied to the new collection.</param>
-        public Jobs(List<Job> jobs) : base(jobs) { }
+        public Jobs(IEnumerable<Job> jobs) : base(jobs) { }
     }
 }

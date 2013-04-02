@@ -74,6 +74,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// capacity to accommodate the number of elements copied.
         /// </summary>
         /// <param name="users">The collection of users whose elements are copied to the new collection.</param>
-        public Users(List<User> users) : base(users) { }
+        public Users(IEnumerable<User> users) : base(users) { }
     }
 }

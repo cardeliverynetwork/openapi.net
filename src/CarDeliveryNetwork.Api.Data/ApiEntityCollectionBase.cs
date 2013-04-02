@@ -29,7 +29,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// capacity to accommodate the number of elements copied.
         /// </summary>
         /// <param name="entities">The collection of jobs whose elements are copied to the new collection.</param>
-        public ApiEntityCollectionBase(List<T> entities) : base(entities) { }
+        public ApiEntityCollectionBase(IEnumerable<T> entities) : base(entities) { }
 
         /// <summary>
         /// Returns a serial representation of the object in JSON format.

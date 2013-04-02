@@ -69,6 +69,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// capacity to accommodate the number of elements copied.
         /// </summary>
         /// <param name="contracts">The collection of contracts whose elements are copied to the new collection.</param>
-        public Contracts(List<Contract> contracts) : base(contracts) { }
+        public Contracts(IEnumerable<Contract> contracts) : base(contracts) { }
     }
 }
