@@ -1,5 +1,5 @@
-﻿
-using System;
+﻿using System;
+
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>

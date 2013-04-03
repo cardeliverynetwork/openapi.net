@@ -130,7 +130,6 @@ namespace CarDeliveryNetwork.Api.Data
         }
     }
 
-
     /// <summary>
     /// A collection of Car Delivery Network Bid entities.
     /// </summary>

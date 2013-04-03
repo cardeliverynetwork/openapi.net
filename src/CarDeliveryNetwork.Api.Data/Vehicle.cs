@@ -1,5 +1,5 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>

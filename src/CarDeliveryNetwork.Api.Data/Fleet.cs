@@ -19,7 +19,6 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Scac { get; set; }
     }
 
-
     /// <summary>
     /// A collection of Car Delivery Network Fleet entities.
     /// </summary>

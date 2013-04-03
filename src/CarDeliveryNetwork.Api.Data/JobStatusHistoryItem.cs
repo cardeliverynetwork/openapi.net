@@ -45,7 +45,6 @@ namespace CarDeliveryNetwork.Api.Data
         }
     }
 
-
     /// <summary>
     /// A collection of Car Delivery Network JobHistoryItem entities.
     /// </summary>

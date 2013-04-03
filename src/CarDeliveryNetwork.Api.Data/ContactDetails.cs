@@ -21,66 +21,66 @@ namespace CarDeliveryNetwork.Api.Data
         /// QuickCode is an optional, client system generated, unique Id by which the resource can be 
         /// referred to on Car Delivery Network.  Once the resource is created, QuickCode cannot be changed 
         /// </remarks>
-        public string QuickCode { get; set; }
+        public virtual string QuickCode { get; set; }
 
         /// <summary>
         /// Optional (100) - The name of the person associated with this contact.
         /// </summary>
-        public string Contact { get; set; }
+        public virtual string Contact { get; set; }
 
         /// <summary>
         /// Optional (100) - The organization name associated with this contact.
         /// </summary>
-        public string OrganisationName { get; set; }
+        public virtual string OrganisationName { get; set; }
 
         /// <summary>
         /// Optional (300) - The first line(s) of the address, e.g. Building name/number and street name.
         /// </summary>
-        public string AddressLines { get; set; }
+        public virtual string AddressLines { get; set; }
 
         /// <summary>
         /// Optional (300) - The city.
         /// </summary>
-        public string City { get; set; }
+        public virtual string City { get; set; }
 
         /// <summary>
         /// Optional (255) - The state or region.
         /// </summary>
-        public string StateRegion { get; set; }
+        public virtual string StateRegion { get; set; }
 
         /// <summary>
         /// Optional (10) - The Zip or postal code.
         /// </summary>
-        public string ZipPostCode { get; set; }
+        public virtual string ZipPostCode { get; set; }
 
         /// <summary>
         /// Optional (ntext) - The email address associated with this contact.
         /// </summary>
-        public string Email { get; set; }
+        public virtual string Email { get; set; }
 
         /// <summary>
         /// Optional (30) - The fax number associated with this contact.
         /// </summary>
-        public string Fax { get; set; }
+        public virtual string Fax { get; set; }
 
         /// <summary>
         /// Optional (30) - The fixed/land-line phone number associated with this contact.
         /// </summary>
-        public string Phone { get; set; }
+        public virtual string Phone { get; set; }
 
         /// <summary>
         /// Optional (30) - The mobile phone number associated with this contact.
         /// </summary>
-        public string MobilePhone { get; set; }
+        public virtual string MobilePhone { get; set; }
 
         /// <summary>
         /// Optional (30) - An alternative phone number associated with this contact.
         /// </summary>
-        public string OtherPhone { get; set; }
+        public virtual string OtherPhone { get; set; }
 
         /// <summary>
         /// Optional (ntext) - Notes relating to this contact.
         /// </summary>
-        public string Notes { get; set; }
+        public virtual string Notes { get; set; }
     }
 }

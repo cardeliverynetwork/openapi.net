@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -11,6 +8,9 @@ namespace CarDeliveryNetwork.Api.Data
     /// </summary>
     public class DamageItem : ApiEntityBase<Bid>
     {
+        /// <summary>
+        /// DamageProperty
+        /// </summary>
         public abstract class DamageProperty : IApiEntity
         {
             /// <summary>
