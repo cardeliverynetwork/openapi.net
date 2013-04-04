@@ -62,7 +62,7 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<DamageItem> DamageAtDropoff { get; set; }
 
         /// <summary>
-        /// Vehicle
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Vehicle"/> class
         /// </summary>
         public Vehicle()
         {

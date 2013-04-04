@@ -113,7 +113,7 @@ namespace CarDeliveryNetwork.Api.Data
         }
 
         /// <summary>
-        /// Bid
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Bid"/> class
         /// </summary>
         public Bid()
         {

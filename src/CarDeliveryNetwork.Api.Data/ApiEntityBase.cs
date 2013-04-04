@@ -26,7 +26,7 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string RemoteId { get; set; }
 
         /// <summary>
-        /// ApiEntityBase
+        /// ApiEntityBase default constructor
         /// </summary>
         public ApiEntityBase()
         {
