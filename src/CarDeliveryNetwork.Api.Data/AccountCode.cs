@@ -21,6 +21,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Code { get; set; }
 
         /// <summary>
+        ///  Mandatory (20) - The tax type name for this account
+        /// </summary>
+        public virtual string TaxType { get; set; }
+
+        /// <summary>
         /// Optional (255) - A description for this account code.
         /// </summary>
         public virtual string Description { get; set; }
