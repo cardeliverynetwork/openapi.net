@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -77,5 +78,33 @@ namespace CarDeliveryNetwork.Api.Data
             DamageAtPickup = new List<DamageItem>();
             DamageAtDropoff = new List<DamageItem>();
         }
+    }
+
+    /// <summary>
+    /// A collection of Car Delivery Network Vehicle Vehicle entities.
+    /// </summary>
+    [CollectionDataContract]
+    public class Vehicles : ApiEntityCollectionBase<Vehicle, Vehicles>, IApiEntity
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Vehicles"/> class
+        /// that is empty and has the default initial capacity.
+        /// </summary>
+        public Vehicles() : base() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Vehicles"/> class
+        /// that is empty and has the specified initial capacity.
+        /// </summary>
+        /// <param name="capacity">The number of elements that the new list can initially store.</param>
+        public Vehicles(int capacity) : base(capacity) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Vehicles"/> class
+        /// that contains elements copied from the specified collection and has sufficient
+        /// capacity to accommodate the number of elements copied.
+        /// </summary>
+        /// <param name="Vehicles">The collection of Vehicles whose elements are copied to the new collection.</param>
+        public Vehicles(IEnumerable<Vehicle> Vehicles) : base(Vehicles) { }
     }
 }
