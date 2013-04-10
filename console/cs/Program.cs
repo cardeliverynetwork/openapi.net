@@ -17,7 +17,7 @@ namespace console
         // const string ServiceUrl = "https://go.cardeliverynetwork.com/traininguk/openapi";   // CDN UK Training
 
         // API user's key
-        const string ServiceApiKey = "D19CD37E-9722-4881-A40F-A7797D8C3669"; // local dev key - do not use
+        const string ServiceApiKey = "fb04420a-49d0-4585-af57-1d390bfa12e7"; // local dev key - do not use
 
         static void Main(string[] args)
         {
@@ -25,7 +25,15 @@ namespace console
             var api = new OpenApi(ServiceUrl, ServiceApiKey);
 
             // Create a job
-            var newjob = api.CreateJob(GetTestJob());
+            var newjob = api.CreateJob(GetTestJob(Guid.NewGuid().ToString()));
+
+            // Create vehicles via Id
+            var newVehicles = api.CreateJobVehicles(newjob.Id, new Vehicles { new Vehicle { Vin = "aaaa" } });
+            var allVehicles = api.GetJobVehicles(newjob.Id);
+
+            // Create vehicles via RemoteId
+            newVehicles = api.CreateJobVehicles(newjob.RemoteId, new Vehicles { new Vehicle { Vin = "bbbb" } });
+            allVehicles = api.GetJobVehicles(newjob.RemoteId);
 
             // Get some details about a job
             var targetJobId = 9697;
@@ -34,9 +42,10 @@ namespace console
             api.CancelJob(targetJobId, "Cancelled by customer.");
         }
 
-        private static Job GetTestJob()
+        private static Job GetTestJob(string remoteId = null)
         {
             var newjob = new Job();
+            newjob.RemoteId = remoteId;
 
             // Setup some basic job details
             newjob.JobInitiator = "Chris Wallis";

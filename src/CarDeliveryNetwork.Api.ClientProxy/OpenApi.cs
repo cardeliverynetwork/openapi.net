@@ -113,7 +113,35 @@ namespace CarDeliveryNetwork.Api.ClientProxy
                 throw new ArgumentException("Jobs collection was null or empty");
             return Jobs.FromString(Call("Jobs", "POST", false, jobs), _interfaceFormat);
         }
-       
+
+        public Vehicles CreateJobVehicles(int jobId, Vehicles vehicles)
+        {
+            if (vehicles == null || vehicles.Count == 0)
+                throw new ArgumentException("Vehicles collection was null or empty");
+            var resource = string.Format("Jobs/{0}/Vehicles", jobId);
+            return Vehicles.FromString(Call(resource, "POST", false, vehicles), _interfaceFormat);
+        }
+
+        public Vehicles CreateJobVehicles(string jobId, Vehicles vehicles)
+        {
+            if (vehicles == null || vehicles.Count == 0)
+                throw new ArgumentException("Vehicles collection was null or empty");
+            var resource = string.Format("Jobs/{0}/Vehicles", jobId);
+            return Vehicles.FromString(Call(resource, "POST", true, vehicles), _interfaceFormat);
+        }
+
+        public Vehicles GetJobVehicles(int jobId)
+        {
+            var resource = string.Format("Jobs/{0}/Vehicles", jobId);
+            return Vehicles.FromString(Call(resource, "GET", false), _interfaceFormat);
+        }
+
+        public Vehicles GetJobVehicles(string jobId)
+        {
+            var resource = string.Format("Jobs/{0}/Vehicles", jobId);
+            return Vehicles.FromString(Call(resource, "GET", true), _interfaceFormat);
+        }
+
         /// <summary>
         /// Cancels the job of the specified Id giving the specified reason
         /// </summary>
