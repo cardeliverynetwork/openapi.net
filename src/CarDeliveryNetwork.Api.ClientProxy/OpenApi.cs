@@ -114,6 +114,12 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             return Jobs.FromString(Call("Jobs", "POST", false, jobs), _interfaceFormat);
         }
 
+        /// <summary>
+        /// Attempts to create the specified vehicles on the specified job on Car Delivery Network.
+        /// </summary>
+        /// <param name="jobId">Id of the job to create vehicles against.</param>
+        /// <param name="vehicles">The collection of vehicles to create.</param>
+        /// <returns>A collection of the newly created vehicles.</returns>
         public Vehicles CreateJobVehicles(int jobId, Vehicles vehicles)
         {
             if (vehicles == null || vehicles.Count == 0)
@@ -122,23 +128,39 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             return Vehicles.FromString(Call(resource, "POST", false, vehicles), _interfaceFormat);
         }
 
-        public Vehicles CreateJobVehicles(string jobId, Vehicles vehicles)
+        /// <summary>
+        /// Attempts to create the specified vehicles on the specified job on Car Delivery Network.
+        /// </summary>
+        /// <param name="remoteJobId">RemoteId of the job to create vehicles against.</param>
+        /// <param name="vehicles">The collection of vehicles to create.</param>
+        /// <returns>A collection of the newly created vehicles.</returns>
+        public Vehicles CreateJobVehicles(string remoteJobId, Vehicles vehicles)
         {
             if (vehicles == null || vehicles.Count == 0)
                 throw new ArgumentException("Vehicles collection was null or empty");
-            var resource = string.Format("Jobs/{0}/Vehicles", jobId);
+            var resource = string.Format("Jobs/{0}/Vehicles", remoteJobId);
             return Vehicles.FromString(Call(resource, "POST", true, vehicles), _interfaceFormat);
         }
 
+        /// <summary>
+        /// Gets a collection of vehicles form the job of the specified Id
+        /// </summary>
+        /// <param name="jobId">Id of the job resource</param>
+        /// <returns>A collection of vehicles from the specified job</returns>
         public Vehicles GetJobVehicles(int jobId)
         {
             var resource = string.Format("Jobs/{0}/Vehicles", jobId);
             return Vehicles.FromString(Call(resource, "GET", false), _interfaceFormat);
         }
 
-        public Vehicles GetJobVehicles(string jobId)
+        /// <summary>
+        /// Gets a collection of vehicles form the job of the specified RemoteId
+        /// </summary>
+        /// <param name="remoteJobId">Id of the job resource</param>
+        /// <returns>A collection of vehicles from the specified job</returns>
+        public Vehicles GetJobVehicles(string remoteJobId)
         {
-            var resource = string.Format("Jobs/{0}/Vehicles", jobId);
+            var resource = string.Format("Jobs/{0}/Vehicles", remoteJobId);
             return Vehicles.FromString(Call(resource, "GET", true), _interfaceFormat);
         }
 
