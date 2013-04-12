@@ -26,6 +26,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string RemoteId { get; set; }
 
         /// <summary>
+        /// Indicates that we are in a unit test scenario
+        /// </summary>
+        public static bool IsUnitTesting { get; set; }
+
+        /// <summary>
         /// ApiEntityBase default constructor
         /// </summary>
         public ApiEntityBase()
