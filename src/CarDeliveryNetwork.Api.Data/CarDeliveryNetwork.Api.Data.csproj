@@ -46,6 +46,7 @@
     <Compile Include="Action.cs" />
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="Bid.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="DamageItem.cs" />
     <Compile Include="EndPoint.cs" />
     <Compile Include="Export.cs" />
