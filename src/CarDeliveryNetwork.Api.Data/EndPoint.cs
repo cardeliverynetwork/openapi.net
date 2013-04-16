@@ -28,7 +28,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         public virtual bool RequestedDateIsExact { get; set; }
 
-         /// <summary>
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.EndPoint"/> class.
         /// </summary>
         public EndPoint()

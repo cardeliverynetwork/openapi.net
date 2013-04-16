@@ -20,11 +20,6 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Alias { get; set; }
 
         /// <summary>
-        /// LoggedInUser
-        /// </summary>
-        public virtual string LoggedInUser { get; set; }
-
-        /// <summary>
         /// LastSeen
         /// </summary>
         public virtual DateTime? LastSeen { get; set; }
@@ -38,6 +33,28 @@ namespace CarDeliveryNetwork.Api.Data
         /// Longitude
         /// </summary>
         public virtual double? Longitude { get; set; }
+
+        /// <summary>
+        /// CurrentUser
+        /// </summary>
+        public virtual User CurrentUser { get; set; }
+
+
+         /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Device"/> class.
+        /// </summary>
+        public Device()
+        {
+            InitObjects();
+        }
+
+        /// <summary>
+        /// Initializes the child objects associated with this Device.
+        /// </summary>
+        protected virtual void InitObjects()
+        {
+            CurrentUser = new User();
+        }
     }
 
     /// <summary>

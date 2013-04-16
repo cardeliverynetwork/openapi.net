@@ -19,6 +19,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Surname { get; set; }
 
         /// <summary>
+        /// Password
+        /// </summary>
+        public virtual string Password { get; set; }
+
+        /// <summary>
         /// The fleet to which this user belongs
         /// </summary>
         public virtual Fleet HomeFleet { get; set; }
