@@ -13,11 +13,6 @@ namespace CarDeliveryNetwork.Api.Data
         public string Name { get; set; }
 
         /// <summary>
-        /// NomadUrl
-        /// </summary>
-        public string NomadUrl { get; set; }
-
-        /// <summary>
         /// NomadJsonUrl
         /// </summary>
         public string NomadJsonUrl { get; set; }
