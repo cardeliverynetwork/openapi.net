@@ -111,5 +111,70 @@ namespace console
             });
             return newjob;
         }
+
+        private static Jobs GetMultiDropJobs()
+        {
+            var customer = new ContactDetails
+            {
+                // Customer address details
+            };
+
+            var pickupEndPoint = new EndPoint
+            {
+                RequestedDate = DateTime.Today,
+                RequestedDateIsExact = false,
+                Destination = new ContactDetails
+                {
+                    // Pickup address details
+                }
+            };
+
+            var drop1EndPoint = new EndPoint
+            {
+                RequestedDate = DateTime.Today + TimeSpan.FromDays(3),
+                Destination = new ContactDetails
+                {
+                    // Drop 1 address details
+                }
+            };
+
+            var drop2EndPoint = new EndPoint
+            {
+                RequestedDate = DateTime.Today + TimeSpan.FromDays(3),
+                Destination = new ContactDetails
+                {
+                    // Drop 2 address details
+                }
+            };
+
+            var drop1Job = new Job
+            {
+                RemoteId = "Drop1",
+                CustomerReference = "LoadA",
+                Customer = customer,
+                Pickup = pickupEndPoint,
+                Dropoff = drop1EndPoint,
+                Vehicles = new List<Vehicle>
+                {
+                    new Vehicle{ Vin = "Vehicle111" },
+                    new Vehicle{ Vin = "Vehicle222" }
+                }
+            };
+
+            var drop2Job = new Job
+            {
+                RemoteId = "Drop2",
+                CustomerReference = "LoadA",
+                Customer = customer,
+                Pickup = pickupEndPoint,
+                Dropoff = drop2EndPoint,
+                Vehicles = new List<Vehicle>
+                {
+                    new Vehicle{ Vin = "Vehicle333" },
+                }
+            };
+
+            return new Jobs { drop1Job, drop2Job };
+        }
     }
 }
