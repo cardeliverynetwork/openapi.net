@@ -45,6 +45,11 @@ namespace CarDeliveryNetwork.Api.Data
             InitObjects();
         }
 
+        public virtual bool GetIsPopulated()
+        {
+            return !string.IsNullOrWhiteSpace(FirstName) || !string.IsNullOrWhiteSpace(Surname) || !string.IsNullOrWhiteSpace(Password);
+        }
+
         /// <summary>
         /// Initializes the child objects associated with this user.
         /// </summary>
