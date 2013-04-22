@@ -50,6 +50,11 @@ namespace CarDeliveryNetwork.Api.Data
             return !string.IsNullOrWhiteSpace(FirstName) || !string.IsNullOrWhiteSpace(Surname) || !string.IsNullOrWhiteSpace(Password);
         }
 
+        public virtual bool GetIsValid()
+        {
+            return !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(Surname) && !string.IsNullOrWhiteSpace(Password);
+        }
+
         /// <summary>
         /// Initializes the child objects associated with this user.
         /// </summary>
