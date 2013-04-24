@@ -82,5 +82,30 @@ namespace CarDeliveryNetwork.Api.Data
         /// Optional (ntext) - Notes relating to this contact.
         /// </summary>
         public virtual string Notes { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class.
+        /// </summary>
+        public ContactDetails() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class
+        /// with fields copied from the specified contact
+        /// </summary>
+        public ContactDetails(ContactDetails c)
+        {
+            Contact = c.Contact;
+            Email = c.Email;
+            Fax = c.Fax;
+            Phone = c.Phone;
+            MobilePhone = c.MobilePhone;
+            OtherPhone = c.OtherPhone;
+            Notes = c.Notes;
+            OrganisationName = c.OrganisationName;
+            AddressLines = c.AddressLines;
+            City = c.City;
+            StateRegion = c.StateRegion;
+            ZipPostCode = c.ZipPostCode;
+        }
     }
 }
