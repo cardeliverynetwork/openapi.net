@@ -101,18 +101,15 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>The value with the specified tasks performed on it</returns>
         public static string GetSafeApiString(string value, bool trim = true, bool? toUpper = null)
         {
-            if (value == null)
+            if (string.IsNullOrWhiteSpace(value))
                 return null;
 
-            if(trim)
+            if (trim)
                 value = value.Trim();
 
-            if(toUpper.HasValue)
-                value = toUpper.Value
-                    ? value.ToUpper()
-                    : value.ToLower();
-
-            return value;
+            return toUpper.HasValue
+                ? toUpper.Value ? value.ToUpper() :value.ToLower()
+                : value;
         }
     }
 }
