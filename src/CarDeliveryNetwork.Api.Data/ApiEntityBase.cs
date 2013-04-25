@@ -1,4 +1,5 @@
-﻿using CarDeliveryNetwork.Types;
+﻿using System.Collections.Generic;
+using CarDeliveryNetwork.Types;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -24,6 +25,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// referred to on Car Delivery Network.  Once the resource is created, RemoteId cannot be changed.
         /// </remarks>
         public virtual string RemoteId { get; set; }
+
+        /// <summary>
+        /// MetaData
+        /// </summary>
+        public virtual Dictionary<string, object> MetaData { get; set; }
 
         /// <summary>
         /// Indicates that we are in a unit test scenario
