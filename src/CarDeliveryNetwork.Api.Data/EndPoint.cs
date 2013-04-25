@@ -29,6 +29,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual bool RequestedDateIsExact { get; set; }
 
         /// <summary>
+        /// Readonly - The ETA of the driver at this endpoint
+        /// </summary>
+        public virtual DateTime? Eta { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.EndPoint"/> class.
         /// </summary>
         public EndPoint()
