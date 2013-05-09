@@ -18,9 +18,6 @@ Necessary prerequisites
 or 
 * [Mono](http://www.mono-project.com) 2.10.x
 
-[Download the latest build](http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt7/.lastSuccessful/artifacts.zip)
----
-
 [Examples](https://github.com/cardeliverynetwork/openapi.net/wiki/Code-Examples)
 ---
 
@@ -35,3 +32,10 @@ Committers
 License
 ---
 See COPYING for license information. Copyright (c) 2010, 2011, 2012, 2013 Car Delivery Network Ltd.
+
+Integration Builds
+---
+[![Build Status](http://build.cardeliverynetwork.com:8080/app/rest/builds/buildType:%28id:bt7%29/statusIcon)]
+(http://build.cardeliverynetwork.com:8080/viewType.html?buildTypeId=bt7&guest=1)
+
+[Download the latest build](http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt7/.lastSuccessful/artifacts.zip)
