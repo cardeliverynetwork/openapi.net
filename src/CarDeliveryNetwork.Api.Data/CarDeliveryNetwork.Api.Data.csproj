@@ -65,6 +65,7 @@
     <Compile Include="Signature.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Vehicle.cs" />
+    <Compile Include="WebHook.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CarDeliveryNetwork.Types\CarDeliveryNetwork.Types.csproj">
