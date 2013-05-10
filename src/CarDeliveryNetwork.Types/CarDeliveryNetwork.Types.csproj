@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AllocateType.cs" />
     <Compile Include="FleetMenuProfile.cs" />
+    <Compile Include="WebHookStatus.cs" />
     <Compile Include="Interfaces\IAllocatable.cs" />
     <Compile Include="Interfaces\IFleet.cs" />
     <Compile Include="Interfaces\IImportable.cs" />
