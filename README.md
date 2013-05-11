@@ -37,5 +37,3 @@ Integration Builds
 ---
 [![Build Status](http://build.cardeliverynetwork.com:8080/app/rest/builds/buildType:%28id:bt7%29/statusIcon)]
 (http://build.cardeliverynetwork.com:8080/viewType.html?buildTypeId=bt7&guest=1)
-
-[Download the latest build](http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt7/.lastSuccessful/artifacts.zip)
