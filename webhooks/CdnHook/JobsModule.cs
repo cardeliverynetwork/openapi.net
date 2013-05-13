@@ -15,29 +15,36 @@ namespace CdnHook
             Put["/"] = UpdateJob;
         }
 
-        private Negotiator UpdateJob(dynamic o)
+        private Response UpdateJob(dynamic o)
         {
             try
             {
                 // Deserialize the job on the request body
                 var job = this.Bind<Job>();
 
+                // If we're using CDN Ids 
+                if (job.Id == 0)
+                    throw new Exception("Received job Id of 0");
+
+                // If we're using RemoteIds
+                if (string.IsNullOrWhiteSpace(job.RemoteId))
+                    throw new Exception("Received empty RemoteId");
 
                 //
-                // Your job update code here
+                //
+                // Your job update code here ...
+                //
                 //
 
-
-                // If all's well - return 200 OK
-                return Negotiate
-                    .WithStatusCode(HttpStatusCode.OK);
+                return HttpStatusCode.OK;
             }
             catch (Exception ex)
             {
-                // Error - return 500 Server Error and message
-                return Negotiate
-                    .WithModel(new Error { Message = ex.GetBaseException().Message })
-                    .WithStatusCode(HttpStatusCode.InternalServerError);
+                var response = Request.Headers.ContentType.Contains("json")
+                    ? Response.AsJson(new Error { Message = ex.GetBaseException().Message })
+                    : Response.AsXml(new Error { Message = ex.GetBaseException().Message });
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                return response;
             }
         }
     }
