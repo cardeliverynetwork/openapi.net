@@ -11,6 +11,7 @@ namespace CdnHook
         public JobsModule()
             : base("/jobs")
         {
+            Get["/"] = parameters => "Jobs";
             Put["/"] = UpdateJob;
         }
 
