@@ -27,11 +27,6 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string RemoteId { get; set; }
 
         /// <summary>
-        /// MetaData
-        /// </summary>
-        public virtual Dictionary<string, object> MetaData { get; set; }
-
-        /// <summary>
         /// Indicates that we are in a unit test scenario
         /// </summary>
         public static bool IsUnitTesting { get; set; }
