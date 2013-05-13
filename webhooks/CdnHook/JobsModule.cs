@@ -1,20 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using CarDeliveryNetwork.Api.Data;
 using Nancy;
+using Nancy.ModelBinding;
 
 namespace CdnHook
 {
     public class JobsModule : NancyModule
     {
-        public JobsModule() : base("/jobs")
+        public JobsModule()
+            : base("/jobs")
         {
-            Post["/{id}"] = parameters =>
+            Put["/"] = UpdateJob;
+        }
+
+        private Response UpdateJob(dynamic o)
+        {
+            try
             {
-                var id = parameters.id;
+                // Deserialize the job on the request body
+                var job = this.Bind<Job>();
+
+                //
+                // Your job update code here
+                //
+
+                // If all's well - return 200 OK
                 return HttpStatusCode.OK;
-            };
+            }
+            catch (Exception ex)
+            {
+                // Error - return 500 Error
+                return HttpStatusCode.InternalServerError;
+            }
         }
     }
 }
