@@ -24,6 +24,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual WebHookStatus Status { get; set; }
 
         /// <summary>
+        /// HookEventType
+        /// </summary>
+        public virtual WebHookEvent HookEventType { get; set; }
+
+        /// <summary>
         /// HttpMethod 
         /// </summary>
         public virtual string HttpMethod { get; set; }

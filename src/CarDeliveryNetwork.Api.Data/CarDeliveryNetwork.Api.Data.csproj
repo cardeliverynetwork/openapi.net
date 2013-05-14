@@ -66,6 +66,7 @@
     <Compile Include="User.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="WebHook.cs" />
+    <Compile Include="WebHookSubscription.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CarDeliveryNetwork.Types\CarDeliveryNetwork.Types.csproj">
