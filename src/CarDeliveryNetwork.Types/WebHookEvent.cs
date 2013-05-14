@@ -13,6 +13,6 @@
         /// <summary>
         /// WebHook Event for a stop where vehicles were dropped off
         /// </summary>
-        DropoffStop
+        DropoffStop = 10
     }
 }
