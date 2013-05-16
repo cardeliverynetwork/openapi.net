@@ -2,7 +2,6 @@
 using CarDeliveryNetwork.Api.Data;
 using Nancy;
 using Nancy.ModelBinding;
-using Nancy.Responses.Negotiation;
 
 namespace CdnHook
 {
@@ -22,6 +21,10 @@ namespace CdnHook
                 // Deserialize the job on the request body
                 var job = this.Bind<Job>();
 
+                // This is a test job.  Return immediate success
+                if (job.Id == -1)
+                    return HttpStatusCode.OK;
+
                 // If we're using CDN Ids 
                 if (job.Id == 0)
                     throw new Exception("Received job Id of 0");
@@ -30,19 +33,22 @@ namespace CdnHook
                 if (string.IsNullOrWhiteSpace(job.RemoteId))
                     throw new Exception("Received empty RemoteId");
 
+
                 //
                 //
                 // Your job update code here ...
                 //
                 //
 
+
                 return HttpStatusCode.OK;
             }
             catch (Exception ex)
             {
+                var error = new Error { Status = HttpStatusCode.InternalServerError, Message = ex.GetBaseException().Message };
                 var response = Request.Headers.ContentType.Contains("json")
-                    ? Response.AsJson(new Error { Message = ex.GetBaseException().Message })
-                    : Response.AsXml(new Error { Message = ex.GetBaseException().Message });
+                    ? Response.AsJson(error)
+                    : Response.AsXml(error);
                 response.StatusCode = HttpStatusCode.InternalServerError;
                 return response;
             }
@@ -51,6 +57,7 @@ namespace CdnHook
 
     public class Error
     {
+        public HttpStatusCode Status { get; set; }
         public string Message { get; set; }
     }
 }
