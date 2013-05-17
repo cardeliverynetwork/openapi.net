@@ -17,6 +17,7 @@
     <Solution Include="src\CarDeliveryNetwork.Api.ClientProxy.sln" />
 	<Solution Include="console\cs\console.sln" />
 	<Solution Include="webhooks\CdnHookStub\CdnHookStub.sln" />
+	<Solution Include="webhooks\CdnHookToFtp\CdnHookToFtp.sln" />
   </ItemGroup>
 
   <Target Name="UpdateAssemblyInfo">
