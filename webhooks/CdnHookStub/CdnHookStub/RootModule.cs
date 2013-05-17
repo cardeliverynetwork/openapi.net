@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Web;
 using Nancy;
 
-namespace CdnHook
+namespace CdnHookStub
 {
     public class RootModule : NancyModule
     {

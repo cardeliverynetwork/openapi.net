@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CdnHook")]
+[assembly: AssemblyTitle("CdnHookStub")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CdnHook")]
+[assembly: AssemblyProduct("CdnHookStub")]
 [assembly: AssemblyCopyright("Copyright ©2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

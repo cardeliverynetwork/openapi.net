@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CdnHook", "CdnHook\CdnHook.csproj", "{4E97371A-8E52-4DBF-9AA5-90BA32086699}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CdnHookStub", "CdnHookStub\CdnHookStub.csproj", "{4E97371A-8E52-4DBF-9AA5-90BA32086699}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{65DF7BA7-7B04-4C29-900F-DF0D4E3807AB}"
 	ProjectSection(SolutionItems) = preProject

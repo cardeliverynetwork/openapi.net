@@ -3,7 +3,7 @@ using CarDeliveryNetwork.Api.Data;
 using Nancy;
 using Nancy.ModelBinding;
 
-namespace CdnHook
+namespace CdnHookStub
 {
     public class JobsModule : NancyModule
     {
