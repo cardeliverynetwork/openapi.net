@@ -103,7 +103,7 @@ namespace CarDeliveryNetwork.Api.Data
                 value = value.Trim();
 
             return toUpper.HasValue
-                ? toUpper.Value ? value.ToUpper() :value.ToLower()
+                ? toUpper.Value ? value.ToUpper() : value.ToLower()
                 : value;
         }
     }

@@ -100,10 +100,20 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<Document> Documents { get; set; }
 
         /// <summary>
+        /// Optional - The SCAC of the shipper to whom this job belongs
+        /// </summary>
+        /// <remarks>
+        /// Specifying ShipperScac during job creation will create the job on behalf of the
+        /// specified shipper.  The job will be automatically allocated to the carrier creating the job.  
+        /// If ShipperScac is set, AllocatedCarrierScac is ignored.
+        /// </remarks>
+        public virtual string ShipperScac { get; set; }
+
+        /// <summary>
         /// Optional - The SCAC of the allocated carrier
         /// </summary>
         /// <remarks>
-        /// Specifying SCAC during job creation will ignore the Status field and attempt to 
+        /// Specifying AllocatedCarrierScac during job creation will ignore the Status field and attempt to 
         /// allocate the job directly to this carrier.  Status will be set to 'Allocated'
         /// </remarks>
         public virtual string AllocatedCarrierScac { get; set; }
