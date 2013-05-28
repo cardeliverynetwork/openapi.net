@@ -10,7 +10,10 @@ namespace CdnHookStub
         public JobsModule()
             : base("/jobs")
         {
+            // GET - Just to show the service is up
             Get["/"] = parameters => "Jobs";
+
+            // PUT - Do the update (Could be POST if required)
             Put["/"] = UpdateJob;
         }
 

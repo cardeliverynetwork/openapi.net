@@ -11,6 +11,7 @@ namespace CdnHookStub
     {
         public RootModule() 
         {
+            // GET - Just to show the service is up
             Get["/"] = _ =>
                 {
                     var version = Assembly.GetAssembly(typeof(RootModule)).GetName().Version;
