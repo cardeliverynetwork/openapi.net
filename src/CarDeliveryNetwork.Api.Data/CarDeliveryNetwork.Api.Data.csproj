@@ -59,6 +59,7 @@
     <Compile Include="Document.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="JobStatusHistoryItem.cs" />
+    <Compile Include="Journey.cs" />
     <Compile Include="NamespaceDoc.cs" />
     <Compile Include="Network.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
