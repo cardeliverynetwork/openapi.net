@@ -22,6 +22,8 @@ namespace CarDeliveryNetwork.Types
         CustomerAddedJob,
         CustomerJobBooked,
         DatesOverridden,
-        OutOfCredit
+        OutOfCredit,
+        ExpensesDeclined,
+        ExpensesApproved
     }
 }
