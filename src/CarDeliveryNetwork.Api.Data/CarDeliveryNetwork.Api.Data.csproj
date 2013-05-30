@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AccountCode.cs" />
     <Compile Include="Action.cs" />
+    <Compile Include="Alert.cs" />
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="Bid.cs" />
     <Compile Include="DamageItem.cs" />
