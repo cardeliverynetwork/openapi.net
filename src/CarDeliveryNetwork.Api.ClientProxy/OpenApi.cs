@@ -44,7 +44,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <returns>The job of the specified RemoteId.</returns>
         public Job GetJob(string remoteId)
         {
-            if(string.IsNullOrEmpty(remoteId))
+            if (string.IsNullOrEmpty(remoteId))
                 throw new Exception("RemoteId must be non null and at least 1 character in length");
             var resource = string.Format("Jobs/{0}", remoteId);
             return Job.FromString(Call(resource, "GET", true), _interfaceFormat);
@@ -262,40 +262,5 @@ namespace CarDeliveryNetwork.Api.ClientProxy
                 throw;
             }
         }
-
-        #region Not implemented
-
-        /// <summary>
-        /// Attempts to update the specified jobs on Car Delivery Network.
-        /// </summary>
-        /// <param name="job">The job to update.</param>
-        /// <param name="useRemoteId">When true, indicates that the job should be identified by its RemoteId.</param>
-        /// <returns></returns>
-        private Jobs UpdateJob(CarDeliveryNetwork.Api.Data.Job job, bool useRemoteId = false)
-        {
-            if (job == null)
-                throw new Exception("Job is null");
-            var resource = string.Format("Jobs/{0}", useRemoteId ? job.RemoteId : job.Id.ToString());
-            return Jobs.FromString(Call(resource, "PUT", useRemoteId, job), _interfaceFormat);
-        }
-
-        /// <summary>
-        /// Wttempts to put the specified list of jobs into the network of the specified Id.
-        /// </summary>
-        /// <param name="jobs">Jobs to put into network.</param>
-        /// <param name="networkId">The target network.</param>
-        private void JobsToNetwork(CarDeliveryNetwork.Api.Data.Jobs jobs, int networkId)
-        {
-            if (jobs == null || jobs.Count == 0)
-                throw new Exception("Jobs collection was null or empty");
-
-            var jobIds = string.Empty;
-            foreach (var job in jobs)
-                jobIds += string.Format("{0};", job.Id);
-
-            Call(string.Format("Jobs/{0}/Networks/{1}", jobIds, networkId), "PUT");
-        }
-
-        #endregion
     }
 }
