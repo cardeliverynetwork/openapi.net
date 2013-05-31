@@ -45,6 +45,7 @@
     <Compile Include="AlertType.cs" />
     <Compile Include="AllocateType.cs" />
     <Compile Include="FleetMenuProfile.cs" />
+    <Compile Include="Interfaces\NamespaceDoc.cs" />
     <Compile Include="WebHookStatus.cs" />
     <Compile Include="Interfaces\IAllocatable.cs" />
     <Compile Include="Interfaces\IFleet.cs" />
