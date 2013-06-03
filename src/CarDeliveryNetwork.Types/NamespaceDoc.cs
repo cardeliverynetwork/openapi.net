@@ -3,7 +3,7 @@
 namespace CarDeliveryNetwork.Types
 {
     /// <summary>
-    /// The <see cref="CarDeliveryNetwork.Types"/> namespace contains types visible to Car Delivery Network and its APIs.
+    /// Other types and enumerations associated with the API
     /// </summary>
     [CompilerGenerated]
     internal class NamespaceDoc
