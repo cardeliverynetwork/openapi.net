@@ -3,7 +3,7 @@
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>
-    /// The <see cref="CarDeliveryNetwork.Api.Data"/> namespace contains the data entities associated with the Car Delivery Network Open API.
+    /// Data structures associated with the API
     /// </summary>
     [CompilerGenerated]
     internal class NamespaceDoc
