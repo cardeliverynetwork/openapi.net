@@ -5,10 +5,8 @@ Description
 ---
 This is a .NET/C# interface into the Car Delivery Network Service.
 
-Documentation
+[Documentation](http://docs.cardeliverynetwork.com)
 ---
-* [Class/Namespace docs](https://go.cardeliverynetwork.com/uk/docs/OpenApi/index.html)
-* [The underlying API interface](https://go.cardeliverynetwork.com/uk/OpenApi/help)
 
 Necessary prerequisites
 ---
