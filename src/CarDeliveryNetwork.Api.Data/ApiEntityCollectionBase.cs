@@ -5,7 +5,7 @@ using CarDeliveryNetwork.Types;
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>
-    /// A collection of Car Delivery Network Job job entities.
+    /// A collection of Car Delivery Network <see cref="CarDeliveryNetwork.Api.Data.Job"/> entities.
     /// </summary>
     [CollectionDataContract]
     public class ApiEntityCollectionBase<T, C> : List<T>, IApiEntity
