@@ -50,11 +50,19 @@ namespace CarDeliveryNetwork.Api.Data
             InitObjects();
         }
 
+        /// <summary>
+        /// Gets whether the user is considered populated.
+        /// </summary>
+        /// <returns>True when populated.</returns>
         public virtual bool GetIsPopulated()
         {
             return !string.IsNullOrWhiteSpace(FirstName) || !string.IsNullOrWhiteSpace(Surname) || !string.IsNullOrWhiteSpace(Password);
         }
 
+        /// <summary>
+        /// Gets whether the user is considered valid.
+        /// </summary>
+        /// <returns>True when valid</returns>
         public virtual bool GetIsValid()
         {
             return !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(Surname) && !string.IsNullOrWhiteSpace(Password);

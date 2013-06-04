@@ -6,6 +6,9 @@ using System.Text;
 
 namespace CarDeliveryNetwork.Api.Data
 {
+    /// <summary>
+    /// A Car Delivery Network Alert
+    /// </summary>
     public class Alert : ApiEntityBase<Alert>
     {
         /// <summary>
