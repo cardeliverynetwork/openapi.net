@@ -41,11 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\BadRequestException.cs" />
-    <Compile Include="Exceptions\InternalServerErrorException.cs" />
-    <Compile Include="Exceptions\ForbiddenException.cs" />
-    <Compile Include="Exceptions\NamespaceDoc.cs" />
-    <Compile Include="Exceptions\UnauthorizedException.cs" />
     <Compile Include="NamespaceDoc.cs" />
     <Compile Include="OpenApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

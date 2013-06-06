@@ -2,7 +2,6 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using CarDeliveryNetwork.Api.ClientProxy.Exceptions;
 using CarDeliveryNetwork.Api.Data;
 using CarDeliveryNetwork.Types;
 
@@ -236,30 +235,11 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             }
             catch (WebException ex)
             {
-                var responseBody = string.Empty;
-                using (var respStream = new StreamReader(ex.Response.GetResponseStream()))
-                    responseBody = respStream.ReadToEnd();
-
-                // Trim quotation marks from the error string
-                responseBody = responseBody.Trim(new char[] { '"' });
-
-                var statusCode = ((HttpWebResponse)ex.Response).StatusCode;
-                if (statusCode == HttpStatusCode.Forbidden)
-                {
-                    if (responseBody.Contains("Unauthorized"))
-                        throw new UnauthorizedException(
-                            "The request was unauthorized.  Please check that you are sending a valid API key", ex);
-                    else
-                        throw new ForbiddenException(responseBody, ex);
-                }
-
-                if (statusCode == HttpStatusCode.BadRequest)
-                    throw new BadRequestException(responseBody, ex);
-
-                if (statusCode == HttpStatusCode.InternalServerError)
-                    throw new InternalServerErrorException(responseBody, ex);
-
-                throw;
+                var response = ex.Response as HttpWebResponse;
+                if (response != null)
+                    throw new HttpResourceFaultException(response.StatusCode, response.StatusDescription, ex);
+                else
+                    throw;
             }
         }
     }
