@@ -25,6 +25,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual JobStatus Status { get; set; }
 
         /// <summary>
+        /// Optional (20) - An id representing the trip this job is part of
+        /// </summary>
+        public virtual string TripId { get; set; }
+
+        /// <summary>
         /// Mandatory (40) - Name of person/system initiating this job.
         /// </summary>
         public virtual string JobInitiator { get; set; }
