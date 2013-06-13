@@ -37,15 +37,15 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
-        /// Gets the job of the specified RemoteId from Car Delivery Network.
+        /// Gets the job of the specified LoadId from Car Delivery Network.
         /// </summary>
-        /// <param name="remoteId">RemoteId of the job to get.</param>
-        /// <returns>The job of the specified RemoteId.</returns>
-        public Job GetJob(string remoteId)
+        /// <param name="loadId">LoadId of the job to get.</param>
+        /// <returns>The job of the specified LoadId.</returns>
+        public Job GetJob(string loadId)
         {
-            if (string.IsNullOrEmpty(remoteId))
-                throw new Exception("RemoteId must be non null and at least 1 character in length");
-            var resource = string.Format("Jobs/{0}", remoteId);
+            if (string.IsNullOrEmpty(loadId))
+                throw new Exception("LoadId must be non null and at least 1 character in length");
+            var resource = string.Format("Jobs/{0}", loadId);
             return Job.FromString(Call(resource, "GET", true), _interfaceFormat);
         }
 
@@ -76,15 +76,15 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
-        /// Gets the the list of documents for the job of the specified Remoteid.
+        /// Gets the the list of documents for the job of the specified LoadId.
         /// </summary>
-        /// <param name="remoteId">Job Remoteid</param>
-        /// <returns>Documents on the job of the specified Remoteid</returns>
-        public Documents GetJobDocuments(string remoteId)
+        /// <param name="loadId">Job LoadId</param>
+        /// <returns>Documents on the job of the specified LoadId</returns>
+        public Documents GetJobDocuments(string loadId)
         {
-            if (string.IsNullOrEmpty(remoteId))
-                throw new Exception("RemoteId must be non null and at least 1 character in length");
-            var resource = string.Format("Jobs/{0}/Documents", remoteId);
+            if (string.IsNullOrEmpty(loadId))
+                throw new Exception("LoadId must be non null and at least 1 character in length");
+            var resource = string.Format("Jobs/{0}/Documents", loadId);
             return Documents.FromString(Call(resource, "GET", true), _interfaceFormat);
         }
 
@@ -130,14 +130,14 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <summary>
         /// Attempts to create the specified vehicles on the specified job on Car Delivery Network.
         /// </summary>
-        /// <param name="remoteJobId">RemoteId of the job to create vehicles against.</param>
+        /// <param name="loadId">LoadId of the job to create vehicles against.</param>
         /// <param name="vehicles">The collection of vehicles to create.</param>
         /// <returns>A collection of the newly created vehicles.</returns>
-        public Vehicles CreateJobVehicles(string remoteJobId, Vehicles vehicles)
+        public Vehicles CreateJobVehicles(string loadId, Vehicles vehicles)
         {
             if (vehicles == null || vehicles.Count == 0)
                 throw new ArgumentException("Vehicles collection was null or empty");
-            var resource = string.Format("Jobs/{0}/Vehicles", remoteJobId);
+            var resource = string.Format("Jobs/{0}/Vehicles", loadId);
             return Vehicles.FromString(Call(resource, "POST", true, vehicles), _interfaceFormat);
         }
 
@@ -153,13 +153,13 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
-        /// Gets a collection of vehicles form the job of the specified RemoteId
+        /// Gets a collection of vehicles form the job of the specified LoadId
         /// </summary>
-        /// <param name="remoteJobId">Id of the job resource</param>
+        /// <param name="loadId">LoadId of the job resource</param>
         /// <returns>A collection of vehicles from the specified job</returns>
-        public Vehicles GetJobVehicles(string remoteJobId)
+        public Vehicles GetJobVehicles(string loadId)
         {
-            var resource = string.Format("Jobs/{0}/Vehicles", remoteJobId);
+            var resource = string.Format("Jobs/{0}/Vehicles", loadId);
             return Vehicles.FromString(Call(resource, "GET", true), _interfaceFormat);
         }
 
@@ -201,12 +201,12 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// </summary>
         /// <param name="resuorce">The target resource.</param>
         /// <param name="method">The HTTP method to perform on the target resource.</param>
-        /// <param name="isUsingRemoteIds">When true, the target resource is identified by a client specified RemoteId.</param>
+        /// <param name="isUsingLoadIds">When true, the target resource is identified by a client specified LoadId.</param>
         /// <param name="data">The data body for POST and PUT methods.</param>
         /// <returns>The response string from the API call.</returns>
-        public string Call(string resuorce, string method, bool isUsingRemoteIds = false, IApiEntity data = null)
+        public string Call(string resuorce, string method, bool isUsingLoadIds = false, IApiEntity data = null)
         {
-            var requestUri = string.Format("{0}/{1}?isremoteid={2}&apikey={3}", Uri, resuorce, isUsingRemoteIds, ApiKey);
+            var requestUri = string.Format("{0}/{1}?isloadid={2}&apikey={3}", Uri, resuorce, isUsingLoadIds, ApiKey);
             var req = WebRequest.Create(requestUri) as HttpWebRequest;
             req.KeepAlive = false;
             req.ContentType = "application/" + _interfaceFormat.ToString().ToLower();
