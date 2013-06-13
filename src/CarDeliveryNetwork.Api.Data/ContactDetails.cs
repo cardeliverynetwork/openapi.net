@@ -5,7 +5,7 @@ namespace CarDeliveryNetwork.Api.Data
     /// A Car Delivery Network ContactDetails entity.
     /// </summary>
 	/// <remarks>
-    /// If you only specify the Id or RemoteId then the contact must be already present
+    /// If you only specify the Id or QuickCode then the contact must be already present
 	/// To create a new contact you must specify the OrganisationName, City, StateRegion
 	/// If you specify a contact that is already in the database all fields present will
 	/// updated the the fields in the Job contact.
