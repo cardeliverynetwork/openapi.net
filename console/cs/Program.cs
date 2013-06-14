@@ -32,8 +32,8 @@ namespace console
             var allVehicles = api.GetJobVehicles(newjob.Id);
 
             // Create vehicles via RemoteId
-            newVehicles = api.CreateJobVehicles(newjob.RemoteId, new Vehicles { new Vehicle { Vin = "bbbb" } });
-            allVehicles = api.GetJobVehicles(newjob.RemoteId);
+            newVehicles = api.CreateJobVehicles(newjob.LoadId, new Vehicles { new Vehicle { Vin = "bbbb" } });
+            allVehicles = api.GetJobVehicles(newjob.LoadId);
 
             // Get some details about a job
             var targetJobId = 9697;
@@ -42,10 +42,10 @@ namespace console
             api.CancelJob(targetJobId, "Cancelled by customer.");
         }
 
-        private static Job GetTestJob(string remoteId = null)
+        private static Job GetTestJob(string loadId = null)
         {
             var newjob = new Job();
-            newjob.RemoteId = remoteId;
+            newjob.LoadId = loadId;
 
             // Setup some basic job details
             newjob.JobInitiator = "Chris Wallis";
@@ -149,7 +149,7 @@ namespace console
 
             var drop1Job = new Job
             {
-                RemoteId = "Drop1",
+                LoadId = "Drop1",
                 CustomerReference = "LoadA",
                 Customer = customer,
                 Pickup = pickupEndPoint,
@@ -163,7 +163,7 @@ namespace console
 
             var drop2Job = new Job
             {
-                RemoteId = "Drop2",
+                LoadId = "Drop2",
                 CustomerReference = "LoadA",
                 Customer = customer,
                 Pickup = pickupEndPoint,
