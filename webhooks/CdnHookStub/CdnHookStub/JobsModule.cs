@@ -33,7 +33,7 @@ namespace CdnHookStub
                     throw new Exception("Received job Id of 0");
 
                 // If we're using RemoteIds
-                if (string.IsNullOrWhiteSpace(job.RemoteId))
+                if (string.IsNullOrWhiteSpace(job.LoadId))
                     throw new Exception("Received empty RemoteId");
 
 
