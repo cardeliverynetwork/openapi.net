@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
 using CarDeliveryNetwork.Types;
@@ -17,29 +15,62 @@ namespace console
         // const string ServiceUrl = "https://go.cardeliverynetwork.com/traininguk/openapi";   // CDN UK Training
 
         // API user's key
-        const string ServiceApiKey = "fb04420a-49d0-4585-af57-1d390bfa12e7"; // local dev key - do not use
+         const string ServiceApiKey = "fb04420a-49d0-4585-af57-1d390bfa12e7"; // local dev key - do not use
 
         static void Main(string[] args)
         {
-            // Construct an instance of the API
-            var api = new OpenApi(ServiceUrl, ServiceApiKey);
+            try
+            {
+                // Construct an instance of the API
+                var api = new OpenApi(ServiceUrl, ServiceApiKey);
 
-            // Create a job
-            var newjob = api.CreateJob(GetTestJob(Guid.NewGuid().ToString()));
 
-            // Create vehicles via Id
-            var newVehicles = api.CreateJobVehicles(newjob.Id, new Vehicles { new Vehicle { Vin = "aaaa" } });
-            var allVehicles = api.GetJobVehicles(newjob.Id);
+                //////////////////
+                // Create a job //
+                //////////////////
 
-            // Create vehicles via RemoteId
-            newVehicles = api.CreateJobVehicles(newjob.LoadId, new Vehicles { new Vehicle { Vin = "bbbb" } });
-            allVehicles = api.GetJobVehicles(newjob.LoadId);
+                // The load Id, can only be used once
+                var loadId = "TestLoad2";
 
-            // Get some details about a job
-            var targetJobId = 9697;
-            var job = api.GetJob(targetJobId);
-            var docs = api.GetJobDocuments(targetJobId);
-            api.CancelJob(targetJobId, "Cancelled by customer.");
+                // Create the new job.
+                var newjob = api.CreateJob(GetTestJob(loadId));
+
+
+                ///////////////////////
+                // Add more vehicles //
+                ///////////////////////
+                
+                // Identifying the job by its Id, create some extra vehicles
+                api.CreateJobVehicles(newjob.Id, new Vehicles { new Vehicle { Vin = "aaaa" } });
+              
+                // Identifying the job by its LoadId, create some extra vehicles
+                api.CreateJobVehicles(loadId, new Vehicles { new Vehicle { Vin = "bbbb" } });
+
+
+                //////////////////////////////////
+                // Retrieve various job details //
+                //////////////////////////////////
+
+                // Identifying the job by its Id, get all vehicles for the job
+                var allVehicles = api.GetJobVehicles(newjob.Id);
+
+                // Identifying the job by its LoadId, get all vehicles for the job
+                allVehicles = api.GetJobVehicles(loadId);
+
+                // Retrieve the entire job by its LoadId
+                var job = api.GetJob(loadId);
+
+                // Get any documents against the job
+                var docs = api.GetJobDocuments(loadId);
+            }
+            catch (HttpResourceFaultException ex)
+            {
+                Console.WriteLine("HttpResourceFaultException: StatusCode: {0} Message: {1}", ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: Message: {0}", ex.Message);
+            }
         }
 
         private static Job GetTestJob(string loadId = null)
