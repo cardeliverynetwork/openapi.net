@@ -6,14 +6,40 @@ using log4net;
 
 namespace CdnLink
 {
-    internal static class Cdn
+    public class Cdn
     {
         private static readonly ILog _log = LogManager.GetLogger(typeof(Cdn));
 
-        internal static int Send()
+        private string _connectionString;
+        private string _apiUrl; 
+        private string _apiKey; 
+        private string _ftpHost; 
+        private string _ftpRoot; 
+        private string _ftpUsr; 
+        private string _ftpPass;
+
+        public Cdn(
+            string connectionString, 
+            string apiUrl, 
+            string apiKey, 
+            string ftpHost,
+            string ftpRoot,
+            string ftpUsr,
+            string ftpPass)
         {
-            var api = new OpenApi(GetSetting("CDNLINK_API_URL"), GetSetting("CDNLINK_API_KEY"));
-            var db = new CdnLinkDataContext();
+            _connectionString = connectionString;
+            _apiUrl = apiUrl;
+            _apiKey = apiKey;
+            _ftpHost = ftpHost;
+            _ftpRoot = ftpRoot;
+            _ftpUsr = ftpUsr;
+            _ftpPass = ftpPass;
+        }
+
+        public int Send()
+        {
+            var api = new OpenApi(_apiUrl, _apiKey);
+            var db = new CdnLinkDataContext(_connectionString);
 
             var sends = from send in db.CdnSends
                         where send.Status == (int)CdnSend.SendStatus.Processing || send.Status == (int)CdnSend.SendStatus.Queued 
@@ -60,21 +86,16 @@ namespace CdnLink
             return sendCount;
         }
 
-        internal static int Receive()
+        public int Receive()
         {
-            var ftp = new FtpBox(
-                GetSetting("CDNLINK_FTP_HOST"),
-                GetSetting("CDNLINK_FTP_ROOT"),
-                GetSetting("CDNLINK_FTP_USER"),
-                GetSetting("CDNLINK_FTP_PASS"));
-
+            var ftp = new FtpBox(_ftpHost, _ftpRoot, _ftpUsr, _ftpPass);
             var files = ftp.GetFileList();
             var fileCount = files != null ? files.Count : 0;
             if (fileCount > 0)
             {
                 _log.InfoFormat("Receive: Processing {0} file(s).", fileCount);
 
-                var db = new CdnLinkDataContext();
+                var db = new CdnLinkDataContext(_connectionString);
 
                 foreach (var file in files)
                 {
@@ -96,32 +117,6 @@ namespace CdnLink
                 _log.Info("Receive: Nothing to do.");
 
             return fileCount;
-        }
-
-        /// <summary>
-        /// Gets the specified setting from the system environment or web.config, in that order
-        /// </summary>
-        /// <param name="name">Name of setting to fetch</param>
-        /// <returns>The specified setting</returns>
-        private static string GetSetting(string name)
-        {
-            _log.DebugFormat("GetSetting: '{0}'.", name);
-            var setting = Environment.GetEnvironmentVariable(name);
-            if (setting != null)
-            {
-                _log.DebugFormat("GotSetting: '{0}' from system environment.", setting);
-                return setting;
-            }
-
-            setting = Settings.Default[name] as string;
-            if (setting != null)
-            {
-                _log.DebugFormat("GotSetting: '{0}' from application settings.", setting);
-                return setting;
-            }
-
-            _log.DebugFormat("GetSetting: '{0}' was not found.", name);
-            return null;
         }
     }
 }

@@ -23,7 +23,7 @@
       <Value Profile="(Default)">theftppassword</Value>
     </Setting>
     <Setting Name="CDNLINK_API_URL" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">https://go.cardeliverynetwork.com/trainingus/openapi</Value>
+      <Value Profile="(Default)">https://localhost/cdn/openapi</Value>
     </Setting>
     <Setting Name="CDNLINK_API_KEY" Type="System.String" Scope="Application">
       <Value Profile="(Default)">fb04420a-49d0-4585-af57-1d390bfa12e7</Value>

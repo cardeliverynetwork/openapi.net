@@ -33,7 +33,7 @@ namespace CdnLink {
                 return ((string)(this["CDNLINK_CONNECTIONSTRING"]));
             }
         }
-		
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("ftp://ftp.example.com")]
@@ -51,7 +51,7 @@ namespace CdnLink {
                 return ((string)(this["CDNLINK_FTP_ROOT"]));
             }
         }
-		
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("theftpusername")]
@@ -73,7 +73,7 @@ namespace CdnLink {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://go.cardeliverynetwork.com/trainingus/openapi")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost/cdn/openapi")]
         public string CDNLINK_API_URL {
             get {
                 return ((string)(this["CDNLINK_API_URL"]));
