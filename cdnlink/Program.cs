@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading;
+using CarDeliveryNetwork.Api.Data;
 using log4net;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -13,7 +14,7 @@ namespace CdnLink
 
         private static readonly ILog _log = LogManager.GetLogger(typeof(Program));
 
-        public static int Main(string[] args)
+        public static void Main(string[] args)
         {
             try
             {
@@ -41,12 +42,16 @@ namespace CdnLink
                     else
                         _log.Info("Another instance of the program was already running.");
                 }
-                return 0;
+            }
+            catch (HttpResourceFaultException ex)
+            {
+                _log.ErrorFormat("HttpResourceFaultException: StatusCode: {0} Message: {1}", ex.StatusCode, ex.Message);
+                throw;
             }
             catch (Exception ex)
             {
                 _log.Error(ex.Message, ex);
-                return 1;
+                throw;
             }
         }
 
