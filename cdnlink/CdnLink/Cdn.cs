@@ -42,8 +42,7 @@ namespace CdnLink
             var db = new CdnLinkDataContext(_connectionString);
 
             var sends = from send in db.CdnSends
-                        where send.Status == (int)CdnSend.SendStatus.Processing || send.Status == (int)CdnSend.SendStatus.Queued 
-                        orderby send.QueuedDate
+                        where send.Status == (int)CdnSend.SendStatus.Queued 
                         select send;
 
             var sendCount = sends != null ? sends.Count() : 0;
