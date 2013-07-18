@@ -30,20 +30,20 @@ namespace CdnLink
                     var arg = hasArg ? args[0].ToLower() : null;
 
                     var cdn = new Cdn(
-                        GetSetting("CDNLINK_CONNECTIONSTRING"),
-                        GetSetting("CDNLINK_API_KEY"),
-                        GetSetting("CDNLINK_API_URL"),
-                        GetSetting("CDNLINK_FTP_HOST"),
-                        GetSetting("CDNLINK_FTP_ROOT"),
-                        GetSetting("CDNLINK_FTP_USER"),
-                        GetSetting("CDNLINK_FTP_PASS"));
+                        Helpers.GetSetting("CDNLINK_CONNECTIONSTRING"),
+                        Helpers.GetSetting("CDNLINK_API_KEY"),
+                        Helpers.GetSetting("CDNLINK_API_URL"),
+                        Helpers.GetSetting("CDNLINK_FTP_HOST"),
+                        Helpers.GetSetting("CDNLINK_FTP_ROOT"),
+                        Helpers.GetSetting("CDNLINK_FTP_USER"),
+                        Helpers.GetSetting("CDNLINK_FTP_PASS"));
 
                     if (!hasArg)
                     {
                         while (cdn.Send() > 0) ;
                         while (cdn.Receive() > 0) ;
                     }
-                    else if (hasArg && arg.Contains("send"))
+                    if (hasArg && arg.Contains("send"))
                     {
                         while (cdn.Send() > 0) ;
                     }
@@ -77,27 +77,6 @@ namespace CdnLink
             usage.AppendLine("    > cdnlink /send    ... Sends loads to CDN");
             usage.AppendLine("    > cdnlink /receive ... Receives waiting updates from FTP");
             Console.WriteLine(usage);
-        }
-
-        public static string GetSetting(string name)
-        {
-            _log.DebugFormat("GetSetting: '{0}'.", name);
-            var setting = Environment.GetEnvironmentVariable(name);
-            if (setting != null)
-            {
-                _log.DebugFormat("GotSetting: '{0}' from system environment.", setting);
-                return setting;
-            }
-
-            setting = Settings.Default[name] as string;
-            if (setting != null)
-            {
-                _log.DebugFormat("GotSetting: '{0}' from application settings.", setting);
-                return setting;
-            }
-
-            _log.DebugFormat("GetSetting: '{0}' was not found.", name);
-            return null;
         }
     }
 }
