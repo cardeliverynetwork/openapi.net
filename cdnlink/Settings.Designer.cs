@@ -25,6 +25,17 @@ namespace CdnLink {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=CdnLink;uid=thedbusername;pwd=thedbpassword" +
+            "")]
+        public string CDNLINK_CONNECTIONSTRING {
+            get {
+                return ((string)(this["CDNLINK_CONNECTIONSTRING"]));
+            }
+        }
+		
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("ftp://ftp.example.com")]
         public string CDNLINK_FTP_HOST {
             get {
@@ -32,6 +43,15 @@ namespace CdnLink {
             }
         }
         
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/")]
+        public string CDNLINK_FTP_ROOT {
+            get {
+                return ((string)(this["CDNLINK_FTP_ROOT"]));
+            }
+        }
+		
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("theftpusername")]
@@ -66,26 +86,6 @@ namespace CdnLink {
         public string CDNLINK_API_KEY {
             get {
                 return ((string)(this["CDNLINK_API_KEY"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=CdnLink;uid=thedbusername;pwd=thedbpassword" +
-            "")]
-        public string CDNLINK_CONNECTIONSTRING {
-            get {
-                return ((string)(this["CDNLINK_CONNECTIONSTRING"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/")]
-        public string CDNLINK_FTP_ROOT {
-            get {
-                return ((string)(this["CDNLINK_FTP_ROOT"]));
             }
         }
     }
