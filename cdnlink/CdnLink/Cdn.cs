@@ -27,6 +27,19 @@ namespace CdnLink
             string ftpUsr,
             string ftpPass)
         {
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentException("connectionString string cannot be null or empty");
+            if (string.IsNullOrWhiteSpace(apiUrl))
+                throw new ArgumentException("apiUrl string cannot be null or empty");
+            if (string.IsNullOrWhiteSpace(apiKey))
+                throw new ArgumentException("apiKey string cannot be null or empty");
+            if (string.IsNullOrWhiteSpace(ftpHost))
+                throw new ArgumentException("ftpHost string cannot be null or empty");
+            if (string.IsNullOrWhiteSpace(ftpUsr))
+                throw new ArgumentException("ftpUsr string cannot be null or empty");
+            if (string.IsNullOrWhiteSpace(ftpPass))
+                throw new ArgumentException("ftpUsr string cannot be null or empty");
+
             _connectionString = connectionString;
             _apiUrl = apiUrl;
             _apiKey = apiKey;

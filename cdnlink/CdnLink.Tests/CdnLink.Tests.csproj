@@ -46,7 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestHelpers.cs" />
-    <Compile Include="TestSend.cs" />
+    <Compile Include="TestReceive.cs" />
+    <Compile Include="TestCdnConstruct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
