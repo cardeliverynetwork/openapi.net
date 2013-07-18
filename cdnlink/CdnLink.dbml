@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CdnLink" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=INY-BUNSTER;Initial Catalog=CdnLink;User ID=CdnLinkUsr" SettingsObjectName="CdnLink.Settings" SettingsPropertyName="CDNLINK_CONNECTIONSTRING" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.CdnReceivedDamage" Member="CdnReceivedDamages">
+    <Type Name="CdnReceivedDamage">
+      <Column Name="DamageId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VehicleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DamageAt" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AreaCode" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Column Name="AreaDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SeverityCode" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Column Name="SeverityDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TypeCode" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Column Name="TypeDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="CdnReceivedVehicle_CdnReceivedDamage" Member="CdnReceivedVehicle" ThisKey="VehicleId" OtherKey="VehicleId" Type="CdnReceivedVehicle" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnReceivedDocuments" Member="CdnReceivedDocuments">
+    <Type Name="CdnReceivedDocument">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CdnId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VehicleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Url" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="CdnReceivedLoad_CdnReceivedDocument" Member="CdnReceivedLoad" ThisKey="CdnId" OtherKey="CdnId" Type="CdnReceivedLoad" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnReceivedFtpFiles" Member="CdnReceivedFtpFiles">
+    <Type Name="CdnReceivedFtpFile">
+      <Column Name="GetId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="JsonMessage" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Filename" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="CdnReceivedFtpFile_CdnReceivedLoad" Member="CdnReceivedLoads" ThisKey="GetId" OtherKey="GetId" Type="CdnReceivedLoad" />
+      <Association Name="CdnReceivedFtpFile_CdnReceive" Member="CdnReceives" ThisKey="GetId" OtherKey="GetId" Type="CdnReceive" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnReceivedLoads" Member="CdnReceivedLoads">
+    <Type Name="CdnReceivedLoad">
+      <Column Name="CdnId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GetId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AllocatedCarrierScac" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="AssignedDriverRemoteId" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="BuyPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CustomerReference" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DriverPay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JobInitiator" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="JobNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LoadId" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="Mileage" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="SellPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ServiceRequired" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShipperScac" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TripId" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CustomerAddressLines" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="CustomerCity" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="CustomerContact" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CustomerEmail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CustomerFax" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="CustomerMobilePhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="CustomerNotes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CustomerOrganisationName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CustomerOtherPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="CustomerPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="CustomerQuickCode" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="CustomerStateRegion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="CustomerZipPostCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="DropoffAddressLines" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="DropoffCity" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="DropoffContact" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DropoffEmail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DropoffFax" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DropoffMobilePhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DropoffNotes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DropoffOrganisationName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DropoffOtherPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DropoffPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DropoffQuickCode" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DropoffStateRegion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DropoffZipPostCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="DropoffRequestedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DropoffRequestedDateIsExact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DropoffNotSignedReason" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DropoffSignedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DropoffTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DropoffUrl" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PickupAddressLines" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="PickupCity" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="PickupContact" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PickupEmail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PickupFax" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="PickupMobilePhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="PickupNotes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PickupOrganisationName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PickupOtherPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="PickupPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="PickupQuickCode" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="PickupStateRegion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="PickupZipPostCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="PickupRequestedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PickupRequestedDatesExact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PickupNotSignedReason" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PickupSignedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PickupTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PickupUrl" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="CdnReceivedLoad_CdnReceivedDocument" Member="CdnReceivedDocuments" ThisKey="CdnId" OtherKey="CdnId" Type="CdnReceivedDocument" />
+      <Association Name="CdnReceivedLoad_CdnReceivedVehicle" Member="CdnReceivedVehicles" ThisKey="CdnId" OtherKey="CdnId" Type="CdnReceivedVehicle" />
+      <Association Name="CdnReceivedFtpFile_CdnReceivedLoad" Member="CdnReceivedFtpFile" ThisKey="GetId" OtherKey="GetId" Type="CdnReceivedFtpFile" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnReceivedVehicles" Member="CdnReceivedVehicles">
+    <Type Name="CdnReceivedVehicle">
+      <Column Name="VehicleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CdnId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Make" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Model" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="MovementNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Registration" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Variant" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Vin" Type="System.String" DbType="NVarChar(17) NOT NULL" CanBeNull="false" />
+      <Association Name="CdnReceivedVehicle_CdnReceivedDamage" Member="CdnReceivedDamages" ThisKey="VehicleId" OtherKey="VehicleId" Type="CdnReceivedDamage" />
+      <Association Name="CdnReceivedLoad_CdnReceivedVehicle" Member="CdnReceivedLoad" ThisKey="CdnId" OtherKey="CdnId" Type="CdnReceivedLoad" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnReceives" Member="CdnReceives">
+    <Type Name="CdnReceive">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GetId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FetchedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SuccessDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FailedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ErrorMessage" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ErrorCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="CdnReceivedFtpFile_CdnReceive" Member="CdnReceivedFtpFile" ThisKey="GetId" OtherKey="GetId" Type="CdnReceivedFtpFile" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnSendLoads" Member="CdnSendLoads">
+    <Type Name="CdnSendLoad">
+      <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AllocatedCarrierScac" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="AssignedDriverRemoteId" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="BuyPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CustomerReference" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DriverPay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JobInitiator" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="SellPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ServiceRequired" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShipperScac" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="TripId" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CustomerAddressLines" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="CustomerCity" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="CustomerContact" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CustomerEmail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CustomerFax" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="CustomerMobilePhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="CustomerNotes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CustomerOrganisationName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CustomerOtherPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="CustomerPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="CustomerQuickCode" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="CustomerStateRegion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="CustomerZipPostCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="DropoffAddressLines" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="DropoffCity" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="DropoffContact" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DropoffEmail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DropoffFax" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DropoffMobilePhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DropoffNotes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DropoffOrganisationName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DropoffOtherPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DropoffPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DropoffQuickCode" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DropoffStateRegion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DropoffZipPostCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="DropoffRequestedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DropoffRequestedDatesExact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PickupAddressLines" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="PickupCity" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="PickupContact" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PickupEmail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PickupFax" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="PickupMobilePhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="PickupNotes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PickupOrganisationName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PickupOtherPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="PickupPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="PickupQuickCode" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="PickupStateRegion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="PickupZipPostCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="PickupRequestedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PickupRequestedDatesExact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="CdnSendLoad_CdnSend" Member="CdnSend" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSend" Cardinality="One" />
+      <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendVehicles" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendVehicle" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnSends" Member="CdnSends">
+    <Type Name="CdnSend">
+      <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QueuedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProcessingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FailedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ErrorMessage" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ErrorCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="CdnSendLoad_CdnSend" Member="CdnSendLoad" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendLoad" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnSendVehicles" Member="CdnSendVehicles">
+    <Type Name="CdnSendVehicle">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Make" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Model" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="MovementNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Registration" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Variant" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Vin" Type="System.String" DbType="NVarChar(17) NOT NULL" CanBeNull="false" />
+      <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendLoad" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendLoad" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
