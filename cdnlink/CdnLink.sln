@@ -9,6 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDeliveryNetwork.Api.Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDeliveryNetwork.Api.ClientProxy", "..\src\CarDeliveryNetwork.Api.ClientProxy\CarDeliveryNetwork.Api.ClientProxy.csproj", "{D74A0127-0E1D-4057-B156-BE0E1EAC0F68}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{972394DA-6554-4C43-9F68-B6E77F6FAB81}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
