@@ -43,7 +43,7 @@ namespace CdnLink
                         while (cdn.Send() > 0) ;
                         while (cdn.Receive() > 0) ;
                     }
-                    if (hasArg && arg.Contains("send"))
+                    else if (hasArg && arg.Contains("send"))
                     {
                         while (cdn.Send() > 0) ;
                     }
