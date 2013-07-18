@@ -58,6 +58,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CdnLink.dbml</DependentUpon>
     </Compile>
+    <Compile Include="CdnSendLoad.cs" />
     <Compile Include="FtpBox.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

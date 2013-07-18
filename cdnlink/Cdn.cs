@@ -2,7 +2,6 @@
 using System.Linq;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
-using CarDeliveryNetwork.Types;
 using log4net;
 
 namespace CdnLink
@@ -28,14 +27,12 @@ namespace CdnLink
         {
             try
             {
-                // Get records from Send tables
+                var api = new OpenApi(GetSetting("CDNLINK_API_URL"), GetSetting("CDNLINK_API_KEY"));
                 var db = new CdnLinkDataContext();
-
+                
                 var sends = from send in db.CdnSends
                             where send.Status == (int)SendStatus.Queued
                             select send;
-
-                var api = new OpenApi(GetSetting("CDNLINK_API_URL"), GetSetting("CDNLINK_API_KEY"));
 
                 foreach (var send in sends)
                 {
@@ -43,87 +40,7 @@ namespace CdnLink
                     send.ProcessingDate = DateTime.Now;
                     db.SubmitChanges();
 
-                    var load = send.CdnSendLoad;
-                    var newjob = new Job();
-
-                    // Job details
-                    newjob.LoadId = load.LoadId;
-                    newjob.AllocatedCarrierScac = load.AllocatedCarrierScac;
-                    newjob.AssignedDriverRemoteId = load.AssignedDriverRemoteId;
-                    newjob.BuyPrice = load.BuyPrice ?? 0;
-                    newjob.CustomerReference = load.CustomerReference;
-                    newjob.DriverPay = load.DriverPay ?? 0;
-                    newjob.JobInitiator = load.JobInitiator;
-                    newjob.Notes = load.Notes;
-                    newjob.SellPrice = load.SellPrice ?? 0;
-                    newjob.ServiceRequired = (ServiceType)load.ServiceRequired;
-                    newjob.ShipperScac = load.ShipperScac;
-                    newjob.TripId = load.TripId;
-
-                    // Customer
-                    newjob.Customer.QuickCode = load.CustomerQuickCode;
-                    newjob.Customer.Contact = load.CustomerContact;
-                    newjob.Customer.OrganisationName = load.CustomerOrganisationName;
-                    newjob.Customer.AddressLines = load.CustomerAddressLines;
-                    newjob.Customer.City = load.CustomerCity;
-                    newjob.Customer.StateRegion = load.CustomerStateRegion;
-                    newjob.Customer.ZipPostCode = load.CustomerZipPostCode;
-                    newjob.Customer.Phone = load.CustomerPhone;
-                    newjob.Customer.MobilePhone = load.CustomerMobilePhone;
-                    newjob.Customer.OtherPhone = load.CustomerOtherPhone;
-                    newjob.Customer.Fax = load.CustomerFax;
-                    newjob.Customer.Email = load.CustomerEmail;
-                    newjob.Customer.Notes = load.CustomerNotes;
-
-                    // Pickup
-                    newjob.Pickup.RequestedDate = load.PickupRequestedDate;
-                    newjob.Pickup.RequestedDateIsExact = load.PickupRequestedDatesExact ?? false;
-                    newjob.Pickup.Destination.QuickCode = load.PickupQuickCode;
-                    newjob.Pickup.Destination.Contact = load.PickupContact;
-                    newjob.Pickup.Destination.OrganisationName = load.PickupOrganisationName;
-                    newjob.Pickup.Destination.AddressLines = load.PickupAddressLines;
-                    newjob.Pickup.Destination.City = load.PickupCity;
-                    newjob.Pickup.Destination.StateRegion = load.PickupStateRegion;
-                    newjob.Pickup.Destination.ZipPostCode = load.PickupZipPostCode;
-                    newjob.Pickup.Destination.Phone = load.PickupPhone;
-                    newjob.Pickup.Destination.MobilePhone = load.PickupMobilePhone;
-                    newjob.Pickup.Destination.OtherPhone = load.PickupOtherPhone;
-                    newjob.Pickup.Destination.Fax = load.PickupFax;
-                    newjob.Pickup.Destination.Email = load.PickupEmail;
-                    newjob.Pickup.Destination.Notes = load.PickupNotes;
-
-                    // Dropoff
-                    newjob.Dropoff.RequestedDate = load.DropoffRequestedDate;
-                    newjob.Dropoff.RequestedDateIsExact = load.DropoffRequestedDatesExact ?? false;
-                    newjob.Dropoff.Destination.QuickCode = load.DropoffQuickCode;
-                    newjob.Dropoff.Destination.Contact = load.DropoffContact;
-                    newjob.Dropoff.Destination.OrganisationName = load.DropoffOrganisationName;
-                    newjob.Dropoff.Destination.AddressLines = load.DropoffAddressLines;
-                    newjob.Dropoff.Destination.City = load.DropoffCity;
-                    newjob.Dropoff.Destination.StateRegion = load.DropoffStateRegion;
-                    newjob.Dropoff.Destination.ZipPostCode = load.DropoffZipPostCode;
-                    newjob.Dropoff.Destination.Phone = load.DropoffPhone;
-                    newjob.Dropoff.Destination.MobilePhone = load.DropoffMobilePhone;
-                    newjob.Dropoff.Destination.OtherPhone = load.DropoffOtherPhone;
-                    newjob.Dropoff.Destination.Fax = load.DropoffFax;
-                    newjob.Dropoff.Destination.Email = load.DropoffEmail;
-                    newjob.Dropoff.Destination.Notes = load.DropoffNotes;
-
-                    // Vehicles
-                    foreach (var vehicle in load.CdnSendVehicles)
-                        newjob.Vehicles.Add(new Vehicle()
-                        {
-                            Location = vehicle.Location,
-                            Make = vehicle.Make,
-                            Model = vehicle.Model,
-                            MovementNumber = vehicle.MovementNumber,
-                            Notes = vehicle.Notes,
-                            Registration = vehicle.Registration,
-                            Variant = vehicle.Variant,
-                            Vin = vehicle.Vin
-                        });
-
-                    var createdJob = api.CreateJob(newjob);
+                    var createdJob = api.CreateJob(send.CdnSendLoad.ToCdnJob());
                 }
                 return 0;
             }
