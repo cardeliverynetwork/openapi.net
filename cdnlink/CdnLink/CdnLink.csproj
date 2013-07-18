@@ -90,15 +90,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\CarDeliveryNetwork.Api.ClientProxy\CarDeliveryNetwork.Api.ClientProxy.csproj">
+    <ProjectReference Include="..\..\src\CarDeliveryNetwork.Api.ClientProxy\CarDeliveryNetwork.Api.ClientProxy.csproj">
       <Project>{d74a0127-0e1d-4057-b156-be0e1eac0f68}</Project>
       <Name>CarDeliveryNetwork.Api.ClientProxy</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\CarDeliveryNetwork.Api.Data\CarDeliveryNetwork.Api.Data.csproj">
+    <ProjectReference Include="..\..\src\CarDeliveryNetwork.Api.Data\CarDeliveryNetwork.Api.Data.csproj">
       <Project>{64a29309-7dd4-426d-a677-8d8a2c0a351d}</Project>
       <Name>CarDeliveryNetwork.Api.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\CarDeliveryNetwork.Types\CarDeliveryNetwork.Types.csproj">
+    <ProjectReference Include="..\..\src\CarDeliveryNetwork.Types\CarDeliveryNetwork.Types.csproj">
       <Project>{df771b50-d3d9-4be7-896d-467cfb9920db}</Project>
       <Name>CarDeliveryNetwork.Types</Name>
     </ProjectReference>
