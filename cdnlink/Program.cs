@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Threading;
+using log4net;
 
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 namespace CdnLink
 {
     class Program
@@ -9,35 +11,42 @@ namespace CdnLink
         // Global application name for single instance mutex
         const string AppName = "Global\\CdnLink";
 
+        private static readonly ILog _log = LogManager.GetLogger(typeof(Program));
+
         public static int Main(string[] args)
         {
-            using (var mutex = new Mutex(false, AppName))
+            try
             {
-                if (mutex.WaitOne(0, false))
+                using (var mutex = new Mutex(false, AppName))
                 {
-                    if (args == null || args.Length != 1 || args[0] == null)
+                    if (mutex.WaitOne(0, false))
                     {
-                        PrintUsage();
-                    }
-                    else if (args[0].ToLower().Contains("send"))
-                    {
-                        while (Cdn.Send() > 0) ;
-                    }
-                    else if (args[0].ToLower().Contains("receive"))
-                    {
-                        while (Cdn.Receive() > 0) ;
+                        if (args == null || args.Length != 1 || args[0] == null)
+                        {
+                            PrintUsage();
+                        }
+                        else if (args[0].ToLower().Contains("send"))
+                        {
+                            while (Cdn.Send() > 0) ;
+                        }
+                        else if (args[0].ToLower().Contains("receive"))
+                        {
+                            while (Cdn.Receive() > 0) ;
+                        }
+                        else
+                        {
+                            PrintUsage();
+                        }
                     }
                     else
-                    {
-                        PrintUsage();
-                    }
-                    return 0;
+                        _log.Info("Another instance of the program was already running.");
                 }
-                else
-                {
-                    Console.WriteLine("Another instance of the program was already running");
-                    return 1;
-                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex.Message, ex);
+                return 1;
             }
         }
 

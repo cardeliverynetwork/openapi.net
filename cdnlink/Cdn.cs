@@ -3,6 +3,7 @@ using System.Linq;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
 using CarDeliveryNetwork.Types;
+using log4net;
 
 namespace CdnLink
 {
@@ -20,6 +21,8 @@ namespace CdnLink
         enum ReceiveStatus
         {
         }
+
+        private static readonly ILog _log = LogManager.GetLogger(typeof(Cdn));
 
         internal static int Send()
         {
@@ -149,7 +152,7 @@ namespace CdnLink
 
             if (fileCount > 0)
             {
-                Console.WriteLine("Receive: Processing {0} file(s)", fileCount);
+                _log.InfoFormat("Receive: Processing {0} file(s).", fileCount);
 
                 var db = new CdnLinkDataContext();
 
@@ -170,7 +173,7 @@ namespace CdnLink
                 }
             }
             else
-                Console.WriteLine("Receive: Nothing to do");
+                _log.Info("Receive: Nothing to do.");
 
             return fileCount;
         }
@@ -182,7 +185,23 @@ namespace CdnLink
         /// <returns>The specified setting</returns>
         private static string GetSetting(string name)
         {
-            return Environment.GetEnvironmentVariable(name) ?? Settings.Default[name] as string;
+            _log.DebugFormat("GetSetting: '{0}'.", name);
+            var setting = Environment.GetEnvironmentVariable(name);
+            if (setting != null)
+            {
+                _log.DebugFormat("GotSetting: '{0}' from system environment.", setting);
+                return setting;
+            }
+            
+            setting = Settings.Default[name] as string;
+            if (setting != null)
+            {
+                _log.DebugFormat("GotSetting: '{0}' from application settings.", setting);
+                return setting;
+            }
+
+            _log.DebugFormat("GetSetting: '{0}' was not found.", name);
+            return null;
         }
     }
 }
