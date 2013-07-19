@@ -10,13 +10,13 @@ namespace CdnLink
     {
         private static readonly ILog _log = LogManager.GetLogger(typeof(Cdn));
 
-        private string _connectionString;
-        private string _apiUrl; 
-        private string _apiKey; 
-        private string _ftpHost; 
-        private string _ftpRoot; 
-        private string _ftpUsr; 
-        private string _ftpPass;
+        public string ConnectionString { get; private set; }
+        public string ApiUrl { get; private set; }
+        public string ApiKey { get; private set; }
+        public string FtpHost { get; private set; }
+        public string FtpRoot { get; private set; }
+        public string FtpUser { get; private set; }
+        public string FtpPass { get; private set; }
 
         public Cdn(
             string connectionString, 
@@ -24,7 +24,7 @@ namespace CdnLink
             string apiKey, 
             string ftpHost,
             string ftpRoot,
-            string ftpUsr,
+            string ftpUser,
             string ftpPass)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
@@ -35,24 +35,24 @@ namespace CdnLink
                 throw new ArgumentException("apiKey string cannot be null or empty");
             if (string.IsNullOrWhiteSpace(ftpHost))
                 throw new ArgumentException("ftpHost string cannot be null or empty");
-            if (string.IsNullOrWhiteSpace(ftpUsr))
-                throw new ArgumentException("ftpUsr string cannot be null or empty");
+            if (string.IsNullOrWhiteSpace(ftpUser))
+                throw new ArgumentException("ftpUser string cannot be null or empty");
             if (string.IsNullOrWhiteSpace(ftpPass))
                 throw new ArgumentException("ftpUsr string cannot be null or empty");
 
-            _connectionString = connectionString;
-            _apiUrl = apiUrl;
-            _apiKey = apiKey;
-            _ftpHost = ftpHost;
-            _ftpRoot = ftpRoot;
-            _ftpUsr = ftpUsr;
-            _ftpPass = ftpPass;
+            ConnectionString = connectionString;
+            ApiUrl = apiUrl;
+            ApiKey = apiKey;
+            FtpHost = ftpHost;
+            FtpRoot = ftpRoot;
+            FtpUser = ftpUser;
+            FtpPass = ftpPass;
         }
 
         public int Send()
         {
-            var api = new OpenApi(_apiUrl, _apiKey);
-            var db = new CdnLinkDataContext(_connectionString);
+            var api = new OpenApi(ApiUrl, ApiKey);
+            var db = new CdnLinkDataContext(ConnectionString);
 
             var sends = from send in db.CdnSends
                         where send.Status == (int)CdnSend.SendStatus.Queued 
@@ -100,14 +100,14 @@ namespace CdnLink
 
         public int Receive()
         {
-            var ftp = new FtpBox(_ftpHost, _ftpRoot, _ftpUsr, _ftpPass);
+            var ftp = new FtpBox(FtpHost, FtpRoot, FtpUser, FtpPass);
             var files = ftp.GetFileList();
             var fileCount = files != null ? files.Count : 0;
             if (fileCount > 0)
             {
                 _log.InfoFormat("Receive: Processing {0} file(s).", fileCount);
 
-                var db = new CdnLinkDataContext(_connectionString);
+                var db = new CdnLinkDataContext(ConnectionString);
 
                 foreach (var file in files)
                 {

@@ -7,6 +7,19 @@ namespace CdnLink.Tests
     public class TestCdnConstruct
     {
         [Test]
+        public void Good()
+        {
+            var cdn = new Cdn("ConnectionString", "ApiUrl", "ApiKey", "FtpHost", "FtpRoot", "FtpUser", "FtpPass");
+            Assert.AreEqual("ConnectionString", cdn.ConnectionString);
+            Assert.AreEqual("ApiUrl", cdn.ApiUrl);
+            Assert.AreEqual("ApiKey", cdn.ApiKey);
+            Assert.AreEqual("FtpHost", cdn.FtpHost);
+            Assert.AreEqual("FtpRoot", cdn.FtpRoot);
+            Assert.AreEqual("FtpUser", cdn.FtpUser);
+            Assert.AreEqual("FtpPass", cdn.FtpPass);
+        }
+
+        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void NullConnectionString()
         {
