@@ -33,10 +33,11 @@ namespace CdnLink
                         Helpers.GetSetting("CDNLINK_CONNECTIONSTRING"),
                         Helpers.GetSetting("CDNLINK_API_KEY"),
                         Helpers.GetSetting("CDNLINK_API_URL"),
-                        Helpers.GetSetting("CDNLINK_FTP_HOST"),
-                        Helpers.GetSetting("CDNLINK_FTP_ROOT"),
-                        Helpers.GetSetting("CDNLINK_FTP_USER"),
-                        Helpers.GetSetting("CDNLINK_FTP_PASS"));
+                        new FtpBox(
+                            Helpers.GetSetting("CDNLINK_FTP_HOST"),
+                            Helpers.GetSetting("CDNLINK_FTP_ROOT"),
+                            Helpers.GetSetting("CDNLINK_FTP_USER"),
+                            Helpers.GetSetting("CDNLINK_FTP_PASS")));
 
                     if (!hasArg)
                     {

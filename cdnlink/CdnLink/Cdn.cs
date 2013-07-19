@@ -13,19 +13,13 @@ namespace CdnLink
         public string ConnectionString { get; private set; }
         public string ApiUrl { get; private set; }
         public string ApiKey { get; private set; }
-        public string FtpHost { get; private set; }
-        public string FtpRoot { get; private set; }
-        public string FtpUser { get; private set; }
-        public string FtpPass { get; private set; }
+        public ICdnFtpBox FtpBox { get; private set; }
 
         public Cdn(
             string connectionString, 
             string apiUrl, 
             string apiKey, 
-            string ftpHost,
-            string ftpRoot,
-            string ftpUser,
-            string ftpPass)
+            ICdnFtpBox ftpBox)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentException("connectionString string cannot be null or empty");
@@ -33,20 +27,13 @@ namespace CdnLink
                 throw new ArgumentException("apiUrl string cannot be null or empty");
             if (string.IsNullOrWhiteSpace(apiKey))
                 throw new ArgumentException("apiKey string cannot be null or empty");
-            if (string.IsNullOrWhiteSpace(ftpHost))
-                throw new ArgumentException("ftpHost string cannot be null or empty");
-            if (string.IsNullOrWhiteSpace(ftpUser))
-                throw new ArgumentException("ftpUser string cannot be null or empty");
-            if (string.IsNullOrWhiteSpace(ftpPass))
-                throw new ArgumentException("ftpUsr string cannot be null or empty");
+            if (ftpBox == null)
+                throw new ArgumentException("ftpBox cannot be null");
 
             ConnectionString = connectionString;
             ApiUrl = apiUrl;
             ApiKey = apiKey;
-            FtpHost = ftpHost;
-            FtpRoot = ftpRoot;
-            FtpUser = ftpUser;
-            FtpPass = ftpPass;
+            FtpBox = ftpBox;
         }
 
         public int Send()
@@ -100,8 +87,7 @@ namespace CdnLink
 
         public int Receive()
         {
-            var ftp = new FtpBox(FtpHost, FtpRoot, FtpUser, FtpPass);
-            var files = ftp.GetFileList();
+            var files = FtpBox.GetFileList();
             var fileCount = files != null ? files.Count : 0;
             if (fileCount > 0)
             {
@@ -109,20 +95,20 @@ namespace CdnLink
 
                 var db = new CdnLinkDataContext(ConnectionString);
 
-                foreach (var file in files)
+                foreach (var file in files.ToArray())
                 {
                     // If we haven't already processed this file
                     if (db.CdnReceivedFtpFiles.Where(f => f.Filename.Contains(file)).Count() == 0)
                     {
                         var receivedFile = new CdnReceivedFtpFile();
                         receivedFile.Filename = file;
-                        receivedFile.JsonMessage = ftp.GetFileContents(file);
+                        receivedFile.JsonMessage = FtpBox.GetFileContents(file);
                         db.CdnReceivedFtpFiles.InsertOnSubmit(receivedFile);
                         db.SubmitChanges();
                     }
 
                     // Delete file from FTP server
-                    ftp.DeleteFile(file);
+                    FtpBox.DeleteFile(file);
                 }
             }
             else

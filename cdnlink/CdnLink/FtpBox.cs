@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
@@ -7,36 +8,49 @@ namespace CdnLink
     /// <summary>
     /// 
     /// </summary>
-    public class FtpBox
+    public class FtpBox : ICdnFtpBox
     {
-        private string _host;
-        private string _user;
-        private string _pass;
+        public string Host { get; private set; }
+        public string Root { get; private set; }
+        public string User { get; private set; }
+        public string Pass { get; private set; }
+
+        public string FullPath
+        {
+            get
+            {
+                var host = Host.Trim().Trim('/');
+
+                var root = (Root == null)
+                    ? null
+                    : Root.Trim().Trim('/');
+
+                return string.IsNullOrWhiteSpace(root)
+                    ? string.Format("{0}/", host)
+                    : string.Format("{0}/{1}/", host, root);
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FtpBox"/> class.
         /// </summary>
         /// <param name="host">The ftp host.</param>
-        /// <param name="directory">The ftp directory.</param>
+        /// <param name="root">The ftp directory.</param>
         /// <param name="user">The ftp user.</param>
         /// <param name="pass">The ftp pass.</param>
-        public FtpBox(string host, string directory, string user, string pass)
+        public FtpBox(string host, string root, string user, string pass)
         {
-            // Clean up the directory
-            if (directory != null)
-                directory = directory.Trim().Trim('/');
+            if (string.IsNullOrWhiteSpace(host))
+                throw new ArgumentException("host cannot be null or empty");
+            if (string.IsNullOrWhiteSpace(user))
+                throw new ArgumentException("user cannot be null or empty");
+            if (string.IsNullOrWhiteSpace(pass))
+                throw new ArgumentException("pass cannot be null or empty");
 
-            // Clean up the host 
-            host = host.Trim().Trim('/');
-            
-            // Append host and directory if we have one
-            _host = string.IsNullOrWhiteSpace(directory)
-                ? string.Format("{0}/", host)
-                : string.Format("{0}/{1}/", host, directory);
-
-            // Clean up the credentials
-            _user = user.Trim();
-            _pass = pass.Trim();
+            Host = host;
+            Root = root;
+            User = user;
+            Pass = pass;
         }
 
         /// <summary>
@@ -85,9 +99,9 @@ namespace CdnLink
 
         private FtpWebRequest GetFtpRequest(string method, string filename = null)
         {
-            var request = (FtpWebRequest)WebRequest.Create(_host + filename ?? "");
+            var request = (FtpWebRequest)WebRequest.Create(FullPath + filename ?? "");
             request.Method = method;
-            request.Credentials = new NetworkCredential(_user, _pass);
+            request.Credentials = new NetworkCredential(User, Pass);
             return request;
         }
     }
