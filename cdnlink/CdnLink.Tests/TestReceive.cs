@@ -52,24 +52,33 @@ namespace CdnLink.Tests
         {
             var connectionString = "Data Source=localhost;Initial Catalog=CdnLinkTest;uid=CdnLinkTestUsr;pwd=password";
             var ftp = GetFtpBox(true);
-            var fileNames = ftp.GetFileList();
+            var fileNames = new List<string>(ftp.GetFileList());
             var cdn = new Cdn(connectionString,"0","0",ftp);
 
             Assert.AreEqual(fileNames.Count, cdn.Receive());
+            Assert.AreEqual(0, cdn.Receive());
 
             var db = new CdnLinkDataContext(connectionString);
 
             foreach (var filename in fileNames)
             {
-                var ftpFile = db.CdnReceivedFtpFiles.Where(f => f.Filename == filename).Single();
-                
-               // Assert.AreEqual(1, ftpFile.Count());
+                var ftpFile = db.CdnReceivedFtpFiles.Where(f => f.Filename.Contains(filename)).Single();
+                Assert.IsNotNull(ftpFile);
+                Assert.AreEqual(ftp.GetFileContents(filename), ftpFile.JsonMessage);
 
-               // var receive = ftpFile.
+                var receive = ftpFile.CdnReceive;
+                Assert.IsNotNull(receive);
+                Assert.AreEqual((int)CdnReceives.ReceiveStatus.Queued, receive.Status);
+                Assert.AreEqual(DateTime.Today, receive.FetchedDate.Date);
+
+                var load = ftpFile.CdnReceivedLoad;
+                Assert.IsNotNull(load);
+                Assert.AreNotEqual(0, load.CdnId);
+
+                var vehicles = load.CdnReceivedVehicles;
+                Assert.IsNotNull(vehicles);
+                Assert.Greater(vehicles.Count(), 0);
             }
-
-
-            Assert.AreEqual(0, cdn.Receive());
         }
 
         

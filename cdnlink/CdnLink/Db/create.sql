@@ -39,7 +39,7 @@
 	[DropoffStateRegion] [nvarchar] (255) NULL,
 	[DropoffZipPostCode] [nvarchar] (10) NULL,
 	[DropoffRequestedDate] [datetime] NULL,
-	[DropoffRequestedDatesExact] [bit] NULL,
+	[DropoffRequestedDateIsExact] [bit] NULL,
 	[PickupAddressLines] [nvarchar] (300) NULL,
 	[PickupCity] [nvarchar] (300) NULL,
 	[PickupContact] [nvarchar] (100) NULL,
@@ -54,7 +54,7 @@
 	[PickupStateRegion] [nvarchar] (255) NULL,
 	[PickupZipPostCode] [nvarchar] (10) NULL,
 	[PickupRequestedDate] [datetime] NULL,
-	[PickupRequestedDatesExact] [bit] NULL,
+	[PickupRequestedDateIsExact] [bit] NULL,
 	PRIMARY KEY CLUSTERED (LoadId)
 )
 
@@ -88,16 +88,28 @@ CREATE TABLE [dbo].[CdnSends]
 
 CREATE TABLE [dbo].[CdnReceivedFtpFiles] 
 (
-	[GetId] [int] IDENTITY (1, 1),
+	[Id] [int] IDENTITY (1, 1),
 	[JsonMessage] [ntext] NOT NULL,
 	[Filename] [ntext] NOT NULL,
-	PRIMARY KEY CLUSTERED (GetId)
+	PRIMARY KEY CLUSTERED (Id)
+)
+
+CREATE TABLE [dbo].[CdnReceives] 
+(
+	[FtpFileId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedFtpFiles (Id),
+	[FetchedDate] [datetime] NOT NULL,
+	[Status] [int] NOT NULL,
+	[SuccessDate] [datetime] NULL,
+	[FailedDate] [datetime] NULL,
+	[ErrorMessage] [ntext] NULL,
+	[ErrorCode] [nvarchar] (50) NULL,
+	PRIMARY KEY CLUSTERED (FtpFileId)
 )
 
 CREATE TABLE [dbo].[CdnReceivedLoads] 
 (
+	[FtpFileId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedFtpFiles (Id),
 	[CdnId] [int] UNIQUE NOT NULL,
-	[GetId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedFtpFiles (GetId),
 	[AllocatedCarrierScac] [nvarchar] (10) NOT NULL,
 	[AssignedDriverRemoteId] [nvarchar] (40) NULL,
 	[BuyPrice] [int] NULL,
@@ -159,12 +171,23 @@ CREATE TABLE [dbo].[CdnReceivedLoads]
 	[PickupStateRegion] [nvarchar] (255) NULL,
 	[PickupZipPostCode] [nvarchar] (10) NULL,
 	[PickupRequestedDate] [datetime] NULL,
-	[PickupRequestedDatesExact] [bit] NULL,
+	[PickupRequestedDateIsExact] [bit] NULL,
 	[PickupNotSignedReason] [ntext] NULL,
 	[PickupSignedBy] [nvarchar] (100) NULL,
 	[PickupTime] [datetime] NULL, 
 	[PickupUrl] [ntext] NULL,
-	PRIMARY KEY CLUSTERED (CdnId)
+	PRIMARY KEY CLUSTERED (FtpFileId)
+)
+
+CREATE TABLE [dbo].[CdnReceivedDocuments] 
+(
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
+	[CdnId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (CdnId),
+	[VehicleId] [int] NULL,
+	[Comment] [ntext] NULL,
+	[Title] [nvarchar] (50) NULL,
+	[Url] [ntext] NULL,
+	PRIMARY KEY CLUSTERED (Id)
 )
 
 CREATE TABLE [dbo].[CdnReceivedVehicles] 
@@ -194,28 +217,4 @@ CREATE TABLE [dbo].[CdnReceivedDamage]
 	[TypeCode] [nvarchar] (3) NULL,
 	[TypeDescription] [nvarchar] (50) NULL,
 	PRIMARY KEY CLUSTERED (DamageId)
-)
-
-CREATE TABLE [dbo].[CdnReceivedDocuments] 
-(
-	[Id] [int] IDENTITY (1, 1) NOT NULL,
-	[CdnId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (CdnId),
-	[VehicleId] [int] NULL,
-	[Comment] [ntext] NULL,
-	[Title] [nvarchar] (50) NULL,
-	[Url] [ntext] NULL,
-	PRIMARY KEY CLUSTERED (Id)
-)
-
-CREATE TABLE [dbo].[CdnReceives] 
-(
-	[Id] [int] IDENTITY (1, 1) NOT NULL,
-	[GetId] [int] FOREIGN KEY REFERENCES  CdnReceivedFtpFiles (GetId),
-	[FetchedDate] [datetime] NOT NULL,
-	[Status] [int] NOT NULL,
-	[SuccessDate] [datetime] NULL,
-	[FailedDate] [datetime] NULL,
-	[ErrorMessage] [ntext] NULL,
-	[ErrorCode] [nvarchar] (50) NULL,
-	PRIMARY KEY CLUSTERED (Id)
 )

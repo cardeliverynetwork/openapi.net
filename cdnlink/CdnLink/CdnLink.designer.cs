@@ -60,7 +60,7 @@ namespace CdnLink
     #endregion
 		
 		public CdnLinkDataContext() : 
-				base(global::CdnLink.Settings.Default.CDNLINK_CONNECTIONSTRING, mappingSource)
+				base(global::CdnLink.Settings.Default.CdnLinkConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -686,22 +686,22 @@ namespace CdnLink
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _GetId;
+		private int _Id;
 		
 		private string _JsonMessage;
 		
 		private string _Filename;
 		
-		private EntitySet<CdnReceivedLoad> _CdnReceivedLoads;
+		private EntityRef<CdnReceivedLoad> _CdnReceivedLoad;
 		
-		private EntitySet<CdnReceive> _CdnReceives;
+		private EntityRef<CdnReceive> _CdnReceive;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnGetIdChanging(int value);
-    partial void OnGetIdChanged();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
     partial void OnJsonMessageChanging(string value);
     partial void OnJsonMessageChanged();
     partial void OnFilenameChanging(string value);
@@ -710,27 +710,27 @@ namespace CdnLink
 		
 		public CdnReceivedFtpFile()
 		{
-			this._CdnReceivedLoads = new EntitySet<CdnReceivedLoad>(new Action<CdnReceivedLoad>(this.attach_CdnReceivedLoads), new Action<CdnReceivedLoad>(this.detach_CdnReceivedLoads));
-			this._CdnReceives = new EntitySet<CdnReceive>(new Action<CdnReceive>(this.attach_CdnReceives), new Action<CdnReceive>(this.detach_CdnReceives));
+			this._CdnReceivedLoad = default(EntityRef<CdnReceivedLoad>);
+			this._CdnReceive = default(EntityRef<CdnReceive>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GetId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int GetId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
 		{
 			get
 			{
-				return this._GetId;
+				return this._Id;
 			}
 			set
 			{
-				if ((this._GetId != value))
+				if ((this._Id != value))
 				{
-					this.OnGetIdChanging(value);
+					this.OnIdChanging(value);
 					this.SendPropertyChanging();
-					this._GetId = value;
-					this.SendPropertyChanged("GetId");
-					this.OnGetIdChanged();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
@@ -775,29 +775,61 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedFtpFile_CdnReceivedLoad", Storage="_CdnReceivedLoads", ThisKey="GetId", OtherKey="GetId")]
-		public EntitySet<CdnReceivedLoad> CdnReceivedLoads
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedFtpFile_CdnReceivedLoad", Storage="_CdnReceivedLoad", ThisKey="Id", OtherKey="FtpFileId", IsUnique=true, IsForeignKey=false)]
+		public CdnReceivedLoad CdnReceivedLoad
 		{
 			get
 			{
-				return this._CdnReceivedLoads;
+				return this._CdnReceivedLoad.Entity;
 			}
 			set
 			{
-				this._CdnReceivedLoads.Assign(value);
+				CdnReceivedLoad previousValue = this._CdnReceivedLoad.Entity;
+				if (((previousValue != value) 
+							|| (this._CdnReceivedLoad.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CdnReceivedLoad.Entity = null;
+						previousValue.CdnReceivedFtpFile = null;
+					}
+					this._CdnReceivedLoad.Entity = value;
+					if ((value != null))
+					{
+						value.CdnReceivedFtpFile = this;
+					}
+					this.SendPropertyChanged("CdnReceivedLoad");
+				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedFtpFile_CdnReceive", Storage="_CdnReceives", ThisKey="GetId", OtherKey="GetId")]
-		public EntitySet<CdnReceive> CdnReceives
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedFtpFile_CdnReceive", Storage="_CdnReceive", ThisKey="Id", OtherKey="FtpFileId", IsUnique=true, IsForeignKey=false)]
+		public CdnReceive CdnReceive
 		{
 			get
 			{
-				return this._CdnReceives;
+				return this._CdnReceive.Entity;
 			}
 			set
 			{
-				this._CdnReceives.Assign(value);
+				CdnReceive previousValue = this._CdnReceive.Entity;
+				if (((previousValue != value) 
+							|| (this._CdnReceive.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CdnReceive.Entity = null;
+						previousValue.CdnReceivedFtpFile = null;
+					}
+					this._CdnReceive.Entity = value;
+					if ((value != null))
+					{
+						value.CdnReceivedFtpFile = this;
+					}
+					this.SendPropertyChanged("CdnReceive");
+				}
 			}
 		}
 		
@@ -820,30 +852,6 @@ namespace CdnLink
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
-		
-		private void attach_CdnReceivedLoads(CdnReceivedLoad entity)
-		{
-			this.SendPropertyChanging();
-			entity.CdnReceivedFtpFile = this;
-		}
-		
-		private void detach_CdnReceivedLoads(CdnReceivedLoad entity)
-		{
-			this.SendPropertyChanging();
-			entity.CdnReceivedFtpFile = null;
-		}
-		
-		private void attach_CdnReceives(CdnReceive entity)
-		{
-			this.SendPropertyChanging();
-			entity.CdnReceivedFtpFile = this;
-		}
-		
-		private void detach_CdnReceives(CdnReceive entity)
-		{
-			this.SendPropertyChanging();
-			entity.CdnReceivedFtpFile = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CdnReceivedLoads")]
@@ -852,9 +860,9 @@ namespace CdnLink
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _CdnId;
+		private int _FtpFileId;
 		
-		private int _GetId;
+		private int _CdnId;
 		
 		private string _AllocatedCarrierScac;
 		
@@ -978,7 +986,7 @@ namespace CdnLink
 		
 		private System.Nullable<System.DateTime> _PickupRequestedDate;
 		
-		private System.Nullable<bool> _PickupRequestedDatesExact;
+		private System.Nullable<bool> _PickupRequestedDateIsExact;
 		
 		private string _PickupNotSignedReason;
 		
@@ -998,10 +1006,10 @@ namespace CdnLink
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
+    partial void OnFtpFileIdChanging(int value);
+    partial void OnFtpFileIdChanged();
     partial void OnCdnIdChanging(int value);
     partial void OnCdnIdChanged();
-    partial void OnGetIdChanging(int value);
-    partial void OnGetIdChanged();
     partial void OnAllocatedCarrierScacChanging(string value);
     partial void OnAllocatedCarrierScacChanged();
     partial void OnAssignedDriverRemoteIdChanging(string value);
@@ -1124,8 +1132,8 @@ namespace CdnLink
     partial void OnPickupZipPostCodeChanged();
     partial void OnPickupRequestedDateChanging(System.Nullable<System.DateTime> value);
     partial void OnPickupRequestedDateChanged();
-    partial void OnPickupRequestedDatesExactChanging(System.Nullable<bool> value);
-    partial void OnPickupRequestedDatesExactChanged();
+    partial void OnPickupRequestedDateIsExactChanging(System.Nullable<bool> value);
+    partial void OnPickupRequestedDateIsExactChanged();
     partial void OnPickupNotSignedReasonChanging(string value);
     partial void OnPickupNotSignedReasonChanged();
     partial void OnPickupSignedByChanging(string value);
@@ -1144,7 +1152,31 @@ namespace CdnLink
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CdnId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FtpFileId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int FtpFileId
+		{
+			get
+			{
+				return this._FtpFileId;
+			}
+			set
+			{
+				if ((this._FtpFileId != value))
+				{
+					if (this._CdnReceivedFtpFile.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFtpFileIdChanging(value);
+					this.SendPropertyChanging();
+					this._FtpFileId = value;
+					this.SendPropertyChanged("FtpFileId");
+					this.OnFtpFileIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CdnId", DbType="Int NOT NULL")]
 		public int CdnId
 		{
 			get
@@ -1160,30 +1192,6 @@ namespace CdnLink
 					this._CdnId = value;
 					this.SendPropertyChanged("CdnId");
 					this.OnCdnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GetId", DbType="Int NOT NULL")]
-		public int GetId
-		{
-			get
-			{
-				return this._GetId;
-			}
-			set
-			{
-				if ((this._GetId != value))
-				{
-					if (this._CdnReceivedFtpFile.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnGetIdChanging(value);
-					this.SendPropertyChanging();
-					this._GetId = value;
-					this.SendPropertyChanged("GetId");
-					this.OnGetIdChanged();
 				}
 			}
 		}
@@ -2408,22 +2416,22 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupRequestedDatesExact", DbType="Bit")]
-		public System.Nullable<bool> PickupRequestedDatesExact
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupRequestedDateIsExact", DbType="Bit")]
+		public System.Nullable<bool> PickupRequestedDateIsExact
 		{
 			get
 			{
-				return this._PickupRequestedDatesExact;
+				return this._PickupRequestedDateIsExact;
 			}
 			set
 			{
-				if ((this._PickupRequestedDatesExact != value))
+				if ((this._PickupRequestedDateIsExact != value))
 				{
-					this.OnPickupRequestedDatesExactChanging(value);
+					this.OnPickupRequestedDateIsExactChanging(value);
 					this.SendPropertyChanging();
-					this._PickupRequestedDatesExact = value;
-					this.SendPropertyChanged("PickupRequestedDatesExact");
-					this.OnPickupRequestedDatesExactChanged();
+					this._PickupRequestedDateIsExact = value;
+					this.SendPropertyChanged("PickupRequestedDateIsExact");
+					this.OnPickupRequestedDateIsExactChanged();
 				}
 			}
 		}
@@ -2534,7 +2542,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedFtpFile_CdnReceivedLoad", Storage="_CdnReceivedFtpFile", ThisKey="GetId", OtherKey="GetId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedFtpFile_CdnReceivedLoad", Storage="_CdnReceivedFtpFile", ThisKey="FtpFileId", OtherKey="Id", IsForeignKey=true)]
 		public CdnReceivedFtpFile CdnReceivedFtpFile
 		{
 			get
@@ -2551,17 +2559,17 @@ namespace CdnLink
 					if ((previousValue != null))
 					{
 						this._CdnReceivedFtpFile.Entity = null;
-						previousValue.CdnReceivedLoads.Remove(this);
+						previousValue.CdnReceivedLoad = null;
 					}
 					this._CdnReceivedFtpFile.Entity = value;
 					if ((value != null))
 					{
-						value.CdnReceivedLoads.Add(this);
-						this._GetId = value.GetId;
+						value.CdnReceivedLoad = this;
+						this._FtpFileId = value.Id;
 					}
 					else
 					{
-						this._GetId = default(int);
+						this._FtpFileId = default(int);
 					}
 					this.SendPropertyChanged("CdnReceivedFtpFile");
 				}
@@ -2966,9 +2974,7 @@ namespace CdnLink
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
-		
-		private System.Nullable<int> _GetId;
+		private int _FtpFileId;
 		
 		private System.DateTime _FetchedDate;
 		
@@ -2988,10 +2994,8 @@ namespace CdnLink
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnGetIdChanging(System.Nullable<int> value);
-    partial void OnGetIdChanged();
+    partial void OnFtpFileIdChanging(int value);
+    partial void OnFtpFileIdChanged();
     partial void OnFetchedDateChanging(System.DateTime value);
     partial void OnFetchedDateChanged();
     partial void OnStatusChanging(int value);
@@ -3012,46 +3016,26 @@ namespace CdnLink
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FtpFileId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int FtpFileId
 		{
 			get
 			{
-				return this._Id;
+				return this._FtpFileId;
 			}
 			set
 			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GetId", DbType="Int")]
-		public System.Nullable<int> GetId
-		{
-			get
-			{
-				return this._GetId;
-			}
-			set
-			{
-				if ((this._GetId != value))
+				if ((this._FtpFileId != value))
 				{
 					if (this._CdnReceivedFtpFile.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnGetIdChanging(value);
+					this.OnFtpFileIdChanging(value);
 					this.SendPropertyChanging();
-					this._GetId = value;
-					this.SendPropertyChanged("GetId");
-					this.OnGetIdChanged();
+					this._FtpFileId = value;
+					this.SendPropertyChanged("FtpFileId");
+					this.OnFtpFileIdChanged();
 				}
 			}
 		}
@@ -3176,7 +3160,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedFtpFile_CdnReceive", Storage="_CdnReceivedFtpFile", ThisKey="GetId", OtherKey="GetId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedFtpFile_CdnReceive", Storage="_CdnReceivedFtpFile", ThisKey="FtpFileId", OtherKey="Id", IsForeignKey=true)]
 		public CdnReceivedFtpFile CdnReceivedFtpFile
 		{
 			get
@@ -3193,17 +3177,17 @@ namespace CdnLink
 					if ((previousValue != null))
 					{
 						this._CdnReceivedFtpFile.Entity = null;
-						previousValue.CdnReceives.Remove(this);
+						previousValue.CdnReceive = null;
 					}
 					this._CdnReceivedFtpFile.Entity = value;
 					if ((value != null))
 					{
-						value.CdnReceives.Add(this);
-						this._GetId = value.GetId;
+						value.CdnReceive = this;
+						this._FtpFileId = value.Id;
 					}
 					else
 					{
-						this._GetId = default(Nullable<int>);
+						this._FtpFileId = default(int);
 					}
 					this.SendPropertyChanged("CdnReceivedFtpFile");
 				}
@@ -3315,7 +3299,7 @@ namespace CdnLink
 		
 		private System.Nullable<System.DateTime> _DropoffRequestedDate;
 		
-		private System.Nullable<bool> _DropoffRequestedDatesExact;
+		private System.Nullable<bool> _DropoffRequestedDateIsExact;
 		
 		private string _PickupAddressLines;
 		
@@ -3345,7 +3329,7 @@ namespace CdnLink
 		
 		private System.Nullable<System.DateTime> _PickupRequestedDate;
 		
-		private System.Nullable<bool> _PickupRequestedDatesExact;
+		private System.Nullable<bool> _PickupRequestedDateIsExact;
 		
 		private EntityRef<CdnSend> _CdnSend;
 		
@@ -3433,8 +3417,8 @@ namespace CdnLink
     partial void OnDropoffZipPostCodeChanged();
     partial void OnDropoffRequestedDateChanging(System.Nullable<System.DateTime> value);
     partial void OnDropoffRequestedDateChanged();
-    partial void OnDropoffRequestedDatesExactChanging(System.Nullable<bool> value);
-    partial void OnDropoffRequestedDatesExactChanged();
+    partial void OnDropoffRequestedDateIsExactChanging(System.Nullable<bool> value);
+    partial void OnDropoffRequestedDateIsExactChanged();
     partial void OnPickupAddressLinesChanging(string value);
     partial void OnPickupAddressLinesChanged();
     partial void OnPickupCityChanging(string value);
@@ -3463,8 +3447,8 @@ namespace CdnLink
     partial void OnPickupZipPostCodeChanged();
     partial void OnPickupRequestedDateChanging(System.Nullable<System.DateTime> value);
     partial void OnPickupRequestedDateChanged();
-    partial void OnPickupRequestedDatesExactChanging(System.Nullable<bool> value);
-    partial void OnPickupRequestedDatesExactChanged();
+    partial void OnPickupRequestedDateIsExactChanging(System.Nullable<bool> value);
+    partial void OnPickupRequestedDateIsExactChanged();
     #endregion
 		
 		public CdnSendLoad()
@@ -4254,22 +4238,22 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffRequestedDatesExact", DbType="Bit")]
-		public System.Nullable<bool> DropoffRequestedDatesExact
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffRequestedDateIsExact", DbType="Bit")]
+		public System.Nullable<bool> DropoffRequestedDateIsExact
 		{
 			get
 			{
-				return this._DropoffRequestedDatesExact;
+				return this._DropoffRequestedDateIsExact;
 			}
 			set
 			{
-				if ((this._DropoffRequestedDatesExact != value))
+				if ((this._DropoffRequestedDateIsExact != value))
 				{
-					this.OnDropoffRequestedDatesExactChanging(value);
+					this.OnDropoffRequestedDateIsExactChanging(value);
 					this.SendPropertyChanging();
-					this._DropoffRequestedDatesExact = value;
-					this.SendPropertyChanged("DropoffRequestedDatesExact");
-					this.OnDropoffRequestedDatesExactChanged();
+					this._DropoffRequestedDateIsExact = value;
+					this.SendPropertyChanged("DropoffRequestedDateIsExact");
+					this.OnDropoffRequestedDateIsExactChanged();
 				}
 			}
 		}
@@ -4554,22 +4538,22 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupRequestedDatesExact", DbType="Bit")]
-		public System.Nullable<bool> PickupRequestedDatesExact
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupRequestedDateIsExact", DbType="Bit")]
+		public System.Nullable<bool> PickupRequestedDateIsExact
 		{
 			get
 			{
-				return this._PickupRequestedDatesExact;
+				return this._PickupRequestedDateIsExact;
 			}
 			set
 			{
-				if ((this._PickupRequestedDatesExact != value))
+				if ((this._PickupRequestedDateIsExact != value))
 				{
-					this.OnPickupRequestedDatesExactChanging(value);
+					this.OnPickupRequestedDateIsExactChanging(value);
 					this.SendPropertyChanging();
-					this._PickupRequestedDatesExact = value;
-					this.SendPropertyChanged("PickupRequestedDatesExact");
-					this.OnPickupRequestedDatesExactChanged();
+					this._PickupRequestedDateIsExact = value;
+					this.SendPropertyChanged("PickupRequestedDateIsExact");
+					this.OnPickupRequestedDateIsExactChanged();
 				}
 			}
 		}

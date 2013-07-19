@@ -103,7 +103,19 @@ namespace CdnLink
                         var receivedFile = new CdnReceivedFtpFile();
                         receivedFile.Filename = file;
                         receivedFile.JsonMessage = FtpBox.GetFileContents(file);
+                        
+                        receivedFile.CdnReceive = new CdnReceive
+                        {
+                            FetchedDate = DateTime.Now,
+                            Status = (int)CdnReceives.ReceiveStatus.Processing,
+                        };
+
                         db.CdnReceivedFtpFiles.InsertOnSubmit(receivedFile);
+                        db.SubmitChanges();
+
+                        receivedFile.CdnReceivedLoad = new CdnReceivedLoad(Job.FromString(receivedFile.JsonMessage));
+                        receivedFile.CdnReceive.Status = (int)CdnReceives.ReceiveStatus.Queued;
+                        
                         db.SubmitChanges();
                     }
 
