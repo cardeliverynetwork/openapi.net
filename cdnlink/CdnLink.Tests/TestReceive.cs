@@ -12,45 +12,100 @@ namespace CdnLink.Tests
     [TestFixture]
     public class TestReceive
     {
-        [Test]
-        [ExpectedException(typeof(SqlException))]
-        public void DbNoBadCatalog()
+        [TestFixtureSetUp]
+        public void Init()
         {
-            new Cdn("Data Source=localhost;Initial Catalog=BAD;uid=CdnLinkTestUsr;pwd=password", "0", "0", GetFtpBox(true)).Receive();
-        }
+            var db = new CdnLinkDataContext(Settings.GetConnetionString());
+            db.CdnReceivedDamages.DeleteAllOnSubmit(db.CdnReceivedDamages);
+            db.SubmitChanges();
 
-        [Test]
-        [ExpectedException(typeof(SqlException))]
-        public void DbBadUser()
-        {
-            new Cdn("Data Source=localhost;Initial Catalog=CdnLinkTest;uid=BAD;pwd=password", "0", "0", GetFtpBox(true)).Receive();
-        }
+            db.CdnReceivedVehicles.DeleteAllOnSubmit(db.CdnReceivedVehicles);
+            db.SubmitChanges();
 
-        [Test]
-        [ExpectedException(typeof(SqlException))]
-        public void DbBadPass()
-        {
-            new Cdn("Data Source=localhost;Initial Catalog=CdnLinkTest;uid=CdnLinkTestUsr;pwd=BAD", "0", "0", GetFtpBox(true)).Receive();
+            db.CdnReceivedDocuments.DeleteAllOnSubmit(db.CdnReceivedDocuments);
+            db.SubmitChanges();
+
+            db.CdnReceives.DeleteAllOnSubmit(db.CdnReceives);
+            db.SubmitChanges();
+
+            db.CdnReceivedLoads.DeleteAllOnSubmit(db.CdnReceivedLoads);
+            db.SubmitChanges();
+
+            db.CdnReceivedFtpFiles.DeleteAllOnSubmit(db.CdnReceivedFtpFiles);
+            db.SubmitChanges();
         }
 
         /// <summary>
         /// This test is very very slow while we wait for teh request to timeout
         /// </summary>
         [Test]
+        [Ignore]
+        [ExpectedException(typeof(SqlException))]
+        public void DbBadHost()
+        {
+            var connectionString = Settings.GetConnetionString(
+                "BAD",
+                Settings.DbInitialCatalog,
+                Settings.DbUser,
+                Settings.DbPass);
+            new Cdn(connectionString, "0", "0", GetFtpBox(true)).Receive();
+        }
+
+        [Test]
+        [ExpectedException(typeof(SqlException))]
+        public void DbBadCatalog()
+        {
+            var connectionString = Settings.GetConnetionString(
+                Settings.DbDataSource,
+                "BAD",
+                Settings.DbUser,
+                Settings.DbPass);
+            new Cdn(connectionString, "0", "0", GetFtpBox(true)).Receive();
+        }
+
+        [Test]
+        [ExpectedException(typeof(SqlException))]
+        public void DbBadUser()
+        {
+            var connectionString = Settings.GetConnetionString(
+                Settings.DbDataSource,
+                Settings.DbInitialCatalog,
+                "BAD",
+                Settings.DbPass);
+            new Cdn(connectionString, "0", "0", GetFtpBox(true)).Receive();
+        }
+
+        [Test]
+        [ExpectedException(typeof(SqlException))]
+        public void DbBadPass()
+        {
+            var connectionString = Settings.GetConnetionString(
+                Settings.DbDataSource,
+                Settings.DbInitialCatalog,
+                Settings.DbUser,
+                "BAD");
+            new Cdn(connectionString, "0", "0", GetFtpBox(true)).Receive();
+        }
+
+        /// <summary>
+        /// This test is very very slow while we wait for teh request to timeout
+        /// </summary>
+        [Test]
+        [Ignore]
         [ExpectedException(typeof(WebException))]
         public void FtpBadHost()
         {
             new Cdn(
-                "Data Source=localhost;Initial Catalog=CdnLinkTest;uid=CdnLinkTestUsr;pwd=password",
-                "123",
-                "123",
+                Settings.GetConnetionString(),
+                "0",
+                "0",
                 new FtpBox("ftp://ftp.example.com", "/", "example", "example")).Receive();
         }
 
         [Test]
         public void Receive()
         {
-            var connectionString = "Data Source=localhost;Initial Catalog=CdnLinkTest;uid=CdnLinkTestUsr;pwd=password";
+            var connectionString = Settings.GetConnetionString();
             var ftp = GetFtpBox(true);
             var fileNames = new List<string>(ftp.GetFileList());
             var cdn = new Cdn(connectionString,"0","0",ftp);
@@ -59,7 +114,7 @@ namespace CdnLink.Tests
             Assert.AreEqual(0, cdn.Receive());
 
             var db = new CdnLinkDataContext(connectionString);
-
+            
             foreach (var filename in fileNames)
             {
                 var ftpFile = db.CdnReceivedFtpFiles.Where(f => f.Filename.Contains(filename)).Single();
@@ -80,7 +135,6 @@ namespace CdnLink.Tests
                 Assert.Greater(vehicles.Count(), 0);
             }
         }
-
         
         public ICdnFtpBox GetFtpBox(bool hasFiles)
         {

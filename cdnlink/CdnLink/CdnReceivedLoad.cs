@@ -72,68 +72,13 @@ namespace CdnLink
 
             // Documents
             if (job.Documents != null)
-            {
                 foreach (var document in job.Documents)
-                    CdnReceivedDocuments.Add(new CdnReceivedDocument
-                    {
-                        CdnId = job.Id,
-                        Comment = document.Comment,
-                        Title = document.Title,
-                        Url = document.Url
-                    });
-            }
+                    CdnReceivedDocuments.Add(new CdnReceivedDocument(document) { CdnId = job.Id });
 
             // Vehicles
             if (job.Vehicles != null)
                 foreach (var vehicle in job.Vehicles)
-                {
-                    var receivedVehicle = new CdnReceivedVehicle
-                    {
-                        CdnId = job.Id,
-                        VehicleId = vehicle.Id,
-                        Location = vehicle.Location,
-                        Make = vehicle.Make,
-                        Model = vehicle.Model,
-                        MovementNumber = vehicle.MovementNumber,
-                        Notes = vehicle.Notes,
-                        Registration = vehicle.Registration,
-                        Variant = vehicle.Variant,
-                        Vin = vehicle.Vin
-                    };
-
-                    // Damage
-                    if (vehicle.DamageAtPickup != null)
-                        foreach (var damage in vehicle.DamageAtPickup)
-                            receivedVehicle.CdnReceivedDamages.Add(new CdnReceivedDamage
-                            {
-                                VehicleId = vehicle.Id,
-                                DamageId = damage.Id,
-                                AreaCode = damage.Area.Code,
-                                AreaDescription = damage.Area.Description,
-                                DamageAt = "Pickup",
-                                SeverityCode = damage.Severity.Code,
-                                SeverityDescription = damage.Severity.Description,
-                                TypeCode = damage.Type.Code,
-                                TypeDescription = damage.Type.Description,
-                            });
-
-                    if (vehicle.DamageAtDropoff != null)
-                        foreach (var damage in vehicle.DamageAtDropoff)
-                            receivedVehicle.CdnReceivedDamages.Add(new CdnReceivedDamage
-                            {
-                                VehicleId = vehicle.Id,
-                                DamageId = damage.Id,
-                                AreaCode = damage.Area.Code,
-                                AreaDescription = damage.Area.Description,
-                                DamageAt = "Dropoff",
-                                SeverityCode = damage.Severity.Code,
-                                SeverityDescription = damage.Severity.Description,
-                                TypeCode = damage.Type.Code,
-                                TypeDescription = damage.Type.Description,
-                            });
-
-                    CdnReceivedVehicles.Add(receivedVehicle);
-                }
+                    CdnReceivedVehicles.Add(new CdnReceivedVehicle(vehicle) { CdnId = job.Id });
         }
     }
 }

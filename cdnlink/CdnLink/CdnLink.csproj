@@ -58,7 +58,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CdnLink.dbml</DependentUpon>
     </Compile>
+    <Compile Include="CdnReceivedDamage.cs" />
+    <Compile Include="CdnReceivedDocument.cs" />
     <Compile Include="CdnReceivedLoad.cs" />
+    <Compile Include="CdnReceivedVehicle.cs" />
     <Compile Include="CdnReceives.cs" />
     <Compile Include="CdnSendLoad.cs" />
     <Compile Include="CdnSend.cs" />
