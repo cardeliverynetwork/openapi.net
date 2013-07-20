@@ -62,7 +62,7 @@
     <Compile Include="CdnReceivedDocument.cs" />
     <Compile Include="CdnReceivedLoad.cs" />
     <Compile Include="CdnReceivedVehicle.cs" />
-    <Compile Include="CdnReceives.cs" />
+    <Compile Include="CdnReceive.cs" />
     <Compile Include="CdnSendLoad.cs" />
     <Compile Include="CdnSend.cs" />
     <Compile Include="FtpBox.cs" />

@@ -9,54 +9,50 @@ namespace CdnLink
 {
     class Program
     {
-        // Global application name for single instance mutex
         const string AppName = "Global\\CdnLink";
-
-        private static readonly ILog _log = LogManager.GetLogger(typeof(Program));
+        static readonly ILog _log = LogManager.GetLogger(typeof(Program));
 
         public static void Main(string[] args)
         {
             try
             {
                 using (var mutex = new Mutex(false, AppName))
-                {
-                    if (!mutex.WaitOne(0, false))
+                    if (mutex.WaitOne(0, false))
                     {
-                        _log.Info("Another instance of the program was already running.");
-                        return;
-                    }
+                        var hasArg = args != null && args.Length > 0 && !string.IsNullOrWhiteSpace(args[0]);
+                        var arg = hasArg ? args[0].ToLower() : null;
+                        var cdn = new Cdn(
+                            Helpers.GetSetting("CDNLINK_CONNECTIONSTRING"),
+                            Helpers.GetSetting("CDNLINK_API_KEY"),
+                            Helpers.GetSetting("CDNLINK_API_URL"),
+                            new FtpBox(
+                                Helpers.GetSetting("CDNLINK_FTP_HOST"),
+                                Helpers.GetSetting("CDNLINK_FTP_ROOT"),
+                                Helpers.GetSetting("CDNLINK_FTP_USER"),
+                                Helpers.GetSetting("CDNLINK_FTP_PASS")));
 
-                    var hasArg = args != null && args.Length > 0 && !string.IsNullOrWhiteSpace(args[0]);
-                    var arg = hasArg ? args[0].ToLower() : null;
-
-                    var cdn = new Cdn(
-                        Helpers.GetSetting("CDNLINK_CONNECTIONSTRING"),
-                        Helpers.GetSetting("CDNLINK_API_KEY"),
-                        Helpers.GetSetting("CDNLINK_API_URL"),
-                        new FtpBox(
-                            Helpers.GetSetting("CDNLINK_FTP_HOST"),
-                            Helpers.GetSetting("CDNLINK_FTP_ROOT"),
-                            Helpers.GetSetting("CDNLINK_FTP_USER"),
-                            Helpers.GetSetting("CDNLINK_FTP_PASS")));
-
-                    if (!hasArg)
-                    {
-                        while (cdn.Send() > 0) ;
-                        while (cdn.Receive() > 0) ;
-                    }
-                    else if (hasArg && arg.Contains("send"))
-                    {
-                        while (cdn.Send() > 0) ;
-                    }
-                    else if (hasArg && arg.Contains("receive"))
-                    {
-                        while (cdn.Receive() > 0) ;
+                        if (!hasArg)
+                        {
+                            while (cdn.Send() > 0) ;
+                            while (cdn.Receive() > 0) ;
+                        }
+                        else if (hasArg && arg.Contains("send"))
+                        {
+                            while (cdn.Send() > 0) ;
+                        }
+                        else if (hasArg && arg.Contains("receive"))
+                        {
+                            while (cdn.Receive() > 0) ;
+                        }
+                        else
+                        {
+                            PrintUsage();
+                        }
                     }
                     else
                     {
-                        PrintUsage();
-                    }   
-                }
+                        _log.Info("Another instance of the program was already running.");
+                    }
             }
             catch (HttpResourceFaultException ex)
             {

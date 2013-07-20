@@ -16,9 +16,9 @@ namespace CdnLink
         public ICdnFtpBox FtpBox { get; private set; }
 
         public Cdn(
-            string connectionString, 
-            string apiUrl, 
-            string apiKey, 
+            string connectionString,
+            string apiUrl,
+            string apiKey,
             ICdnFtpBox ftpBox)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
@@ -40,9 +40,8 @@ namespace CdnLink
         {
             var api = new OpenApi(ApiUrl, ApiKey);
             var db = new CdnLinkDataContext(ConnectionString);
-
             var sends = from send in db.CdnSends
-                        where send.Status == (int)CdnSend.SendStatus.Queued 
+                        where send.Status == (int)CdnSend.SendStatus.Queued
                         select send;
 
             var sendCount = sends != null ? sends.Count() : 0;
@@ -98,25 +97,34 @@ namespace CdnLink
                 foreach (var file in files.ToArray())
                 {
                     // If we haven't already processed this file
-                    if (db.CdnReceivedFtpFiles.Where(f => f.Filename.Contains(file)).Count() == 0)
+                    var seenFile = db.CdnReceivedFtpFiles.Where(f => f.Filename.Contains(file)).Count() > 0;
+                    if (!seenFile)
                     {
                         var receivedFile = new CdnReceivedFtpFile();
                         receivedFile.Filename = file;
                         receivedFile.JsonMessage = FtpBox.GetFileContents(file);
-                        
-                        receivedFile.CdnReceive = new CdnReceive
-                        {
-                            FetchedDate = DateTime.Now,
-                            Status = (int)CdnReceives.ReceiveStatus.Processing,
-                        };
+
+                        var receive = new CdnReceive();
+                        receive.FetchedDate = DateTime.Now;
+                        receive.Status = (int)CdnReceive.ReceiveStatus.Processing;
+
+                        receivedFile.CdnReceive = receive;
 
                         db.CdnReceivedFtpFiles.InsertOnSubmit(receivedFile);
                         db.SubmitChanges();
 
-                        receivedFile.CdnReceivedLoad = new CdnReceivedLoad(Job.FromString(receivedFile.JsonMessage));
-                        receivedFile.CdnReceive.Status = (int)CdnReceives.ReceiveStatus.Queued;
-                        
-                        db.SubmitChanges();
+                        try
+                        {
+                            receivedFile.CdnReceivedLoad = new CdnReceivedLoad(Job.FromString(receivedFile.JsonMessage));
+                            receive.Status = (int)CdnReceive.ReceiveStatus.Queued;
+                            db.SubmitChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            receive.SetAsError(ex.Message);
+                            db.SubmitChanges();
+                            throw;
+                        }
                     }
 
                     // Delete file from FTP server

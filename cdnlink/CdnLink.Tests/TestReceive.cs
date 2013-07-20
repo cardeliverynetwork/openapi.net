@@ -123,7 +123,7 @@ namespace CdnLink.Tests
 
                 var receive = ftpFile.CdnReceive;
                 Assert.IsNotNull(receive);
-                Assert.AreEqual((int)CdnReceives.ReceiveStatus.Queued, receive.Status);
+                Assert.AreEqual((int)CdnReceive.ReceiveStatus.Queued, receive.Status);
                 Assert.AreEqual(DateTime.Today, receive.FetchedDate.Date);
 
                 var load = ftpFile.CdnReceivedLoad;
