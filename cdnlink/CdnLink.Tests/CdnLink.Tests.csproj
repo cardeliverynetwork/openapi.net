@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestSend.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="TestReceive.cs" />
