@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CarDeliveryNetwork.Types;
-
 
 namespace CarDeliveryNetwork.Types.Interfaces
 {

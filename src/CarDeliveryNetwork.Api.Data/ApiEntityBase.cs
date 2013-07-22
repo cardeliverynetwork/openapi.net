@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CarDeliveryNetwork.Types;
+﻿using CarDeliveryNetwork.Types;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -23,13 +22,6 @@ namespace CarDeliveryNetwork.Api.Data
         public static bool IsUnitTesting { get; set; }
 
         /// <summary>
-        /// ApiEntityBase default constructor
-        /// </summary>
-        public ApiEntityBase()
-        {
-        }
-
-        /// <summary>
         /// Returns a new instance of T
         /// </summary>
         /// <returns>A new instance of T</returns>
@@ -44,7 +36,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>The serialized object.</returns>
         public override string ToString()
         {
-            return this.ToString(MessageFormat.Json);
+            return ToString(MessageFormat.Json);
         }
 
         /// <summary>

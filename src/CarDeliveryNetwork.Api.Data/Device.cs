@@ -7,7 +7,7 @@ namespace CarDeliveryNetwork.Api.Data
     /// <summary>
     /// A Car Delivery Device entity.
     /// </summary>
-    public class Device : ApiEntityBase<Device>, IApiEntity
+    public class Device : ApiEntityBase<Device>
     {
         /// <summary>
         /// Name
@@ -61,13 +61,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network Device entities.
     /// </summary>
     [CollectionDataContract]
-    public class Devices : ApiEntityCollectionBase<Device, Devices>, IApiEntity
+    public class Devices : ApiEntityCollectionBase<Device, Devices>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Devices"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public Devices() : base() { }
+        public Devices() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Devices"/> class

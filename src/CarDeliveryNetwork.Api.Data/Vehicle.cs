@@ -84,13 +84,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network Vehicle Vehicle entities.
     /// </summary>
     [CollectionDataContract]
-    public class Vehicles : ApiEntityCollectionBase<Vehicle, Vehicles>, IApiEntity
+    public class Vehicles : ApiEntityCollectionBase<Vehicle, Vehicles>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Vehicles"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public Vehicles() : base() { }
+        public Vehicles() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Vehicles"/> class
@@ -104,7 +104,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="Vehicles">The collection of Vehicles whose elements are copied to the new collection.</param>
-        public Vehicles(IEnumerable<Vehicle> Vehicles) : base(Vehicles) { }
+        /// <param name="vehicles">The collection of Vehicles whose elements are copied to the new collection.</param>
+        public Vehicles(IEnumerable<Vehicle> vehicles) : base(vehicles) { }
     }
 }

@@ -8,13 +8,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network <see cref="CarDeliveryNetwork.Api.Data.Job"/> entities.
     /// </summary>
     [CollectionDataContract]
-    public class ApiEntityCollectionBase<T, C> : List<T>, IApiEntity
+    public class ApiEntityCollectionBase<T, TC> : List<T>, IApiEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.ApiEntityCollectionBase&lt;T, C&gt;"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public ApiEntityCollectionBase() : base() { }
+        public ApiEntityCollectionBase() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.ApiEntityCollectionBase&lt;T, C&gt;"/> class
@@ -37,7 +37,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>The serialized object.</returns>
         public override string ToString()
         {
-            return this.ToString(MessageFormat.Json);
+            return ToString(MessageFormat.Json);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         /// <param name="serializedObject">The JSON serialized object.</param>
         /// <returns>The deserialized object.</returns>
-        public static C FromString(string serializedObject)
+        public static TC FromString(string serializedObject)
         {
             return FromString(serializedObject, MessageFormat.Json);
         }
@@ -66,9 +66,9 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="serializedObject">The serialized object.</param>
         /// <param name="format">The format of the serialized object.</param>
         /// <returns>The deserialized object.</returns>
-        public static C FromString(string serializedObject, MessageFormat format)
+        public static TC FromString(string serializedObject, MessageFormat format)
         {
-            return Serialization.Deserialise<C>(serializedObject, format);
+            return Serialization.Deserialise<TC>(serializedObject, format);
         }
     }
 }

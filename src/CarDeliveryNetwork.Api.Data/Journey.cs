@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using CarDeliveryNetwork.Types;
 
@@ -46,13 +45,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network Journey entities.
     /// </summary>
     [CollectionDataContract]
-    public class Journeys : ApiEntityCollectionBase<Journey, Journeys>, IApiEntity
+    public class Journeys : ApiEntityCollectionBase<Journey, Journeys>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Journeys"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public Journeys() : base() { }
+        public Journeys() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Journeys"/> class
@@ -66,7 +65,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="Journeys">The collection of Journeys whose elements are copied to the new collection.</param>
-        public Journeys(IEnumerable<Journey> Journeys) : base(Journeys) { }
+        /// <param name="journeys">The collection of Journeys whose elements are copied to the new collection.</param>
+        public Journeys(IEnumerable<Journey> journeys) : base(journeys) { }
     }
 }

@@ -31,7 +31,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>The serialized object.</returns>
         public override string ToString()
         {
-            return this.ToString(Types.MessageFormat.Json);
+            return ToString(MessageFormat.Json);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         /// <param name="format">Format to serialize to.</param>
         /// <returns>The serialized object.</returns>
-        public string ToString(Types.MessageFormat format)
+        public string ToString(MessageFormat format)
         {
             return Serialization.Serialize(this, format);
         }
@@ -49,13 +49,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network JobHistoryItem entities.
     /// </summary>
     [CollectionDataContract]
-    public class JobStatusHistoryItems : ApiEntityCollectionBase<JobStatusHistoryItem, JobStatusHistoryItems>, IApiEntity
+    public class JobStatusHistoryItems : ApiEntityCollectionBase<JobStatusHistoryItem, JobStatusHistoryItems>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.JobStatusHistoryItems"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public JobStatusHistoryItems() : base() { }
+        public JobStatusHistoryItems() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.JobStatusHistoryItems"/> class
@@ -69,7 +69,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="JobHistoryItems">The collection of JobHistoryItems whose elements are copied to the new collection.</param>
-        public JobStatusHistoryItems(IEnumerable<JobStatusHistoryItem> JobHistoryItems) : base(JobHistoryItems) { }
+        /// <param name="jobHistoryItems">The collection of JobHistoryItems whose elements are copied to the new collection.</param>
+        public JobStatusHistoryItems(IEnumerable<JobStatusHistoryItem> jobHistoryItems) : base(jobHistoryItems) { }
     }
 }

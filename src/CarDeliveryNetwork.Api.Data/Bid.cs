@@ -134,13 +134,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network Bid entities.
     /// </summary>
     [CollectionDataContract]
-    public class Bids : ApiEntityCollectionBase<Bid, Bids>, IApiEntity
+    public class Bids : ApiEntityCollectionBase<Bid, Bids>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Bids"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public Bids() : base() { }
+        public Bids() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Bids"/> class
@@ -154,7 +154,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="Bids">The collection of Bids whose elements are copied to the new collection.</param>
-        public Bids(IEnumerable<Bid> Bids) : base(Bids) { }
+        /// <param name="bids">The collection of Bids whose elements are copied to the new collection.</param>
+        public Bids(IEnumerable<Bid> bids) : base(bids) { }
     }
 }

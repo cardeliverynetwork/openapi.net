@@ -4,7 +4,7 @@ namespace CarDeliveryNetwork.Types
     /// <summary>
     /// Enum for a fleet's menu profile within Car Delivery Network.
     /// </summary>
-    public enum FleetMenuProfile : int
+    public enum FleetMenuProfile
     {
         /// <summary>
         /// The Standard menu profile.
@@ -19,6 +19,6 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// A Profile for General Motors.
         /// </summary>
-        GM
+        Gm
     }
 }

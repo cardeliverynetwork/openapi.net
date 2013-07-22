@@ -90,13 +90,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network User entities.
     /// </summary>
     [CollectionDataContract]
-    public class Users : ApiEntityCollectionBase<User, Users>, IApiEntity
+    public class Users : ApiEntityCollectionBase<User, Users>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Users"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public Users() : base() { }
+        public Users() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Users"/> class

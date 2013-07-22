@@ -34,13 +34,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network WebHookSubscription entities.
     /// </summary>
     [CollectionDataContract]
-    public class WebHookSubscriptions : ApiEntityCollectionBase<WebHookSubscription, WebHookSubscriptions>, IApiEntity
+    public class WebHookSubscriptions : ApiEntityCollectionBase<WebHookSubscription, WebHookSubscriptions>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.WebHookSubscriptions"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public WebHookSubscriptions() : base() { }
+        public WebHookSubscriptions() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.WebHookSubscriptions"/> class
@@ -54,7 +54,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="WebHookSubscriptions">The collection of WebHookSubscriptions whose elements are copied to the new collection.</param>
-        public WebHookSubscriptions(IEnumerable<WebHookSubscription> WebHookSubscriptions) : base(WebHookSubscriptions) { }
+        /// <param name="webHookSubscriptions">The collection of WebHookSubscriptions whose elements are copied to the new collection.</param>
+        public WebHookSubscriptions(IEnumerable<WebHookSubscription> webHookSubscriptions) : base(webHookSubscriptions) { }
     }
 }

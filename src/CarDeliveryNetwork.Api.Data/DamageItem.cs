@@ -29,7 +29,7 @@ namespace CarDeliveryNetwork.Api.Data
             /// <returns>The serialized object.</returns>
             public override string ToString()
             {
-                return this.ToString(Types.MessageFormat.Json);
+                return ToString(Types.MessageFormat.Json);
             }
 
             /// <summary>
@@ -61,30 +61,30 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// Damage Area
         /// </summary>
-        public virtual DamageItem.DamageArea Area { get; set; }
+        public virtual DamageArea Area { get; set; }
 
         /// <summary>
         /// Damage Type
         /// </summary>
-        public virtual DamageItem.DamageType Type { get; set; }
+        public virtual DamageType Type { get; set; }
 
         /// <summary>
         /// Damage Severity
         /// </summary>
-        public virtual DamageItem.DamageSeverity Severity { get; set; }  
+        public virtual DamageSeverity Severity { get; set; }  
     }
 
     /// <summary>
     /// A collection of Car Delivery Network DamageItem entities.
     /// </summary>
     [CollectionDataContract]
-    public class DamageItems : ApiEntityCollectionBase<DamageItem, DamageItems>, IApiEntity
+    public class DamageItems : ApiEntityCollectionBase<DamageItem, DamageItems>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.DamageItems"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public DamageItems() : base() { }
+        public DamageItems() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.DamageItems"/> class
@@ -98,7 +98,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="DamageItems">The collection of DamageItems whose elements are copied to the new collection.</param>
-        public DamageItems(IEnumerable<DamageItem> DamageItems) : base(DamageItems) { }
+        /// <param name="damageItems">The collection of DamageItems whose elements are copied to the new collection.</param>
+        public DamageItems(IEnumerable<DamageItem> damageItems) : base(damageItems) { }
     }
 }

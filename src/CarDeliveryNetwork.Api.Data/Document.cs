@@ -29,7 +29,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>The serialized object.</returns>
         public override string ToString()
         {
-            return this.ToString(Types.MessageFormat.Json);
+            return ToString(Types.MessageFormat.Json);
         }
 
         /// <summary>
@@ -47,13 +47,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network Document entities.
     /// </summary>
     [CollectionDataContract]
-    public class Documents : ApiEntityCollectionBase<Document, Documents>, IApiEntity
+    public class Documents : ApiEntityCollectionBase<Document, Documents>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Documents"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public Documents() : base() { }
+        public Documents() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Documents"/> class
@@ -67,7 +67,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="Documents">The collection of Documents whose elements are copied to the new collection.</param>
-        public Documents(IEnumerable<Document> Documents) : base(Documents) { }
+        /// <param name="documents">The collection of Documents whose elements are copied to the new collection.</param>
+        public Documents(IEnumerable<Document> documents) : base(documents) { }
     }
 }

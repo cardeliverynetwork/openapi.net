@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -26,13 +23,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network Alert entities.
     /// </summary>
     [CollectionDataContract]
-    public class Alerts : ApiEntityCollectionBase<Alert, Alerts>, IApiEntity
+    public class Alerts : ApiEntityCollectionBase<Alert, Alerts>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Alerts"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public Alerts() : base() { }
+        public Alerts() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Alerts"/> class
@@ -46,7 +43,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="Alerts">The collection of Alerts whose elements are copied to the new collection.</param>
-        public Alerts(IEnumerable<Alert> Alerts) : base(Alerts) { }
+        /// <param name="alerts">The collection of Alerts whose elements are copied to the new collection.</param>
+        public Alerts(IEnumerable<Alert> alerts) : base(alerts) { }
     }
 }

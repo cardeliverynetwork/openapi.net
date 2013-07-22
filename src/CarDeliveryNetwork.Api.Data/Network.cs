@@ -18,13 +18,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network Network entities.
     /// </summary>
     [CollectionDataContract]
-    public class Networks : ApiEntityCollectionBase<Network, Networks>, IApiEntity
+    public class Networks : ApiEntityCollectionBase<Network, Networks>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Networks"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public Networks() : base() { }
+        public Networks() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Networks"/> class

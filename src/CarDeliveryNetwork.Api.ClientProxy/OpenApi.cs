@@ -12,7 +12,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
     /// </summary>
     public class OpenApi
     {
-        private MessageFormat _interfaceFormat;
+        private readonly MessageFormat _interfaceFormat;
 
         /// <summary>
         /// The Url of the target CDN API.
@@ -93,9 +93,9 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// </summary>
         /// <param name="job">The job to create.</param>
         /// <returns>The successfully created job.</returns>
-        public Job CreateJob(CarDeliveryNetwork.Api.Data.Job job)
+        public Job CreateJob(Job job)
         {
-            var createdJobs = CreateJobs(new Jobs() { job });
+            var createdJobs = CreateJobs(new Jobs { job });
             return createdJobs != null && createdJobs.Count > 0
                 ? createdJobs[0]
                 : null;
@@ -106,7 +106,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// </summary>
         /// <param name="jobs">The collection of jobs to create.</param>
         /// <returns>A collection of the successfully created jobs.</returns>
-        public Jobs CreateJobs(CarDeliveryNetwork.Api.Data.Jobs jobs)
+        public Jobs CreateJobs(Jobs jobs)
         {
             if (jobs == null || jobs.Count == 0)
                 throw new ArgumentException("Jobs collection was null or empty");
@@ -149,7 +149,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         public Vehicles GetJobVehicles(int jobId)
         {
             var resource = string.Format("Jobs/{0}/Vehicles", jobId);
-            return Vehicles.FromString(Call(resource, "GET", false), _interfaceFormat);
+            return Vehicles.FromString(Call(resource, "GET"), _interfaceFormat);
         }
 
         /// <summary>
@@ -172,20 +172,20 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         {
             if (id == 0)
                 throw new Exception("Id must be greater than zero");
-            PerformJobAction(id, new CarDeliveryNetwork.Api.Data.Action { Name = "cancel", Note = reason });
+            PerformJobAction(id, new Data.Action { Name = "cancel", Note = reason });
         }
 
-        private void PerformJobAction(int id, CarDeliveryNetwork.Api.Data.Action action)
+        private void PerformJobAction(int id, Data.Action action)
         {
             PerformAction("Jobs", id, action);
         }
 
-        private void PerformJourneyAction(int id, CarDeliveryNetwork.Api.Data.Action action)
+        private void PerformJourneyAction(int id, Data.Action action)
         {
             PerformAction("Journeys", id, action);
         }
 
-        private void PerformAction(string resourceName, int id, CarDeliveryNetwork.Api.Data.Action action)
+        private void PerformAction(string resourceName, int id, Data.Action action)
         {
             if (action == null)
                 throw new ArgumentException("Action cannot be null");
@@ -238,8 +238,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
                 var response = ex.Response as HttpWebResponse;
                 if (response != null)
                     throw new HttpResourceFaultException(response.StatusCode, response.StatusDescription, ex);
-                else
-                    throw;
+                throw;
             }
         }
     }

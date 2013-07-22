@@ -27,7 +27,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>The serialized object.</returns>
         public override string ToString()
         {
-            return this.ToString(Types.MessageFormat.Json);
+            return ToString(Types.MessageFormat.Json);
         }
 
         /// <summary>

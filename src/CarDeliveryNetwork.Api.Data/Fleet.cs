@@ -23,13 +23,13 @@ namespace CarDeliveryNetwork.Api.Data
     /// A collection of Car Delivery Network Fleet entities.
     /// </summary>
     [CollectionDataContract]
-    public class Fleets : ApiEntityCollectionBase<Fleet, Fleets>, IApiEntity
+    public class Fleets : ApiEntityCollectionBase<Fleet, Fleets>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Fleets"/> class
         /// that is empty and has the default initial capacity.
         /// </summary>
-        public Fleets() : base() { }
+        public Fleets() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Fleets"/> class
