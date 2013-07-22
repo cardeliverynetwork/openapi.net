@@ -10,7 +10,7 @@ namespace CdnLink
     class Program
     {
         const string AppName = "Global\\CdnLink";
-        static readonly ILog _log = LogManager.GetLogger(typeof(Program));
+        static readonly ILog Log = LogManager.GetLogger(typeof(Program));
 
         public static void Main(string[] args)
         {
@@ -33,16 +33,16 @@ namespace CdnLink
 
                         if (!hasArg)
                         {
-                            while (cdn.Send() > 0) ;
-                            while (cdn.Receive() > 0) ;
+                            while (cdn.Send() > 0) { }
+                            while (cdn.Receive() > 0) { }
                         }
-                        else if (hasArg && arg.Contains("send"))
+                        else if (arg.Contains("send"))
                         {
-                            while (cdn.Send() > 0) ;
+                            while (cdn.Send() > 0) { }
                         }
-                        else if (hasArg && arg.Contains("receive"))
+                        else if (arg.Contains("receive"))
                         {
-                            while (cdn.Receive() > 0) ;
+                            while (cdn.Receive() > 0) { }
                         }
                         else
                         {
@@ -51,17 +51,17 @@ namespace CdnLink
                     }
                     else
                     {
-                        _log.Info("Another instance of the program was already running.");
+                        Log.Info("Another instance of the program was already running.");
                     }
             }
             catch (HttpResourceFaultException ex)
             {
-                _log.ErrorFormat("HttpResourceFaultException: StatusCode: {0} Message: {1}", ex.StatusCode, ex.Message);
+                Log.ErrorFormat("HttpResourceFaultException: StatusCode: {0} Message: {1}", ex.StatusCode, ex.Message);
                 throw;
             }
             catch (Exception ex)
             {
-                _log.Error(ex.Message, ex);
+                Log.Error(ex.Message, ex);
                 throw;
             }
         }

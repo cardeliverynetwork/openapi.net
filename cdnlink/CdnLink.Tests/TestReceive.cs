@@ -117,7 +117,7 @@ namespace CdnLink.Tests
             
             foreach (var filename in fileNames)
             {
-                var ftpFile = db.CdnReceivedFtpFiles.Where(f => f.Filename.Contains(filename)).Single();
+                var ftpFile = db.CdnReceivedFtpFiles.Single(f => f.Filename.Contains(filename));
                 Assert.IsNotNull(ftpFile);
                 Assert.AreEqual(ftp.GetFileContents(filename), ftpFile.JsonMessage);
 
@@ -142,7 +142,7 @@ namespace CdnLink.Tests
                 ? Directory.GetFiles("FtpFiles").ToList()
                 : new List<string>();
 
-            var files = testFiles.ToDictionary(f => Guid.NewGuid().ToString(), f => File.ReadAllText(f));
+            var files = testFiles.ToDictionary(f => Guid.NewGuid().ToString(), File.ReadAllText);
             var fileNames = files.Select(f => f.Key).ToList();
 
             var mock = new Mock<ICdnFtpBox>();

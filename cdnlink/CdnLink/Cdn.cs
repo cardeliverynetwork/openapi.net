@@ -8,7 +8,7 @@ namespace CdnLink
 {
     public class Cdn
     {
-        private static readonly ILog _log = LogManager.GetLogger(typeof(Cdn));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Cdn));
 
         public string ConnectionString { get; private set; }
         public string ApiUrl { get; private set; }
@@ -44,10 +44,10 @@ namespace CdnLink
                         where send.Status == (int)CdnSend.SendStatus.Queued
                         select send;
 
-            var sendCount = sends != null ? sends.Count() : 0;
+            var sendCount = sends.Count();
             if (sendCount > 0)
             {
-                _log.InfoFormat("Send: Processing {0} records(s).", sendCount);
+                Log.InfoFormat("Send: Processing {0} records(s).", sendCount);
 
                 foreach (var send in sends)
                     try
@@ -79,7 +79,7 @@ namespace CdnLink
                     }
             }
             else
-                _log.Info("Send: Nothing to do.");
+                Log.Info("Send: Nothing to do.");
 
             return sendCount;
         }
@@ -87,26 +87,29 @@ namespace CdnLink
         public int Receive()
         {
             var files = FtpBox.GetFileList();
-            var fileCount = files != null ? files.Count : 0;
-            if (fileCount > 0)
+            if (files != null && files.Count > 0)
             {
-                _log.InfoFormat("Receive: Processing {0} file(s).", fileCount);
+                Log.InfoFormat("Receive: Processing {0} file(s).", files.Count);
 
                 var db = new CdnLinkDataContext(ConnectionString);
 
                 foreach (var file in files.ToArray())
                 {
                     // If we haven't already processed this file
-                    var seenFile = db.CdnReceivedFtpFiles.Where(f => f.Filename.Contains(file)).Count() > 0;
+                    var seenFile = db.CdnReceivedFtpFiles.Count(f => f.Filename.Contains(file)) > 0;
                     if (!seenFile)
                     {
-                        var receivedFile = new CdnReceivedFtpFile();
-                        receivedFile.Filename = file;
-                        receivedFile.JsonMessage = FtpBox.GetFileContents(file);
+                        var receivedFile = new CdnReceivedFtpFile
+                        {
+                            Filename = file,
+                            JsonMessage = FtpBox.GetFileContents(file)
+                        };
 
-                        var receive = new CdnReceive();
-                        receive.FetchedDate = DateTime.Now;
-                        receive.Status = (int)CdnReceive.ReceiveStatus.Processing;
+                        var receive = new CdnReceive
+                        {
+                            FetchedDate = DateTime.Now,
+                            Status = (int) CdnReceive.ReceiveStatus.Processing
+                        };
 
                         receivedFile.CdnReceive = receive;
 
@@ -132,9 +135,9 @@ namespace CdnLink
                 }
             }
             else
-                _log.Info("Receive: Nothing to do.");
+                Log.Info("Receive: Nothing to do.");
 
-            return fileCount;
+            return files == null ? 0 : files.Count;
         }
     }
 }

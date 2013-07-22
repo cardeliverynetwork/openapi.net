@@ -94,12 +94,12 @@ namespace CdnLink
         public void DeleteFile(string filename)
         {
             var request = GetFtpRequest(WebRequestMethods.Ftp.DeleteFile, filename);
-            using (request.GetResponse()) { };
+            using (request.GetResponse()) { }
         }
 
         private FtpWebRequest GetFtpRequest(string method, string filename = null)
         {
-            var request = (FtpWebRequest)WebRequest.Create(FullPath + filename ?? "");
+            var request = (FtpWebRequest)WebRequest.Create(FullPath + filename);
             request.Method = method;
             request.Credentials = new NetworkCredential(User, Pass);
             return request;

@@ -1,5 +1,4 @@
-﻿using System.Data.SqlClient;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace CdnLink.Tests
 {
@@ -23,7 +22,7 @@ namespace CdnLink.Tests
         [Test]
         public void Send()
         {
- 
+
         }
     }
 }

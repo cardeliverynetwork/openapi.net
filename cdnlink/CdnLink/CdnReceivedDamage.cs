@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CarDeliveryNetwork.Api.Data;
+﻿using CarDeliveryNetwork.Api.Data;
 
 namespace CdnLink
 {
