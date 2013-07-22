@@ -22,7 +22,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="statusCode">The status code.</param>
         /// <param name="message">The message.</param>
         /// <param name="innerException">The inner exception.</param>
-        public HttpResourceFaultException(HttpStatusCode statusCode, string message, Exception innerException = null)
+        public HttpResourceFaultException(HttpStatusCode statusCode, string message = null, Exception innerException = null)
             : base(message, innerException)
         {
             StatusCode = statusCode;
