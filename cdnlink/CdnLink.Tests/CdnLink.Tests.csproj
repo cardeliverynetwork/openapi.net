@@ -60,6 +60,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\CarDeliveryNetwork.Api.ClientProxy\CarDeliveryNetwork.Api.ClientProxy.csproj">
+      <Project>{D74A0127-0E1D-4057-B156-BE0E1EAC0F68}</Project>
+      <Name>CarDeliveryNetwork.Api.ClientProxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\CarDeliveryNetwork.Api.Data\CarDeliveryNetwork.Api.Data.csproj">
+      <Project>{64a29309-7dd4-426d-a677-8d8a2c0a351d}</Project>
+      <Name>CarDeliveryNetwork.Api.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\CarDeliveryNetwork.Types\CarDeliveryNetwork.Types.csproj">
+      <Project>{DF771B50-D3D9-4BE7-896D-467CFB9920DB}</Project>
+      <Name>CarDeliveryNetwork.Types</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CdnLink\CdnLink.csproj">
       <Project>{f20a8fe8-0cce-4e04-a080-bacfd11af0f2}</Project>
       <Name>CdnLink</Name>

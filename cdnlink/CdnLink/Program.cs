@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading;
+using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
 using log4net;
 
@@ -21,10 +22,11 @@ namespace CdnLink
                     {
                         var hasArg = args != null && args.Length > 0 && !string.IsNullOrWhiteSpace(args[0]);
                         var arg = hasArg ? args[0].ToLower() : null;
-                        var cdn = new Cdn(
+                        var cdn = new CdnLink(
                             Helpers.GetSetting("CDNLINK_CONNECTIONSTRING"),
-                            Helpers.GetSetting("CDNLINK_API_KEY"),
-                            Helpers.GetSetting("CDNLINK_API_URL"),
+                            new OpenApi(
+                                Helpers.GetSetting("CDNLINK_API_URL"),
+                                Helpers.GetSetting("CDNLINK_API_KEY")),
                             new FtpBox(
                                 Helpers.GetSetting("CDNLINK_FTP_HOST"),
                                 Helpers.GetSetting("CDNLINK_FTP_ROOT"),

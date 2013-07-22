@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using CarDeliveryNetwork.Api.ClientProxy;
+using CarDeliveryNetwork.Api.Data;
+using Moq;
+using NUnit.Framework;
 
 namespace CdnLink.Tests
 {
@@ -8,7 +11,7 @@ namespace CdnLink.Tests
         [TestFixtureSetUp]
         public void Init()
         {
-            var db = new CdnLinkDataContext(Settings.GetConnetionString());
+            var db = new CdnLinkDataContext(Settings.GetConnectionString());
             db.CdnSendVehicles.DeleteAllOnSubmit(db.CdnSendVehicles);
             db.SubmitChanges();
 
@@ -22,7 +25,18 @@ namespace CdnLink.Tests
         [Test]
         public void Send()
         {
+            var link = new CdnLink(Settings.GetConnectionString(), GetMockApi(), null);
+            link.Send();
+        }
 
+        private ICdnApi GetMockApi()
+        {
+            var mock = new Mock<ICdnApi>();
+
+            mock.Setup(s => s.CreateJob(It.IsAny<Job>()))
+                .Returns((Job j) => j);
+
+            return mock.Object;
         }
     }
 }

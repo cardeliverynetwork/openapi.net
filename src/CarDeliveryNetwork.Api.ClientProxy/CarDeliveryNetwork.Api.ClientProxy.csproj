@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICdnApi.cs" />
     <Compile Include="NamespaceDoc.cs" />
     <Compile Include="OpenApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

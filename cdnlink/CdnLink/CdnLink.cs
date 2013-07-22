@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
@@ -7,39 +6,29 @@ using log4net;
 
 namespace CdnLink
 {
-    public class Cdn
+    public class CdnLink
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(Cdn));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(CdnLink));
 
         public string ConnectionString { get; private set; }
-        public string ApiUrl { get; private set; }
-        public string ApiKey { get; private set; }
+        public ICdnApi Api { get; private set; }
         public ICdnFtpBox FtpBox { get; private set; }
 
-        public Cdn(
+        public CdnLink(
             string connectionString,
-            string apiUrl,
-            string apiKey,
+            ICdnApi api,
             ICdnFtpBox ftpBox)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentException("connectionString string cannot be null or empty");
-            if (string.IsNullOrWhiteSpace(apiUrl))
-                throw new ArgumentException("apiUrl string cannot be null or empty");
-            if (string.IsNullOrWhiteSpace(apiKey))
-                throw new ArgumentException("apiKey string cannot be null or empty");
-            if (ftpBox == null)
-                throw new ArgumentException("ftpBox cannot be null");
 
             ConnectionString = connectionString;
-            ApiUrl = apiUrl;
-            ApiKey = apiKey;
+            Api = api;
             FtpBox = ftpBox;
         }
 
         public int Send()
         {
-            var api = new OpenApi(ApiUrl, ApiKey);
             var db = new CdnLinkDataContext(ConnectionString);
             var sends = from send in db.CdnSends
                         where send.Status == (int)CdnSend.SendStatus.Queued
@@ -59,7 +48,7 @@ namespace CdnLink
                         db.SubmitChanges();
 
                         // Send to CDN
-                        api.CreateJob(send.CdnSendLoad.ToCdnJob());
+                        Api.CreateJob(send.CdnSendLoad.ToCdnJob());
 
                         // Set the send as sent
                         send.SentDate = DateTime.Now;

@@ -10,22 +10,41 @@ namespace CarDeliveryNetwork.Api.ClientProxy
     /// <summary>
     /// A wrapper class for the CDN OpenApi
     /// </summary>
-    public class OpenApi
+    public class OpenApi : ICdnApi
     {
-        private readonly string _uri;
-        private readonly string _apiKey;
         private readonly MessageFormat _interfaceFormat;
+
+        /// <summary>
+        /// Gets the URI.
+        /// </summary>
+        /// <value>
+        /// The URI.
+        /// </value>
+        public string Uri { get; private set; }
+
+        /// <summary>
+        /// Gets the API key.
+        /// </summary>
+        /// <value>
+        /// The API key.
+        /// </value>
+        public string ApiKey { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.ClientProxy.OpenApi"/> class.
         /// </summary>
         /// <param name="uri">The uri of the target service.</param>
         /// <param name="apiKey">Your API key.</param>
-        public OpenApi(string uri = null, string apiKey = null)
+        public OpenApi(string uri, string apiKey)
         {
-            _uri = uri;
-            _apiKey = apiKey;
+            if (string.IsNullOrWhiteSpace(uri))
+                throw new ArgumentException("uri string cannot be null or empty");
+            if (string.IsNullOrWhiteSpace(apiKey))
+                throw new ArgumentException("apiKey string cannot be null or empty");
+
             _interfaceFormat = MessageFormat.Json;
+            Uri = uri;
+            ApiKey = apiKey;
         }
 
         /// <summary>
@@ -81,7 +100,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
-        /// Attempts to create the specified job on Car Delivery Network.
+        /// Create the specified job on Car Delivery Network.
         /// </summary>
         /// <param name="job">The job to create.</param>
         /// <returns>The successfully created job.</returns>
@@ -198,7 +217,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <returns>The response string from the API call.</returns>
         public string Call(string resuorce, string method, bool isUsingLoadIds = false, IApiEntity data = null)
         {
-            var requestUri = string.Format("{0}/{1}?isloadid={2}&apikey={3}", _uri, resuorce, isUsingLoadIds, _apiKey);
+            var requestUri = string.Format("{0}/{1}?isloadid={2}&apikey={3}", Uri, resuorce, isUsingLoadIds, ApiKey);
             var req = WebRequest.Create(requestUri) as HttpWebRequest;
             req.KeepAlive = false;
             req.ContentType = "application/" + _interfaceFormat.ToString().ToLower();
