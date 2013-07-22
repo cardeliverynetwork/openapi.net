@@ -12,17 +12,9 @@ namespace CarDeliveryNetwork.Api.ClientProxy
     /// </summary>
     public class OpenApi
     {
+        private readonly string _uri;
+        private readonly string _apiKey;
         private readonly MessageFormat _interfaceFormat;
-
-        /// <summary>
-        /// The Url of the target CDN API.
-        /// </summary>
-        public string Uri { get; set; }
-
-        /// <summary>
-        /// The calling users's CDN API key.
-        /// </summary>
-        public string ApiKey { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.ClientProxy.OpenApi"/> class.
@@ -31,8 +23,8 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <param name="apiKey">Your API key.</param>
         public OpenApi(string uri = null, string apiKey = null)
         {
-            Uri = uri;
-            ApiKey = apiKey;
+            _uri = uri;
+            _apiKey = apiKey;
             _interfaceFormat = MessageFormat.Json;
         }
 
@@ -206,7 +198,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <returns>The response string from the API call.</returns>
         public string Call(string resuorce, string method, bool isUsingLoadIds = false, IApiEntity data = null)
         {
-            var requestUri = string.Format("{0}/{1}?isloadid={2}&apikey={3}", Uri, resuorce, isUsingLoadIds, ApiKey);
+            var requestUri = string.Format("{0}/{1}?isloadid={2}&apikey={3}", _uri, resuorce, isUsingLoadIds, _apiKey);
             var req = WebRequest.Create(requestUri) as HttpWebRequest;
             req.KeepAlive = false;
             req.ContentType = "application/" + _interfaceFormat.ToString().ToLower();

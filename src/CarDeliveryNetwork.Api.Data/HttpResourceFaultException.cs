@@ -14,22 +14,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <value>
         /// The status code.
         /// </value>
-        public HttpStatusCode StatusCode { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HttpResourceFaultException"/> class.
-        /// </summary>
-        /// <param name="statusCode">The status code.</param>
-        public HttpResourceFaultException(HttpStatusCode statusCode)
-            : this(statusCode, null, null) { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HttpResourceFaultException"/> class.
-        /// </summary>
-        /// <param name="statusCode">The status code.</param>
-        /// <param name="message">The message.</param>
-        public HttpResourceFaultException(HttpStatusCode statusCode, string message)
-            : this(statusCode, message, null) { }
+        public HttpStatusCode StatusCode { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpResourceFaultException"/> class.
@@ -37,7 +22,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="statusCode">The status code.</param>
         /// <param name="message">The message.</param>
         /// <param name="innerException">The inner exception.</param>
-        public HttpResourceFaultException(HttpStatusCode statusCode, string message, Exception innerException)
+        public HttpResourceFaultException(HttpStatusCode statusCode, string message, Exception innerException = null)
             : base(message, innerException)
         {
             StatusCode = statusCode;

@@ -15,7 +15,7 @@ namespace CdnLink
         public string User { get; private set; }
         public string Pass { get; private set; }
 
-        public string FullPath
+        private string FullPath
         {
             get
             {

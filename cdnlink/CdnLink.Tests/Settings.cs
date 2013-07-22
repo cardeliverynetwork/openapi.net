@@ -8,12 +8,11 @@ namespace CdnLink.Tests
         public const string DbUser = "CdnLinkTestUsr";
         public const string DbPass = "password";
 
-        public static string GetConnetionString()
-        {
-            return GetConnetionString(DbDataSource, DbInitialCatalog, DbUser, DbPass);
-        }
-
-        public static string GetConnetionString(string dataSource, string initialCatalog, string user, string pass)
+        public static string GetConnetionString(
+            string dataSource = DbDataSource, 
+            string initialCatalog = DbInitialCatalog, 
+            string user = DbUser, 
+            string pass = DbPass)
         {
             return string.Format(
                 "Data Source={0};Initial Catalog={1};uid={2};pwd={3}", 

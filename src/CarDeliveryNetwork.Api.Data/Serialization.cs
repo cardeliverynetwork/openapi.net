@@ -6,7 +6,7 @@ using CarDeliveryNetwork.Types;
 
 namespace CarDeliveryNetwork.Api.Data
 {
-    class Serialization
+    static class Serialization
     {
         public static string Serialize(object o, MessageFormat format)
         {

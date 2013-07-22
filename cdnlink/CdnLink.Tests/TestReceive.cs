@@ -135,8 +135,8 @@ namespace CdnLink.Tests
                 Assert.Greater(vehicles.Count(), 0);
             }
         }
-        
-        public ICdnFtpBox GetFtpBox(bool hasFiles)
+
+        private ICdnFtpBox GetFtpBox(bool hasFiles)
         {
             var testFiles = hasFiles
                 ? Directory.GetFiles("FtpFiles").ToList()
