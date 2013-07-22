@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
@@ -87,9 +88,10 @@ namespace CdnLink
         public int Receive()
         {
             var files = FtpBox.GetFileList();
-            if (files != null && files.Count > 0)
+            var fileCount = files.Count;
+            if (fileCount > 0)
             {
-                Log.InfoFormat("Receive: Processing {0} file(s).", files.Count);
+                Log.InfoFormat("Receive: Processing {0} file(s).", fileCount);
 
                 var db = new CdnLinkDataContext(ConnectionString);
 
@@ -137,7 +139,7 @@ namespace CdnLink
             else
                 Log.Info("Receive: Nothing to do.");
 
-            return files == null ? 0 : files.Count;
+            return fileCount;
         }
     }
 }
