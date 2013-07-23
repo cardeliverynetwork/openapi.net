@@ -15,10 +15,13 @@ namespace CdnLink
             CustomerReference = job.CustomerReference;
             DriverPay = job.DriverPay;
             JobInitiator = job.JobInitiator;
+            JobNumber = job.JobNumber;
+            Mileage = job.Mileage;
             Notes = job.Notes;
             SellPrice = job.SellPrice;
             ServiceRequired = (int)job.ServiceRequired;
             ShipperScac = job.ShipperScac;
+            Status = (int)job.Status;
             TripId = job.TripId;
 
             // Customer                                                       
@@ -52,6 +55,10 @@ namespace CdnLink
             PickupFax = job.Pickup.Destination.Fax;
             PickupEmail = job.Pickup.Destination.Email;
             PickupNotes = job.Pickup.Destination.Notes;
+            PickupNotSignedReason = job.Pickup.Signoff.NotSignedReason;
+            PickupSignedBy = job.Pickup.Signoff.SignedBy;
+            PickupTime = job.Pickup.Signoff.Time;
+            PickupUrl = job.Pickup.Signoff.Url;
 
             // Dropoff                                                        
             DropoffRequestedDate = job.Dropoff.RequestedDate;
@@ -69,6 +76,10 @@ namespace CdnLink
             DropoffFax = job.Dropoff.Destination.Fax;
             DropoffEmail = job.Dropoff.Destination.Email;
             DropoffNotes = job.Dropoff.Destination.Notes;
+            DropoffNotSignedReason = job.Dropoff.Signoff.NotSignedReason;
+            DropoffSignedBy = job.Dropoff.Signoff.SignedBy;
+            DropoffTime = job.Dropoff.Signoff.Time;
+            DropoffUrl = job.Dropoff.Signoff.Url;
 
             // Documents
             if (job.Documents != null)
