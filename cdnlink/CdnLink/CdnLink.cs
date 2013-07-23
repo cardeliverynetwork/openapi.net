@@ -35,10 +35,9 @@ namespace CdnLink
                         select send;
 
             var sendCount = sends.Count();
+            Log.InfoFormat("Send: Processing {0} records(s).", sendCount);
             if (sendCount > 0)
             {
-                Log.InfoFormat("Send: Processing {0} records(s).", sendCount);
-
                 foreach (var send in sends)
                     try
                     {
@@ -68,9 +67,6 @@ namespace CdnLink
                         throw;
                     }
             }
-            else
-                Log.Info("Send: Nothing to do.");
-
             return sendCount;
         }
 
@@ -78,10 +74,9 @@ namespace CdnLink
         {
             var files = FtpBox.GetFileList();
             var fileCount = files.Count;
+            Log.InfoFormat("Receive: Processing {0} file(s).", fileCount);
             if (fileCount > 0)
             {
-                Log.InfoFormat("Receive: Processing {0} file(s).", fileCount);
-
                 var db = new CdnLinkDataContext(ConnectionString);
 
                 foreach (var file in files.ToArray())
@@ -125,9 +120,6 @@ namespace CdnLink
                     FtpBox.DeleteFile(file);
                 }
             }
-            else
-                Log.Info("Receive: Nothing to do.");
-
             return fileCount;
         }
     }
