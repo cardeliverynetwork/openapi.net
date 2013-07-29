@@ -59,12 +59,6 @@ namespace CdnLink
     partial void DeleteCdnSendVehicle(CdnSendVehicle instance);
     #endregion
 		
-		public CdnLinkDataContext() : 
-				base(global::CdnLink.Settings.Default.CdnLinkConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
 		public CdnLinkDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
