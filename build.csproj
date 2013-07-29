@@ -4,10 +4,10 @@
 
   <PropertyGroup>
     <SolutionRootDir>$(MSBuildProjectDirectory)\..</SolutionRootDir>
-    <ApplicationName>OpenApi.NET</ApplicationName>
+    <ApplicationName>CDN OpenApi.NET</ApplicationName>
     <Version>0.0.1.0</Version>
     <Company>Car Delivery Network Limited</Company>
-    <Copyright>Copyright © Car Delivery Network Limited 2013</Copyright>
+    <Copyright>Copyright © 2013</Copyright>
   </PropertyGroup>
   <PropertyGroup Condition="'$(BUILD_NUMBER)' != ''">
     <Version>$(BUILD_NUMBER)</Version>
