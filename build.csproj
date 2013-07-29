@@ -16,6 +16,7 @@
   <ItemGroup>
     <Solution Include="src\CarDeliveryNetwork.Api.ClientProxy.sln" />
 	<Solution Include="console\cs\console.sln" />
+	<Solution Include="cdnlink\CdnLink.sln" />
 	<Solution Include="webhooks\CdnHookStub\CdnHookStub.sln" />
 	<Solution Include="webhooks\CdnHookToFtp\CdnHookToFtp.sln" />
   </ItemGroup>
