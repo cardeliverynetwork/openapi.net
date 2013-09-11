@@ -49,6 +49,7 @@
     <Compile Include="Contract.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="Fleet.cs" />
+    <Compile Include="FoundJob.cs" />
     <Compile Include="HttpResourceFaultException.cs" />
     <Compile Include="IApiEntity.cs" />
     <Compile Include="ApiEntityBase.cs" />
