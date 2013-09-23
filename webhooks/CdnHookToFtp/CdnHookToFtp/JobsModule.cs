@@ -7,6 +7,7 @@ namespace CdnHookToFtp
 {
     public class JobsModule : NancyModule
     {
+        const string EnvironmentFirstVariable = "ENVIRONMENT_FIRST";
         const string FtpHostVariable = "CDN_FTP_HOST";
         const string FtpUserVariable = "CDN_FTP_USER";
         const string FtpPassVariable = "CDN_FTP_PASS";
@@ -80,7 +81,11 @@ namespace CdnHookToFtp
         /// <returns>The specified setting</returns>
         private string GetSetting(string name)
         {
-            return Environment.GetEnvironmentVariable(name) ?? WebConfigurationManager.AppSettings[name];
+            var environentFirstSetting = WebConfigurationManager.AppSettings[EnvironmentFirstVariable];
+            var isEnvironmentFirst = !string.IsNullOrWhiteSpace(environentFirstSetting) && environentFirstSetting.ToLower() == "true";
+            return isEnvironmentFirst
+                ? Environment.GetEnvironmentVariable(name) ?? WebConfigurationManager.AppSettings[name]
+                : WebConfigurationManager.AppSettings[name];
         }
 
         /// <summary>
