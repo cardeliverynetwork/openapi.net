@@ -17,16 +17,16 @@
       <Value Profile="(Default)">https://localhost/cdn/openapi</Value>
     </Setting>
     <Setting Name="CDNLINK_API_KEY" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">fb04420a-49d0-4585-af57-1d390bfa12e7</Value>
+      <Value Profile="(Default)">fb04420a-49d0-4585-af57-1d390bfa1123</Value>
     </Setting>
     <Setting Name="CDNLINK_FTP_HOST" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">ftp://atadvantage.exavault.com</Value>
+      <Value Profile="(Default)">ftp://ftp.example.com</Value>
     </Setting>
     <Setting Name="CDNLINK_FTP_USER" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">cdnatl</Value>
+      <Value Profile="(Default)">theftpuser</Value>
     </Setting>
     <Setting Name="CDNLINK_FTP_PASS" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">CdnAtL1*</Value>
+      <Value Profile="(Default)">theftppass</Value>
     </Setting>
     <Setting Name="ENVIRONMENT_FIRST" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
