@@ -36,37 +36,10 @@ namespace CdnLink {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ftp://ftp.example.com")]
-        public string CDNLINK_FTP_HOST {
-            get {
-                return ((string)(this["CDNLINK_FTP_HOST"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("IN")]
         public string CDNLINK_FTP_ROOT {
             get {
                 return ((string)(this["CDNLINK_FTP_ROOT"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("theftpusername")]
-        public string CDNLINK_FTP_USER {
-            get {
-                return ((string)(this["CDNLINK_FTP_USER"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("theftppassword")]
-        public string CDNLINK_FTP_PASS {
-            get {
-                return ((string)(this["CDNLINK_FTP_PASS"]));
             }
         }
         
@@ -86,6 +59,42 @@ namespace CdnLink {
         public string CDNLINK_API_KEY {
             get {
                 return ((string)(this["CDNLINK_API_KEY"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ftp://atadvantage.exavault.com")]
+        public string CDNLINK_FTP_HOST {
+            get {
+                return ((string)(this["CDNLINK_FTP_HOST"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("cdnatl")]
+        public string CDNLINK_FTP_USER {
+            get {
+                return ((string)(this["CDNLINK_FTP_USER"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CdnAtL1*")]
+        public string CDNLINK_FTP_PASS {
+            get {
+                return ((string)(this["CDNLINK_FTP_PASS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ENVIRONMENT_FIRST {
+            get {
+                return ((bool)(this["ENVIRONMENT_FIRST"]));
             }
         }
     }

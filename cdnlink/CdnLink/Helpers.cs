@@ -10,8 +10,11 @@ namespace CdnLink
         public static string GetSetting(string name)
         {
             Log.DebugFormat("GetSetting: '{0}'.", name);
+
+            var isEnvironmentFirst = (bool)Settings.Default["ENVIRONMENT_FIRST"];
+           
             var setting = Environment.GetEnvironmentVariable(name);
-            if (setting != null)
+            if (setting != null && isEnvironmentFirst)
             {
                 Log.DebugFormat("GotSetting: '{0}' from system environment.", setting);
                 return setting;
