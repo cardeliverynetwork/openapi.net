@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using CarDeliveryNetwork.Api.Data.Fenkell;
 using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
 
@@ -166,6 +168,27 @@ namespace CarDeliveryNetwork.Api.Data
             Dropoff = new EndPoint();
             Vehicles = new List<Vehicle>();
             Documents = new List<Document>();
+        }
+
+        /// <summary>
+        /// Returns a serial representation of the job in the specified format and schema.
+        /// </summary>
+        /// <param name="format">Format to serialize to.</param>
+        /// <param name="schema">Schema to serialize to.</param>
+        /// <returns>The serialized object.</returns>
+        public string ToString(MessageFormat format, WebHookSchema schema)
+        {
+            switch (schema)
+            {
+                case WebHookSchema.Cdn:
+                    return Serialization.Serialize(this, format);
+                case WebHookSchema.Fenkell:
+                    return format == MessageFormat.Json
+                        ? Serialization.Serialize(new DeliveryRootObject { Delivery = new Delivery(this) }, format)
+                        : Serialization.Serialize(new Delivery(this), format);
+                default:
+                    throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
+            };
         }
     }
 

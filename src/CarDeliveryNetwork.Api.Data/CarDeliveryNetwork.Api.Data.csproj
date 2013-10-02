@@ -48,6 +48,7 @@
     <Compile Include="Export.cs" />
     <Compile Include="Contract.cs" />
     <Compile Include="Device.cs" />
+    <Compile Include="Fenkell\Delivery.cs" />
     <Compile Include="Fleet.cs" />
     <Compile Include="FoundJob.cs" />
     <Compile Include="HttpResourceFaultException.cs" />
