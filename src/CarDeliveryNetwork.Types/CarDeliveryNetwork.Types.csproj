@@ -42,6 +42,7 @@
     <Compile Include="FleetJobContext.cs" />
     <Compile Include="FleetMenuProfile.cs" />
     <Compile Include="Interfaces\NamespaceDoc.cs" />
+    <Compile Include="WebHookSchema.cs" />
     <Compile Include="WebHookStatus.cs" />
     <Compile Include="Interfaces\IAllocatable.cs" />
     <Compile Include="Interfaces\IFleet.cs" />
