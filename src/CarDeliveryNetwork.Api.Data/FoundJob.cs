@@ -43,7 +43,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="jobs">The collection of jobs whose elements are copied to the new collection.</param>
+        /// <param name="foundJobs">The collection of jobs whose elements are copied to the new collection.</param>
         public FoundJobs(IEnumerable<FoundJob> foundJobs) : base(foundJobs) { }
     }
 }
