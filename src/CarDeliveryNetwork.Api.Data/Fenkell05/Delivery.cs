@@ -203,6 +203,9 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// </summary>
         public virtual List<HostedDocument> Photo { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vehicle"/> class.
+        /// </summary>
         public Vehicle() { }
 
         /// <summary>
@@ -215,7 +218,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
             Damage = new List<Damage>();
             Damage.AddRange(vehicle.DamageAtPickup.Select(d => new Damage(d)));
             Damage.AddRange(vehicle.DamageAtDropoff.Select(d => new Damage(d)));
-            // Photo = 
+            Photo = vehicle.Photos.Select(p => new HostedDocument(p)).ToList();
         }
     }
 
