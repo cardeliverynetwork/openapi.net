@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using CarDeliveryNetwork.Api.Data.Fenkell;
+using CarDeliveryNetwork.Api.Data.Fenkell05;
 using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
 
@@ -182,7 +182,7 @@ namespace CarDeliveryNetwork.Api.Data
             {
                 case WebHookSchema.Cdn:
                     return Serialization.Serialize(this, format);
-                case WebHookSchema.Fenkell:
+                case WebHookSchema.Fenkell05:
                     return format == MessageFormat.Json
                         ? Serialization.Serialize(new DeliveryRootObject { Delivery = new Delivery(this) }, format)
                         : Serialization.Serialize(new Delivery(this), format);
