@@ -63,6 +63,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<DamageItem> DamageAtDropoff { get; set; }
 
         /// <summary>
+        /// Readonly - A collection of photos assocated with this vehicle
+        /// </summary>
+        public virtual List<Document> Photos { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Vehicle"/> class
         /// </summary>
         public Vehicle()
@@ -77,6 +82,7 @@ namespace CarDeliveryNetwork.Api.Data
         {
             DamageAtPickup = new List<DamageItem>();
             DamageAtDropoff = new List<DamageItem>();
+            Photos = new List<Document>();
         }
     }
 
