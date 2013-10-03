@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CarDeliveryNetwork.Types;
 using ApiData = CarDeliveryNetwork.Api.Data;
 
 namespace CarDeliveryNetwork.Api.Data.Fenkell05
@@ -74,6 +75,15 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
                 Receipt = new HostedDocument(pod);
 
             Vehicle = job.Vehicles.Select(v => new Vehicle(v)).ToList();
+        }
+
+        /// <summary>
+        /// Returns a serial representation of the object in JSON format.
+        /// </summary>
+        /// <returns>The serialized object.</returns>
+        public override string ToString()
+        {
+            return Serialization.Serialize(new DeliveryRootObject { Delivery = this }, MessageFormat.Json);
         }
     }
 

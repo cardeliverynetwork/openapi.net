@@ -183,9 +183,7 @@ namespace CarDeliveryNetwork.Api.Data
                 case WebHookSchema.Cdn:
                     return Serialization.Serialize(this, format);
                 case WebHookSchema.Fenkell05:
-                    return format == MessageFormat.Json
-                        ? Serialization.Serialize(new DeliveryRootObject { Delivery = new Delivery(this) }, format)
-                        : Serialization.Serialize(new Delivery(this), format);
+                    return new Delivery(this).ToString();
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
             };
