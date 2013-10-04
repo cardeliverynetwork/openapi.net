@@ -215,9 +215,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         public Vehicle(ApiData.Vehicle vehicle)
         {
             VIN = vehicle.Vin;
-            Damage = new List<Damage>();
-            Damage.AddRange(vehicle.DamageAtPickup.Select(d => new Damage(d)));
-            Damage.AddRange(vehicle.DamageAtDropoff.Select(d => new Damage(d)));
+            Damage = vehicle.DamageAtDropoff.Select(d => new Damage(d)).ToList();
             Photo = vehicle.Photos.Select(p => new HostedDocument(p)).ToList();
         }
     }
