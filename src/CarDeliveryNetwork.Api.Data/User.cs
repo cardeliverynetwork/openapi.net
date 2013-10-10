@@ -43,6 +43,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual Fleet HomeFleet { get; set; }
 
         /// <summary>
+        /// Url of the user's photograph
+        /// </summary>
+        public virtual string Photo { get; set; }
+
+        /// <summary>
+        /// Url of the user's signature
+        /// </summary>
+        public virtual string Signature { get; set; }
+
+        /// <summary>
         /// The user's full name
         /// </summary>
         public string FullName
