@@ -62,7 +62,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         public Delivery(ApiData.Job job)
         {
             ReferenceId = job.LoadId;
-            SubjectToInspection = false;
+            SubjectToInspection = job.Dropoff.Signoff != null && string.IsNullOrWhiteSpace(job.Dropoff.Signoff.NotSignedReason);
             Comment = job.Notes;
             // CarrierComment = 
             Carrier = new Carrier(job);
@@ -216,7 +216,9 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         {
             VIN = vehicle.Vin;
             Damage = vehicle.DamageAtDropoff.Select(d => new Damage(d)).ToList();
-            Photo = vehicle.Photos.Select(p => new HostedDocument(p)).ToList();
+            Photo = vehicle.Photos.Where(p => !p.Url.Contains("CollectionDamage"))
+                                  .Select(p => new HostedDocument(p))
+                                  .ToList();
         }
     }
 
@@ -296,7 +298,9 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         {
             // ReferenceId = document.Filename;
             URL = document.Url;
-            Title = document.Title;
+            Title = string.IsNullOrWhiteSpace(document.Comment)
+                ? document.Title
+                : string.Format("{0}: {1}", document.Title, document.Comment);
         }
     }
 
