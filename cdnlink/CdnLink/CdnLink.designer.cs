@@ -559,7 +559,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="NVarChar(1000)")]
 		public string Comment
 		{
 			get
@@ -599,7 +599,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(1000)")]
 		public string Url
 		{
 			get
@@ -1550,7 +1550,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerEmail", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerEmail", DbType="NVarChar(1000)")]
 		public string CustomerEmail
 		{
 			get
@@ -1610,7 +1610,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerNotes", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerNotes", DbType="NVarChar(1000)")]
 		public string CustomerNotes
 		{
 			get
@@ -1810,7 +1810,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffEmail", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffEmail", DbType="NVarChar(1000)")]
 		public string DropoffEmail
 		{
 			get
@@ -1870,7 +1870,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotes", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotes", DbType="NVarChar(1000)")]
 		public string DropoffNotes
 		{
 			get
@@ -2050,7 +2050,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotSignedReason", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotSignedReason", DbType="NVarChar(1000)")]
 		public string DropoffNotSignedReason
 		{
 			get
@@ -2110,7 +2110,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffUrl", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffUrl", DbType="NVarChar(1000)")]
 		public string DropoffUrl
 		{
 			get
@@ -2190,7 +2190,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupEmail", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupEmail", DbType="NVarChar(1000)")]
 		public string PickupEmail
 		{
 			get
@@ -2250,7 +2250,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotes", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotes", DbType="NVarChar(1000)")]
 		public string PickupNotes
 		{
 			get
@@ -2430,7 +2430,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotSignedReason", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotSignedReason", DbType="NVarChar(1000)")]
 		public string PickupNotSignedReason
 		{
 			get
@@ -2490,7 +2490,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupUrl", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupUrl", DbType="NVarChar(1000)")]
 		public string PickupUrl
 		{
 			get
@@ -3114,7 +3114,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorMessage", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorMessage", DbType="NVarChar(1000)")]
 		public string ErrorMessage
 		{
 			get
@@ -3752,7 +3752,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerEmail", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerEmail", DbType="NVarChar(1000)")]
 		public string CustomerEmail
 		{
 			get
@@ -3812,7 +3812,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerNotes", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerNotes", DbType="NVarChar(1000)")]
 		public string CustomerNotes
 		{
 			get
@@ -4012,7 +4012,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffEmail", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffEmail", DbType="NVarChar(1000)")]
 		public string DropoffEmail
 		{
 			get
@@ -4072,7 +4072,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotes", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotes", DbType="NVarChar(1000)")]
 		public string DropoffNotes
 		{
 			get
@@ -4312,7 +4312,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupEmail", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupEmail", DbType="NVarChar(1000)")]
 		public string PickupEmail
 		{
 			get
@@ -4372,7 +4372,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotes", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotes", DbType="NVarChar(1000)")]
 		public string PickupNotes
 		{
 			get
@@ -4803,7 +4803,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorMessage", DbType="NVarChar(MAX)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorMessage", DbType="NVarChar(1000)")]
 		public string ErrorMessage
 		{
 			get
