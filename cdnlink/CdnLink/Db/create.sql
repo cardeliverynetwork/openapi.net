@@ -89,8 +89,8 @@ CREATE TABLE [dbo].[CdnSends]
 CREATE TABLE [dbo].[CdnReceivedFtpFiles] 
 (
 	[Id] [int] IDENTITY (1, 1),
-	[JsonMessage] [nvarchar] (1000) NULL,
-	[Filename] [nvarchar] (1000) NULL,
+	[JsonMessage] [nvarchar] (8000) NULL,
+	[Filename] [nvarchar] (100) NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
 
@@ -110,7 +110,7 @@ CREATE TABLE [dbo].[CdnReceivedLoads]
 (
 	[FtpFileId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedFtpFiles (Id),
 	[CdnId] [int] UNIQUE NOT NULL,
-	[AllocatedCarrierScac] [nvarchar] (10) NOT NULL,
+	[AllocatedCarrierScac] [nvarchar] (10) NULL,
 	[AssignedDriverRemoteId] [nvarchar] (40) NULL,
 	[BuyPrice] [int] NULL,
 	[CustomerReference] [nvarchar] (50) NULL,
@@ -201,7 +201,7 @@ CREATE TABLE [dbo].[CdnReceivedVehicles]
 	[Notes] [nvarchar] (255) NULL,
 	[Registration] [nvarchar] (10) NULL,
 	[Variant] [nvarchar] (50) NULL,
-	[Vin] [nvarchar] (17) NOT NULL,
+	[Vin] [nvarchar] (17) NULL,
 	PRIMARY KEY CLUSTERED (VehicleId)
 )
 

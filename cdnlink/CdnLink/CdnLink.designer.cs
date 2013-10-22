@@ -729,7 +729,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JsonMessage", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JsonMessage", DbType="NVarChar(8000) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		public string JsonMessage
 		{
 			get
@@ -749,7 +749,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Filename", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Filename", DbType="NVarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		public string Filename
 		{
 			get
