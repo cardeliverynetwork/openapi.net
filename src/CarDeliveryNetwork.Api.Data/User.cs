@@ -38,6 +38,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Password { get; set; }
 
         /// <summary>
+        /// Email
+        /// </summary>
+        public virtual string Email { get; set; }
+
+        /// <summary>
+        /// MobilePhone
+        /// </summary>
+        public virtual string MobilePhone { get; set; }
+
+        /// <summary>
         /// The fleet to which this user belongs
         /// </summary>
         public virtual Fleet HomeFleet { get; set; }
