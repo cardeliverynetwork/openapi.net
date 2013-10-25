@@ -14,9 +14,24 @@ namespace CarDeliveryNetwork.Types.Interfaces
         int Id { get; }
 
         /// <summary>
+        /// RemoteId
+        /// </summary>
+        string RemoteId { get; }
+
+        /// <summary>
         /// Username
         /// </summary>
         string Username { get; }
+
+        /// <summary>
+        /// FirstName
+        /// </summary>
+        string FirstName { get; }
+
+        /// <summary>
+        /// Surname
+        /// </summary>
+        string Surname { get; }
 
         /// <summary>
         /// Full name
@@ -32,6 +47,11 @@ namespace CarDeliveryNetwork.Types.Interfaces
         /// Email
         /// </summary>
         string Email { get; }
+
+        /// <summary>
+        /// MobilePhone
+        /// </summary>
+        string MobilePhone { get; }
 
         /// <summary>
         /// LastLogin

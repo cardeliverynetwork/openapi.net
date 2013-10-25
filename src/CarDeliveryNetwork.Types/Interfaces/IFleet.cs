@@ -15,7 +15,12 @@ namespace CarDeliveryNetwork.Types.Interfaces
         /// <summary>
         /// Name
         /// </summary>
-        string Name { get; }
+        string Name { get; set; }
+
+        /// <summary>
+        /// SCAC
+        /// </summary>
+        string Scac { get; set; }
 
         /// <summary>
         /// DisplayName
