@@ -112,21 +112,30 @@ namespace CdnLink
 
                             try
                             {
+                                Log.Debug("Receive: Setting the received load");
                                 receivedFile.CdnReceivedLoad = new CdnReceivedLoad(job);
+                                Log.Debug("Receive: Setting the status to queued");
                                 receive.Status = (int) CdnReceive.ReceiveStatus.Queued;
+                                Log.Debug("Receive: Submittig ...");
                                 db.SubmitChanges();
+                                Log.Debug("Receive: Done.");
                             }
                             catch (Exception ex)
                             {
+                                Log.Debug("Receive: Error:  Setting error info ...");
                                 receive.SetAsError(ex.Message);
+                                Log.Debug("Receive: Error:  Saving error info ...");
                                 db.SubmitChanges();
+                                Log.Debug("Receive: Re-throwing.");
                                 throw;
                             }
                         }
                     }
 
                     // Delete file from FTP server
+                    Log.DebugFormat("Receive: Deleting FTP file: {0} ...", file);
                     FtpBox.DeleteFile(file);
+                    Log.Debug("Receive: Done.");
                 }
             }
             return fileCount;
