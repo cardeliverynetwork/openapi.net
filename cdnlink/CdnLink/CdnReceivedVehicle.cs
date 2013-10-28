@@ -7,7 +7,7 @@ namespace CdnLink
         public CdnReceivedVehicle(Vehicle vehicle)
             : this()
         {
-            VehicleId = vehicle.Id;
+            CdnVehicleId = vehicle.Id;
             Location = vehicle.Location;
             Make = vehicle.Make;
             Model = vehicle.Model;
@@ -19,11 +19,11 @@ namespace CdnLink
 
             if (vehicle.DamageAtPickup != null)
                 foreach (var damage in vehicle.DamageAtPickup)
-                    CdnReceivedDamages.Add(new CdnReceivedDamage(damage, "Pickup") { VehicleId = vehicle.Id });
+                    CdnReceivedDamages.Add(new CdnReceivedDamage(damage, "Pickup"));
 
             if (vehicle.DamageAtDropoff != null)
                 foreach (var damage in vehicle.DamageAtDropoff)
-                    CdnReceivedDamages.Add(new CdnReceivedDamage(damage, "Dropoff") { VehicleId = vehicle.Id });
+                    CdnReceivedDamages.Add(new CdnReceivedDamage(damage, "Dropoff"));
         }
     }
 }

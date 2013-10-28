@@ -108,8 +108,9 @@ CREATE TABLE [dbo].[CdnReceives]
 
 CREATE TABLE [dbo].[CdnReceivedLoads] 
 (
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
 	[FtpFileId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedFtpFiles (Id),
-	[CdnId] [int] UNIQUE NOT NULL,
+	[CdnId] [int] NOT NULL,
 	[AllocatedCarrierScac] [varchar] (10) NULL,
 	[AssignedDriverRemoteId] [varchar] (40) NULL,
 	[BuyPrice] [int] NULL,
@@ -176,14 +177,14 @@ CREATE TABLE [dbo].[CdnReceivedLoads]
 	[PickupSignedBy] [varchar] (100) NULL,
 	[PickupTime] [datetime] NULL, 
 	[PickupUrl] [varchar] (1000) NULL,
-	PRIMARY KEY CLUSTERED (FtpFileId)
+	PRIMARY KEY CLUSTERED (Id)
 )
 
 CREATE TABLE [dbo].[CdnReceivedDocuments] 
 (
 	[Id] [int] IDENTITY (1, 1) NOT NULL,
-	[CdnId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (CdnId),
-	[VehicleId] [int] NULL,
+	[ReceivedLoadId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (Id),
+	[CdnVehicleId] [int] NULL,
 	[Comment] [varchar] (1000) NULL,
 	[Title] [varchar] (50) NULL,
 	[Url] [varchar] (1000) NULL,
@@ -192,8 +193,9 @@ CREATE TABLE [dbo].[CdnReceivedDocuments]
 
 CREATE TABLE [dbo].[CdnReceivedVehicles] 
 (
-	[VehicleId] [int] UNIQUE NOT NULL,
-	[CdnId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (CdnId),
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
+	[CdnVehicleId] [int] NOT NULL,
+	[ReceivedLoadId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (Id),
 	[Location] [varchar] (50) NULL,
 	[Make] [varchar] (20) NULL,
 	[Model] [varchar] (20) NULL,
@@ -202,13 +204,14 @@ CREATE TABLE [dbo].[CdnReceivedVehicles]
 	[Registration] [varchar] (10) NULL,
 	[Variant] [varchar] (50) NULL,
 	[Vin] [varchar] (17) NOT NULL,
-	PRIMARY KEY CLUSTERED (VehicleId)
+	PRIMARY KEY CLUSTERED (Id)
 )
 
 CREATE TABLE [dbo].[CdnReceivedDamage] 
 (
-	[DamageId] [int] NOT NULL,
-	[VehicleId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedVehicles(VehicleId),
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
+	[CdnDamageId] [int] NOT NULL,
+	[ReceivedVehicleId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedVehicles(Id),
 	[DamageAt] [varchar] (50) NULL,
 	[AreaCode] [varchar] (3) NULL,
 	[AreaDescription] [varchar] (50) NULL,
@@ -216,5 +219,5 @@ CREATE TABLE [dbo].[CdnReceivedDamage]
 	[SeverityDescription] [varchar] (50) NULL,
 	[TypeCode] [varchar] (3) NULL,
 	[TypeDescription] [varchar] (50) NULL,
-	PRIMARY KEY CLUSTERED (DamageId)
+	PRIMARY KEY CLUSTERED (Id)
 )

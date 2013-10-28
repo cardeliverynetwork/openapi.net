@@ -89,7 +89,7 @@ CREATE TABLE [dbo].[CdnSends]
 CREATE TABLE [dbo].[CdnReceivedFtpFiles] 
 (
 	[Id] [int] IDENTITY (1, 1),
-	[JsonMessage] [nvarchar] (8000) NULL,
+	[JsonMessage] [nvarchar] (MAX) NULL,
 	[Filename] [nvarchar] (100) NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
@@ -108,8 +108,9 @@ CREATE TABLE [dbo].[CdnReceives]
 
 CREATE TABLE [dbo].[CdnReceivedLoads] 
 (
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
 	[FtpFileId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedFtpFiles (Id),
-	[CdnId] [int] UNIQUE NOT NULL,
+	[CdnId] [int] NOT NULL,
 	[AllocatedCarrierScac] [nvarchar] (10) NULL,
 	[AssignedDriverRemoteId] [nvarchar] (40) NULL,
 	[BuyPrice] [int] NULL,
@@ -176,14 +177,14 @@ CREATE TABLE [dbo].[CdnReceivedLoads]
 	[PickupSignedBy] [nvarchar] (100) NULL,
 	[PickupTime] [datetime] NULL, 
 	[PickupUrl] [nvarchar] (1000) NULL,
-	PRIMARY KEY CLUSTERED (FtpFileId)
+	PRIMARY KEY CLUSTERED (Id)
 )
 
 CREATE TABLE [dbo].[CdnReceivedDocuments] 
 (
 	[Id] [int] IDENTITY (1, 1) NOT NULL,
-	[CdnId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (CdnId),
-	[VehicleId] [int] NULL,
+	[ReceivedLoadId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (Id),
+	[CdnVehicleId] [int] NULL,
 	[Comment] [nvarchar] (1000) NULL,
 	[Title] [nvarchar] (50) NULL,
 	[Url] [nvarchar] (1000) NULL,
@@ -192,8 +193,9 @@ CREATE TABLE [dbo].[CdnReceivedDocuments]
 
 CREATE TABLE [dbo].[CdnReceivedVehicles] 
 (
-	[VehicleId] [int] UNIQUE NOT NULL,
-	[CdnId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (CdnId),
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
+	[CdnVehicleId] [int] NOT NULL,
+	[ReceivedLoadId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (Id),
 	[Location] [nvarchar] (50) NULL,
 	[Make] [nvarchar] (20) NULL,
 	[Model] [nvarchar] (20) NULL,
@@ -201,14 +203,15 @@ CREATE TABLE [dbo].[CdnReceivedVehicles]
 	[Notes] [nvarchar] (255) NULL,
 	[Registration] [nvarchar] (10) NULL,
 	[Variant] [nvarchar] (50) NULL,
-	[Vin] [nvarchar] (17) NULL,
-	PRIMARY KEY CLUSTERED (VehicleId)
+	[Vin] [nvarchar] (17) NOT NULL,
+	PRIMARY KEY CLUSTERED (Id)
 )
 
 CREATE TABLE [dbo].[CdnReceivedDamage] 
 (
-	[DamageId] [int] NOT NULL,
-	[VehicleId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedVehicles(VehicleId),
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
+	[CdnDamageId] [int] NOT NULL,
+	[ReceivedVehicleId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedVehicles(Id),
 	[DamageAt] [nvarchar] (50) NULL,
 	[AreaCode] [nvarchar] (3) NULL,
 	[AreaDescription] [nvarchar] (50) NULL,
@@ -216,5 +219,5 @@ CREATE TABLE [dbo].[CdnReceivedDamage]
 	[SeverityDescription] [nvarchar] (50) NULL,
 	[TypeCode] [nvarchar] (3) NULL,
 	[TypeDescription] [nvarchar] (50) NULL,
-	PRIMARY KEY CLUSTERED (DamageId)
+	PRIMARY KEY CLUSTERED (Id)
 )

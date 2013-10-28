@@ -113,7 +113,7 @@ namespace CdnLink
                             try
                             {
                                 Log.Debug("Receive: Setting the received load");
-                                receivedFile.CdnReceivedLoad = new CdnReceivedLoad(job);
+                                receivedFile.CdnReceivedLoads.Add(new CdnReceivedLoad(job));
                                 Log.Debug("Receive: Setting the status to queued");
                                 receive.Status = (int) CdnReceive.ReceiveStatus.Queued;
                                 Log.Debug("Receive: Submittig ...");

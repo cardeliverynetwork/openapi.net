@@ -162,9 +162,11 @@ namespace CdnLink
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _DamageId;
+		private int _Id;
 		
-		private int _VehicleId;
+		private int _CdnDamageId;
+		
+		private int _ReceivedVehicleId;
 		
 		private string _DamageAt;
 		
@@ -186,10 +188,12 @@ namespace CdnLink
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnDamageIdChanging(int value);
-    partial void OnDamageIdChanged();
-    partial void OnVehicleIdChanging(int value);
-    partial void OnVehicleIdChanged();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnCdnDamageIdChanging(int value);
+    partial void OnCdnDamageIdChanged();
+    partial void OnReceivedVehicleIdChanging(int value);
+    partial void OnReceivedVehicleIdChanged();
     partial void OnDamageAtChanging(string value);
     partial void OnDamageAtChanged();
     partial void OnAreaCodeChanging(string value);
@@ -212,51 +216,71 @@ namespace CdnLink
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DamageId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int DamageId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
 		{
 			get
 			{
-				return this._DamageId;
+				return this._Id;
 			}
 			set
 			{
-				if ((this._DamageId != value))
+				if ((this._Id != value))
 				{
-					this.OnDamageIdChanging(value);
+					this.OnIdChanging(value);
 					this.SendPropertyChanging();
-					this._DamageId = value;
-					this.SendPropertyChanged("DamageId");
-					this.OnDamageIdChanged();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VehicleId", DbType="Int NOT NULL")]
-		public int VehicleId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CdnDamageId", DbType="Int NOT NULL")]
+		public int CdnDamageId
 		{
 			get
 			{
-				return this._VehicleId;
+				return this._CdnDamageId;
 			}
 			set
 			{
-				if ((this._VehicleId != value))
+				if ((this._CdnDamageId != value))
+				{
+					this.OnCdnDamageIdChanging(value);
+					this.SendPropertyChanging();
+					this._CdnDamageId = value;
+					this.SendPropertyChanged("CdnDamageId");
+					this.OnCdnDamageIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceivedVehicleId", DbType="Int NOT NULL")]
+		public int ReceivedVehicleId
+		{
+			get
+			{
+				return this._ReceivedVehicleId;
+			}
+			set
+			{
+				if ((this._ReceivedVehicleId != value))
 				{
 					if (this._CdnReceivedVehicle.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnVehicleIdChanging(value);
+					this.OnReceivedVehicleIdChanging(value);
 					this.SendPropertyChanging();
-					this._VehicleId = value;
-					this.SendPropertyChanged("VehicleId");
-					this.OnVehicleIdChanged();
+					this._ReceivedVehicleId = value;
+					this.SendPropertyChanged("ReceivedVehicleId");
+					this.OnReceivedVehicleIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DamageAt", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DamageAt", DbType="VarChar(50)")]
 		public string DamageAt
 		{
 			get
@@ -276,7 +300,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AreaCode", DbType="NVarChar(3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AreaCode", DbType="VarChar(3)")]
 		public string AreaCode
 		{
 			get
@@ -296,7 +320,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AreaDescription", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AreaDescription", DbType="VarChar(50)")]
 		public string AreaDescription
 		{
 			get
@@ -316,7 +340,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SeverityCode", DbType="NVarChar(3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SeverityCode", DbType="VarChar(3)")]
 		public string SeverityCode
 		{
 			get
@@ -336,7 +360,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SeverityDescription", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SeverityDescription", DbType="VarChar(50)")]
 		public string SeverityDescription
 		{
 			get
@@ -356,7 +380,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeCode", DbType="NVarChar(3)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeCode", DbType="VarChar(3)")]
 		public string TypeCode
 		{
 			get
@@ -376,7 +400,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeDescription", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeDescription", DbType="VarChar(50)")]
 		public string TypeDescription
 		{
 			get
@@ -396,7 +420,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedVehicle_CdnReceivedDamage", Storage="_CdnReceivedVehicle", ThisKey="VehicleId", OtherKey="VehicleId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedVehicle_CdnReceivedDamage", Storage="_CdnReceivedVehicle", ThisKey="ReceivedVehicleId", OtherKey="Id", IsForeignKey=true)]
 		public CdnReceivedVehicle CdnReceivedVehicle
 		{
 			get
@@ -419,11 +443,11 @@ namespace CdnLink
 					if ((value != null))
 					{
 						value.CdnReceivedDamages.Add(this);
-						this._VehicleId = value.VehicleId;
+						this._ReceivedVehicleId = value.Id;
 					}
 					else
 					{
-						this._VehicleId = default(int);
+						this._ReceivedVehicleId = default(int);
 					}
 					this.SendPropertyChanged("CdnReceivedVehicle");
 				}
@@ -459,9 +483,9 @@ namespace CdnLink
 		
 		private int _Id;
 		
-		private int _CdnId;
+		private int _ReceivedLoadId;
 		
-		private System.Nullable<int> _VehicleId;
+		private System.Nullable<int> _CdnVehicleId;
 		
 		private string _Comment;
 		
@@ -477,10 +501,10 @@ namespace CdnLink
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnCdnIdChanging(int value);
-    partial void OnCdnIdChanged();
-    partial void OnVehicleIdChanging(System.Nullable<int> value);
-    partial void OnVehicleIdChanged();
+    partial void OnReceivedLoadIdChanging(int value);
+    partial void OnReceivedLoadIdChanged();
+    partial void OnCdnVehicleIdChanging(System.Nullable<int> value);
+    partial void OnCdnVehicleIdChanged();
     partial void OnCommentChanging(string value);
     partial void OnCommentChanged();
     partial void OnTitleChanging(string value);
@@ -515,51 +539,51 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CdnId", DbType="Int NOT NULL")]
-		public int CdnId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceivedLoadId", DbType="Int NOT NULL")]
+		public int ReceivedLoadId
 		{
 			get
 			{
-				return this._CdnId;
+				return this._ReceivedLoadId;
 			}
 			set
 			{
-				if ((this._CdnId != value))
+				if ((this._ReceivedLoadId != value))
 				{
 					if (this._CdnReceivedLoad.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnCdnIdChanging(value);
+					this.OnReceivedLoadIdChanging(value);
 					this.SendPropertyChanging();
-					this._CdnId = value;
-					this.SendPropertyChanged("CdnId");
-					this.OnCdnIdChanged();
+					this._ReceivedLoadId = value;
+					this.SendPropertyChanged("ReceivedLoadId");
+					this.OnReceivedLoadIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VehicleId", DbType="Int")]
-		public System.Nullable<int> VehicleId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CdnVehicleId", DbType="Int")]
+		public System.Nullable<int> CdnVehicleId
 		{
 			get
 			{
-				return this._VehicleId;
+				return this._CdnVehicleId;
 			}
 			set
 			{
-				if ((this._VehicleId != value))
+				if ((this._CdnVehicleId != value))
 				{
-					this.OnVehicleIdChanging(value);
+					this.OnCdnVehicleIdChanging(value);
 					this.SendPropertyChanging();
-					this._VehicleId = value;
-					this.SendPropertyChanged("VehicleId");
-					this.OnVehicleIdChanged();
+					this._CdnVehicleId = value;
+					this.SendPropertyChanged("CdnVehicleId");
+					this.OnCdnVehicleIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(1000)")]
 		public string Comment
 		{
 			get
@@ -579,7 +603,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="VarChar(50)")]
 		public string Title
 		{
 			get
@@ -599,7 +623,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="VarChar(1000)")]
 		public string Url
 		{
 			get
@@ -619,7 +643,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedDocument", Storage="_CdnReceivedLoad", ThisKey="CdnId", OtherKey="CdnId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedDocument", Storage="_CdnReceivedLoad", ThisKey="ReceivedLoadId", OtherKey="Id", IsForeignKey=true)]
 		public CdnReceivedLoad CdnReceivedLoad
 		{
 			get
@@ -642,11 +666,11 @@ namespace CdnLink
 					if ((value != null))
 					{
 						value.CdnReceivedDocuments.Add(this);
-						this._CdnId = value.CdnId;
+						this._ReceivedLoadId = value.Id;
 					}
 					else
 					{
-						this._CdnId = default(int);
+						this._ReceivedLoadId = default(int);
 					}
 					this.SendPropertyChanged("CdnReceivedLoad");
 				}
@@ -686,7 +710,7 @@ namespace CdnLink
 		
 		private string _Filename;
 		
-		private EntityRef<CdnReceivedLoad> _CdnReceivedLoad;
+		private EntitySet<CdnReceivedLoad> _CdnReceivedLoads;
 		
 		private EntityRef<CdnReceive> _CdnReceive;
 		
@@ -704,7 +728,7 @@ namespace CdnLink
 		
 		public CdnReceivedFtpFile()
 		{
-			this._CdnReceivedLoad = default(EntityRef<CdnReceivedLoad>);
+			this._CdnReceivedLoads = new EntitySet<CdnReceivedLoad>(new Action<CdnReceivedLoad>(this.attach_CdnReceivedLoads), new Action<CdnReceivedLoad>(this.detach_CdnReceivedLoads));
 			this._CdnReceive = default(EntityRef<CdnReceive>);
 			OnCreated();
 		}
@@ -729,7 +753,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JsonMessage", DbType="NVarChar(8000) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JsonMessage", DbType="VarChar(8000)")]
 		public string JsonMessage
 		{
 			get
@@ -749,7 +773,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Filename", DbType="NVarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Filename", DbType="VarChar(100)")]
 		public string Filename
 		{
 			get
@@ -769,32 +793,16 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedFtpFile_CdnReceivedLoad", Storage="_CdnReceivedLoad", ThisKey="Id", OtherKey="FtpFileId", IsUnique=true, IsForeignKey=false)]
-		public CdnReceivedLoad CdnReceivedLoad
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedFtpFile_CdnReceivedLoad", Storage="_CdnReceivedLoads", ThisKey="Id", OtherKey="FtpFileId")]
+		public EntitySet<CdnReceivedLoad> CdnReceivedLoads
 		{
 			get
 			{
-				return this._CdnReceivedLoad.Entity;
+				return this._CdnReceivedLoads;
 			}
 			set
 			{
-				CdnReceivedLoad previousValue = this._CdnReceivedLoad.Entity;
-				if (((previousValue != value) 
-							|| (this._CdnReceivedLoad.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CdnReceivedLoad.Entity = null;
-						previousValue.CdnReceivedFtpFile = null;
-					}
-					this._CdnReceivedLoad.Entity = value;
-					if ((value != null))
-					{
-						value.CdnReceivedFtpFile = this;
-					}
-					this.SendPropertyChanged("CdnReceivedLoad");
-				}
+				this._CdnReceivedLoads.Assign(value);
 			}
 		}
 		
@@ -846,6 +854,18 @@ namespace CdnLink
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_CdnReceivedLoads(CdnReceivedLoad entity)
+		{
+			this.SendPropertyChanging();
+			entity.CdnReceivedFtpFile = this;
+		}
+		
+		private void detach_CdnReceivedLoads(CdnReceivedLoad entity)
+		{
+			this.SendPropertyChanging();
+			entity.CdnReceivedFtpFile = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CdnReceivedLoads")]
@@ -853,6 +873,8 @@ namespace CdnLink
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
 		
 		private int _FtpFileId;
 		
@@ -1000,6 +1022,8 @@ namespace CdnLink
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
     partial void OnFtpFileIdChanging(int value);
     partial void OnFtpFileIdChanged();
     partial void OnCdnIdChanging(int value);
@@ -1146,7 +1170,27 @@ namespace CdnLink
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FtpFileId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FtpFileId", DbType="Int NOT NULL")]
 		public int FtpFileId
 		{
 			get
@@ -1190,7 +1234,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllocatedCarrierScac", DbType="NVarChar(10) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllocatedCarrierScac", DbType="VarChar(10)")]
 		public string AllocatedCarrierScac
 		{
 			get
@@ -1210,7 +1254,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedDriverRemoteId", DbType="NVarChar(40)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedDriverRemoteId", DbType="VarChar(40)")]
 		public string AssignedDriverRemoteId
 		{
 			get
@@ -1250,7 +1294,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerReference", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerReference", DbType="VarChar(50)")]
 		public string CustomerReference
 		{
 			get
@@ -1290,7 +1334,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobInitiator", DbType="NVarChar(40)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobInitiator", DbType="VarChar(40)")]
 		public string JobInitiator
 		{
 			get
@@ -1310,7 +1354,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNumber", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNumber", DbType="VarChar(50)")]
 		public string JobNumber
 		{
 			get
@@ -1330,7 +1374,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadId", DbType="NVarChar(40)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadId", DbType="VarChar(40)")]
 		public string LoadId
 		{
 			get
@@ -1370,7 +1414,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(256)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="VarChar(256)")]
 		public string Notes
 		{
 			get
@@ -1430,7 +1474,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipperScac", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipperScac", DbType="VarChar(10)")]
 		public string ShipperScac
 		{
 			get
@@ -1470,7 +1514,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TripId", DbType="NVarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TripId", DbType="VarChar(20)")]
 		public string TripId
 		{
 			get
@@ -1490,7 +1534,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerAddressLines", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerAddressLines", DbType="VarChar(300)")]
 		public string CustomerAddressLines
 		{
 			get
@@ -1510,7 +1554,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerCity", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerCity", DbType="VarChar(300)")]
 		public string CustomerCity
 		{
 			get
@@ -1530,7 +1574,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerContact", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerContact", DbType="VarChar(100)")]
 		public string CustomerContact
 		{
 			get
@@ -1550,7 +1594,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerEmail", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerEmail", DbType="VarChar(1000)")]
 		public string CustomerEmail
 		{
 			get
@@ -1570,7 +1614,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerFax", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerFax", DbType="VarChar(30)")]
 		public string CustomerFax
 		{
 			get
@@ -1590,7 +1634,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerMobilePhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerMobilePhone", DbType="VarChar(30)")]
 		public string CustomerMobilePhone
 		{
 			get
@@ -1610,7 +1654,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerNotes", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerNotes", DbType="VarChar(1000)")]
 		public string CustomerNotes
 		{
 			get
@@ -1630,7 +1674,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerOrganisationName", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerOrganisationName", DbType="VarChar(100)")]
 		public string CustomerOrganisationName
 		{
 			get
@@ -1650,7 +1694,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerOtherPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerOtherPhone", DbType="VarChar(30)")]
 		public string CustomerOtherPhone
 		{
 			get
@@ -1670,7 +1714,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerPhone", DbType="VarChar(30)")]
 		public string CustomerPhone
 		{
 			get
@@ -1690,7 +1734,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerQuickCode", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerQuickCode", DbType="VarChar(255)")]
 		public string CustomerQuickCode
 		{
 			get
@@ -1710,7 +1754,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerStateRegion", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerStateRegion", DbType="VarChar(255)")]
 		public string CustomerStateRegion
 		{
 			get
@@ -1730,7 +1774,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerZipPostCode", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerZipPostCode", DbType="VarChar(10)")]
 		public string CustomerZipPostCode
 		{
 			get
@@ -1750,7 +1794,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffAddressLines", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffAddressLines", DbType="VarChar(300)")]
 		public string DropoffAddressLines
 		{
 			get
@@ -1770,7 +1814,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffCity", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffCity", DbType="VarChar(300)")]
 		public string DropoffCity
 		{
 			get
@@ -1790,7 +1834,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffContact", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffContact", DbType="VarChar(100)")]
 		public string DropoffContact
 		{
 			get
@@ -1810,7 +1854,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffEmail", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffEmail", DbType="VarChar(1000)")]
 		public string DropoffEmail
 		{
 			get
@@ -1830,7 +1874,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffFax", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffFax", DbType="VarChar(30)")]
 		public string DropoffFax
 		{
 			get
@@ -1850,7 +1894,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffMobilePhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffMobilePhone", DbType="VarChar(30)")]
 		public string DropoffMobilePhone
 		{
 			get
@@ -1870,7 +1914,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotes", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotes", DbType="VarChar(1000)")]
 		public string DropoffNotes
 		{
 			get
@@ -1890,7 +1934,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffOrganisationName", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffOrganisationName", DbType="VarChar(100)")]
 		public string DropoffOrganisationName
 		{
 			get
@@ -1910,7 +1954,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffOtherPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffOtherPhone", DbType="VarChar(30)")]
 		public string DropoffOtherPhone
 		{
 			get
@@ -1930,7 +1974,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffPhone", DbType="VarChar(30)")]
 		public string DropoffPhone
 		{
 			get
@@ -1950,7 +1994,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffQuickCode", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffQuickCode", DbType="VarChar(255)")]
 		public string DropoffQuickCode
 		{
 			get
@@ -1970,7 +2014,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffStateRegion", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffStateRegion", DbType="VarChar(255)")]
 		public string DropoffStateRegion
 		{
 			get
@@ -1990,7 +2034,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffZipPostCode", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffZipPostCode", DbType="VarChar(10)")]
 		public string DropoffZipPostCode
 		{
 			get
@@ -2050,7 +2094,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotSignedReason", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotSignedReason", DbType="VarChar(1000)")]
 		public string DropoffNotSignedReason
 		{
 			get
@@ -2070,7 +2114,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffSignedBy", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffSignedBy", DbType="VarChar(100)")]
 		public string DropoffSignedBy
 		{
 			get
@@ -2110,7 +2154,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffUrl", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffUrl", DbType="VarChar(1000)")]
 		public string DropoffUrl
 		{
 			get
@@ -2130,7 +2174,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupAddressLines", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupAddressLines", DbType="VarChar(300)")]
 		public string PickupAddressLines
 		{
 			get
@@ -2150,7 +2194,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupCity", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupCity", DbType="VarChar(300)")]
 		public string PickupCity
 		{
 			get
@@ -2170,7 +2214,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupContact", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupContact", DbType="VarChar(100)")]
 		public string PickupContact
 		{
 			get
@@ -2190,7 +2234,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupEmail", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupEmail", DbType="VarChar(1000)")]
 		public string PickupEmail
 		{
 			get
@@ -2210,7 +2254,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupFax", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupFax", DbType="VarChar(30)")]
 		public string PickupFax
 		{
 			get
@@ -2230,7 +2274,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupMobilePhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupMobilePhone", DbType="VarChar(30)")]
 		public string PickupMobilePhone
 		{
 			get
@@ -2250,7 +2294,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotes", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotes", DbType="VarChar(1000)")]
 		public string PickupNotes
 		{
 			get
@@ -2270,7 +2314,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupOrganisationName", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupOrganisationName", DbType="VarChar(100)")]
 		public string PickupOrganisationName
 		{
 			get
@@ -2290,7 +2334,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupOtherPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupOtherPhone", DbType="VarChar(30)")]
 		public string PickupOtherPhone
 		{
 			get
@@ -2310,7 +2354,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupPhone", DbType="VarChar(30)")]
 		public string PickupPhone
 		{
 			get
@@ -2330,7 +2374,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupQuickCode", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupQuickCode", DbType="VarChar(255)")]
 		public string PickupQuickCode
 		{
 			get
@@ -2350,7 +2394,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupStateRegion", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupStateRegion", DbType="VarChar(255)")]
 		public string PickupStateRegion
 		{
 			get
@@ -2370,7 +2414,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupZipPostCode", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupZipPostCode", DbType="VarChar(10)")]
 		public string PickupZipPostCode
 		{
 			get
@@ -2430,7 +2474,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotSignedReason", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotSignedReason", DbType="VarChar(1000)")]
 		public string PickupNotSignedReason
 		{
 			get
@@ -2450,7 +2494,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupSignedBy", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupSignedBy", DbType="VarChar(100)")]
 		public string PickupSignedBy
 		{
 			get
@@ -2490,7 +2534,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupUrl", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupUrl", DbType="VarChar(1000)")]
 		public string PickupUrl
 		{
 			get
@@ -2510,7 +2554,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedDocument", Storage="_CdnReceivedDocuments", ThisKey="CdnId", OtherKey="CdnId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedDocument", Storage="_CdnReceivedDocuments", ThisKey="Id", OtherKey="ReceivedLoadId")]
 		public EntitySet<CdnReceivedDocument> CdnReceivedDocuments
 		{
 			get
@@ -2523,7 +2567,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedVehicle", Storage="_CdnReceivedVehicles", ThisKey="CdnId", OtherKey="CdnId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedVehicle", Storage="_CdnReceivedVehicles", ThisKey="Id", OtherKey="ReceivedLoadId")]
 		public EntitySet<CdnReceivedVehicle> CdnReceivedVehicles
 		{
 			get
@@ -2553,12 +2597,12 @@ namespace CdnLink
 					if ((previousValue != null))
 					{
 						this._CdnReceivedFtpFile.Entity = null;
-						previousValue.CdnReceivedLoad = null;
+						previousValue.CdnReceivedLoads.Remove(this);
 					}
 					this._CdnReceivedFtpFile.Entity = value;
 					if ((value != null))
 					{
-						value.CdnReceivedLoad = this;
+						value.CdnReceivedLoads.Add(this);
 						this._FtpFileId = value.Id;
 					}
 					else
@@ -2621,9 +2665,11 @@ namespace CdnLink
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _VehicleId;
+		private int _Id;
 		
-		private int _CdnId;
+		private int _CdnVehicleId;
+		
+		private int _ReceivedLoadId;
 		
 		private string _Location;
 		
@@ -2649,10 +2695,12 @@ namespace CdnLink
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnVehicleIdChanging(int value);
-    partial void OnVehicleIdChanged();
-    partial void OnCdnIdChanging(int value);
-    partial void OnCdnIdChanged();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnCdnVehicleIdChanging(int value);
+    partial void OnCdnVehicleIdChanged();
+    partial void OnReceivedLoadIdChanging(int value);
+    partial void OnReceivedLoadIdChanged();
     partial void OnLocationChanging(string value);
     partial void OnLocationChanged();
     partial void OnMakeChanging(string value);
@@ -2678,51 +2726,71 @@ namespace CdnLink
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VehicleId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int VehicleId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
 		{
 			get
 			{
-				return this._VehicleId;
+				return this._Id;
 			}
 			set
 			{
-				if ((this._VehicleId != value))
+				if ((this._Id != value))
 				{
-					this.OnVehicleIdChanging(value);
+					this.OnIdChanging(value);
 					this.SendPropertyChanging();
-					this._VehicleId = value;
-					this.SendPropertyChanged("VehicleId");
-					this.OnVehicleIdChanged();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CdnId", DbType="Int NOT NULL")]
-		public int CdnId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CdnVehicleId", DbType="Int NOT NULL")]
+		public int CdnVehicleId
 		{
 			get
 			{
-				return this._CdnId;
+				return this._CdnVehicleId;
 			}
 			set
 			{
-				if ((this._CdnId != value))
+				if ((this._CdnVehicleId != value))
+				{
+					this.OnCdnVehicleIdChanging(value);
+					this.SendPropertyChanging();
+					this._CdnVehicleId = value;
+					this.SendPropertyChanged("CdnVehicleId");
+					this.OnCdnVehicleIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceivedLoadId", DbType="Int NOT NULL")]
+		public int ReceivedLoadId
+		{
+			get
+			{
+				return this._ReceivedLoadId;
+			}
+			set
+			{
+				if ((this._ReceivedLoadId != value))
 				{
 					if (this._CdnReceivedLoad.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnCdnIdChanging(value);
+					this.OnReceivedLoadIdChanging(value);
 					this.SendPropertyChanging();
-					this._CdnId = value;
-					this.SendPropertyChanged("CdnId");
-					this.OnCdnIdChanged();
+					this._ReceivedLoadId = value;
+					this.SendPropertyChanged("ReceivedLoadId");
+					this.OnReceivedLoadIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="VarChar(50)")]
 		public string Location
 		{
 			get
@@ -2742,7 +2810,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="NVarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="VarChar(20)")]
 		public string Make
 		{
 			get
@@ -2762,7 +2830,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="VarChar(20)")]
 		public string Model
 		{
 			get
@@ -2782,7 +2850,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MovementNumber", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MovementNumber", DbType="VarChar(50)")]
 		public string MovementNumber
 		{
 			get
@@ -2802,7 +2870,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="VarChar(255)")]
 		public string Notes
 		{
 			get
@@ -2822,7 +2890,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Registration", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Registration", DbType="VarChar(10)")]
 		public string Registration
 		{
 			get
@@ -2842,7 +2910,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Variant", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Variant", DbType="VarChar(50)")]
 		public string Variant
 		{
 			get
@@ -2862,7 +2930,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vin", DbType="NVarChar(17) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vin", DbType="VarChar(17) NOT NULL", CanBeNull=false)]
 		public string Vin
 		{
 			get
@@ -2882,7 +2950,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedVehicle_CdnReceivedDamage", Storage="_CdnReceivedDamages", ThisKey="VehicleId", OtherKey="VehicleId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedVehicle_CdnReceivedDamage", Storage="_CdnReceivedDamages", ThisKey="Id", OtherKey="ReceivedVehicleId")]
 		public EntitySet<CdnReceivedDamage> CdnReceivedDamages
 		{
 			get
@@ -2895,7 +2963,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedVehicle", Storage="_CdnReceivedLoad", ThisKey="CdnId", OtherKey="CdnId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedVehicle", Storage="_CdnReceivedLoad", ThisKey="ReceivedLoadId", OtherKey="Id", IsForeignKey=true)]
 		public CdnReceivedLoad CdnReceivedLoad
 		{
 			get
@@ -2918,11 +2986,11 @@ namespace CdnLink
 					if ((value != null))
 					{
 						value.CdnReceivedVehicles.Add(this);
-						this._CdnId = value.CdnId;
+						this._ReceivedLoadId = value.Id;
 					}
 					else
 					{
-						this._CdnId = default(int);
+						this._ReceivedLoadId = default(int);
 					}
 					this.SendPropertyChanged("CdnReceivedLoad");
 				}
@@ -3114,7 +3182,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorMessage", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorMessage", DbType="VarChar(1000)")]
 		public string ErrorMessage
 		{
 			get
@@ -3134,7 +3202,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorCode", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorCode", DbType="VarChar(50)")]
 		public string ErrorCode
 		{
 			get
@@ -3452,7 +3520,7 @@ namespace CdnLink
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadId", DbType="NVarChar(40) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadId", DbType="VarChar(40) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string LoadId
 		{
 			get
@@ -3472,7 +3540,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllocatedCarrierScac", DbType="NVarChar(10) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllocatedCarrierScac", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
 		public string AllocatedCarrierScac
 		{
 			get
@@ -3492,7 +3560,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedDriverRemoteId", DbType="NVarChar(40)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedDriverRemoteId", DbType="VarChar(40)")]
 		public string AssignedDriverRemoteId
 		{
 			get
@@ -3532,7 +3600,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerReference", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerReference", DbType="VarChar(50)")]
 		public string CustomerReference
 		{
 			get
@@ -3572,7 +3640,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobInitiator", DbType="NVarChar(40)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobInitiator", DbType="VarChar(40)")]
 		public string JobInitiator
 		{
 			get
@@ -3592,7 +3660,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(256)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="VarChar(256)")]
 		public string Notes
 		{
 			get
@@ -3652,7 +3720,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipperScac", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipperScac", DbType="VarChar(10)")]
 		public string ShipperScac
 		{
 			get
@@ -3672,7 +3740,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TripId", DbType="NVarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TripId", DbType="VarChar(20)")]
 		public string TripId
 		{
 			get
@@ -3692,7 +3760,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerAddressLines", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerAddressLines", DbType="VarChar(300)")]
 		public string CustomerAddressLines
 		{
 			get
@@ -3712,7 +3780,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerCity", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerCity", DbType="VarChar(300)")]
 		public string CustomerCity
 		{
 			get
@@ -3732,7 +3800,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerContact", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerContact", DbType="VarChar(100)")]
 		public string CustomerContact
 		{
 			get
@@ -3752,7 +3820,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerEmail", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerEmail", DbType="VarChar(1000)")]
 		public string CustomerEmail
 		{
 			get
@@ -3772,7 +3840,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerFax", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerFax", DbType="VarChar(30)")]
 		public string CustomerFax
 		{
 			get
@@ -3792,7 +3860,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerMobilePhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerMobilePhone", DbType="VarChar(30)")]
 		public string CustomerMobilePhone
 		{
 			get
@@ -3812,7 +3880,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerNotes", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerNotes", DbType="VarChar(1000)")]
 		public string CustomerNotes
 		{
 			get
@@ -3832,7 +3900,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerOrganisationName", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerOrganisationName", DbType="VarChar(100)")]
 		public string CustomerOrganisationName
 		{
 			get
@@ -3852,7 +3920,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerOtherPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerOtherPhone", DbType="VarChar(30)")]
 		public string CustomerOtherPhone
 		{
 			get
@@ -3872,7 +3940,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerPhone", DbType="VarChar(30)")]
 		public string CustomerPhone
 		{
 			get
@@ -3892,7 +3960,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerQuickCode", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerQuickCode", DbType="VarChar(255)")]
 		public string CustomerQuickCode
 		{
 			get
@@ -3912,7 +3980,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerStateRegion", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerStateRegion", DbType="VarChar(255)")]
 		public string CustomerStateRegion
 		{
 			get
@@ -3932,7 +4000,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerZipPostCode", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerZipPostCode", DbType="VarChar(10)")]
 		public string CustomerZipPostCode
 		{
 			get
@@ -3952,7 +4020,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffAddressLines", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffAddressLines", DbType="VarChar(300)")]
 		public string DropoffAddressLines
 		{
 			get
@@ -3972,7 +4040,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffCity", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffCity", DbType="VarChar(300)")]
 		public string DropoffCity
 		{
 			get
@@ -3992,7 +4060,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffContact", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffContact", DbType="VarChar(100)")]
 		public string DropoffContact
 		{
 			get
@@ -4012,7 +4080,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffEmail", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffEmail", DbType="VarChar(1000)")]
 		public string DropoffEmail
 		{
 			get
@@ -4032,7 +4100,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffFax", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffFax", DbType="VarChar(30)")]
 		public string DropoffFax
 		{
 			get
@@ -4052,7 +4120,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffMobilePhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffMobilePhone", DbType="VarChar(30)")]
 		public string DropoffMobilePhone
 		{
 			get
@@ -4072,7 +4140,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotes", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffNotes", DbType="VarChar(1000)")]
 		public string DropoffNotes
 		{
 			get
@@ -4092,7 +4160,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffOrganisationName", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffOrganisationName", DbType="VarChar(100)")]
 		public string DropoffOrganisationName
 		{
 			get
@@ -4112,7 +4180,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffOtherPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffOtherPhone", DbType="VarChar(30)")]
 		public string DropoffOtherPhone
 		{
 			get
@@ -4132,7 +4200,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffPhone", DbType="VarChar(30)")]
 		public string DropoffPhone
 		{
 			get
@@ -4152,7 +4220,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffQuickCode", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffQuickCode", DbType="VarChar(255)")]
 		public string DropoffQuickCode
 		{
 			get
@@ -4172,7 +4240,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffStateRegion", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffStateRegion", DbType="VarChar(255)")]
 		public string DropoffStateRegion
 		{
 			get
@@ -4192,7 +4260,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffZipPostCode", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DropoffZipPostCode", DbType="VarChar(10)")]
 		public string DropoffZipPostCode
 		{
 			get
@@ -4252,7 +4320,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupAddressLines", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupAddressLines", DbType="VarChar(300)")]
 		public string PickupAddressLines
 		{
 			get
@@ -4272,7 +4340,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupCity", DbType="NVarChar(300)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupCity", DbType="VarChar(300)")]
 		public string PickupCity
 		{
 			get
@@ -4292,7 +4360,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupContact", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupContact", DbType="VarChar(100)")]
 		public string PickupContact
 		{
 			get
@@ -4312,7 +4380,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupEmail", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupEmail", DbType="VarChar(1000)")]
 		public string PickupEmail
 		{
 			get
@@ -4332,7 +4400,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupFax", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupFax", DbType="VarChar(30)")]
 		public string PickupFax
 		{
 			get
@@ -4352,7 +4420,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupMobilePhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupMobilePhone", DbType="VarChar(30)")]
 		public string PickupMobilePhone
 		{
 			get
@@ -4372,7 +4440,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotes", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupNotes", DbType="VarChar(1000)")]
 		public string PickupNotes
 		{
 			get
@@ -4392,7 +4460,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupOrganisationName", DbType="NVarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupOrganisationName", DbType="VarChar(100)")]
 		public string PickupOrganisationName
 		{
 			get
@@ -4412,7 +4480,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupOtherPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupOtherPhone", DbType="VarChar(30)")]
 		public string PickupOtherPhone
 		{
 			get
@@ -4432,7 +4500,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupPhone", DbType="NVarChar(30)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupPhone", DbType="VarChar(30)")]
 		public string PickupPhone
 		{
 			get
@@ -4452,7 +4520,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupQuickCode", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupQuickCode", DbType="VarChar(255)")]
 		public string PickupQuickCode
 		{
 			get
@@ -4472,7 +4540,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupStateRegion", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupStateRegion", DbType="VarChar(255)")]
 		public string PickupStateRegion
 		{
 			get
@@ -4492,7 +4560,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupZipPostCode", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickupZipPostCode", DbType="VarChar(10)")]
 		public string PickupZipPostCode
 		{
 			get
@@ -4679,7 +4747,7 @@ namespace CdnLink
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadId", DbType="NVarChar(40) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadId", DbType="VarChar(40) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string LoadId
 		{
 			get
@@ -4803,7 +4871,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorMessage", DbType="NVarChar(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorMessage", DbType="VarChar(1000)")]
 		public string ErrorMessage
 		{
 			get
@@ -4823,7 +4891,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorCode", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorCode", DbType="VarChar(50)")]
 		public string ErrorCode
 		{
 			get
@@ -4978,7 +5046,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadId", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadId", DbType="VarChar(40) NOT NULL", CanBeNull=false)]
 		public string LoadId
 		{
 			get
@@ -5002,7 +5070,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="VarChar(50)")]
 		public string Location
 		{
 			get
@@ -5022,7 +5090,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="NVarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="VarChar(20)")]
 		public string Make
 		{
 			get
@@ -5042,7 +5110,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="VarChar(20)")]
 		public string Model
 		{
 			get
@@ -5062,7 +5130,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MovementNumber", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MovementNumber", DbType="VarChar(50)")]
 		public string MovementNumber
 		{
 			get
@@ -5082,7 +5150,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="VarChar(255)")]
 		public string Notes
 		{
 			get
@@ -5102,7 +5170,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Registration", DbType="NVarChar(10)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Registration", DbType="VarChar(10)")]
 		public string Registration
 		{
 			get
@@ -5122,7 +5190,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Variant", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Variant", DbType="VarChar(50)")]
 		public string Variant
 		{
 			get
@@ -5142,7 +5210,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vin", DbType="NVarChar(17) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vin", DbType="VarChar(17) NOT NULL", CanBeNull=false)]
 		public string Vin
 		{
 			get

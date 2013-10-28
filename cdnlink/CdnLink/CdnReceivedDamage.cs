@@ -7,7 +7,7 @@ namespace CdnLink
         public CdnReceivedDamage(DamageItem damage, string damageAt)
             : this()
         {
-            DamageId = damage.Id;
+            CdnDamageId = damage.Id;
             AreaCode = damage.Area.Code;
             AreaDescription = damage.Area.Description;
             SeverityCode = damage.Severity.Code;

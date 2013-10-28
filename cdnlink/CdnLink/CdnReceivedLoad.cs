@@ -92,12 +92,12 @@ namespace CdnLink
             // Documents
             if (job.Documents != null)
                 foreach (var document in job.Documents)
-                    CdnReceivedDocuments.Add(new CdnReceivedDocument(document) { CdnId = job.Id });
+                    CdnReceivedDocuments.Add(new CdnReceivedDocument(document));
 
             // Vehicles
             if (job.Vehicles != null)
                 foreach (var vehicle in job.Vehicles)
-                    CdnReceivedVehicles.Add(new CdnReceivedVehicle(vehicle) { CdnId = job.Id });
+                    CdnReceivedVehicles.Add(new CdnReceivedVehicle(vehicle));
         }
     }
 }
