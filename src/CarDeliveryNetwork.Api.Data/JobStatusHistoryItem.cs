@@ -26,6 +26,27 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Notes { get; set; }
 
         /// <summary>
+        /// Gets or sets the position at status.
+        /// </summary>
+        public virtual Position PositionAtStatus { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.JobStatusHistoryItem"/> class
+        /// </summary>
+        public JobStatusHistoryItem()
+        {
+            InitObjects();
+        }
+
+        /// <summary>
+        /// Initializes the child objects associated with this JobStatusHistoryItem.
+        /// </summary>
+        protected virtual void InitObjects()
+        {
+            PositionAtStatus = new Position();
+        }
+
+        /// <summary>
         /// Returns a serial representation of the object in JSON format.
         /// </summary>
         /// <returns>The serialized object.</returns>

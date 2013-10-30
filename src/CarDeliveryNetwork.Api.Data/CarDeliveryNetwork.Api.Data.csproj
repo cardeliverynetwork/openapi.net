@@ -51,6 +51,7 @@
     <Compile Include="Fenkell05\Delivery.cs" />
     <Compile Include="Fleet.cs" />
     <Compile Include="FoundJob.cs" />
+    <Compile Include="Position.cs" />
     <Compile Include="HttpResourceFaultException.cs" />
     <Compile Include="IApiEntity.cs" />
     <Compile Include="ApiEntityBase.cs" />
