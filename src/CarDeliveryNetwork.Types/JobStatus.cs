@@ -52,16 +52,6 @@ namespace CarDeliveryNetwork.Types
         Received = 8,
 
         /// <summary>
-        /// Read
-        /// </summary>
-        Read = 9,
-
-        /// <summary>
-        /// NotStarted
-        /// </summary>
-        NotStarted = 10,
-
-        /// <summary>
         /// OnHoldCollection
         /// </summary>
         OnHoldCollection = 11,
