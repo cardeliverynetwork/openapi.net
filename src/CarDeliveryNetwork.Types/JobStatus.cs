@@ -187,11 +187,6 @@ namespace CarDeliveryNetwork.Types
         Opportunity = 36,
 
         /// <summary>
-        /// PaymentPending
-        /// </summary>
-        PaymentPending = 37,
-
-        /// <summary>
         /// Draft
         /// </summary>
         Draft = 38,
