@@ -7,17 +7,17 @@ namespace CarDeliveryNetwork.Api.Data
     public class Action : IApiEntity
     {
         /// <summary>
-        /// Name
+        /// Required: The name of the action to carry out on the associated resource
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Note
+        /// Required for certain actions: The Id of a resource associated with the specified action
         /// </summary>
         public string AssociatedId { get; set; }
 
         /// <summary>
-        /// Note
+        /// Required for certain actions: A note associated with the specified action
         /// </summary>
         public string Note { get; set; }
 

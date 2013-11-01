@@ -2,6 +2,9 @@
 
 namespace CarDeliveryNetwork.Api.Data
 {
+    /// <summary>
+    /// Position
+    /// </summary>
     public class Position
     {
         /// <summary>
