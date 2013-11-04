@@ -21,6 +21,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual JobStatus Status { get; set; }
 
         /// <summary>
+        /// Status
+        /// </summary>
+        public virtual string StatusFriendly { get; set; }
+
+        /// <summary>
         /// Notes
         /// </summary>
         public virtual string Notes { get; set; }
