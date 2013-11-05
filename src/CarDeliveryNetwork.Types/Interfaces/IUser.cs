@@ -24,6 +24,11 @@ namespace CarDeliveryNetwork.Types.Interfaces
         string Username { get; }
 
         /// <summary>
+        /// Password
+        /// </summary>
+        string Password { get; }
+
+        /// <summary>
         /// FirstName
         /// </summary>
         string FirstName { get; }
