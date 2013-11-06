@@ -106,6 +106,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<Vehicle> Vehicles { get; set; }
 
         /// <summary>
+        /// Readonly - A list of history records associated with this job
+        /// </summary>
+        public virtual List<JobStatusHistoryItem> History { get; set; }
+
+        /// <summary>
         /// Readonly - A list of documents associated with this job
         /// </summary>
         public virtual List<Document> Documents { get; set; }
@@ -167,6 +172,7 @@ namespace CarDeliveryNetwork.Api.Data
             Pickup = new EndPoint();
             Dropoff = new EndPoint();
             Vehicles = new List<Vehicle>();
+            History = new List<JobStatusHistoryItem>();
             Documents = new List<Document>();
         }
 
