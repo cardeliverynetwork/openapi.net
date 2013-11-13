@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using CarDeliveryNetwork.Types;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -51,6 +52,16 @@ namespace CarDeliveryNetwork.Api.Data
         /// Optional (255) - Notes relating to this Vehicle.
         /// </summary>
         public virtual string Notes { get; set; }
+
+        /// <summary>
+        /// Readonly - The current status of the Vehicle
+        /// </summary>
+        public virtual VehicleStatus Status { get; set; }
+
+        /// <summary>
+        /// Readonly - Non collection reason
+        /// </summary>
+        public virtual string NonPickupReason { get; set; }
 
         /// <summary>
         /// Readonly - A collection of damage items recorded at pickup
