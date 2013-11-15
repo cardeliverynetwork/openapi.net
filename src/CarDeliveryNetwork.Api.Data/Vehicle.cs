@@ -59,9 +59,9 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual VehicleStatus Status { get; set; }
 
         /// <summary>
-        /// Readonly - Non collection reason
+        /// Readonly - The reason that the vehicle was either not pickup up or not delivered
         /// </summary>
-        public virtual string NonPickupReason { get; set; }
+        public virtual string NonCompletionReason { get; set; }
 
         /// <summary>
         /// Readonly - A collection of damage items recorded at pickup
