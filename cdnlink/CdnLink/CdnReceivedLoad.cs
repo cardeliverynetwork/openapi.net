@@ -1,4 +1,5 @@
-﻿using CarDeliveryNetwork.Api.Data;
+﻿using System.Linq;
+using CarDeliveryNetwork.Api.Data;
 
 namespace CdnLink
 {
@@ -89,15 +90,26 @@ namespace CdnLink
                 DropoffUrl = job.Dropoff.Signoff.Url; 
             }
 
-            // Documents
-            if (job.Documents != null)
-                foreach (var document in job.Documents)
-                    CdnReceivedDocuments.Add(new CdnReceivedDocument(document));
-
-            // Vehicles
+            // Create Vehicle Records
             if (job.Vehicles != null)
                 foreach (var vehicle in job.Vehicles)
+                {
                     CdnReceivedVehicles.Add(new CdnReceivedVehicle(vehicle));
+                    
+                    // Create Vehicle Document records
+                    foreach (var vPhoto in vehicle.Photos)
+                    {
+                        var vDoc = new CdnReceivedDocument(vPhoto);
+                        vDoc.CdnVehicleId = vehicle.Id;
+                        CdnReceivedDocuments.Add(vDoc);
+                    }
+                }
+
+            // Create any Document records weren't already added from the vehicles
+            if (job.Documents != null)
+                foreach (var document in job.Documents)
+                    if(CdnReceivedDocuments.Where(d=> d.Url == document.Url).Count() == 0)
+                        CdnReceivedDocuments.Add(new CdnReceivedDocument(document));
         }
     }
 }
