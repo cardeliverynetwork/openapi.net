@@ -16,6 +16,11 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         public virtual string ReferenceId { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating the inspection type code
+        /// </summary>
+        public virtual string InspectionType { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the delivery is Subject To Inspection by dealer
         /// </summary>
         public virtual bool SubjectToInspection { get; set; }
@@ -62,6 +67,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         public Delivery(ApiData.Job job)
         {
             ReferenceId = job.LoadId;
+            InspectionType = "05";
             SubjectToInspection = job.Dropoff.Signoff != null && string.IsNullOrWhiteSpace(job.Dropoff.Signoff.NotSignedReason);
             Comment = job.Notes;
             // CarrierComment = 
