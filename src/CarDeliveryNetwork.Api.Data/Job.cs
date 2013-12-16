@@ -143,6 +143,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string AssignedDriverRemoteId { get; set; }
 
         /// <summary>
+        /// Readonly - The Id of the device used by the assigned driver
+        /// </summary>
+        public virtual string AssignedAppId { get; set; }
+
+        /// <summary>
         /// Readonly - The number of vehicles on this job
         /// </summary>
         public virtual int VehicleCount
