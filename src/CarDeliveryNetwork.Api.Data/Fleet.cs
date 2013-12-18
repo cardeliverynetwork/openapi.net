@@ -19,9 +19,31 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Scac { get; set; }
 
         /// <summary>
+        /// The fleet's contact details
+        /// </summary>
+        public virtual ContactDetails Contact { get; set; }
+
+        /// <summary>
         /// Readonly - A collection of documents assocated with this fleet
         /// </summary>
         public virtual List<Document> Documents { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Fleet"/> class.
+        /// </summary>
+        public Fleet()
+        {
+            InitObjects();
+        }
+
+        /// <summary>
+        /// Initializes the child objects associated with this job.
+        /// </summary>
+        protected virtual void InitObjects()
+        {
+            Contact = new ContactDetails();
+            Documents = new List<Document>();
+        }
     }
 
     /// <summary>

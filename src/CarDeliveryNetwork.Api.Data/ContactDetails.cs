@@ -1,4 +1,5 @@
 ﻿
+using CarDeliveryNetwork.Types.Interfaces;
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>
@@ -12,7 +13,7 @@ namespace CarDeliveryNetwork.Api.Data
 	/// The more address detail provided for a contact the more accurate a map location will be. 
 	/// The system will use google maps and the data provided to pin point a contact on a map.
     /// </remarks>
-    public class ContactDetails : ApiEntityBase<ContactDetails>
+    public class ContactDetails : ApiEntityBase<ContactDetails>, IContactDetails
     {
         /// <summary>
         /// Optional (255) - A unique identifier with which to refer to this contact.
@@ -92,20 +93,21 @@ namespace CarDeliveryNetwork.Api.Data
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class
         /// with fields copied from the specified contact
         /// </summary>
-        public ContactDetails(ContactDetails c)
+        public ContactDetails(IContactDetails c)
         {
+            QuickCode = c.QuickCode;
             Contact = c.Contact;
+            OrganisationName = c.OrganisationName;
+            AddressLines = c.AddressLines;
+            City = c.City;
+            StateRegion = c.StateRegion;
+            ZipPostCode = c.ZipPostCode;
             Email = c.Email;
             Fax = c.Fax;
             Phone = c.Phone;
             MobilePhone = c.MobilePhone;
             OtherPhone = c.OtherPhone;
             Notes = c.Notes;
-            OrganisationName = c.OrganisationName;
-            AddressLines = c.AddressLines;
-            City = c.City;
-            StateRegion = c.StateRegion;
-            ZipPostCode = c.ZipPostCode;
         }
     }
 }
