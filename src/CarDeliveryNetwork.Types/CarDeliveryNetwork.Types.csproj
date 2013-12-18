@@ -41,6 +41,7 @@
     <Compile Include="AllocateType.cs" />
     <Compile Include="FleetJobContext.cs" />
     <Compile Include="FleetMenuProfile.cs" />
+    <Compile Include="Interfaces\IContactDetails.cs" />
     <Compile Include="Interfaces\NamespaceDoc.cs" />
     <Compile Include="VehicleStatus.cs" />
     <Compile Include="WebHookSchema.cs" />

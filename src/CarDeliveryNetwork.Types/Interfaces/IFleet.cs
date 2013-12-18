@@ -43,6 +43,11 @@ namespace CarDeliveryNetwork.Types.Interfaces
         bool CanDrive { get; }
 
         /// <summary>
+        /// The fleet's contact details
+        /// </summary>
+        IContactDetails Contact { get; }
+
+        /// <summary>
         /// MenuProfile
         /// </summary>
         FleetMenuProfile MenuProfile { get; set; }
