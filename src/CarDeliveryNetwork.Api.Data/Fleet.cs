@@ -17,6 +17,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// The fleet's SCAC
         /// </summary>
         public virtual string Scac { get; set; }
+
+        /// <summary>
+        /// Readonly - A collection of documents assocated with this fleet
+        /// </summary>
+        public virtual List<Document> Documents { get; set; }
     }
 
     /// <summary>
