@@ -19,6 +19,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Scac { get; set; }
 
         /// <summary>
+        /// The URL of this fleet's logo
+        /// </summary>
+        public virtual string LogoUrl { get; set; }
+
+        /// <summary>
         /// The fleet's contact details
         /// </summary>
         public virtual ContactDetails Contact { get; set; }
