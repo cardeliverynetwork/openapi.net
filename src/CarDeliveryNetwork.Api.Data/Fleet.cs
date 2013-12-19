@@ -29,6 +29,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual ContactDetails Contact { get; set; }
 
         /// <summary>
+        /// Readonly - A collection of insurances assocated with this fleet
+        /// </summary>
+        public virtual List<Insurance> Insurances { get; set; }
+
+        /// <summary>
         /// Readonly - A collection of documents assocated with this fleet
         /// </summary>
         public virtual List<Document> Documents { get; set; }
@@ -47,6 +52,7 @@ namespace CarDeliveryNetwork.Api.Data
         protected virtual void InitObjects()
         {
             Contact = new ContactDetails();
+            Insurances = new List<Insurance>();
             Documents = new List<Document>();
         }
     }
