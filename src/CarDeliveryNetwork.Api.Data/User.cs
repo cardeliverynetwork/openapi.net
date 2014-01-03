@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace CarDeliveryNetwork.Api.Data
@@ -38,6 +39,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Password { get; set; }
 
         /// <summary>
+        /// ApiKey
+        /// </summary>
+        public virtual Guid ApiKey { get; set; }
+
+        /// <summary>
         /// Email
         /// </summary>
         public virtual string Email { get; set; }
@@ -61,7 +67,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// Url of the user's signature
         /// </summary>
         public virtual string Signature { get; set; }
-
+        
         /// <summary>
         /// The user's full name
         /// </summary>
