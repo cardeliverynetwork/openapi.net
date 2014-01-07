@@ -39,11 +39,6 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Password { get; set; }
 
         /// <summary>
-        /// ApiKey
-        /// </summary>
-        public virtual Guid ApiKey { get; set; }
-
-        /// <summary>
         /// Email
         /// </summary>
         public virtual string Email { get; set; }
