@@ -24,6 +24,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string LogoUrl { get; set; }
 
         /// <summary>
+        /// The URL of this fleet's supplier terms
+        /// </summary>
+        public virtual string SupplierTermsUrl { get; set; }
+
+        /// <summary>
+        /// The URL of this fleet's customer terms
+        /// </summary>
+        public virtual string CustomerTermsUrl { get; set; }
+
+        /// <summary>
         /// The fleet's contact details
         /// </summary>
         public virtual ContactDetails Contact { get; set; }
