@@ -24,7 +24,7 @@ Prerequsites
 
 Getting the software
 ====================
-Download the latest pinned (stable) build from:  (recommended)
+Download the latest stable build from:
 http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt20/.lastPinned/artifacts.zip
 
 Download the latest development build from:
@@ -59,7 +59,7 @@ CdnLink: Send
 =============
 The calling application should write data to the CdnSendLoads and CdnSendVehicles tables.. It should then write to the CdnSends table (Status=SendStatus.Queued (10)) and call CdnLink:
 
->cdnlink.exe /send
+    >cdnlink.exe /send
 
 CdnLink will connect to the db and read CdnSends, to get the first record at SendStatus.Queued (10) out of the table and then get the data from CdnSendLoads.
 
@@ -75,7 +75,7 @@ CdnLink: Receive
 ================
 Calling application calls CdnLink in receive mode:
 
->cdnlink.exe /receive
+    >cdnlink.exe /receive
 
 CdnLink will firstly connect to the FTP server then to the database to ensure both are available.
 
