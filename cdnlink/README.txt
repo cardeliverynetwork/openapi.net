@@ -98,15 +98,15 @@ The exe will then check the FTP directory again and if there is another record i
 Database Tables
 ===============
 Send to CDN
-------------------
-CdnSends - table that AT Links writes to and the exe reads from to trigger outbound data and track the status and delivery of the data
-CdnSendLoads - table containing outbound load data, AT links should tidy up as appropriate
-CdnSendVehicles - table of vehicles attached to the Load, a load can have 1 or more vehicles, AT links should tidy up as appropriate
+-----------
+CdnSends - table that calling application writes to and the exe reads from to trigger outbound data and track the status and delivery of the data
+CdnSendLoads - table containing outbound load data, calling application should tidy as appropriate
+CdnSendVehicles - table of vehicles attached to the Load, a load can have 1 or more vehicles, calling application should tidy as appropriate
 
 Get from CDN
--------------------
-CdnReceives - table contains the status of FTP files from vinDELIVER
-CdnReceivedFtpFiles - table contains original ftp file from vinDELIVER
+------------
+CdnReceives - table contains the status of FTP files from CDN
+CdnReceivedFtpFiles - table contains original ftp file from CDN
 CdnReceivedLoads - table containing load data extracted from JSON file
 CdnReceivedVehicles - table of vehicles attached to the Load, a load can have 1 or more vehicles
 CdnReceivedDocuments - table of documents attached to the Load, a load can have 1 or more documents
