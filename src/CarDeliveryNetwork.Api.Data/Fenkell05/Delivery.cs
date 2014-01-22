@@ -48,7 +48,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// <summary>
         /// Gets or sets the delivery receipt.
         /// </summary>
-        public virtual HostedDocument Receipt { get; set; }
+        public virtual HostedDocument DeliveryReceipt { get; set; }
 
         /// <summary>
         /// Gets or sets the vehicle.
@@ -78,7 +78,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
                                    .SingleOrDefault();
 
             if (pod != null)
-                Receipt = new HostedDocument(pod);
+                DeliveryReceipt = new HostedDocument(pod);
 
             Vehicle = job.Vehicles.Select(v => new Vehicle(v)).ToList();
         }
