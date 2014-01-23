@@ -87,7 +87,7 @@ namespace CarDeliveryNetwork.Types
         AtDelivery = 18,
 
         /// <summary>
-        /// Closed
+        /// Closed (To be removed on CDN 2.18 release)
         /// </summary>
         Closed = 21,
 
@@ -132,12 +132,12 @@ namespace CarDeliveryNetwork.Types
         Allocated = 28,
 
         /// <summary>
-        /// Approved
+        /// Approved (To be removed on CDN 2.18 release)
         /// </summary>
         Approved = 29,
 
         /// <summary>
-        /// Invoiced
+        /// Invoiced (To be removed on CDN 2.18 release)
         /// </summary>
         Invoiced = 30,
 
