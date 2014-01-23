@@ -87,11 +87,6 @@ namespace CarDeliveryNetwork.Types
         AtDelivery = 18,
 
         /// <summary>
-        /// Delivered
-        /// </summary>
-        Delivered = 19,
-
-        /// <summary>
         /// Closed
         /// </summary>
         Closed = 21,
