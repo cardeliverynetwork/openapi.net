@@ -1,4 +1,9 @@
-﻿-- Delete all receive data
+﻿-- Clear all existing sends
+delete CdnSends
+delete CdnSendVehicles
+delete CdnSendLoads
+
+-- Delete all receive data
 delete CdnReceivedDamage
 delete CdnReceivedVehicles
 delete CdnReceivedDocuments
