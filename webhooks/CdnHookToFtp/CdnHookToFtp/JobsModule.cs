@@ -28,7 +28,7 @@ namespace CdnHookToFtp
         {
             try
             {
-                // Get the host, user and pass from environment or web.config
+                // Get the host, user and pass from URL, environment or web.config
                 var ftpHost = (Request.Query.ftphost.Value ?? GetSetting(FtpHostVariable)).Trim('/');
                 var ftpUser = Request.Query.ftpuser.Value ?? GetSetting(FtpUserVariable);
                 var ftpPass = Request.Query.ftppass.Value ?? GetSetting(FtpPassVariable);
