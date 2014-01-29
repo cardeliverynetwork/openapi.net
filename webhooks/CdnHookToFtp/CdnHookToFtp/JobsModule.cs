@@ -16,20 +16,22 @@ namespace CdnHookToFtp
             : base("/jobs")
         {
             // GET - Just to show the service is up
-            Get["/"] = parameters => "Jobs";
+            Get["/"] = _ => "Jobs";
 
-            // PUT - Do the update (Could be POST if required)
+            // PUT - To put a job update to server-configured FTP
+            // Example: http://example.com/jobs
+            // Example: http://example.com/jobs?ftphost=ftp://ftp.example.com/dir&ftpuser=theuser&ftppass=thepass
             Put["/"] = UpdateJob;
         }
 
-        private Response UpdateJob(dynamic o)
+        private Response UpdateJob(dynamic _)
         {
             try
             {
                 // Get the host, user and pass from environment or web.config
-                var ftpHost = GetSetting(FtpHostVariable).Trim('/');
-                var ftpUser = GetSetting(FtpUserVariable);
-                var ftpPass = GetSetting(FtpPassVariable);
+                var ftpHost = (Request.Query.ftphost.Value ?? GetSetting(FtpHostVariable)).Trim('/');
+                var ftpUser = Request.Query.ftpuser.Value ?? GetSetting(FtpUserVariable);
+                var ftpPass = Request.Query.ftppass.Value ?? GetSetting(FtpPassVariable);
 
                 // Create a unique filename
                 var fileName = Guid.NewGuid().ToString();
