@@ -87,6 +87,11 @@ namespace CarDeliveryNetwork.Types
         AtDelivery = 18,
 
         /// <summary>
+        /// Delivered (Unused.  Exists for backwards compatibility of JobStatusHistory entries that contain this status)
+        /// </summary>
+        Delivered = 19,
+        
+        /// <summary>
         /// Closed (To be removed on CDN 2.18 release)
         /// </summary>
         Closed = 21,
