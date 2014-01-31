@@ -87,16 +87,6 @@ namespace CarDeliveryNetwork.Types
         AtDelivery = 18,
 
         /// <summary>
-        /// Delivered (Unused.  Exists for backwards compatibility of JobStatusHistory entries that contain this status)
-        /// </summary>
-        Delivered = 19,
-        
-        /// <summary>
-        /// Closed (To be removed on CDN 2.18 release)
-        /// </summary>
-        Closed = 21,
-
-        /// <summary>
         /// NonComplete
         /// </summary>
         NonComplete = 22,
@@ -135,16 +125,6 @@ namespace CarDeliveryNetwork.Types
         /// Allocated
         /// </summary>
         Allocated = 28,
-
-        /// <summary>
-        /// Approved (To be removed on CDN 2.18 release)
-        /// </summary>
-        Approved = 29,
-
-        /// <summary>
-        /// Invoiced (To be removed on CDN 2.18 release)
-        /// </summary>
-        Invoiced = 30,
 
         /// <summary>
         /// Transhipping
@@ -189,6 +169,14 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// TradeExchange
         /// </summary>
-        TradeExchange = 40
+        TradeExchange = 40,
+
+        // For job history only, Never applied to Job
+        Delivered = 19,
+        Closed = 21,
+        Approved = 29,
+        Invoiced = 30,
+        Claimed = 2010,
+        Declined = 2020,
     };
 }
