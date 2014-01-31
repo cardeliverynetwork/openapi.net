@@ -89,7 +89,7 @@ CREATE TABLE [dbo].[CdnSends]
 CREATE TABLE [dbo].[CdnReceivedFtpFiles] 
 (
 	[Id] [int] IDENTITY (1, 1),
-	[JsonMessage] [varchar] (8000) NULL,
+	[JsonMessage] [varchar] (MAX) NULL,
 	[Filename] [varchar] (100) NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
