@@ -103,11 +103,11 @@ CdnSends - table that calling application writes to and the exe reads from to tr
 CdnSendLoads - table containing outbound load data, calling application should tidy as appropriate
 CdnSendVehicles - table of vehicles attached to the Load, a load can have 1 or more vehicles, calling application should tidy as appropriate
 
-Get from CDN
+Receive from CDN
 ------------
-CdnReceives - table contains the status of FTP files from CDN
-CdnReceivedFtpFiles - table contains original ftp file from CDN
-CdnReceivedLoads - table containing load data extracted from JSON file
+CdnReceivedFtpFiles - the raw file data as it was read from the FTP server. This is debugging data and shouldn't need to be used by the calling application
+CdnReceives - the status of each received update.  Calling application should handle updates at status ReceiveStatus.Queued (60)
+CdnReceivedLoads - load data extracted from JSON file
 CdnReceivedVehicles - table of vehicles attached to the Load, a load can have 1 or more vehicles
 CdnReceivedDocuments - table of documents attached to the Load, a load can have 1 or more documents
 CdnReceivedDamage - table of damage codes attached to the Load, a load can have 1 or more damage items
