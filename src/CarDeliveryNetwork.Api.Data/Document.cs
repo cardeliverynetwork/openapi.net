@@ -9,7 +9,7 @@ namespace CarDeliveryNetwork.Api.Data
     public class Document : IApiEntity
     {
         /// <summary>
-        /// The url of the document
+        /// The URL of the document
         /// </summary>
         public string Url { get; set; }
 
