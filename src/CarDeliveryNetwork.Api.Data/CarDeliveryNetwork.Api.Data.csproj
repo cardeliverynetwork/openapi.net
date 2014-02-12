@@ -53,6 +53,7 @@
     <Compile Include="Fleet.cs" />
     <Compile Include="FoundJob.cs" />
     <Compile Include="Insurance.cs" />
+    <Compile Include="Ledger.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="HttpResourceFaultException.cs" />
     <Compile Include="IApiEntity.cs" />
