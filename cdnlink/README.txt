@@ -4,11 +4,11 @@ CdnLink provides a link between your application and Car Delivery Network (CDN) 
 
 CdnLink can be run in two modes, Send and Receive.
 
-In Send mode, CdnLink extracts job data from the CdnLink ‘Send’ tables and sends them to CDN through its API.
+In Send mode, CdnLink extracts job data from the CdnLink ï¿½Sendï¿½ tables and sends them to CDN through its API.
 
 As jobs progress in the field, and vehicles are picked up and delivered, updates are sent from CDN to your FTP server.
 
-Running CdnLink in ‘Receive’ mode downloads these updates from your FTP server and inserts the job data into the CdnLink ‘Receive’ tables, where it can be queried by you application.
+Running CdnLink in ï¿½Receiveï¿½ mode downloads these updates from your FTP server and inserts the job data into the CdnLink ï¿½Receiveï¿½ tables, where it can be queried by you application.
 
 As with the rest of the CDN OpenApi clients, CdnLink is released under the MIT licence.
 
@@ -18,9 +18,9 @@ CdnLink exists as an executable file that can be called from you application
 
 Prerequsites
 ============
-- Windows XP/Server 2003
+- Windows XP/Server 2003 or later
 - .NET Framework 4
-- SQL Server 2005 or later (earlier versions and other databases me work but are untested)
+- SQL Server 2005 or later (earlier versions and other databases are untested but may function)
 
 Getting the software
 ====================
@@ -37,7 +37,7 @@ Installation
 
 Database setup
 ==============
-Run create.sql from the ‘db’ directory in the extracted archive.
+Run create.sql from the ï¿½dbï¿½ directory in the extracted archive.
 
 Configuration
 =============
@@ -53,7 +53,7 @@ CDNLINK_FTP_ROOT (optional) - The directory CdnLink should look in to find its u
 CDNLINK_FTP_USER - FTP Username
 CDNLINK_FTP_PASS - FTP Password
 
-Be sure to set the ‘value’ field and leave the ‘name’ field as it is above.  For the connection string, set the ‘connectionString’ field.
+Be sure to set the ï¿½valueï¿½ field and leave the ï¿½nameï¿½ field as it is above.  For the connection string, set the ï¿½connectionStringï¿½ field.
 
 CdnLink: Send
 =============
