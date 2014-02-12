@@ -29,7 +29,7 @@ Committers
 
 License
 ---
-See COPYING for license information. Copyright (c) 2010, 2011, 2012, 2013 Car Delivery Network Ltd.
+See COPYING for license information. Copyright (c) 2010, 2011, 2012, 2013, 2014 Car Delivery Network Ltd.
 
 Integration Builds
 ---
