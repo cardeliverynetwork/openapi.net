@@ -10,11 +10,8 @@ This is a .NET/C# interface into the Car Delivery Network Service.
 
 Necessary prerequisites
 ---
-* Visual Studio 2010
+* Visual Studio 2010/12
 * .NET 4.0 
-
-or 
-* [Mono](http://www.mono-project.com) 2.10.x
 
 [Examples](https://github.com/cardeliverynetwork/openapi.net/wiki/Code-Examples)
 ---
