@@ -200,8 +200,10 @@ CREATE TABLE [dbo].[CdnReceivedVehicles]
 	[Make] [varchar] (20) NULL,
 	[Model] [varchar] (20) NULL,
 	[MovementNumber] [varchar] (50) NULL,
+	[NonCompletionReason] [varchar] (255) NULL,
 	[Notes] [varchar] (255) NULL,
 	[Registration] [varchar] (10) NULL,
+	[Status] [int] NOT NULL,
 	[Variant] [varchar] (50) NULL,
 	[Vin] [varchar] (17) NOT NULL,
 	PRIMARY KEY CLUSTERED (Id)

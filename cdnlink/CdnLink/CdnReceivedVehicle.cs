@@ -12,8 +12,10 @@ namespace CdnLink
             Make = vehicle.Make;
             Model = vehicle.Model;
             MovementNumber = vehicle.MovementNumber;
+            NonCompletionReason = vehicle.NonCompletionReason;
             Notes = vehicle.Notes;
             Registration = vehicle.Registration;
+            Status = (int)vehicle.Status;
             Variant = vehicle.Variant;
             Vin = vehicle.Vin;
 
