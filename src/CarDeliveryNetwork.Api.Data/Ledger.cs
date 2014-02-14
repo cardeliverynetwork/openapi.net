@@ -58,6 +58,22 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual decimal Margin { get; set; }
 
         /// <summary>
+        /// Gets or sets the jobs.
+        /// </summary>
+        /// <value>
+        /// The jobs.
+        /// </value>
+        public virtual int Jobs { get; set; }
+
+        /// <summary>
+        /// Gets or sets the vehicles.
+        /// </summary>
+        /// <value>
+        /// The vehicles.
+        /// </value>
+        public virtual int Vehicles { get; set; }
+
+        /// <summary>
         /// Returns a serial representation of the object in JSON format.
         /// </summary>
         /// <returns>The serialized object.</returns>
