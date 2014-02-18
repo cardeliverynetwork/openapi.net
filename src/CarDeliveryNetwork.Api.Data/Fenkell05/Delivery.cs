@@ -80,7 +80,9 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
             if (pod != null)
                 DeliveryReceipt = new HostedDocument(pod);
 
-            Vehicle = job.Vehicles.Select(v => new Vehicle(v)).ToList();
+            Vehicle = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered)
+                                  .Select(v => new Vehicle(v))
+                                  .ToList();
         }
 
         /// <summary>
