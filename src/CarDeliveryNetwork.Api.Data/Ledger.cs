@@ -118,7 +118,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="Ledger">The collection of LedgerEntries whose elements are copied to the new collection.</param>
+        /// <param name="ledger">The collection of LedgerEntries whose elements are copied to the new collection.</param>
         public Ledger(IEnumerable<LedgerEntry> ledger) : base(ledger) { }
     }
 }

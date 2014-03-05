@@ -171,12 +171,34 @@ namespace CarDeliveryNetwork.Types
         /// </summary>
         TradeExchange = 40,
 
-        // For job history only, Never applied to Job
+        /// <summary>
+        /// Legacy - For job history only, Never applied to Job
+        /// </summary>
         Delivered = 19,
+
+        /// <summary>
+        /// Legacy - For job history only, Never applied to Job
+        /// </summary>
         Closed = 21,
+
+        /// <summary>
+        /// Legacy - For job history only, Never applied to Job
+        /// </summary>
         Approved = 29,
+
+        /// <summary>
+        /// Legacy - For job history only, Never applied to Job
+        /// </summary>
         Invoiced = 30,
+
+        /// <summary>
+        /// Legacy - For job history only, Never applied to Job
+        /// </summary>
         Claimed = 2010,
+
+        /// <summary>
+        /// Legacy - For job history only, Never applied to Job
+        /// </summary>
         Declined = 2020,
     };
 }
