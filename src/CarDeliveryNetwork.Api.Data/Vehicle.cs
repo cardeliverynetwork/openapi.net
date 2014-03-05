@@ -24,12 +24,12 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Vin { get; set; }
 
         /// <summary>
-        /// Optional (20) - The vehicle make/manufacturer.
+        /// Optional (50) - The vehicle make/manufacturer.
         /// </summary>
         public virtual string Make { get; set; }
 
         /// <summary>
-        /// Optional (20) - The vehicle model.
+        /// Optional (50) - The vehicle model.
         /// </summary>
         public virtual string Model { get; set; }
 
@@ -39,7 +39,7 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Variant { get; set; }
 
         /// <summary>
-        /// Optional (50) - The vehicle's locatoin or bay number
+        /// Optional (50) - The vehicle's location or bay number
         /// </summary>
         public virtual string Location { get; set; }
 
