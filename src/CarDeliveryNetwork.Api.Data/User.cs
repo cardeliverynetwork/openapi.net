@@ -62,7 +62,12 @@ namespace CarDeliveryNetwork.Api.Data
         /// Url of the user's signature
         /// </summary>
         public virtual string Signature { get; set; }
-        
+
+        /// <summary>
+        /// Gets the last known position of this user
+        /// </summary>
+        public virtual Position LastPosition { get; set; }
+
         /// <summary>
         /// The user's full name
         /// </summary>
