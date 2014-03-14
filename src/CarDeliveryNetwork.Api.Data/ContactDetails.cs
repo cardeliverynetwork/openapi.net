@@ -1,17 +1,18 @@
 ﻿
+using System.Text;
 using CarDeliveryNetwork.Types.Interfaces;
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>
     /// A Car Delivery Network ContactDetails entity.
     /// </summary>
-	/// <remarks>
+    /// <remarks>
     /// If you only specify the Id or QuickCode then the contact must be already present
-	/// To create a new contact you must specify the OrganisationName, City, StateRegion
-	/// If you specify a contact that is already in the database all fields present will
-	/// updated the the fields in the Job contact.
-	/// The more address detail provided for a contact the more accurate a map location will be. 
-	/// The system will use google maps and the data provided to pin point a contact on a map.
+    /// To create a new contact you must specify the OrganisationName, City, StateRegion
+    /// If you specify a contact that is already in the database all fields present will
+    /// updated the the fields in the Job contact.
+    /// The more address detail provided for a contact the more accurate a map location will be. 
+    /// The system will use google maps and the data provided to pin point a contact on a map.
     /// </remarks>
     public class ContactDetails : ApiEntityBase<ContactDetails>, IContactDetails
     {
@@ -108,6 +109,52 @@ namespace CarDeliveryNetwork.Api.Data
             MobilePhone = c.MobilePhone;
             OtherPhone = c.OtherPhone;
             Notes = c.Notes;
+        }
+
+        /// <summary>
+        /// Gets a web friendly address string 
+        /// </summary>
+        /// <param name="includeContact">Indicates that the Contact field should be included</param>
+        /// <param name="includeOrganisation">Indicates that the Organisation field should be included</param>
+        /// <param name="includeAddressLines">Indicates that the AddressLines field should be included</param>
+        /// <param name="includeCity">Indicates that the City field should be included</param>
+        /// <param name="includeStateRegion">Indicates that the StateRegion field should be included</param>
+        /// <param name="includeZipPostcode">Indicates that the ZipPostCode field should be included</param>
+        /// <param name="includePhones">Indicates that the various Phone number fields should be included</param>
+        /// <param name="includeEmail">Indicates that the Email field should be included</param>
+        /// <returns>A web friendly address string</returns>
+        public string ToWebString(
+            bool includeContact = true,
+            bool includeOrganisation = true,
+            bool includeAddressLines = true,
+            bool includeCity = true,
+            bool includeStateRegion = true,
+            bool includeZipPostcode = true,
+            bool includePhones = true,
+            bool includeEmail = true)
+        {
+            var result = new StringBuilder();
+            if (includeContact && !string.IsNullOrWhiteSpace(Contact))
+                result.AppendFormat("{0}<br />", Contact);
+            if (includeOrganisation && !string.IsNullOrWhiteSpace(OrganisationName))
+                result.AppendFormat("{0}<br />", OrganisationName);
+            if (includeAddressLines && !string.IsNullOrWhiteSpace(AddressLines))
+                result.AppendFormat("{0}<br />", AddressLines);
+            if (includeCity && !string.IsNullOrWhiteSpace(City))
+                result.AppendFormat("{0}<br />", City);
+            if (includeStateRegion && !string.IsNullOrWhiteSpace(StateRegion))
+                result.AppendFormat("{0}<br />", StateRegion);
+            if (includeZipPostcode && !string.IsNullOrWhiteSpace(ZipPostCode))
+                result.AppendFormat("{0}<br />", ZipPostCode);
+            if (includePhones && !string.IsNullOrWhiteSpace(Phone))
+                result.AppendFormat("{0}<br />", Phone);
+            if (includePhones && !string.IsNullOrWhiteSpace(OtherPhone))
+                result.AppendFormat("{0}<br />", OtherPhone);
+            if (includePhones && !string.IsNullOrWhiteSpace(MobilePhone))
+                result.AppendFormat("{0}<br />", MobilePhone);
+            if (includeEmail && !string.IsNullOrWhiteSpace(Email))
+                result.AppendFormat("{0}<br />", Email);
+            return result.ToString();
         }
     }
 }
