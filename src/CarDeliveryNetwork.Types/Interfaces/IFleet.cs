@@ -43,6 +43,11 @@ namespace CarDeliveryNetwork.Types.Interfaces
         bool CanDrive { get; }
 
         /// <summary>
+        /// Fleet is primarily a broker
+        /// </summary>
+        bool IsBroker { get; }
+
+        /// <summary>
         /// The fleet's contact details
         /// </summary>
         IContactDetails Contact { get; }

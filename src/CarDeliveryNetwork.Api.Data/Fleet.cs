@@ -19,6 +19,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Scac { get; set; }
 
         /// <summary>
+        /// Indicates that the fleet is primarily a broker
+        /// </summary>
+        public virtual bool IsBroker { get; set; }
+
+        /// <summary>
         /// The URL of this fleet's logo
         /// </summary>
         public virtual string LogoUrl { get; set; }
