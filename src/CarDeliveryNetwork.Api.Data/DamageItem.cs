@@ -71,7 +71,12 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// Damage Severity
         /// </summary>
-        public virtual DamageSeverity Severity { get; set; }  
+        public virtual DamageSeverity Severity { get; set; }
+
+        /// <summary>
+        /// Damage Description
+        /// </summary>
+        public virtual string Description { get; set; }  
     }
 
     /// <summary>
