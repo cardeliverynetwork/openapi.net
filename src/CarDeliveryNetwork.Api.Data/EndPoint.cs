@@ -29,11 +29,6 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual bool RequestedDateIsExact { get; set; }
 
         /// <summary>
-        /// Readonly - A pin that can be used to retrieve proof of collection/delivery  for this endpoint
-        /// </summary>
-        public virtual string Pin { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.EndPoint"/> class.
         /// </summary>
         public EndPoint()
