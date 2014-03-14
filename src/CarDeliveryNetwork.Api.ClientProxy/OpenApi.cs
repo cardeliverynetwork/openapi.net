@@ -100,6 +100,19 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
+        /// Gets the the list of contracts for the job of the specified id.
+        /// </summary>
+        /// <param name="loadId">Job id</param>
+        /// <returns>Documents on the job of the specified id</returns>
+        public Contracts GetJobContracts(int id)
+        {
+            if (id == 0)
+                throw new Exception("Id must be greater than zero");
+            var resource = string.Format("Jobs/{0}/Contracts", id);
+            return Contracts.FromString(Call(resource, "GET"), _interfaceFormat);
+        }
+
+        /// <summary>
         /// Create the specified job on Car Delivery Network.
         /// </summary>
         /// <param name="job">The job to create.</param>
