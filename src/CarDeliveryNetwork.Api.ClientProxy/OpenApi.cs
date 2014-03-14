@@ -39,8 +39,8 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         {
             if (string.IsNullOrWhiteSpace(uri))
                 throw new ArgumentException("uri string cannot be null or empty");
-            if (string.IsNullOrWhiteSpace(apiKey))
-                throw new ArgumentException("apiKey string cannot be null or empty");
+            if (apiKey == null)
+                throw new ArgumentException("apiKey string cannot be null");
 
             _interfaceFormat = MessageFormat.Json;
             Uri = uri;
@@ -100,16 +100,17 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
-        /// Gets the the list of contracts for the job of the specified id.
+        /// Gets the proof document for the endpoint of the specified JobId and Pin.
         /// </summary>
-        /// <param name="loadId">Job id</param>
-        /// <returns>Documents on the job of the specified id</returns>
-        public Contracts GetJobContracts(int id)
+        /// <param name="id">The Job Id</param>
+        /// <param name="pin">The EndPoint Pin</param>
+        /// <returns>the proof document for the endpoint of the specified JobId and Pin.</returns>
+        public Proof GetProof(int id, string pin)
         {
             if (id == 0)
                 throw new Exception("Id must be greater than zero");
-            var resource = string.Format("Jobs/{0}/Contracts", id);
-            return Contracts.FromString(Call(resource, "GET"), _interfaceFormat);
+            var resource = string.Format("Proof/{0}/{1}", id, pin);
+            return Proof.FromString(Call(resource, "GET"), _interfaceFormat);
         }
 
         /// <summary>
