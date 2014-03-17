@@ -79,6 +79,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<Document> Photos { get; set; }
 
         /// <summary>
+        /// Readonly - A collection of duty of care fields assocated with this vehicle
+        /// </summary>
+        public virtual Dictionary<string, string> DutyOfCare { get; set; }
+        
+        /// <summary>
+        /// Readonly - A collection of paperwork fields assocated with this vehicle
+        /// </summary>
+        public virtual Dictionary<string, string> Paperwork { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Vehicle"/> class
         /// </summary>
         public Vehicle()
@@ -94,6 +104,8 @@ namespace CarDeliveryNetwork.Api.Data
             DamageAtPickup = new List<DamageItem>();
             DamageAtDropoff = new List<DamageItem>();
             Photos = new List<Document>();
+            Paperwork = new Dictionary<string, string>();
+            DutyOfCare = new Dictionary<string, string>();
         }
     }
 
