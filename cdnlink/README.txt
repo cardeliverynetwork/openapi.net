@@ -8,7 +8,7 @@ In Send mode, CdnLink extracts job data from the CdnLink 'Send' tables and sends
 
 As jobs progress in the field, and vehicles are picked up and delivered, updates are sent from CDN to your FTP server.
 
-Running CdnLink in 'Receive' mode downloads these updates from your FTP server and inserts the job data into the CdnLink �Receive� tables, where it can be queried by you application.
+Running CdnLink in 'Receive' mode downloads these updates from your FTP server and inserts the job data into the CdnLink 'Receive' tables, where it can be queried by you application.
 
 As with the rest of the CDN OpenApi clients, CdnLink is released under the MIT licence.
 
