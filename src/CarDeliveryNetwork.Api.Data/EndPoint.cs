@@ -29,6 +29,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual bool RequestedDateIsExact { get; set; }
 
         /// <summary>
+        /// ReadOnly - The URL of the proof document associated with this EndPoint ()
+        /// </summary>
+        public virtual string ProofDocUrl { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.EndPoint"/> class.
         /// </summary>
         public EndPoint()
