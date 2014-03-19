@@ -68,7 +68,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         {
             ReferenceId = job.LoadId;
             InspectionType = "05";
-            SubjectToInspection = job.Dropoff.Signoff == null || !string.IsNullOrWhiteSpace(job.Dropoff.Signoff.NotSignedReason);
+            SubjectToInspection = job.Dropoff.Signoff == null || job.Dropoff.Signoff.NotSignedReasons != null;
             Comment = job.Notes;
             // CarrierComment = 
             Carrier = new Carrier(job);

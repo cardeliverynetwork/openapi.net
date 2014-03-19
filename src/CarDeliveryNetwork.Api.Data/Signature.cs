@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -8,24 +9,24 @@ namespace CarDeliveryNetwork.Api.Data
     public class Signature : IApiEntity
     {
         /// <summary>
-        /// The url of the Signature
+        /// Readonly - The url of the Signature
         /// </summary>
         public string Url { get; set; }
 
         /// <summary>
-        /// SignedBy
+        /// Readonly - SignedBy
         /// </summary>
         public string SignedBy { get; set; }
 
         /// <summary>
-        /// The sign time, or time the signature was declared as not available
+        /// Readonly - The sign time, or time the signature was declared as not available
         /// </summary>
         public DateTime? Time { get; set; }
 
         /// <summary>
-        /// The reason that a signature was not supplied
+        /// Readonly - A list of reasons that a signature was not supplied
         /// </summary>
-        public string NotSignedReason { get; set; }
+        public List<string> NotSignedReasons { get; set; }
 
         /// <summary>
         /// Returns a serial representation of the object in JSON format.
