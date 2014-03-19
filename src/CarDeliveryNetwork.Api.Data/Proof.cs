@@ -2,6 +2,9 @@
 using CarDeliveryNetwork.Types;
 namespace CarDeliveryNetwork.Api.Data
 {
+    /// <summary>
+    /// Proof
+    /// </summary>
     public class Proof : IApiEntity
     {
         /// <summary>
