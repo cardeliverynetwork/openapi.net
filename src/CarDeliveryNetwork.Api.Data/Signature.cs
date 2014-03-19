@@ -24,6 +24,12 @@ namespace CarDeliveryNetwork.Api.Data
         public DateTime? Time { get; set; }
 
         /// <summary>
+        /// Readonly - Obsolete - Returns the first in the list of NotSignedReasons
+        /// </summary>
+        [Obsolete("Please use the NotSignedReasons collection")]
+        public string NotSignedReason { get; set; }
+
+        /// <summary>
         /// Readonly - A list of reasons that a signature was not supplied
         /// </summary>
         public List<string> NotSignedReasons { get; set; }
