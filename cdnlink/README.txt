@@ -71,6 +71,13 @@ The exe will then check the CdnSends table and if there is another record in the
 - Invalid database connect string
 - Invalid CDN API URL or key
 
+The following Send status' are possible:
+
+    Queued (10) - The send is queued, waiting to be processed by CdnLink
+    Processing (20) - The send is being processed by CdnLink
+    Sent (30) - The send is sent
+    Error (40) - An error occurred when processing a send
+
 CdnLink: Receive
 ================
 Calling application calls CdnLink in receive mode:
@@ -86,7 +93,7 @@ CdnLink will then get the first ftp file and:
 
 CdnLink will then process the JSON message placing the data into the CdnReceivedLoad, CdnReceivedVehicles, CdnReceivedDocuments, CdnReceivedDamage tables
 - If the exe gets a successful result it will update CdnReceives to the Status=ReceiveStatus.Queued (60)
-- Iif the exe gets a error it will update CdnReceives to the Status=ReceiveStatus.Error (70)
+- If the exe gets a error it will update CdnReceives to the Status=ReceiveStatus.Error (70)
 
 The exe will then check the FTP directory again and if there is another record in the table it will get it otherwise it will close with a success code.  Non success errors could be:
 - Invalid database connect string
@@ -94,6 +101,12 @@ The exe will then check the FTP directory again and if there is another record i
 - Invalid FTP server
 - Invalid FTP user
 - Invalid directory
+
+The following Receive status' are possible:
+
+    Processing (50) - The receive is being processed by CdnLink
+    Queued (60) - The receive is queued, waiting to be processed by the calling application
+    Error (70) - An error occurred whilst processing a receive
 
 Database Tables
 ===============

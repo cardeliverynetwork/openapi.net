@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDeliveryNetwork.Types", "..\src\CarDeliveryNetwork.Types\CarDeliveryNetwork.Types.csproj", "{DF771B50-D3D9-4BE7-896D-467CFB9920DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDeliveryNetwork.Api.Data", "..\src\CarDeliveryNetwork.Api.Data\CarDeliveryNetwork.Api.Data.csproj", "{64A29309-7DD4-426D-A677-8D8A2C0A351D}"
@@ -17,6 +19,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CdnLink", "CdnLink\CdnLink.csproj", "{F20A8FE8-0CCE-4E04-A080-BACFD11AF0F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CdnLink.Tests", "CdnLink.Tests\CdnLink.Tests.csproj", "{388C75C7-1603-4B4B-BF67-132C508846AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1A26AD5F-E8DC-485F-B239-2490E5679902}"
+	ProjectSection(SolutionItems) = preProject
+		README.txt = README.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
