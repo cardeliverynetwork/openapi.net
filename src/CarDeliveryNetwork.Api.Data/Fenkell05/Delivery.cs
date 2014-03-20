@@ -77,11 +77,12 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
             Carrier = new Carrier(job);
             Shipment = new Shipment(job);
 
-            var pod = job.Documents.Where(d => d.Url.Contains("pod"))
-                                   .SingleOrDefault();
-
-            if (pod != null)
-                DeliveryReceipt = new HostedDocument(pod);
+            if (!string.IsNullOrWhiteSpace(job.Dropoff.ProofDocUrl))
+                DeliveryReceipt = new HostedDocument { 
+                    Title = "Proof of Delivery",
+                    URL = job.Dropoff.ProofDocUrl,
+                    ReferenceId = ReferenceId
+                };
 
             Vehicle = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered)
                                   .Select(v => new Vehicle(v))
