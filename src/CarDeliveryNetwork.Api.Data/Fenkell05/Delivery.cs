@@ -66,7 +66,10 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// <param name="job"></param>
         public Delivery(ApiData.Job job)
         {
-            ReferenceId = job.LoadId;
+            ReferenceId = string.IsNullOrWhiteSpace(job.LoadId)
+                ? string.Format("{0}", job.JobNumber)
+                : string.Format("{0}:{1}", job.JobNumber, job.LoadId);
+
             InspectionType = "05";
             SubjectToInspection = job.Dropoff.Signoff == null || job.Dropoff.Signoff.NotSignedReasons != null;
             Comment = job.Notes;
@@ -269,7 +272,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
             AreaCode = damage.Area.Code;
             TypeCode = damage.Type.Code;
             SeverityCode = damage.Severity.Code;
-            // Comment = 
+            Comment = damage.Description;
         }
     }
 
