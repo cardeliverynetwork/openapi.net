@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using CarDeliveryNetwork.Api.Data;
 using CarDeliveryNetwork.Types;
 
@@ -52,12 +53,12 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// </summary>
         /// <param name="loadId">LoadId of the job to get.</param>
         /// <returns>The job of the specified LoadId.</returns>
-        public Job GetJob(string loadId)
+        public Job GetJob(string loadId, string callParams = null)
         {
             if (string.IsNullOrEmpty(loadId))
                 throw new Exception("LoadId must be non null and at least 1 character in length");
             var resource = string.Format("Jobs/{0}", loadId);
-            return Job.FromString(Call(resource, "GET", true), _interfaceFormat);
+            return Job.FromString(Call(resource, "GET", true, null, callParams), _interfaceFormat);
         }
 
         /// <summary>
@@ -65,12 +66,12 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// </summary>
         /// <param name="id">Id of the job to get.</param>
         /// <returns>The job of the specified Id.</returns>
-        public Job GetJob(int id)
+        public Job GetJob(int id, string callParams = null)
         {
             if (id == 0)
                 throw new Exception("Id must be greater than zero");
             var resource = string.Format("Jobs/{0}", id);
-            return Job.FromString(Call(resource, "GET"), _interfaceFormat);
+            return Job.FromString(Call(resource, "GET", false, null, callParams), _interfaceFormat);
         }
 
         /// <summary>
@@ -228,10 +229,16 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <param name="method">The HTTP method to perform on the target resource.</param>
         /// <param name="isUsingLoadIds">When true, the target resource is identified by a client specified LoadId.</param>
         /// <param name="data">The data body for POST and PUT methods.</param>
+        /// <param name="callParams">Paramater string to be added to the end of the API call.</param>
         /// <returns>The response string from the API call.</returns>
-        public string Call(string resuorce, string method, bool isUsingLoadIds = false, IApiEntity data = null)
+        public string Call(string resuorce, string method, bool isUsingLoadIds = false, IApiEntity data = null, string callParams = null)
         {
-            var requestUri = string.Format("{0}/{1}?isloadid={2}&apikey={3}", Uri, resuorce, isUsingLoadIds, ApiKey);
+            // Remove whitespace, get rid of leading ? or &
+            callParams = callParams == null
+                ? ""
+                : new Regex(@"\s+").Replace(callParams, "").TrimStart('?', '&');
+
+            var requestUri = string.Format("{0}/{1}?apikey={2}&isloadid={3}&{4}", Uri, resuorce, ApiKey, isUsingLoadIds, callParams);
             var req = WebRequest.Create(requestUri) as HttpWebRequest;
             req.KeepAlive = false;
             req.ContentType = "application/" + _interfaceFormat.ToString().ToLower();
