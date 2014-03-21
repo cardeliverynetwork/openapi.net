@@ -33,6 +33,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// DataFormat 'json' or 'xml'
         /// </summary>
         public virtual string DataFormat { get; set; }
+
+        /// <summary>
+        /// Paramaters to be added to the URL used to fetch the data for this hook
+        /// </summary>
+        public virtual string FetchParams { get; set; }
     }
 
     /// <summary>
