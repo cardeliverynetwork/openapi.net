@@ -37,7 +37,7 @@ namespace CdnLink.Tests
         }
 
         /// <summary>
-        /// This test is very very slow while we wait for teh request to timeout
+        /// This test is very very slow while we wait for the request to timeout
         /// </summary>
         [Test]
         [Ignore]

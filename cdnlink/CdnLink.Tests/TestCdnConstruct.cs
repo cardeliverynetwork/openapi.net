@@ -89,13 +89,6 @@ namespace CdnLink.Tests
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
-        public void EmptyApiKey()
-        {
-            new CdnLink("0", new OpenApi("0", string.Empty), new FtpBox("0", "0", "0", "0"));
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void EmptyFtpHost()
         {
             new CdnLink("0", new OpenApi("0", "0"), new FtpBox(string.Empty, "0", "0", "0"));

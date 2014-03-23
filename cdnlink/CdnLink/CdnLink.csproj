@@ -91,7 +91,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="CdnLink.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>CdnLink.designer.cs</LastGenOutput>
