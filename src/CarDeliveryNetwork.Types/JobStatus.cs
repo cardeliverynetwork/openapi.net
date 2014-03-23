@@ -102,11 +102,6 @@ namespace CarDeliveryNetwork.Types
         Complete = 24,
 
         /// <summary>
-        /// CompleteConfirmed
-        /// </summary>
-        CompleteConfirmed = 1024,
-
-        /// <summary>
         /// NavigateToDelivery
         /// </summary>
         NavigateToDelivery = 25,
