@@ -5,7 +5,7 @@ namespace CarDeliveryNetwork.Types.Interfaces
     /// <summary>
     /// Interface describing a Car Delivery Network user.
     /// </summary>
-    public interface IFleet
+    public interface IFleet : IOwnable
     {
         /// <summary>
         /// Id
