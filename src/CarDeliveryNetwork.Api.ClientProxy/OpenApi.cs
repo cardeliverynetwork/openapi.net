@@ -52,6 +52,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// Gets the job of the specified LoadId from Car Delivery Network.
         /// </summary>
         /// <param name="loadId">LoadId of the job to get.</param>
+        /// <param name="callParams">Paramaters to be added to the API Call URL</param>
         /// <returns>The job of the specified LoadId.</returns>
         public Job GetJob(string loadId, string callParams = null)
         {
@@ -65,6 +66,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// Gets the job of the specified Id from Car Delivery Network.
         /// </summary>
         /// <param name="id">Id of the job to get.</param>
+        /// <param name="callParams">Paramaters to be added to the API Call URL</param>
         /// <returns>The job of the specified Id.</returns>
         public Job GetJob(int id, string callParams = null)
         {
