@@ -158,6 +158,7 @@ CREATE TABLE [dbo].[CdnReceivedLoads]
 	[DropoffSignedBy] [nvarchar] (100) NULL,
 	[DropoffTime] [datetime] NULL, 
 	[DropoffUrl] [nvarchar] (1000) NULL,
+	[DropoffProofDocUrl] [nvarchar] (1000) NULL,
 	[PickupAddressLines] [nvarchar] (300) NULL,
 	[PickupCity] [nvarchar] (300) NULL,
 	[PickupContact] [nvarchar] (100) NULL,
@@ -177,6 +178,7 @@ CREATE TABLE [dbo].[CdnReceivedLoads]
 	[PickupSignedBy] [nvarchar] (100) NULL,
 	[PickupTime] [datetime] NULL, 
 	[PickupUrl] [nvarchar] (1000) NULL,
+	[PickupProofDocUrl] [nvarchar] (1000) NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
 

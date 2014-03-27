@@ -37,7 +37,11 @@ Installation
 
 Database setup
 ==============
-Run create.sql from the 'db' directory in the extracted archive.
+For new installs:
+- Run create.sql from the 'db' directory in the extracted archive.
+
+For upgrades:
+- Run upgrade.sql from the 'db' directory in the extracted archive.
 
 Configuration
 =============
@@ -49,7 +53,6 @@ CdnLink.Settings.CDNLINK_CONNECTIONSTRING - Connection string for access to CdnS
 CDNLINK_API_URL - URL of the Car Delivery Network API
 CDNLINK_API_KEY - Your API key
 CDNLINK_FTP_HOST - The FTP host CdnLink should connect to for job updates.
-CDNLINK_FTP_ROOT (optional) - The directory CdnLink should look in to find its updates
 CDNLINK_FTP_USER - FTP Username
 CDNLINK_FTP_PASS - FTP Password
 

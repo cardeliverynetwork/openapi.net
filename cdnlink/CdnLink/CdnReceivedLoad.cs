@@ -43,6 +43,7 @@ namespace CdnLink
             // Pickup                                                         
             PickupRequestedDate = job.Pickup.RequestedDate;
             PickupRequestedDateIsExact = job.Pickup.RequestedDateIsExact;
+            PickupProofDocUrl = job.Pickup.ProofDocUrl;
             PickupQuickCode = job.Pickup.Destination.QuickCode;
             PickupContact = job.Pickup.Destination.Contact;
             PickupOrganisationName = job.Pickup.Destination.OrganisationName;
@@ -68,6 +69,7 @@ namespace CdnLink
             // Dropoff                                                        
             DropoffRequestedDate = job.Dropoff.RequestedDate;
             DropoffRequestedDateIsExact = job.Dropoff.RequestedDateIsExact;
+            DropoffProofDocUrl = job.Dropoff.ProofDocUrl;
             DropoffQuickCode = job.Dropoff.Destination.QuickCode;
             DropoffContact = job.Dropoff.Destination.Contact;
             DropoffOrganisationName = job.Dropoff.Destination.OrganisationName;
@@ -87,7 +89,7 @@ namespace CdnLink
                 DropoffNotSignedReason = job.Dropoff.Signoff.NotSignedReason;
                 DropoffSignedBy = job.Dropoff.Signoff.SignedBy;
                 DropoffTime = job.Dropoff.Signoff.Time;
-                DropoffUrl = job.Dropoff.Signoff.Url; 
+                DropoffUrl = job.Dropoff.Signoff.Url;
             }
 
             // Create Vehicle Records

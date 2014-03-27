@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Data.SqlClient;
 using System.Text;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
@@ -56,6 +57,14 @@ namespace CdnLink
             {
                 Log.Error(ex.Message, ex);
                 Console.WriteLine(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                Log.Error(ex.Message, ex);
+                if (ex.Message.Contains("Invalid column name"))
+                    Console.WriteLine("{0}.  Try running upgrade.sql?", ex.Message);
+                else
+                    throw;
             }
             catch (Exception ex)
             {
