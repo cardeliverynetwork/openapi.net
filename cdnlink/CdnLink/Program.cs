@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Text;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
@@ -24,7 +25,7 @@ namespace CdnLink
                         Helpers.GetSetting("CDNLINK_API_KEY")),
                     new FtpBox(
                         Helpers.GetSetting("CDNLINK_FTP_HOST"),
-                        Helpers.GetSetting("CDNLINK_FTP_ROOT"),
+                        Helpers.GetSetting("CDNLINK_FTP_ROOT", ""),
                         Helpers.GetSetting("CDNLINK_FTP_USER"),
                         Helpers.GetSetting("CDNLINK_FTP_PASS")));
 
@@ -49,7 +50,12 @@ namespace CdnLink
             catch (HttpResourceFaultException ex)
             {
                 Log.ErrorFormat("HttpResourceFaultException: StatusCode: {0} Message: {1}", ex.StatusCode, ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+            }
+            catch (SettingsPropertyNotFoundException ex)
+            {
+                Log.Error(ex.Message, ex);
+                Console.WriteLine(ex.Message);
             }
             catch (Exception ex)
             {

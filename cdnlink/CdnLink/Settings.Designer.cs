@@ -55,16 +55,7 @@ namespace CdnLink {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ENVIRONMENT_FIRST {
-            get {
-                return ((bool)(this["ENVIRONMENT_FIRST"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ftp://ftp.example.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ftp://ftp.example.com/IN")]
         public string CDNLINK_FTP_HOST {
             get {
                 return ((string)(this["CDNLINK_FTP_HOST"]));
@@ -91,20 +82,10 @@ namespace CdnLink {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=iny-chuyer;Initial Catalog=CdnLink;Integrated Security=True")]
-        public string CdnLinkConnectionString1 {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ENVIRONMENT_FIRST {
             get {
-                return ((string)(this["CdnLinkConnectionString1"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("IN")]
-        public string CDNLINK_FTP_ROOT {
-            get {
-                return ((string)(this["CDNLINK_FTP_ROOT"]));
+                return ((bool)(this["ENVIRONMENT_FIRST"]));
             }
         }
     }
