@@ -24,9 +24,15 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string FirstName { get; set; }
 
         /// <summary>
+        /// Last Name
+        /// </summary>
+        public virtual string LastName { get; set; }
+
+        /// <summary>
         /// Surname
         /// </summary>
-        public virtual string Surname { get; set; }
+        [Obsolete("Please use LastName")]
+        public virtual string Surname { get { return LastName; } set { LastName = value; } }
 
         /// <summary>
         /// Username
@@ -73,7 +79,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         public string FullName
         {
-            get { return string.Format("{0} {1}", FirstName, Surname); }
+            get { return string.Format("{0} {1}", FirstName, LastName); }
             set { }
         }
 
@@ -91,7 +97,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>True when populated.</returns>
         public virtual bool GetIsPopulated()
         {
-            return !string.IsNullOrWhiteSpace(FirstName) || !string.IsNullOrWhiteSpace(Surname) || !string.IsNullOrWhiteSpace(Password);
+            return !string.IsNullOrWhiteSpace(FirstName) || !string.IsNullOrWhiteSpace(LastName) || !string.IsNullOrWhiteSpace(Password);
         }
 
         /// <summary>
@@ -100,7 +106,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>True when valid</returns>
         public virtual bool GetIsValid()
         {
-            return !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(Surname) && !string.IsNullOrWhiteSpace(Password);
+            return !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName) && !string.IsNullOrWhiteSpace(Password);
         }
 
         /// <summary>
