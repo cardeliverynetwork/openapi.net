@@ -110,7 +110,7 @@ The following Receive status' are possible:
     Processing (50) - The receive is being processed by CdnLink
     Queued (60) - The receive is queued, waiting to be processed by the calling application
     Error (70) - An error occurred whilst processing a receive
-	ClientProcessed (80) - (Set by calling client) The client system has processed this record
+    ClientProcessed (80) - (Set by calling client) The client system has processed this record
 
 Database Tables
 ===============
