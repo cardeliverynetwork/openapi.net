@@ -112,6 +112,8 @@ The following Receive status' are possible:
     Error (70) - An error occurred whilst processing a receive
     ClientProcessed (80) - (Set by calling client) The client system has processed this record
 
+SuccessDate: The calling client may choose to set SuccessDate when it sets ClientProcessed, to indicate when the record was handled.
+
 Database Tables
 ===============
 Send to CDN
