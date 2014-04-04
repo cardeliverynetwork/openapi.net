@@ -22,7 +22,12 @@ namespace CdnLink
             /// <summary>
             /// An error occurred whilst processing a receive
             /// </summary>
-            Error = 70
+            Error = 70,
+
+            /// <summary>
+            /// The client system has processed this record
+            /// </summary>
+            ClientProcessed = 80
         }
 
         public void SetAsError(string message, string code = null)
