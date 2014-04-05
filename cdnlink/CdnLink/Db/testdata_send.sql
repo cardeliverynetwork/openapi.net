@@ -3,6 +3,7 @@
 INSERT INTO CdnSendLoads 
 (
     LoadId,
+	TripId,
     ServiceRequired,
     CustomerQuickCode,
     CustomerContact,
@@ -38,7 +39,8 @@ INSERT INTO CdnSendLoads
 ) 
 VALUES 
 (
-    'load1',                                  -- The use-once, unique to shipper load Id
+    NEWID(),                                  -- The use-once, unique to shipper load Id
+	42,                                       -- The Trip Id
     1,                                        -- Service required Transported (0 for driven)
     'CDN',                                    -- The customer quick code
     'Wayne Pollock',                             
@@ -73,18 +75,19 @@ VALUES
 --	, 'henry1234'                             -- Driver to assign to
 );
 
-INSERT INTO CdnSendVehicles(LoadId, Make, Model, Variant, Vin)
-VALUES ('load1', 'Ford', 'Capri', '123i', '01234567891234567');
+INSERT INTO CdnSendVehicles(CdnSendLoadId, Make, Model, Variant, Vin)
+VALUES (IDENT_CURRENT('CdnSendLoads'), 'Ford', 'Capri', '123i', '01234567891234567');
 
-INSERT INTO CdnSendVehicles(LoadId, Make, Model, Variant, Vin)
-VALUES ('load1', 'Renault', '5', '456 Turbo', '01234567891234567');
+INSERT INTO CdnSendVehicles(CdnSendLoadId, Make, Model, Variant, Vin)
+VALUES (IDENT_CURRENT('CdnSendLoads'), 'Renault', '5', '456 Turbo', '01234567891234567');
 
-INSERT INTO CdnSends(LoadId, QueuedDate, [Status])
-VALUES ('load1', GETDATE(), 10);
+INSERT INTO CdnSends(CdnSendLoadId, QueuedDate, [Status])
+VALUES (IDENT_CURRENT('CdnSendLoads'), GETDATE(), 10);
 
 INSERT INTO CdnSendLoads 
 (
     LoadId,
+	TripId,
     ServiceRequired,
     CustomerQuickCode,
     CustomerContact,
@@ -115,7 +118,8 @@ INSERT INTO CdnSendLoads
 ) 
 VALUES 
 (
-    'load2',
+    NEWID(),
+	42,
     1,
     'CDN',
     'Wayne Pollock',
@@ -145,8 +149,8 @@ VALUES
     'SAC'
 );
 
-INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
-VALUES ('load2', 'Ford', 'Cortina', '789');
+INSERT INTO CdnSendVehicles(CdnSendLoadId, Make, Model, Vin)
+VALUES (IDENT_CURRENT('CdnSendLoads'), 'Ford', 'Cortina', '789');
 
-INSERT INTO CdnSends(LoadId, QueuedDate, [Status])
-VALUES ('load2', GETDATE(), 10);
+INSERT INTO CdnSends(CdnSendLoadId, QueuedDate, [Status])
+VALUES (IDENT_CURRENT('CdnSendLoads'), GETDATE(), 10);

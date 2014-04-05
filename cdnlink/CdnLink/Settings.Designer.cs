@@ -37,7 +37,7 @@ namespace CdnLink {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost/cdn/openapi")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/cdn/openapi")]
         public string CDNLINK_API_URL {
             get {
                 return ((string)(this["CDNLINK_API_URL"]));
@@ -46,7 +46,7 @@ namespace CdnLink {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("fb04420a-49d0-4585-af57-1d390bfa1123")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4e5ffc39-95a2-4285-a7ca-40a2ba3c5715")]
         public string CDNLINK_API_KEY {
             get {
                 return ((string)(this["CDNLINK_API_KEY"]));

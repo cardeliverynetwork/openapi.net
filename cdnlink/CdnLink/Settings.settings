@@ -11,10 +11,10 @@
       <Value Profile="(Default)">Data Source=localhost;Initial Catalog=CdnLink;uid=thedbusername;pwd=thedbpassword</Value>
     </Setting>
     <Setting Name="CDNLINK_API_URL" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">https://localhost/cdn/openapi</Value>
+      <Value Profile="(Default)">http://localhost/cdn/openapi</Value>
     </Setting>
     <Setting Name="CDNLINK_API_KEY" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">fb04420a-49d0-4585-af57-1d390bfa1123</Value>
+      <Value Profile="(Default)">4e5ffc39-95a2-4285-a7ca-40a2ba3c5715</Value>
     </Setting>
     <Setting Name="CDNLINK_FTP_HOST" Type="System.String" Scope="Application">
       <Value Profile="(Default)">ftp://ftp.example.com</Value>

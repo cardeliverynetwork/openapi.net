@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[CdnSendLoads] 
 (
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
 	[LoadId] [nvarchar] (40) NOT NULL,
 	[AllocatedCarrierScac] [nvarchar] (10) NOT NULL,
 	[AssignedDriverRemoteId] [nvarchar] (40) NULL,
@@ -55,13 +56,13 @@
 	[PickupZipPostCode] [nvarchar] (10) NULL,
 	[PickupRequestedDate] [datetime] NULL,
 	[PickupRequestedDateIsExact] [bit] NULL,
-	PRIMARY KEY CLUSTERED (LoadId)
+	PRIMARY KEY CLUSTERED (Id)
 )
 
 CREATE TABLE [dbo].[CdnSendVehicles] 
 (
 	[Id] [int] IDENTITY (1, 1) NOT NULL,
-	[LoadId] [nvarchar] (40) NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (LoadId),
+	[CdnSendLoadId] [int] NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (Id),
 	[Location] [nvarchar] (50) NULL,
 	[Make] [nvarchar] (20) NULL,
 	[Model] [nvarchar] (20) NULL,
@@ -75,7 +76,8 @@ CREATE TABLE [dbo].[CdnSendVehicles]
 
 CREATE TABLE [dbo].[CdnSends] 
 (
-    [LoadId] [nvarchar] (40) NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (LoadId),
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
+    [CdnSendLoadId] [int] NULL FOREIGN KEY REFERENCES CdnSendLoads (Id),
 	[QueuedDate] [datetime] NOT NULL,
 	[Status] [int] NOT NULL,
 	[ProcessingDate] [datetime] NULL,
@@ -83,7 +85,7 @@ CREATE TABLE [dbo].[CdnSends]
 	[FailedDate] [datetime] NULL,
 	[ErrorMessage] [nvarchar] (1000) NULL,
 	[ErrorCode] [nvarchar] (50) NULL,
-	PRIMARY KEY CLUSTERED (LoadId)
+	PRIMARY KEY CLUSTERED (Id)
 )
 
 CREATE TABLE [dbo].[CdnReceivedFtpFiles] 

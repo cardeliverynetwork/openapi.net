@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[CdnSendLoads] 
 (
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
 	[LoadId] [varchar] (40) NOT NULL,
 	[AllocatedCarrierScac] [varchar] (10) NOT NULL,
 	[AssignedDriverRemoteId] [varchar] (40) NULL,
@@ -55,13 +56,13 @@
 	[PickupZipPostCode] [varchar] (10) NULL,
 	[PickupRequestedDate] [datetime] NULL,
 	[PickupRequestedDateIsExact] [bit] NULL,
-	PRIMARY KEY CLUSTERED (LoadId)
+	PRIMARY KEY CLUSTERED (Id)
 )
 
 CREATE TABLE [dbo].[CdnSendVehicles] 
 (
 	[Id] [int] IDENTITY (1, 1) NOT NULL,
-	[LoadId] [varchar] (40) NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (LoadId),
+	[CdnSendLoadId] [int] NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (Id),
 	[Location] [varchar] (50) NULL,
 	[Make] [varchar] (20) NULL,
 	[Model] [varchar] (20) NULL,
@@ -75,7 +76,8 @@ CREATE TABLE [dbo].[CdnSendVehicles]
 
 CREATE TABLE [dbo].[CdnSends] 
 (
-    [LoadId] [varchar] (40) NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (LoadId),
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
+    [CdnSendLoadId] [int] NULL FOREIGN KEY REFERENCES CdnSendLoads (Id),
 	[QueuedDate] [datetime] NOT NULL,
 	[Status] [int] NOT NULL,
 	[ProcessingDate] [datetime] NULL,
@@ -83,7 +85,7 @@ CREATE TABLE [dbo].[CdnSends]
 	[FailedDate] [datetime] NULL,
 	[ErrorMessage] [varchar] (1000) NULL,
 	[ErrorCode] [varchar] (50) NULL,
-	PRIMARY KEY CLUSTERED (LoadId)
+	PRIMARY KEY CLUSTERED (Id)
 )
 
 CREATE TABLE [dbo].[CdnReceivedFtpFiles] 
@@ -158,7 +160,7 @@ CREATE TABLE [dbo].[CdnReceivedLoads]
 	[DropoffSignedBy] [varchar] (100) NULL,
 	[DropoffTime] [datetime] NULL, 
 	[DropoffUrl] [varchar] (1000) NULL,
-	[DropoffProofDocUrl] [nvarchar] (1000) NULL,
+	[DropoffProofDocUrl] [varchar] (1000) NULL,
 	[PickupAddressLines] [varchar] (300) NULL,
 	[PickupCity] [varchar] (300) NULL,
 	[PickupContact] [varchar] (100) NULL,
@@ -178,7 +180,7 @@ CREATE TABLE [dbo].[CdnReceivedLoads]
 	[PickupSignedBy] [varchar] (100) NULL,
 	[PickupTime] [datetime] NULL, 
 	[PickupUrl] [varchar] (1000) NULL,
-	[PickupProofDocUrl] [nvarchar] (1000) NULL,
+	[PickupProofDocUrl] [varchar] (1000) NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
 
