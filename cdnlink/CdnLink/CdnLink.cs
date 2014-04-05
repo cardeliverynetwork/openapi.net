@@ -78,13 +78,14 @@ namespace CdnLink
             if (fileCount > 0)
             {
                 var db = new CdnLinkDataContext(ConnectionString);
-
+                var index = 1;
                 foreach (var file in files.ToArray())
                 {
                     // If we haven't already processed this file
                     var seenFile = db.CdnReceivedFtpFiles.Count(f => f.Filename.Contains(file)) > 0;
                     if (!seenFile)
                     {
+                        Console.WriteLine("Processing file {0} of {1}", index++, fileCount);
                         var json = FtpBox.GetFileContents(file);
                         var job = Job.FromString(json);
                         if (job == null)
