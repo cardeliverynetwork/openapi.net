@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using log4net;
 
 namespace CdnLink
@@ -8,7 +7,7 @@ namespace CdnLink
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
 
-        public static string GetSetting(string name, string defaultOnNotFound = null)
+        public static string GetSetting(string name)
         {
             Log.DebugFormat("GetSetting: '{0}'.", name);
 
@@ -21,18 +20,15 @@ namespace CdnLink
                 return setting;
             }
 
-            try
+            setting = Settings.Default[name] as string;
+            if (setting != null)
             {
-                setting = Settings.Default[name] as string;
                 Log.DebugFormat("GotSetting: '{0}' from application settings.", setting);
                 return setting;
             }
-            catch (SettingsPropertyNotFoundException)
-            {
-                if (defaultOnNotFound != null)
-                    return defaultOnNotFound;
-                throw;
-            }
+
+            Log.DebugFormat("GetSetting: '{0}' was not found.", name);
+            return null;
         }
     }
 }

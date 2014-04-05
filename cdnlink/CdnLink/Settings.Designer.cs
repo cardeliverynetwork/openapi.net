@@ -55,7 +55,7 @@ namespace CdnLink {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ftp://ftp.example.com/IN")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ftp://ftp.example.com")]
         public string CDNLINK_FTP_HOST {
             get {
                 return ((string)(this["CDNLINK_FTP_HOST"]));
@@ -77,6 +77,15 @@ namespace CdnLink {
         public string CDNLINK_FTP_PASS {
             get {
                 return ((string)(this["CDNLINK_FTP_PASS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("IN")]
+        public string CDNLINK_FTP_ROOT {
+            get {
+                return ((string)(this["CDNLINK_FTP_ROOT"]));
             }
         }
         
