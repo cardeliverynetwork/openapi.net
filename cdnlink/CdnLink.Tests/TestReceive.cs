@@ -130,6 +130,18 @@ namespace CdnLink.Tests
             }
         }
 
+        [Test]
+        public void Receive_NoFiles()
+        {
+            var connectionString = Settings.GetConnectionString();
+            var ftp = GetMockFtpBox(false);
+            var cdn = new CdnLink(connectionString, new OpenApi("0", "0"), ftp);
+
+            Assert.AreEqual(0, cdn.Receive());
+            Assert.AreEqual(0, cdn.Receive());
+        }
+
+
         private ICdnFtpBox GetMockFtpBox(bool hasFiles)
         {
             var testFiles = hasFiles
