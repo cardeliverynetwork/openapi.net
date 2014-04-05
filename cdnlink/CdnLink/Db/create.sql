@@ -207,7 +207,7 @@ CREATE TABLE [dbo].[CdnReceivedVehicles]
 	[Registration] [nvarchar] (10) NULL,
 	[Status] [int] NOT NULL,
 	[Variant] [nvarchar] (50) NULL,
-	[Vin] [nvarchar] (17) NOT NULL,
+	[Vin] [nvarchar] (17) NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
 
