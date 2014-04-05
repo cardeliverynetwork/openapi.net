@@ -73,11 +73,11 @@ VALUES
 --	, 'henry1234'                             -- Driver to assign to
 );
 
-INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
-VALUES ('load1', 'Ford', 'Capri', '123');
+INSERT INTO CdnSendVehicles(LoadId, Make, Model, Variant, Vin)
+VALUES ('load1', 'Ford', 'Capri', '123i', '01234567891234567');
 
-INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
-VALUES ('load1', 'Renault', '5', '456');
+INSERT INTO CdnSendVehicles(LoadId, Make, Model, Variant, Vin)
+VALUES ('load1', 'Renault', '5', '456 Turbo', '01234567891234567');
 
 INSERT INTO CdnSends(LoadId, QueuedDate, [Status])
 VALUES ('load1', GETDATE(), 10);
