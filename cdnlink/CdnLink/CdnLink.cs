@@ -31,7 +31,7 @@ namespace CdnLink
         {
             var db = new CdnLinkDataContext(ConnectionString);
             var sends = from send in db.CdnSends
-                        where send.Status == (int)CdnSend.SendStatus.Queued
+                        where send.Status == (int)CdnSend.SendStatus.Queued || send.Status == (int)CdnSend.SendStatus.Queued_Cancel
                         select send;
 
             var sendCount = sends.Count();
@@ -46,8 +46,20 @@ namespace CdnLink
                         send.Status = (int)CdnSend.SendStatus.Processing;
                         db.SubmitChanges();
 
-                        // Send to CDN
-                        Api.CreateJob(send.CdnSendLoad.ToCdnJob());
+                        switch (send.Status)
+                        {
+                            case (int)CdnSend.SendStatus.Queued:
+                                Api.CreateJob(send.CdnSendLoad.ToCdnJob());
+                                break;
+
+                            case (int)CdnSend.SendStatus.Queued_Cancel:
+                                //Api.CancelJob(send.Load);
+                                break;
+                            
+                            default:
+                                break;
+                        }
+                       
 
                         // Set the send as sent
                         send.SentDate = DateTime.Now;

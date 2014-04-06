@@ -13,7 +13,12 @@ namespace CdnLink
             /// The send is queued, waiting to be processed by CdnLink
             /// </summary>
             Queued = 10,
-            
+
+            /// <summary>
+            /// The cancel message is queued, waiting to be processed by CdnLink
+            /// </summary>
+            Queued_Cancel = 15,
+
             /// <summary>
             /// The send is being processed by CdnLink
             /// </summary>
