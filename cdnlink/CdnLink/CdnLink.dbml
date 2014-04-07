@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CdnLink" Class="CdnLinkDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=INY-CHUYER;Initial Catalog=CdnLink;Integrated Security=True" SettingsObjectName="CdnLink.Settings" SettingsPropertyName="CdnLinkConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=iny-chuyer;Initial Catalog=CdnLink;Integrated Security=True" SettingsObjectName="CdnLink.Settings" SettingsPropertyName="CdnLinkConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.CdnReceivedDamage" Member="CdnReceivedDamages">
     <Type Name="CdnReceivedDamage">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -13,21 +13,6 @@
       <Column Name="TypeCode" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
       <Column Name="TypeDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="CdnReceivedVehicle_CdnReceivedDamage" Member="CdnReceivedVehicle" ThisKey="ReceivedVehicleId" OtherKey="Id" Type="CdnReceivedVehicle" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CdnSendVehicles" Member="CdnSendVehicles">
-    <Type Name="CdnSendVehicle">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CdnSendLoadId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Make" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="Model" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="MovementNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Notes" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Registration" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="Variant" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Vin" Type="System.String" DbType="NVarChar(17) NOT NULL" CanBeNull="false" />
-      <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendLoad" ThisKey="CdnSendLoadId" OtherKey="Id" Type="CdnSendLoad" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.CdnReceivedDocuments" Member="CdnReceivedDocuments">
@@ -142,7 +127,7 @@
       <Column Name="Registration" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Variant" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Vin" Type="System.String" DbType="NVarChar(17)" CanBeNull="true" />
+      <Column Name="Vin" Type="System.String" DbType="NVarChar(17) NOT NULL" CanBeNull="false" />
       <Association Name="CdnReceivedVehicle_CdnReceivedDamage" Member="CdnReceivedDamages" ThisKey="Id" OtherKey="ReceivedVehicleId" Type="CdnReceivedDamage" />
       <Association Name="CdnReceivedLoad_CdnReceivedVehicle" Member="CdnReceivedLoad" ThisKey="ReceivedLoadId" OtherKey="Id" Type="CdnReceivedLoad" IsForeignKey="true" />
     </Type>
@@ -161,8 +146,7 @@
   </Table>
   <Table Name="dbo.CdnSendLoads" Member="CdnSendLoads">
     <Type Name="CdnSendLoad">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="AllocatedCarrierScac" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="AssignedDriverRemoteId" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
       <Column Name="BuyPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -217,14 +201,13 @@
       <Column Name="PickupZipPostCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="PickupRequestedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="PickupRequestedDateIsExact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendVehicles" ThisKey="Id" OtherKey="CdnSendLoadId" Type="CdnSendVehicle" />
-      <Association Name="CdnSendLoad_CdnSend" Member="CdnSends" ThisKey="Id" OtherKey="CdnSendLoadId" Type="CdnSend" />
+      <Association Name="CdnSendLoad_CdnSend" Member="CdnSend" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSend" Cardinality="One" />
+      <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendVehicles" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendVehicle" />
     </Type>
   </Table>
   <Table Name="dbo.CdnSends" Member="CdnSends">
     <Type Name="CdnSend">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CdnSendLoadId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="QueuedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ProcessingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -232,7 +215,22 @@
       <Column Name="FailedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ErrorMessage" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Column Name="ErrorCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="CdnSendLoad_CdnSend" Member="CdnSendLoad" ThisKey="CdnSendLoadId" OtherKey="Id" Type="CdnSendLoad" IsForeignKey="true" />
+      <Association Name="CdnSendLoad_CdnSend" Member="CdnSendLoad" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendLoad" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnSendVehicles" Member="CdnSendVehicles">
+    <Type Name="CdnSendVehicle">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Make" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Model" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="MovementNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Registration" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Variant" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Vin" Type="System.String" DbType="NVarChar(17) NOT NULL" CanBeNull="false" />
+      <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendLoad" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendLoad" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
