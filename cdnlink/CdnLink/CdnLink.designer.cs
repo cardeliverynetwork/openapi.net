@@ -4803,6 +4803,8 @@ namespace CdnLink
 		
 		private int _Status;
 		
+		private System.Nullable<int> _Action;
+		
 		private System.Nullable<System.DateTime> _ProcessingDate;
 		
 		private System.Nullable<System.DateTime> _SentDate;
@@ -4825,6 +4827,8 @@ namespace CdnLink
     partial void OnQueuedDateChanged();
     partial void OnStatusChanging(int value);
     partial void OnStatusChanged();
+    partial void OnActionChanging(System.Nullable<int> value);
+    partial void OnActionChanged();
     partial void OnProcessingDateChanging(System.Nullable<System.DateTime> value);
     partial void OnProcessingDateChanged();
     partial void OnSentDateChanging(System.Nullable<System.DateTime> value);
@@ -4903,6 +4907,26 @@ namespace CdnLink
 					this._Status = value;
 					this.SendPropertyChanged("Status");
 					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Action", DbType="Int")]
+		public System.Nullable<int> Action
+		{
+			get
+			{
+				return this._Action;
+			}
+			set
+			{
+				if ((this._Action != value))
+				{
+					this.OnActionChanging(value);
+					this.SendPropertyChanging();
+					this._Action = value;
+					this.SendPropertyChanged("Action");
+					this.OnActionChanged();
 				}
 			}
 		}

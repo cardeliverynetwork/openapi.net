@@ -15,11 +15,6 @@ namespace CdnLink
             Queued = 10,
 
             /// <summary>
-            /// The cancel message is queued, waiting to be processed by CdnLink
-            /// </summary>
-            Queued_Cancel = 15,
-
-            /// <summary>
             /// The send is being processed by CdnLink
             /// </summary>
             Processing = 20,
@@ -33,6 +28,22 @@ namespace CdnLink
             /// An error occurred when processing a send
             /// </summary>
             Error = 40
+        }
+
+        /// <summary>
+        /// Enum indicating the action associated with this send
+        /// </summary>
+        public enum SendAction
+        {
+            /// <summary>
+            /// Create a job - the default behaviour
+            /// </summary>
+            Create = 0,
+
+            /// <summary>
+            /// Cancel the job
+            /// </summary>
+            Cancel = 10,
         }
 
         public void SetAsError(string message, string code = null)

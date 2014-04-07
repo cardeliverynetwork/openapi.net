@@ -18,3 +18,12 @@ ADD
 	[DropoffProofDocUrl] [nvarchar](1000) NULL
 END
 GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'DropoffProofDocUrl' and Object_ID = Object_ID(N'CdnSends'))
+BEGIN
+   ALTER TABLE CdnSends
+ADD 
+	[Action] [int] NULL
+END
+GO

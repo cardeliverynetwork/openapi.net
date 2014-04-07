@@ -203,9 +203,26 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             PerformJobAction(id, new Data.Action { Name = "cancel", Note = reason });
         }
 
+        /// <summary>
+        /// Cancels the job of the specified LoadId giving the specified reason
+        /// </summary>
+        /// <param name="id">LoadId of job to cancel</param>
+        /// <param name="reason">Reason for job cancellation</param>
+        public void CancelJob(string loadId, string reason)
+        {
+            if (string.IsNullOrEmpty(loadId))
+                throw new Exception("LoadId must be populated");
+            PerformJobAction(loadId, new Data.Action { Name = "cancel", Note = reason });
+        }
+
         private void PerformJobAction(int id, Data.Action action)
         {
             PerformAction("Jobs", id, action);
+        }
+
+        private void PerformJobAction(string loadId, Data.Action action)
+        {
+            PerformAction("Jobs", loadId, action);
         }
 
         private void PerformJourneyAction(int id, Data.Action action)
@@ -222,6 +239,17 @@ namespace CarDeliveryNetwork.Api.ClientProxy
 
             var resource = string.Format("{0}/{1}/Action", resourceName, id);
             Call(resource, "POST", false, action);
+        }
+
+        private void PerformAction(string resourceName, string loadId, Data.Action action)
+        {
+            if (action == null)
+                throw new ArgumentException("Action cannot be null");
+            if (string.IsNullOrEmpty(action.Name))
+                throw new ArgumentException("Action.Name must be populated");
+
+            var resource = string.Format("{0}/{1}/Action", resourceName, loadId);
+            Call(resource, "POST", true, action);
         }
 
         /// <summary>

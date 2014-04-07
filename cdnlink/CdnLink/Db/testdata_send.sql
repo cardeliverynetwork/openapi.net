@@ -1,4 +1,7 @@
 ﻿
+DECLARE @nextLoaid nvarchar(50);
+SELECT @nextLoaid = NEWID();
+
 -- Insert test sends
 INSERT INTO CdnSendLoads 
 (
@@ -38,7 +41,7 @@ INSERT INTO CdnSendLoads
 ) 
 VALUES 
 (
-    'load1',                                  -- The use-once, unique to shipper load Id
+    @nextLoaid,                               -- The use-once, unique to shipper load Id
     1,                                        -- Service required Transported (0 for driven)
     'CDN',                                    -- The customer quick code
     'Wayne Pollock',                             
@@ -74,13 +77,16 @@ VALUES
 );
 
 INSERT INTO CdnSendVehicles(LoadId, Make, Model, Variant, Vin)
-VALUES ('load1', 'Ford', 'Capri', '123i', '01234567891234567');
+VALUES (@nextLoaid, 'Ford', 'Capri', '123i', '01234567891234567');
 
 INSERT INTO CdnSendVehicles(LoadId, Make, Model, Variant, Vin)
-VALUES ('load1', 'Renault', '5', '456 Turbo', '01234567891234567');
+VALUES (@nextLoaid, 'Renault', '5', '456 Turbo', '01234567891234567');
 
-INSERT INTO CdnSends(LoadId, QueuedDate, [Status])
-VALUES ('load1', GETDATE(), 10);
+INSERT INTO CdnSends(LoadId, QueuedDate, [Status], [Action])
+VALUES (@nextLoaid, GETDATE(), 10, 0);
+
+
+SELECT @nextLoaid = NEWID();
 
 INSERT INTO CdnSendLoads 
 (
@@ -115,7 +121,7 @@ INSERT INTO CdnSendLoads
 ) 
 VALUES 
 (
-    'load2',
+    @nextLoaid,
     1,
     'CDN',
     'Wayne Pollock',
@@ -146,7 +152,7 @@ VALUES
 );
 
 INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
-VALUES ('load2', 'Ford', 'Cortina', '789');
+VALUES (@nextLoaid, 'Ford', 'Cortina', '789');
 
-INSERT INTO CdnSends(LoadId, QueuedDate, [Status])
-VALUES ('load2', GETDATE(), 10);
+INSERT INTO CdnSends(LoadId, QueuedDate, [Status], [Action])
+VALUES (@nextLoaid, GETDATE(), 10, 0);

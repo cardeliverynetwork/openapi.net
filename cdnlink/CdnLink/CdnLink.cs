@@ -31,7 +31,7 @@ namespace CdnLink
         {
             var db = new CdnLinkDataContext(ConnectionString);
             var sends = from send in db.CdnSends
-                        where send.Status == (int)CdnSend.SendStatus.Queued || send.Status == (int)CdnSend.SendStatus.Queued_Cancel
+                        where send.Status == (int)CdnSend.SendStatus.Queued
                         select send;
 
             var sendCount = sends.Count();
@@ -46,20 +46,20 @@ namespace CdnLink
                         send.Status = (int)CdnSend.SendStatus.Processing;
                         db.SubmitChanges();
 
-                        switch (send.Status)
+                        switch (send.Action)
                         {
-                            case (int)CdnSend.SendStatus.Queued:
+                            case null:
+                            case (int)CdnSend.SendAction.Create:
                                 Api.CreateJob(send.CdnSendLoad.ToCdnJob());
                                 break;
 
-                            case (int)CdnSend.SendStatus.Queued_Cancel:
-                                //Api.CancelJob(send.Load);
+                            case (int)CdnSend.SendAction.Cancel:
+                                Api.CancelJob(send.LoadId, null);
                                 break;
-                            
+                           
                             default:
-                                break;
+                                throw new ArgumentException(string.Format("Action {0} is not supported", send.Action), "Action");
                         }
-                       
 
                         // Set the send as sent
                         send.SentDate = DateTime.Now;

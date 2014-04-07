@@ -78,6 +78,7 @@ CREATE TABLE [dbo].[CdnSends]
     [LoadId] [nvarchar] (40) NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (LoadId),
 	[QueuedDate] [datetime] NOT NULL,
 	[Status] [int] NOT NULL,
+	[Action] [int] NULL,
 	[ProcessingDate] [datetime] NULL,
 	[SentDate] [datetime] NULL,
 	[FailedDate] [datetime] NULL,
