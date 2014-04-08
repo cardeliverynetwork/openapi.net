@@ -20,7 +20,7 @@ END
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.columns 
-            WHERE Name = N'DropoffProofDocUrl' and Object_ID = Object_ID(N'CdnSends'))
+            WHERE Name = N'Action' and Object_ID = Object_ID(N'CdnSends'))
 BEGIN
    ALTER TABLE CdnSends
 ADD 
