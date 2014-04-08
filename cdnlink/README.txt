@@ -60,6 +60,9 @@ Be sure to set the 'value' field and leave the 'name' field as it is above.  For
 
 CdnLink: Send
 =============
+
+Create Job
+----------
 The calling application should write data to the CdnSendLoads and CdnSendVehicles tables.. It should then write to the CdnSends table (Status=SendStatus.Queued (10)) and call CdnLink:
 
     >cdnlink.exe /send
@@ -80,6 +83,15 @@ The following Send status' are possible:
     Processing (20) - The send is being processed by CdnLink
     Sent (30) - The send is sent
     Error (40) - An error occurred when processing a send
+    
+Cancel Job
+----------
+To cancel a job that was previously created through CdnLink, set the CdnSends.Action field to 10 (Cancel) and re-set the CdnSends.Status field to 10 (Queued).  For example:
+
+    UPDATE CdnSends SET [Action] = 10, [Status] = 10 WHERE LoadId = <theLoadId>
+    
+Then call CdnLink.exe with the /send switch to process the queued cancel action.
+
 
 CdnLink: Receive
 ================
