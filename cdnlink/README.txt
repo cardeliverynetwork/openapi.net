@@ -98,15 +98,18 @@ To update a job that was previously created through CdnLink, make your changes t
 
 The following updates are currently supported:
 
-- Add Vehicle: Example:
+- ADD Vehicle(s) (available up to and including job status AtPickup). Example:
 
-	INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
+    INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
     VALUES (<theLoadId>, 'Ford', 'Focus', 'F123456789123456D');
-	INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
-    VALUES (<theLoadId>, 'Renault', 'Clio', 'R123456789123456E');
     UPDATE CdnSends SET [Action] = 20, [Status] = 10 WHERE LoadId = <theLoadId>;
 	
+- DELETE Vehicle(s): (available up to and including job status Assigned). Example:
 
+    DELETE CdnSendVehicles WHERE LoadId = <theLoadId> AND Vin = <theVin>
+    UPDATE CdnSends SET [Action] = 20, [Status] = 10 WHERE LoadId = <theLoadId>;
+	
+	
 CdnLink: Receive
 ================
 Calling application calls CdnLink in receive mode:
