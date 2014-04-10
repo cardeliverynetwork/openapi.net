@@ -1,6 +1,6 @@
 ﻿
 DECLARE @nextLoaid nvarchar(50);
-SELECT @nextLoaid = NEWID();
+SELECT @nextLoaid = SUBSTRING(CONVERT(nvarchar(50), NEWID()), 0, 8);
 
 -- Insert test sends
 INSERT INTO CdnSendLoads 
@@ -77,16 +77,16 @@ VALUES
 );
 
 INSERT INTO CdnSendVehicles(LoadId, Make, Model, Variant, Vin)
-VALUES (@nextLoaid, 'Ford', 'Capri', '123i', '01234567891234567');
+VALUES (@nextLoaid, 'Ford', 'Capri', '123i', 'A123456789123456A');
 
 INSERT INTO CdnSendVehicles(LoadId, Make, Model, Variant, Vin)
-VALUES (@nextLoaid, 'Renault', '5', '456 Turbo', '01234567891234567');
+VALUES (@nextLoaid, 'Renault', '5', '456 Turbo', 'B123456789123456B');
 
 INSERT INTO CdnSends(LoadId, QueuedDate, [Status], [Action])
 VALUES (@nextLoaid, GETDATE(), 10, 0);
 
 
-SELECT @nextLoaid = NEWID();
+SELECT @nextLoaid = SUBSTRING(CONVERT(nvarchar(50), NEWID()), 0, 8);
 
 INSERT INTO CdnSendLoads 
 (
@@ -152,7 +152,7 @@ VALUES
 );
 
 INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
-VALUES (@nextLoaid, 'Ford', 'Cortina', '789');
+VALUES (@nextLoaid, 'Ford', 'Cortina', 'C123456789123456C');
 
 INSERT INTO CdnSends(LoadId, QueuedDate, [Status], [Action])
 VALUES (@nextLoaid, GETDATE(), 10, 0);

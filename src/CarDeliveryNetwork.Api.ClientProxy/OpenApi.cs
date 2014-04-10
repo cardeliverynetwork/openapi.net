@@ -32,11 +32,20 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         public string ApiKey { get; private set; }
 
         /// <summary>
+        /// Gets the App.
+        /// </summary>
+        /// <value>
+        /// The application that constructed this instance of OpenApi.
+        /// </value>
+        public string App { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.ClientProxy.OpenApi"/> class.
         /// </summary>
         /// <param name="uri">The uri of the target service.</param>
         /// <param name="apiKey">Your API key.</param>
-        public OpenApi(string uri, string apiKey)
+        /// <param name="apiKey">The application constructing this OpenApi instance.</param>
+        public OpenApi(string uri, string apiKey, string app = null)
         {
             if (string.IsNullOrWhiteSpace(uri))
                 throw new ArgumentException("uri string cannot be null or empty");
@@ -46,6 +55,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             _interfaceFormat = MessageFormat.Json;
             Uri = uri;
             ApiKey = apiKey;
+            App = app;
         }
 
         /// <summary>
@@ -142,6 +152,39 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
+        /// Updates the specified job on Car Delivery Network.
+        /// </summary>
+        /// <param name="id">Id of job to update.</param>
+        /// <param name="job">The job update.</param>
+        /// <returns>The successfully updated job.</returns>
+        public Job UpdateJob(int id, Job job)
+        {
+            if (id < 1)
+                throw new ArgumentException("id must be positive and non zero");
+            return UpdateJob(string.Format("Jobs/{0}", id), job, false);
+        }
+
+        /// <summary>
+        /// Updates the specified job on Car Delivery Network.
+        /// </summary>
+        /// <param name="loadId">LoadId of job to update.</param>
+        /// <param name="job">The job update.</param>
+        /// <returns>The successfully updated job.</returns>
+        public Job UpdateJob(string loadId, Job job)
+        {
+            if (string.IsNullOrWhiteSpace(loadId))
+                throw new ArgumentException("loadId must be populated");
+            return UpdateJob(string.Format("Jobs/{0}", loadId), job, true);
+        }
+
+        private Job UpdateJob(string resource, Job job, bool isUsingLoadIds)
+        {
+            if (job == null)
+                throw new ArgumentException("Job connot be null");
+            return Job.FromString(Call(resource, "PUT", isUsingLoadIds, job), _interfaceFormat);
+        }
+
+        /// <summary>
         /// Attempts to create the specified vehicles on the specified job on Car Delivery Network.
         /// </summary>
         /// <param name="jobId">Id of the job to create vehicles against.</param>
@@ -206,7 +249,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <summary>
         /// Cancels the job of the specified LoadId giving the specified reason
         /// </summary>
-        /// <param name="id">LoadId of job to cancel</param>
+        /// <param name="loadId">LoadId of job to cancel</param>
         /// <param name="reason">Reason for job cancellation</param>
         public void CancelJob(string loadId, string reason)
         {
@@ -264,11 +307,15 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         public string Call(string resuorce, string method, bool isUsingLoadIds = false, IApiEntity data = null, string callParams = null)
         {
             // Remove whitespace, get rid of leading ? or &
-            callParams = callParams == null
+            callParams = string.IsNullOrWhiteSpace(callParams)
                 ? ""
-                : new Regex(@"\s+").Replace(callParams, "").TrimStart('?', '&');
+                : new Regex(@"\s+").Replace(callParams, "").TrimStart('?', '&').Insert(0, "&");
 
-            var requestUri = string.Format("{0}/{1}?apikey={2}&isloadid={3}&{4}", Uri, resuorce, ApiKey, isUsingLoadIds, callParams);
+            // Add the 'app' paramater if we have it
+            if (!string.IsNullOrWhiteSpace(App))
+                callParams += string.Concat("&app=", App);
+
+            var requestUri = string.Format("{0}/{1}?apikey={2}&isloadid={3}{4}", Uri, resuorce, ApiKey, isUsingLoadIds, callParams);
             var req = WebRequest.Create(requestUri) as HttpWebRequest;
             req.KeepAlive = false;
             req.ContentType = "application/" + _interfaceFormat.ToString().ToLower();

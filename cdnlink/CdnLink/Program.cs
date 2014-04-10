@@ -22,7 +22,8 @@ namespace CdnLink
                     Helpers.GetSetting("CDNLINK_CONNECTIONSTRING"),
                     new OpenApi(
                         Helpers.GetSetting("CDNLINK_API_URL"),
-                        Helpers.GetSetting("CDNLINK_API_KEY")),
+                        Helpers.GetSetting("CDNLINK_API_KEY"),
+                        "CdnLink"),
                     new FtpBox(
                         Helpers.GetSetting("CDNLINK_FTP_HOST"),
                         Helpers.GetSetting("CDNLINK_FTP_ROOT"),

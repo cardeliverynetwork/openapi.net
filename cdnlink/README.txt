@@ -92,6 +92,20 @@ To cancel a job that was previously created through CdnLink, set the CdnSends.Ac
     
 Then call CdnLink.exe with the /send switch to process the queued cancel action.
 
+Update Job
+----------
+To update a job that was previously created through CdnLink, make your changes to job, then set the CdnSends.Action field to 20 (Update) and re-set the CdnSends.Status field to 10 (Queued).
+
+The following updates are currently supported:
+
+- Add Vehicle: Example:
+
+	INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
+    VALUES (<theLoadId>, 'Ford', 'Focus', 'F123456789123456D');
+	INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
+    VALUES (<theLoadId>, 'Renault', 'Clio', 'R123456789123456E');
+    UPDATE CdnSends SET [Action] = 20, [Status] = 10 WHERE LoadId = <theLoadId>;
+	
 
 CdnLink: Receive
 ================

@@ -41,9 +41,14 @@ namespace CdnLink
             Create = 0,
 
             /// <summary>
-            /// Cancel the job
+            /// Cancel a job
             /// </summary>
             Cancel = 10,
+
+            /// <summary>
+            /// Update a job
+            /// </summary>
+            Update = 20,
         }
 
         public void SetAsError(string message, string code = null)

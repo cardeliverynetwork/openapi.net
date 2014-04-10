@@ -11,6 +11,11 @@ delete CdnReceives
 delete CdnReceivedLoads
 delete CdnReceivedFtpFiles;
 
+-- Show all send data
+select * from CdnSends
+select * from CdnSendVehicles
+select * from CdnSendLoads
+
 -- Show all receive data
 select * from CdnReceivedFtpFiles;
 select * from CdnReceives

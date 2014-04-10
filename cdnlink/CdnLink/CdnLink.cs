@@ -56,7 +56,11 @@ namespace CdnLink
                             case (int)CdnSend.SendAction.Cancel:
                                 Api.CancelJob(send.LoadId, null);
                                 break;
-                           
+
+                            case (int)CdnSend.SendAction.Update:
+                                Api.UpdateJob(send.LoadId, send.CdnSendLoad.ToCdnJob());
+                                break;
+
                             default:
                                 throw new ArgumentException(string.Format("Action {0} is not supported", send.Action), "Action");
                         }
