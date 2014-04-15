@@ -7,5 +7,9 @@ namespace CarDeliveryNetwork.Types.Interfaces
     /// </summary>
     public interface IImportable
     {
+        /// <summary>
+        /// String that is displayed in the context of a just-imported IImportable
+        /// </summary>
+        string ImportDisplayString { get; }
     }
 }
