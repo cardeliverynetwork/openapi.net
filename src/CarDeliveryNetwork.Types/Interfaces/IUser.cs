@@ -16,27 +16,27 @@ namespace CarDeliveryNetwork.Types.Interfaces
         /// <summary>
         /// RemoteId
         /// </summary>
-        string RemoteId { get; }
+        string RemoteId { get; set; }
 
         /// <summary>
         /// Username
         /// </summary>
-        string Username { get; }
+        string Username { get; set; }
 
         /// <summary>
         /// Password
         /// </summary>
-        string Password { get; }
+        string Password { get; set; }
 
         /// <summary>
         /// FirstName
         /// </summary>
-        string FirstName { get; }
+        string FirstName { get; set; }
 
         /// <summary>
         /// Surname
         /// </summary>
-        string Surname { get; }
+        string Surname { get; set; }
 
         /// <summary>
         /// Full name
@@ -82,6 +82,11 @@ namespace CarDeliveryNetwork.Types.Interfaces
         /// Feeling
         /// </summary>
         UserFeeling? Feeling { get; set; }
+
+        /// <summary>
+        /// Tag
+        /// </summary>
+        string Tag { get; set; }
 
         /// <summary>
         /// PrefTimeZone

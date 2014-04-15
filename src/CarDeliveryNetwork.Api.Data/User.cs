@@ -75,6 +75,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual Position LastPosition { get; set; }
 
         /// <summary>
+        /// Optional - A tag/group for this user
+        /// </summary>
+        public virtual string Tag { get; set; }
+
+        /// <summary>
         /// The user's full name
         /// </summary>
         public string FullName
