@@ -44,7 +44,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// </summary>
         /// <param name="uri">The uri of the target service.</param>
         /// <param name="apiKey">Your API key.</param>
-        /// <param name="apiKey">The application constructing this OpenApi instance.</param>
+        /// <param name="app">The application constructing this OpenApi instance.</param>
         public OpenApi(string uri, string apiKey, string app = null)
         {
             if (string.IsNullOrWhiteSpace(uri))
@@ -256,6 +256,18 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (string.IsNullOrEmpty(loadId))
                 throw new Exception("LoadId must be populated");
             PerformJobAction(loadId, new Data.Action { Name = "cancel", Note = reason });
+        }
+
+        /// <summary>
+        /// Attempts to create the specified users on Car Delivery Network.
+        /// </summary>
+        /// <param name="users">The collection of users to create.</param>
+        /// <returns>A collection of the successfully created users.</returns>
+        public Users CreateUsers(Users users)
+        {
+            if (users == null || users.Count == 0)
+                throw new ArgumentException("Users collection was null or empty");
+            return Users.FromString(Call("Users", "POST", false, users), _interfaceFormat);
         }
 
         private void PerformJobAction(int id, Data.Action action)
