@@ -27,3 +27,13 @@ ADD
 	[Action] [int] NULL
 END
 GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'Type' and Object_ID = Object_ID(N'CdnReceivedDocuments'))
+BEGIN
+   ALTER TABLE CdnReceivedDocuments
+ADD 
+	[Type] [int] NOT NULL,
+	[FriendlyType] [nvarchar] (25) NULL
+END
+GO

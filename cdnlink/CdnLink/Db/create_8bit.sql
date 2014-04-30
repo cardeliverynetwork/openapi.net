@@ -190,6 +190,8 @@ CREATE TABLE [dbo].[CdnReceivedDocuments]
 	[Comment] [varchar] (1000) NULL,
 	[Title] [varchar] (50) NULL,
 	[Url] [varchar] (1000) NULL,
+	[Type] [int] NOT NULL,
+	[FriendlyType] [varchar] (25) NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
 

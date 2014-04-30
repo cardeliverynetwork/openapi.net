@@ -10,6 +10,8 @@ namespace CdnLink
             Comment = doc.Comment;
             Title = doc.Title;
             Url = doc.Url;
+            Type = (int)doc.Type;
+            FriendlyType = doc.FriendlyType;
         }
     }
 }

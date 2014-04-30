@@ -492,7 +492,11 @@ namespace CdnLink
 		private string _Title;
 		
 		private string _Url;
-		
+
+        private int _Type;
+
+        private string _FriendlyType;
+
 		private EntityRef<CdnReceivedLoad> _CdnReceivedLoad;
 		
     #region Extensibility Method Definitions
@@ -642,7 +646,51 @@ namespace CdnLink
 				}
 			}
 		}
-		
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Type", DbType = "Int NOT NULL")]
+        public int Type
+        {
+            get
+            {
+                return this._Type;
+            }
+            set
+            {
+                if ((this._Type != value))
+                {
+                    if (this._CdnReceivedLoad.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnReceivedLoadIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Type = value;
+                    this.SendPropertyChanged("ReceivedLoadId");
+                    this.OnReceivedLoadIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_FriendlyType", DbType = "NVarChar(25)")]
+        public string FriendlyType
+        {
+            get
+            {
+                return this._FriendlyType;
+            }
+            set
+            {
+                if ((this._FriendlyType != value))
+                {
+                    this.OnUrlChanging(value);
+                    this.SendPropertyChanging();
+                    this._FriendlyType = value;
+                    this.SendPropertyChanged("Url");
+                    this.OnUrlChanged();
+                }
+            }
+        }
+
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedDocument", Storage="_CdnReceivedLoad", ThisKey="ReceivedLoadId", OtherKey="Id", IsForeignKey=true)]
 		public CdnReceivedLoad CdnReceivedLoad
 		{
