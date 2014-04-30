@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using CarDeliveryNetwork.Types;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -14,6 +15,11 @@ namespace CarDeliveryNetwork.Api.Data
         public string Url { get; set; }
 
         /// <summary>
+        /// Type
+        /// </summary>
+        public DocumentType Type { get; set; }
+
+        /// <summary>
         /// Title
         /// </summary>
         public string Title { get; set; }
@@ -22,6 +28,15 @@ namespace CarDeliveryNetwork.Api.Data
         /// Comment
         /// </summary>
         public string Comment { get; set; }
+
+        /// <summary>
+        /// Readonly - FriendlyType
+        /// </summary>
+        public string FriendlyType
+        {
+            get { return Type.ToString(); }
+            set { }
+        }
 
         /// <summary>
         /// Returns a serial representation of the object in JSON format.
