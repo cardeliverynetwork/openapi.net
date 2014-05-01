@@ -89,6 +89,9 @@ namespace CarDeliveryNetwork.Api.Data
             set { }
         }
 
+        /// <summary>
+        /// String to display after importing this object
+        /// </summary>
         public string ImportDisplayString
         {
             get { return FullName; }

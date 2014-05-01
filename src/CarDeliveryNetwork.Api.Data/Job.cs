@@ -160,6 +160,9 @@ namespace CarDeliveryNetwork.Api.Data
             }
         }
 
+        /// <summary>
+        /// String to display after importing this object
+        /// </summary>
         public string ImportDisplayString
         {
             get { return string.Format("{0}:{1}", JobNumber, LoadId); }
