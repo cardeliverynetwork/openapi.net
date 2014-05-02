@@ -13,6 +13,11 @@
         /// <summary>
         /// WebHook Event for a stop where vehicles were dropped off
         /// </summary>
-        DropoffStop = 10
+        DropoffStop = 10,
+
+        /// <summary>
+        /// WebHook Event for carrier claimed
+        /// </summary>
+        CarrierClaimApproved = 20
     }
 }
