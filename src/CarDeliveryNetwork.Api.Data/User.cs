@@ -61,6 +61,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual Fleet HomeFleet { get; set; }
 
         /// <summary>
+        /// ApiKey 
+        /// </summary>
+        public virtual Guid ApiKey { get; set; }
+
+        /// <summary>
         /// Url of the user's photograph
         /// </summary>
         public virtual string Photo { get; set; }
