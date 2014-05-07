@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using CarDeliveryNetwork.Api.Data;
 
 namespace CdnLink
@@ -60,7 +61,7 @@ namespace CdnLink
 
             if (job.Pickup.Signoff != null)
             {
-                PickupNotSignedReason = job.Pickup.Signoff.NotSignedReason;
+                PickupNotSignedReason = GetNotSignedReasonString(job.Pickup.Signoff.NotSignedReasons);
                 PickupSignedBy = job.Pickup.Signoff.SignedBy;
                 PickupTime = job.Pickup.Signoff.Time;
                 PickupUrl = job.Pickup.Signoff.Url; 
@@ -86,7 +87,7 @@ namespace CdnLink
 
             if (job.Dropoff.Signoff != null)
             {
-                DropoffNotSignedReason = job.Dropoff.Signoff.NotSignedReason;
+                DropoffNotSignedReason = GetNotSignedReasonString(job.Dropoff.Signoff.NotSignedReasons);
                 DropoffSignedBy = job.Dropoff.Signoff.SignedBy;
                 DropoffTime = job.Dropoff.Signoff.Time;
                 DropoffUrl = job.Dropoff.Signoff.Url;
@@ -112,6 +113,15 @@ namespace CdnLink
                 foreach (var document in job.Documents)
                     if(CdnReceivedDocuments.Where(d=> d.Url == document.Url).Count() == 0)
                         CdnReceivedDocuments.Add(new CdnReceivedDocument(document));
+        }
+
+        private string GetNotSignedReasonString(List<string> reasons)
+        {
+            var reasonString = "";
+            if (reasons != null)
+                foreach (var r in reasons)
+                    reasonString += (r + ",");
+            return reasonString.TrimEnd(new char[] { ',' });
         }
     }
 }
