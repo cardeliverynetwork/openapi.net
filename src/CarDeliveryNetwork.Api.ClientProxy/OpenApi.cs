@@ -270,6 +270,23 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             return Users.FromString(Call("Users", "POST", false, users), _interfaceFormat);
         }
 
+        /// <summary>
+        /// Creates the specified devices against the specified Fleet.
+        /// </summary>
+        /// <param name="fleetId">The Fleet Id or 2 RH fields from CMAC</param>
+        /// <param name="devices">The devices to create</param>
+        /// <param name="isCmac">Indicates that the fleetId is a CMAC</param>
+        /// <param name="sendTestJob">Indicates that a test job should be sent to the new device</param>
+        /// <returns>The created devices</returns>
+        public Devices CreateFleetDevices(string fleetId, Devices devices, bool isCmac, bool sendTestJob)
+        {
+            if (devices == null || devices.Count == 0)
+                throw new ArgumentException("Devices collection was null or empty");
+            var resource = string.Format("Fleets/{0}/Devices", fleetId);
+            var callParams = string.Format("iscmac={0}&sendtestjob={1}", isCmac, sendTestJob);
+            return Devices.FromString(Call(resource, "POST", false, devices, callParams), _interfaceFormat);
+        }
+
         private void PerformJobAction(int id, Data.Action action)
         {
             PerformAction("Jobs", id, action);

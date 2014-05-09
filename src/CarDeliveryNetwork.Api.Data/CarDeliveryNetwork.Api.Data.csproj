@@ -45,6 +45,7 @@
     <Compile Include="Bid.cs" />
     <Compile Include="CustomerUser.cs" />
     <Compile Include="DamageItem.cs" />
+    <Compile Include="DeviceRegistration.cs" />
     <Compile Include="EndPoint.cs" />
     <Compile Include="Export.cs" />
     <Compile Include="Contract.cs" />
