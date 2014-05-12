@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
+
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>
@@ -15,6 +16,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// Required for certain actions: The Id of a resource associated with the specified action
         /// </summary>
         public string AssociatedId { get; set; }
+
+        /// <summary>
+        /// Required for certain actions: a list of paramaters for this action
+        /// </summary>
+        public List<string> Parameters { get; set; }
 
         /// <summary>
         /// Required for certain actions: A note associated with the specified action
