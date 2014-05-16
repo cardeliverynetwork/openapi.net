@@ -126,6 +126,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string ShipperScac { get; set; }
 
         /// <summary>
+        /// Optional - The SCAC of the entity contracted by the shipper.
+        /// </summary>
+        /// <remarks>
+        /// To be specified when a different carrier will be carrying out the job.  Must be specified 
+        /// in conjunction with a ShipperScac and AllocatedCarrierScac.  Only specifiable in API calls
+        /// made BY the contracted carrier.
+        /// </remarks>
+        public virtual string ContractedCarrierScac { get; set; }
+
+        /// <summary>
         /// Optional - The SCAC of the allocated carrier
         /// </summary>
         /// <remarks>
