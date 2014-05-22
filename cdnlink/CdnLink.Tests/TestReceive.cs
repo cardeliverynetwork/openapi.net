@@ -141,7 +141,6 @@ namespace CdnLink.Tests
             Assert.AreEqual(0, cdn.Receive());
         }
 
-
         private ICdnFtpBox GetMockFtpBox(bool hasFiles)
         {
             var testFiles = hasFiles

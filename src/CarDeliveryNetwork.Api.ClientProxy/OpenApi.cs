@@ -24,12 +24,12 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         public string Uri { get; private set; }
 
         /// <summary>
-        /// Gets the API key.
+        /// Gets or sets the API key.
         /// </summary>
         /// <value>
         /// The API key.
         /// </value>
-        public string ApiKey { get; private set; }
+        public string ApiKey { get; set; }
 
         /// <summary>
         /// Gets the App.
@@ -45,12 +45,10 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <param name="uri">The uri of the target service.</param>
         /// <param name="apiKey">Your API key.</param>
         /// <param name="app">The application constructing this OpenApi instance.</param>
-        public OpenApi(string uri, string apiKey, string app = null)
+        public OpenApi(string uri, string apiKey = null, string app = null)
         {
             if (string.IsNullOrWhiteSpace(uri))
                 throw new ArgumentException("uri string cannot be null or empty");
-            if (apiKey == null)
-                throw new ArgumentException("apiKey string cannot be null");
 
             _interfaceFormat = MessageFormat.Json;
             Uri = uri;
@@ -268,6 +266,15 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (users == null || users.Count == 0)
                 throw new ArgumentException("Users collection was null or empty");
             return Users.FromString(Call("Users", "POST", false, users), _interfaceFormat);
+        }
+
+        /// <summary>
+        /// Gets the home fleet of the calling user
+        /// </summary>
+        /// <returns>The home fleet of the calling user</returns>
+        public Fleet GetHomeFleet()
+        {
+            return Fleet.FromString(Call("HomeFleet", "GET"), _interfaceFormat);
         }
 
         /// <summary>

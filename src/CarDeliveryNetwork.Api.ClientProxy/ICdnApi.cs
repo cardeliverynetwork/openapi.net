@@ -67,5 +67,11 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <param name="job">The job update.</param>
         /// <returns>The successfully updated job.</returns>
         Job UpdateJob(string loadId, Job job);
+
+        /// <summary>
+        /// Gets the home fleet of the calling user
+        /// </summary>
+        /// <returns>The home fleet of the calling user</returns>
+        Fleet GetHomeFleet();
     }
 }
