@@ -12,7 +12,7 @@ namespace CdnLink
     {
         static readonly ILog Log = LogManager.GetLogger(typeof(Program));
 
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
             try
             {
@@ -47,11 +47,13 @@ namespace CdnLink
                 {
                     PrintUsage();
                 }
+                return 0;
             }
             catch (HttpResourceFaultException ex)
             {
                 Log.ErrorFormat("HttpResourceFaultException: StatusCode: {0} Message: {1}", ex.StatusCode, ex.Message);
-                throw;
+                Console.WriteLine(ex);
+                return 1;
             }
             catch (SqlException ex)
             {
@@ -59,12 +61,14 @@ namespace CdnLink
                 if (ex.Message.Contains("Invalid column name"))
                     Console.WriteLine("{0}.  Try running upgrade.sql?", ex.Message);
                 else
-                    throw;
+                    Console.WriteLine(ex);
+                return 1;
             }
             catch (Exception ex)
             {
                 Log.Error(ex.Message, ex);
-                throw;
+                Console.WriteLine(ex);
+                return 1;
             }
         }
 
