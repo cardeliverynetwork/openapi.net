@@ -32,16 +32,19 @@ http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt20/.
 
 Installation
 ============
-- Download the CdnLink from one of the links above.
-- Extract the whole archive and place contents into the location you would like to run it from
 
-Database setup
-==============
 For new installs:
-- Run create.sql from the 'db' directory in the extracted archive.
+- Download the CdnLink from one of the links above
+- Extract the whole archive and place contents into the location you would like to run it from
+- Create an empty database for CdnLink or use an existing, non-CdnLink database
+- Run create.sql from the 'db' directory in the extracted archive
 
 For upgrades:
-- Run upgrade.sql from the 'db' directory in the extracted archive.
+- Download the CdnLink from one of the links above
+- Backup CdnLink.exe.config
+- Extract the whole archive and copy contents over the existing installation, replacing all files
+- Copy in the backed up CdnLink.exe.config
+- Run upgrade.sql from the 'db' directory in the extracted archive
 
 Configuration
 =============
