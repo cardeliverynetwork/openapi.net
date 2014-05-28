@@ -131,6 +131,7 @@ namespace CarDeliveryNetwork.Api.Data
             bool includeStateRegion = true,
             bool includeZipPostcode = true,
             bool includePhones = true,
+            bool includeFax = true,
             bool includeEmail = true)
         {
             var result = new StringBuilder();
@@ -152,6 +153,8 @@ namespace CarDeliveryNetwork.Api.Data
                 result.AppendFormat("{0}<br />", OtherPhone);
             if (includePhones && !string.IsNullOrWhiteSpace(MobilePhone))
                 result.AppendFormat("{0}<br />", MobilePhone);
+            if (includeFax && !string.IsNullOrWhiteSpace(Fax))
+                result.AppendFormat("Fax: {0}<br />", Fax);
             if (includeEmail && !string.IsNullOrWhiteSpace(Email))
                 result.AppendFormat("{0}<br />", Email);
             return result.ToString();
