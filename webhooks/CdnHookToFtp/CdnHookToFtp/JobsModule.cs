@@ -20,8 +20,10 @@ namespace CdnHookToFtp
 
             // PUT - To put a job update to server-configured FTP
             // Example: http://example.com/jobs
-            // Example: http://example.com/jobs?ftphost=ftp://ftp.example.com/dir&ftpuser=theuser&ftppass=thepass
+            // Example: http://build.cardeliverynetwork.com/jobs?ftphost=ftp://ftp.example.com/dir&ftpuser=theuser&ftppass=thepass
             Put["/"] = UpdateJob;
+
+            Post["/"] = UpdateJob;
         }
 
         private Response UpdateJob(dynamic _)
