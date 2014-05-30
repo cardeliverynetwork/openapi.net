@@ -88,6 +88,16 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         public virtual Dictionary<string, string> Paperwork { get; set; }
 
+        public bool IsPickedUp
+        {
+            get { return Status == VehicleStatus.Delivered || Status == VehicleStatus.PickedUp; }   
+        }
+
+        public bool IsDelivered
+        {
+            get { return Status == VehicleStatus.Delivered; }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Vehicle"/> class
         /// </summary>
