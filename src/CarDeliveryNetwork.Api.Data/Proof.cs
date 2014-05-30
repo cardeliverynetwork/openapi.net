@@ -1,5 +1,5 @@
-﻿
-using CarDeliveryNetwork.Types;
+﻿using CarDeliveryNetwork.Types;
+
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>
@@ -53,7 +53,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <value>
         /// The driver.
         /// </value>
-        public virtual string Driver { get; set; }
+        public virtual User Driver { get; set; }
 
         /// <summary>
         /// The Url to this Proof
