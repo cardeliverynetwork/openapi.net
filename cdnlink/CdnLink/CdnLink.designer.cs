@@ -58,7 +58,7 @@ namespace CdnLink
     partial void UpdateCdnSendVehicle(CdnSendVehicle instance);
     partial void DeleteCdnSendVehicle(CdnSendVehicle instance);
     #endregion
-
+		
 		public CdnLinkDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -934,6 +934,8 @@ namespace CdnLink
 		
 		private System.Nullable<int> _BuyPrice;
 		
+		private string _ContractedCarrierScac;
+		
 		private string _CustomerReference;
 		
 		private System.Nullable<int> _DriverPay;
@@ -1086,6 +1088,8 @@ namespace CdnLink
     partial void OnAssignedDriverRemoteIdChanged();
     partial void OnBuyPriceChanging(System.Nullable<int> value);
     partial void OnBuyPriceChanged();
+    partial void OnContractedCarrierScacChanging(string value);
+    partial void OnContractedCarrierScacChanged();
     partial void OnCustomerReferenceChanging(string value);
     partial void OnCustomerReferenceChanged();
     partial void OnDriverPayChanging(System.Nullable<int> value);
@@ -1346,6 +1350,26 @@ namespace CdnLink
 					this._BuyPrice = value;
 					this.SendPropertyChanged("BuyPrice");
 					this.OnBuyPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContractedCarrierScac", DbType="NVarChar(10)")]
+		public string ContractedCarrierScac
+		{
+			get
+			{
+				return this._ContractedCarrierScac;
+			}
+			set
+			{
+				if ((this._ContractedCarrierScac != value))
+				{
+					this.OnContractedCarrierScacChanging(value);
+					this.SendPropertyChanging();
+					this._ContractedCarrierScac = value;
+					this.SendPropertyChanged("ContractedCarrierScac");
+					this.OnContractedCarrierScacChanged();
 				}
 			}
 		}
@@ -3435,6 +3459,8 @@ namespace CdnLink
 		
 		private System.Nullable<int> _BuyPrice;
 		
+		private string _ContractedCarrierScac;
+		
 		private string _CustomerReference;
 		
 		private System.Nullable<int> _DriverPay;
@@ -3553,6 +3579,8 @@ namespace CdnLink
     partial void OnAssignedDriverRemoteIdChanged();
     partial void OnBuyPriceChanging(System.Nullable<int> value);
     partial void OnBuyPriceChanged();
+    partial void OnContractedCarrierScacChanging(string value);
+    partial void OnContractedCarrierScacChanged();
     partial void OnCustomerReferenceChanging(string value);
     partial void OnCustomerReferenceChanged();
     partial void OnDriverPayChanging(System.Nullable<int> value);
@@ -3740,6 +3768,26 @@ namespace CdnLink
 					this._BuyPrice = value;
 					this.SendPropertyChanged("BuyPrice");
 					this.OnBuyPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContractedCarrierScac", DbType="NVarChar(10)")]
+		public string ContractedCarrierScac
+		{
+			get
+			{
+				return this._ContractedCarrierScac;
+			}
+			set
+			{
+				if ((this._ContractedCarrierScac != value))
+				{
+					this.OnContractedCarrierScacChanging(value);
+					this.SendPropertyChanging();
+					this._ContractedCarrierScac = value;
+					this.SendPropertyChanged("ContractedCarrierScac");
+					this.OnContractedCarrierScacChanged();
 				}
 			}
 		}
