@@ -46,3 +46,12 @@ ADD
 	[ContractedCarrierScac] [nvarchar](10) NULL
 END
 GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'ContractedCarrierScac' and Object_ID = Object_ID(N'CdnReceivedLoads'))
+BEGIN
+   ALTER TABLE CdnReceivedLoads
+ADD 
+	[ContractedCarrierScac] [nvarchar](10) NULL
+END
+GO
