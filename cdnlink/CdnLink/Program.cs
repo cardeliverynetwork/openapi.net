@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Reflection;
 using System.Text;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
@@ -43,9 +44,13 @@ namespace CdnLink
                 {
                     while (cdn.Receive() > 0) { }
                 }
+                else if (arg.Contains("version"))
+                {
+                    Console.WriteLine(GetVersionString());
+                }
                 else
                 {
-                    PrintUsage();
+                    Console.WriteLine(GetUsageString());
                 }
                 return 0;
             }
@@ -72,14 +77,26 @@ namespace CdnLink
             }
         }
 
-        private static void PrintUsage()
+        private static string GetVersionString()
+        {
+            var assemblyVersion = Assembly.GetAssembly(typeof(Program)).GetName().Version;
+            return string.Format(
+                "CdnLink v{0}.{1}.{2}",
+                assemblyVersion.Major,
+                assemblyVersion.Minor,
+                assemblyVersion.Build);
+        }
+
+        private static string GetUsageString()
         {
             var usage = new StringBuilder();
+            usage.AppendLine(GetVersionString());
             usage.AppendLine("Usage:");
-            usage.AppendLine("    > cdnlink          ... Sends loads to CDN and receives waiting updates from FTP");
-            usage.AppendLine("    > cdnlink /send    ... Sends loads to CDN");
+            usage.AppendLine("    > cdnlink          ... Sends loads to CDN and receives updates from FTP");
             usage.AppendLine("    > cdnlink /receive ... Receives waiting updates from FTP");
-            Console.WriteLine(usage);
+            usage.AppendLine("    > cdnlink /send    ... Sends loads to CDN");
+            usage.AppendLine("    > cdnlink /version ... Prints CdnLink version info");
+            return usage.ToString();
         }
     }
 }
