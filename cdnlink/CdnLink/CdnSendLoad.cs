@@ -13,6 +13,7 @@ namespace CdnLink
                 AllocatedCarrierScac = AllocatedCarrierScac,
                 AssignedDriverRemoteId = AssignedDriverRemoteId,
                 BuyPrice = BuyPrice ?? 0,
+                ContractedCarrierScac = ContractedCarrierScac,
                 CustomerReference = CustomerReference,
                 DriverPay = DriverPay ?? 0,
                 JobInitiator = JobInitiator,

@@ -14,6 +14,7 @@ namespace CdnLink
             AllocatedCarrierScac = job.AllocatedCarrierScac;
             AssignedDriverRemoteId = job.AssignedDriverRemoteId;
             BuyPrice = job.BuyPrice;
+            ContractedCarrierScac = job.ContractedCarrierScac;
             CustomerReference = job.CustomerReference;
             DriverPay = job.DriverPay;
             JobInitiator = job.JobInitiator;
