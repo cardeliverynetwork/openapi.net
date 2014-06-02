@@ -223,6 +223,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         protected virtual void InitObjects()
         {
+            CreatedDate = DateTime.UtcNow;
             Customer = new ContactDetails();
             Pickup = new EndPoint();
             Dropoff = new EndPoint();
