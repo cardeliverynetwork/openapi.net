@@ -189,10 +189,10 @@ CREATE TABLE [dbo].[CdnReceivedDocuments]
 	[ReceivedLoadId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (Id),
 	[CdnVehicleId] [int] NULL,
 	[Comment] [nvarchar] (1000) NULL,
-	[Title] [nvarchar] (50) NULL,
-	[Url] [nvarchar] (1000) NULL,
-	[Type] [int] NOT NULL,
 	[FriendlyType] [nvarchar] (25) NULL,
+	[Title] [nvarchar] (50) NULL,
+	[Type] [int] NOT NULL,
+	[Url] [nvarchar] (1000) NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
 

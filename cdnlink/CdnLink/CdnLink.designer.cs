@@ -489,14 +489,14 @@ namespace CdnLink
 		
 		private string _Comment;
 		
+		private string _FriendlyType;
+		
 		private string _Title;
 		
+		private int _Type;
+		
 		private string _Url;
-
-        private int _Type;
-
-        private string _FriendlyType;
-
+		
 		private EntityRef<CdnReceivedLoad> _CdnReceivedLoad;
 		
     #region Extensibility Method Definitions
@@ -511,8 +511,12 @@ namespace CdnLink
     partial void OnCdnVehicleIdChanged();
     partial void OnCommentChanging(string value);
     partial void OnCommentChanged();
+    partial void OnFriendlyTypeChanging(string value);
+    partial void OnFriendlyTypeChanged();
     partial void OnTitleChanging(string value);
     partial void OnTitleChanged();
+    partial void OnTypeChanging(int value);
+    partial void OnTypeChanged();
     partial void OnUrlChanging(string value);
     partial void OnUrlChanged();
     #endregion
@@ -607,6 +611,26 @@ namespace CdnLink
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FriendlyType", DbType="NVarChar(25)")]
+		public string FriendlyType
+		{
+			get
+			{
+				return this._FriendlyType;
+			}
+			set
+			{
+				if ((this._FriendlyType != value))
+				{
+					this.OnFriendlyTypeChanging(value);
+					this.SendPropertyChanging();
+					this._FriendlyType = value;
+					this.SendPropertyChanged("FriendlyType");
+					this.OnFriendlyTypeChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(50)")]
 		public string Title
 		{
@@ -623,6 +647,26 @@ namespace CdnLink
 					this._Title = value;
 					this.SendPropertyChanged("Title");
 					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int NOT NULL")]
+		public int Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
 				}
 			}
 		}
@@ -646,51 +690,7 @@ namespace CdnLink
 				}
 			}
 		}
-
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Type", DbType = "Int NOT NULL")]
-        public int Type
-        {
-            get
-            {
-                return this._Type;
-            }
-            set
-            {
-                if ((this._Type != value))
-                {
-                    if (this._CdnReceivedLoad.HasLoadedOrAssignedValue)
-                    {
-                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-                    }
-                    this.OnReceivedLoadIdChanging(value);
-                    this.SendPropertyChanging();
-                    this._Type = value;
-                    this.SendPropertyChanged("ReceivedLoadId");
-                    this.OnReceivedLoadIdChanged();
-                }
-            }
-        }
-
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_FriendlyType", DbType = "NVarChar(25)")]
-        public string FriendlyType
-        {
-            get
-            {
-                return this._FriendlyType;
-            }
-            set
-            {
-                if ((this._FriendlyType != value))
-                {
-                    this.OnUrlChanging(value);
-                    this.SendPropertyChanging();
-                    this._FriendlyType = value;
-                    this.SendPropertyChanged("Url");
-                    this.OnUrlChanged();
-                }
-            }
-        }
-
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedDocument", Storage="_CdnReceivedLoad", ThisKey="ReceivedLoadId", OtherKey="Id", IsForeignKey=true)]
 		public CdnReceivedLoad CdnReceivedLoad
 		{

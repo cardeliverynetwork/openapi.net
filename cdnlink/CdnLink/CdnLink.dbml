@@ -21,7 +21,9 @@
       <Column Name="ReceivedLoadId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CdnVehicleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Comment" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="FriendlyType" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
       <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Url" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Association Name="CdnReceivedLoad_CdnReceivedDocument" Member="CdnReceivedLoad" ThisKey="ReceivedLoadId" OtherKey="Id" Type="CdnReceivedLoad" IsForeignKey="true" />
     </Type>
