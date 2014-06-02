@@ -101,16 +101,26 @@ To update a job that was previously created through CdnLink, make your changes t
 
 The following updates are currently supported:
 
+- Reassign Driver (available up to and including job status AtPickup). Example:
+
+    UPDATE CdnSendLoads SET AssignedDriverRemoteId = '123' where LoadId = '<theLoadId>'
+    UPDATE CdnSends SET [Action] = 20, [Status] = 10 WHERE LoadId = '<theLoadId>';
+    
+- Unassign Driver (available up to and including job status AtPickup). Example:
+
+    UPDATE CdnSendLoads SET AssignedDriverRemoteId = null where LoadId = '<theLoadId>'
+    UPDATE CdnSends SET [Action] = 20, [Status] = 10 WHERE LoadId = '<theLoadId>';
+    
 - ADD Vehicle(s) (available up to and including job status AtPickup). Example:
 
     INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
     VALUES (<theLoadId>, 'Ford', 'Focus', 'F123456789123456D');
-    UPDATE CdnSends SET [Action] = 20, [Status] = 10 WHERE LoadId = <theLoadId>;
+    UPDATE CdnSends SET [Action] = 20, [Status] = 10 WHERE LoadId = '<theLoadId>';
 	
 - DELETE Vehicle(s): (available up to and including job status Assigned). Example:
 
-    DELETE CdnSendVehicles WHERE LoadId = <theLoadId> AND Vin = <theVin>
-    UPDATE CdnSends SET [Action] = 20, [Status] = 10 WHERE LoadId = <theLoadId>;
+    DELETE CdnSendVehicles WHERE LoadId = <theLoadId> AND Vin = '<theVin>'
+    UPDATE CdnSends SET [Action] = 20, [Status] = 10 WHERE LoadId = '<theLoadId>';
 	
 	
 CdnLink: Receive
