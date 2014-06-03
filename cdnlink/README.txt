@@ -1,3 +1,11 @@
+Getting the software
+====================
+Latest stable build:
+http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt20/.lastPinned/artifacts.zip
+
+Latest development build:
+http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt20/.lastSuccessful/artifacts.zip
+
 Overview
 ========
 CdnLink provides a link between your application and Car Delivery Network (CDN) by way of database tables, the CDN API and FTP.
@@ -21,14 +29,6 @@ Prerequsites
 - Windows XP/Server 2003 or later
 - .NET Framework 4
 - SQL Server 2005 or later (earlier versions and other databases are untested but may function)
-
-Getting the software
-====================
-Download the latest stable build from:
-http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt20/.lastPinned/artifacts.zip
-
-Download the latest development build from:
-http://build.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/bt20/.lastSuccessful/artifacts.zip
 
 Installation
 ============
