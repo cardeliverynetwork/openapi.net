@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
 using log4net;
@@ -196,14 +197,15 @@ namespace CdnLink
 
         private string GetApiKeyScac(string apiKey, bool update = false)
         {
-            var scac = File.Exists(ScacCacheFile)
-                ? File.ReadAllText(ScacCacheFile)
+            var cachefile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), ScacCacheFile);
+            var scac = File.Exists(cachefile)
+                ? File.ReadAllText(cachefile)
                 : null;
 
             if (string.IsNullOrEmpty(scac) || update)
             {
                 scac = Api.GetHomeFleet().Scac;
-                File.WriteAllText(ScacCacheFile, scac);
+                File.WriteAllText(cachefile, scac);
             }
             return scac;
         }

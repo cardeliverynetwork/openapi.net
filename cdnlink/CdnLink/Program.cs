@@ -79,7 +79,7 @@ namespace CdnLink
 
         private static string GetVersionString()
         {
-            var assemblyVersion = Assembly.GetAssembly(typeof(Program)).GetName().Version;
+            var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
             return string.Format(
                 "CdnLink v{0}.{1}.{2}",
                 assemblyVersion.Major,
