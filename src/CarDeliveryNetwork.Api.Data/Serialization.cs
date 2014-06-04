@@ -29,7 +29,7 @@ namespace CarDeliveryNetwork.Api.Data
                 ? new DataContractJsonSerializer(typeof(T)) as XmlObjectSerializer
                 : new DataContractSerializer(typeof(T)) as XmlObjectSerializer;
 
-            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(serialisedObject)))
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(serialisedObject)))
                 return (T)serializer.ReadObject(stream);
         }
     }

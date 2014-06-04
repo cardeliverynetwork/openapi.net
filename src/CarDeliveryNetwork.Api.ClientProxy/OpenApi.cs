@@ -364,7 +364,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
                     : null;
 
                 var buffer = !string.IsNullOrEmpty(json)
-                    ? Encoding.ASCII.GetBytes(json)
+                    ? Encoding.UTF8.GetBytes(json)
                     : new byte[] { };
 
                 req.ContentLength = buffer.Length;
