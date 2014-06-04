@@ -23,7 +23,8 @@ namespace CdnLink
         public CdnLink(
             string connectionString,
             ICdnApi api,
-            ICdnFtpBox ftpBox)
+            ICdnFtpBox ftpBox,
+            Dictionary<string, string> apiKeysByScacs = null)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentException("connectionString string cannot be null or empty");
@@ -32,6 +33,10 @@ namespace CdnLink
             Api = api;
             FtpBox = ftpBox;
             LoadIdPrefix = GetApiKeyScac(api.ApiKey);
+        
+            //ScacApiKeyLookup = apiKeysByScacs != null && apiKeysByScacs.Count > 0
+            //    ? apiKeysByScacs
+            //    : new Dictionary<string, string> { { GetApiKeyScac(api.ApiKey), api.ApiKey } };
         }
 
         public int Send()
