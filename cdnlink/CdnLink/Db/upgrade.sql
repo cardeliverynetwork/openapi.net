@@ -33,7 +33,7 @@ IF NOT EXISTS (SELECT * FROM sys.columns
 BEGIN
    ALTER TABLE CdnReceivedDocuments
 ADD 
-	[Type] [int] NOT NULL,
+	[Type] [int] NULL,
 	[FriendlyType] [nvarchar] (25) NULL
 END
 GO
