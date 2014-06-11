@@ -138,7 +138,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
             Code = job.AllocatedCarrierScac;
             DriverName = job.AssignedDriverRemoteId;
             TrailerNumber = job.AssignedAppId;
-            // TruckNumber = 
+            TruckNumber = job.AssignedTruckRemoteId;
         }
     }
 
