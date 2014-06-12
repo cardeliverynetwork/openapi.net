@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace CdnLink.Tests
 {
     [TestFixture]
-    public class TestCdnConstruct
+    public class TestCdnConstruct : TestBase
     {
         [Test]
         public void Good()
@@ -93,22 +93,6 @@ namespace CdnLink.Tests
         public void EmptyFtpPass()
         {
             new CdnLink("0", GetMockCdnApi(), new FtpBox("0", "0", "0", string.Empty));
-        }
-
-        [Test]
-        public void NullFtpBox()
-        {
-            new CdnLink("0", GetMockCdnApi(), null);
-        }
-
-        private ICdnApi GetMockCdnApi()
-        {
-            var mock = new Mock<ICdnApi>();
-
-            mock.Setup(s => s.GetHomeFleet())
-                .Returns(new Fleet { Scac = "THESCAC" });
-
-            return mock.Object;
         }
     }
 }

@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace CdnLink.Tests
 {
     [TestFixture]
-    public class TestReceive
+    public class TestReceive : TestBase
     {
         [TestFixtureSetUp]
         public void Init()
@@ -139,29 +139,6 @@ namespace CdnLink.Tests
 
             Assert.AreEqual(0, cdn.Receive());
             Assert.AreEqual(0, cdn.Receive());
-        }
-
-        private ICdnFtpBox GetMockFtpBox(bool hasFiles)
-        {
-            var testFiles = hasFiles
-                ? Directory.GetFiles("FtpFiles").ToList()
-                : new List<string>();
-
-            var files = testFiles.ToDictionary(f => Guid.NewGuid().ToString(), File.ReadAllText);
-            var fileNames = files.Select(f => f.Key).ToList();
-
-            var mock = new Mock<ICdnFtpBox>();
-
-            mock.Setup(s => s.GetFileList())
-                .Returns(fileNames);
-
-            mock.Setup(s => s.GetFileContents(It.IsAny<string>()))
-                .Returns((string s) => files.ContainsKey(s) ? files[s] : null);
-            
-            mock.Setup(s => s.DeleteFile(It.IsAny<string>()))
-                .Callback((string s) => fileNames.Remove(s));
-            
-            return mock.Object;
         }
     }
 }

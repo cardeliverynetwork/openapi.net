@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace CdnLink.Tests
 {
     [TestFixture]
-    public class TestSend
+    public class TestSend : TestBase
     {
         [TestFixtureSetUp]
         public void Init()
@@ -33,7 +33,7 @@ namespace CdnLink.Tests
             var db = new CdnLinkDataContext(connectionString);
             db.ExecuteCommand(File.ReadAllText("Db\\testdata_send.sql"));
             var sendCount = db.CdnSends.Count();
-            var link = new CdnLink(connectionString, GetMockApi(), null);
+            var link = new CdnLink(connectionString, GetMockCdnApi(), GetMockFtpBox(false));
             Assert.AreEqual(sendCount, link.Send());
             Assert.AreEqual(0, link.Send());
 
@@ -41,16 +41,6 @@ namespace CdnLink.Tests
             {
                 Assert.AreEqual((int)CdnSend.SendStatus.Sent, send.Status);
             }
-        }
-
-        private ICdnApi GetMockApi()
-        {
-            var mock = new Mock<ICdnApi>();
-
-            mock.Setup(s => s.CreateJob(It.IsAny<Job>()))
-                .Returns((Job j) => j);
-
-            return mock.Object;
         }
     }
 }

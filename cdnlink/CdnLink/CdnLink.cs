@@ -12,31 +12,36 @@ namespace CdnLink
     public class CdnLink
     {
         private const string ScacCacheFile = "~scac.cache";
+        private const char LoadIdPrefixEnd = '-';
         private static readonly ILog Log = LogManager.GetLogger(typeof(CdnLink));
         private string LoadIdPrefix { get; set; }
 
+        public Dictionary<string, string> _apiKeysByScac;
+
         public string ConnectionString { get; private set; }
-        public Dictionary<string, string> ScacApiKeys { get; private set; }
         public ICdnApi Api { get; private set; }
         public ICdnFtpBox FtpBox { get; private set; }
 
         public CdnLink(
             string connectionString,
             ICdnApi api,
-            ICdnFtpBox ftpBox,
+            ICdnFtpBox ftp,
             Dictionary<string, string> apiKeysByScacs = null)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
-                throw new ArgumentException("connectionString string cannot be null or empty");
+                throw new ArgumentException("Config setting CDNLINK_CONNECTIONSTRING must be populated");
+            if (string.IsNullOrWhiteSpace(api.Uri))
+                throw new ArgumentException("Config setting CDNLINK_API_URL must be populated");
+            if (string.IsNullOrWhiteSpace(ftp.Host))
+                throw new ArgumentException("Config setting CDNLINK_FTP_HOST must be populated");
+            if (string.IsNullOrWhiteSpace(api.ApiKey) && (_apiKeysByScac == null || _apiKeysByScac.Count == 0))
+                throw new ArgumentException("Config setting CDNLINK_API_KEY or apiKeyScacList must be populated");
 
+            _apiKeysByScac = apiKeysByScacs;
             ConnectionString = connectionString;
             Api = api;
-            FtpBox = ftpBox;
+            FtpBox = ftp;
             LoadIdPrefix = GetApiKeyScac(api.ApiKey);
-        
-            //ScacApiKeyLookup = apiKeysByScacs != null && apiKeysByScacs.Count > 0
-            //    ? apiKeysByScacs
-            //    : new Dictionary<string, string> { { GetApiKeyScac(api.ApiKey), api.ApiKey } };
         }
 
         public int Send()
@@ -60,10 +65,10 @@ namespace CdnLink
                         db.SubmitChanges();
 
                         // If we're using loadId and have a prefix, add it now.
-                        var loadId = AddLoadIdPrefix(send.LoadId);
+                        var loadId = PrepareApiForSend(send);
                         var theJob = send.CdnSendLoad.ToCdnJob();
                         theJob.LoadId = loadId;
-                        
+
                         switch (send.Action)
                         {
                             case null:
@@ -142,7 +147,7 @@ namespace CdnLink
                             var receive = new CdnReceive
                             {
                                 FetchedDate = DateTime.Now,
-                                Status = (int) CdnReceive.ReceiveStatus.Processing
+                                Status = (int)CdnReceive.ReceiveStatus.Processing
                             };
 
                             receivedFile.CdnReceive = receive;
@@ -155,7 +160,7 @@ namespace CdnLink
                                 Log.Debug("Receive: Setting the received load");
                                 receivedFile.CdnReceivedLoads.Add(new CdnReceivedLoad(job));
                                 Log.Debug("Receive: Setting the status to queued");
-                                receive.Status = (int) CdnReceive.ReceiveStatus.Queued;
+                                receive.Status = (int)CdnReceive.ReceiveStatus.Queued;
                                 Log.Debug("Receive: Submittig ...");
                                 db.SubmitChanges();
                                 Log.Debug("Receive: Done.");
@@ -181,27 +186,47 @@ namespace CdnLink
             return fileCount;
         }
 
-        private string AddLoadIdPrefix(string loadId)
+        private string PrepareApiForSend(CdnSend send)
         {
-            if (!string.IsNullOrWhiteSpace(loadId) &&
-                !string.IsNullOrWhiteSpace(LoadIdPrefix) &&
-                !loadId.StartsWith(LoadIdPrefix))
+            var workingScac = LoadIdPrefix;
+            var isScacLookup = _apiKeysByScac != null && _apiKeysByScac.Count > 0;
+            if (isScacLookup)
             {
-                return string.Format("{0}-{1}", LoadIdPrefix, loadId);
+                var shipperScac = send.CdnSendLoad.ShipperScac;
+                if (string.IsNullOrWhiteSpace(shipperScac))
+                    throw new Exception("ShipperScac must always be populated when using a SCAC/ApiKey lookup list");
+                if (!_apiKeysByScac.ContainsKey(shipperScac))
+                    throw new Exception(string.Format("apiKeyScacList did not contain an entry for SCAC '{0}'", shipperScac));
+
+                workingScac = shipperScac;
+                Api.ApiKey = _apiKeysByScac[shipperScac];
             }
-            return loadId;
+
+            // Return the prefixed load Id we'll use for this send
+            if (!string.IsNullOrWhiteSpace(send.LoadId) &&
+                !string.IsNullOrWhiteSpace(workingScac) &&
+                !send.LoadId.StartsWith(workingScac))
+            {
+                return string.Format("{0}{1}{2}", workingScac, LoadIdPrefixEnd, send.LoadId);
+            }
+            return send.LoadId;
         }
 
         private string StripLoadIdPrefix(string loadId)
         {
-            var prefix = LoadIdPrefix + "-";
-            return loadId != null && loadId.StartsWith(prefix)
-                ? loadId.Remove(0, prefix.Length)
+            if (string.IsNullOrWhiteSpace(loadId))
+                return "";
+
+            return loadId.Contains(LoadIdPrefixEnd)
+                ? loadId.Remove(0, loadId.IndexOf(LoadIdPrefixEnd) + 1)
                 : loadId;
         }
 
         private string GetApiKeyScac(string apiKey, bool update = false)
         {
+            if (string.IsNullOrWhiteSpace(apiKey))
+                return null;
+
             var cachefile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), ScacCacheFile);
             var scac = File.Exists(cachefile)
                 ? File.ReadAllText(cachefile)

@@ -17,13 +17,11 @@ namespace CdnLink
         {
             try
             {
-                var hasArg = args != null && args.Length > 0 && !string.IsNullOrWhiteSpace(args[0]);
-                var arg = hasArg ? args[0].ToLower() : null;
                 var cdn = new CdnLink(
                     Helpers.GetSetting("CDNLINK_CONNECTIONSTRING"),
                     new OpenApi(
-                        Helpers.GetSetting("CDNLINK_API_URL"),
-                        Helpers.GetSetting("CDNLINK_API_KEY"),
+                        Helpers.GetSetting("CDNLINK_API_URL"), 
+                        Helpers.GetSetting("CDNLINK_API_KEY"), 
                         "CdnLink"),
                     new FtpBox(
                         Helpers.GetSetting("CDNLINK_FTP_HOST"),
@@ -31,6 +29,9 @@ namespace CdnLink
                         Helpers.GetSetting("CDNLINK_FTP_USER"),
                         Helpers.GetSetting("CDNLINK_FTP_PASS")),
                         Helpers.GetDictionarySetting("apiKeyScacList"));
+
+                var hasArg = args != null && args.Length > 0 && !string.IsNullOrWhiteSpace(args[0]);
+                var arg = hasArg ? args[0].ToLower() : null;
 
                 if (!hasArg)
                 {
@@ -54,6 +55,12 @@ namespace CdnLink
                     Console.WriteLine(GetUsageString());
                 }
                 return 0;
+            }
+            catch (ArgumentException ex)
+            {
+                Log.Error(ex.Message, ex);
+                Console.WriteLine(ex.Message);
+                return 1;
             }
             catch (HttpResourceFaultException ex)
             {
