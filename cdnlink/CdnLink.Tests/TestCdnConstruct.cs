@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
 using Moq;
@@ -93,6 +94,41 @@ namespace CdnLink.Tests
         public void EmptyFtpPass()
         {
             new CdnLink("0", GetMockCdnApi(), new FtpBox("0", "0", "0", string.Empty));
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void WithScacLookupList_Empty()
+        {
+            new CdnLink(
+                "0",
+                GetMockCdnApi(populateApiKey: false),
+                GetMockFtpBox(false),
+                new Dictionary<string, string> { });
+        }
+
+        [Test]
+        public void WithScacLookupList_EmptyWithKey()
+        {
+            new CdnLink(
+                "0",
+                GetMockCdnApi(),
+                GetMockFtpBox(false),
+                new Dictionary<string, string> { });
+        }
+
+        [Test]
+        public void WithScacLookupList()
+        {
+            new CdnLink(
+                "0",
+                GetMockCdnApi(),
+                GetMockFtpBox(false),
+                new Dictionary<string, string> 
+                {
+                    { "ABC", "123456" },
+                    { "DEF", "678902" }
+                });
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
 using Moq;
@@ -11,15 +10,16 @@ namespace CdnLink.Tests
 {
     public class TestBase
     {
-        protected ICdnApi GetMockCdnApi()
+        protected ICdnApi GetMockCdnApi(bool populateApiKey = true)
         {
             var mock = new Mock<ICdnApi>();
 
+            if (populateApiKey)
+                mock.Setup(s => s.ApiKey)
+                    .Returns("123");
+
             mock.Setup(s => s.GetHomeFleet())
                 .Returns(new Fleet { Scac = "THESCAC" });
-
-            mock.Setup(s => s.ApiKey)
-                .Returns("123");
 
             mock.Setup(s => s.Uri)
                 .Returns("http://example.com/openapi");
@@ -61,6 +61,5 @@ namespace CdnLink.Tests
 
             return mock.Object;
         }
-
     }
 }
