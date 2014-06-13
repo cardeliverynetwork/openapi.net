@@ -22,6 +22,8 @@ namespace CdnLink
         public ICdnApi Api { get; private set; }
         public ICdnFtpBox FtpBox { get; private set; }
 
+        public bool IsKeyByScacLookupMode { get { return _apiKeysByScac != null && _apiKeysByScac.Count > 0; } }
+
         public CdnLink(
             string connectionString,
             ICdnApi api,
@@ -41,7 +43,10 @@ namespace CdnLink
             ConnectionString = connectionString;
             Api = api;
             FtpBox = ftp;
-            LoadIdPrefix = GetApiKeyScac(api.ApiKey);
+
+            LoadIdPrefix = IsKeyByScacLookupMode
+                ? null
+                : GetApiKeyScac(api.ApiKey);
         }
 
         public int Send()
@@ -189,8 +194,8 @@ namespace CdnLink
         private string PrepareApiForSend(CdnSend send)
         {
             var workingScac = LoadIdPrefix;
-            var isScacLookup = _apiKeysByScac != null && _apiKeysByScac.Count > 0;
-            if (isScacLookup)
+
+            if (IsKeyByScacLookupMode)
             {
                 var shipperScac = send.CdnSendLoad.ShipperScac;
                 if (string.IsNullOrWhiteSpace(shipperScac))
