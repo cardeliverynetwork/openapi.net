@@ -59,28 +59,24 @@ namespace CdnLink
             catch (ArgumentException ex)
             {
                 Log.Error(ex.Message, ex);
-                Console.WriteLine(ex.Message);
                 return 1;
             }
             catch (HttpResourceFaultException ex)
             {
                 Log.ErrorFormat("HttpResourceFaultException: StatusCode: {0} Message: {1}", ex.StatusCode, ex.Message);
-                Console.WriteLine(ex);
                 return 1;
             }
             catch (SqlException ex)
             {
-                Log.Error(ex.Message, ex);
-                if (ex.Message.Contains("Invalid column name"))
-                    Console.WriteLine("{0}.  Try running upgrade.sql?", ex.Message);
-                else
-                    Console.WriteLine(ex);
+                var message = ex.Message.Contains("Invalid column name")
+                    ? string.Format("{0}.  Try running upgrade.sql?", ex.Message)
+                    : ex.ToString();
+                Log.Error(message, ex);
                 return 1;
             }
             catch (Exception ex)
             {
                 Log.Error(ex.Message, ex);
-                Console.WriteLine(ex);
                 return 1;
             }
         }

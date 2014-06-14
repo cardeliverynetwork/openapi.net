@@ -13,10 +13,18 @@ namespace CdnLink
 
         public static Dictionary<string, string> GetDictionarySetting(string name)
         {
+            Log.DebugFormat("GetDictionarySetting: '{0}'.", name);
             var section = (NameValueCollection)ConfigurationManager.GetSection(name);
-            return section != null
+            var dict = section != null
                 ? section.AllKeys.ToDictionary(k => k, k => section[k])
                 : null;
+
+            if (dict != null)
+                Log.DebugFormat("GotDictionarySetting: '{0}' with {1} entries.", name, dict.Count);
+            else
+                Log.DebugFormat("GetDictionarySetting: '{0}' was not found.", name);
+
+            return dict;
         }
 
         public static string GetSetting(string name)
