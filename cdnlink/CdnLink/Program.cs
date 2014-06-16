@@ -28,7 +28,7 @@ namespace CdnLink
                         Helpers.GetSetting("CDNLINK_FTP_ROOT"),
                         Helpers.GetSetting("CDNLINK_FTP_USER"),
                         Helpers.GetSetting("CDNLINK_FTP_PASS")),
-                        Helpers.GetDictionarySetting("apiKeyScacList"));
+                        Helpers.GetDictionarySetting("CDNLINK_SCAC_API_KEY_LOOKUP"));
 
                 var hasArg = args != null && args.Length > 0 && !string.IsNullOrWhiteSpace(args[0]);
                 var arg = hasArg ? args[0].ToLower() : null;
