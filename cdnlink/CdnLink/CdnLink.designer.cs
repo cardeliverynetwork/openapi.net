@@ -932,6 +932,8 @@ namespace CdnLink
 		
 		private string _AssignedDriverRemoteId;
 		
+		private string _AssignedTruckRemoteId;
+		
 		private System.Nullable<int> _BuyPrice;
 		
 		private string _ContractedCarrierScac;
@@ -1086,6 +1088,8 @@ namespace CdnLink
     partial void OnAllocatedCarrierScacChanged();
     partial void OnAssignedDriverRemoteIdChanging(string value);
     partial void OnAssignedDriverRemoteIdChanged();
+    partial void OnAssignedTruckRemoteIdChanging(string value);
+    partial void OnAssignedTruckRemoteIdChanged();
     partial void OnBuyPriceChanging(System.Nullable<int> value);
     partial void OnBuyPriceChanged();
     partial void OnContractedCarrierScacChanging(string value);
@@ -1330,6 +1334,26 @@ namespace CdnLink
 					this._AssignedDriverRemoteId = value;
 					this.SendPropertyChanged("AssignedDriverRemoteId");
 					this.OnAssignedDriverRemoteIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedTruckRemoteId", DbType="NVarChar(40)")]
+		public string AssignedTruckRemoteId
+		{
+			get
+			{
+				return this._AssignedTruckRemoteId;
+			}
+			set
+			{
+				if ((this._AssignedTruckRemoteId != value))
+				{
+					this.OnAssignedTruckRemoteIdChanging(value);
+					this.SendPropertyChanging();
+					this._AssignedTruckRemoteId = value;
+					this.SendPropertyChanged("AssignedTruckRemoteId");
+					this.OnAssignedTruckRemoteIdChanged();
 				}
 			}
 		}
@@ -3457,6 +3481,8 @@ namespace CdnLink
 		
 		private string _AssignedDriverRemoteId;
 		
+		private string _AssignedTruckRemoteId;
+		
 		private System.Nullable<int> _BuyPrice;
 		
 		private string _ContractedCarrierScac;
@@ -3577,6 +3603,8 @@ namespace CdnLink
     partial void OnAllocatedCarrierScacChanged();
     partial void OnAssignedDriverRemoteIdChanging(string value);
     partial void OnAssignedDriverRemoteIdChanged();
+    partial void OnAssignedTruckRemoteIdChanging(string value);
+    partial void OnAssignedTruckRemoteIdChanged();
     partial void OnBuyPriceChanging(System.Nullable<int> value);
     partial void OnBuyPriceChanged();
     partial void OnContractedCarrierScacChanging(string value);
@@ -3748,6 +3776,26 @@ namespace CdnLink
 					this._AssignedDriverRemoteId = value;
 					this.SendPropertyChanged("AssignedDriverRemoteId");
 					this.OnAssignedDriverRemoteIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedTruckRemoteId", DbType="NVarChar(40)")]
+		public string AssignedTruckRemoteId
+		{
+			get
+			{
+				return this._AssignedTruckRemoteId;
+			}
+			set
+			{
+				if ((this._AssignedTruckRemoteId != value))
+				{
+					this.OnAssignedTruckRemoteIdChanging(value);
+					this.SendPropertyChanging();
+					this._AssignedTruckRemoteId = value;
+					this.SendPropertyChanged("AssignedTruckRemoteId");
+					this.OnAssignedTruckRemoteIdChanged();
 				}
 			}
 		}
