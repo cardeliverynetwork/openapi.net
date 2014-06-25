@@ -124,6 +124,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="includePhones">Indicates that the various Phone number fields should be included</param>
         /// <param name="includeFax">Indicates that the Fax field should be included</param>
         /// <param name="includeEmail">Indicates that the Email field should be included</param>
+        /// <param name="includeNotes">Indicates that the Notes field should be included</param>
         /// <returns>A web friendly address string</returns>
         public string ToWebString(
             bool includeQuickCode = false,
@@ -135,7 +136,8 @@ namespace CarDeliveryNetwork.Api.Data
             bool includeZipPostcode = true,
             bool includePhones = true,
             bool includeFax = true,
-            bool includeEmail = true)
+            bool includeEmail = true,
+            bool includeNotes = true)
         {
             var result = new StringBuilder();
             if (includeQuickCode && !string.IsNullOrWhiteSpace(QuickCode))
@@ -162,6 +164,8 @@ namespace CarDeliveryNetwork.Api.Data
                 result.AppendFormat("Fax: {0}<br />", Fax);
             if (includeEmail && !string.IsNullOrWhiteSpace(Email))
                 result.AppendFormat("{0}<br />", Email);
+            if (includeNotes && !string.IsNullOrWhiteSpace(Notes))
+                result.AppendFormat("<br />{0}<br />", Notes);
             return result.ToString();
         }
     }
