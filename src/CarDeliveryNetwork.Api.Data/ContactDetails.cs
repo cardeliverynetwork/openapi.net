@@ -137,7 +137,8 @@ namespace CarDeliveryNetwork.Api.Data
             bool includePhones = true,
             bool includeFax = true,
             bool includeEmail = true,
-            bool includeNotes = true)
+            bool includeNotes = true,
+            bool isUSFormat = true)
         {
             var result = new StringBuilder();
             if (includeQuickCode && !string.IsNullOrWhiteSpace(QuickCode))
@@ -148,12 +149,21 @@ namespace CarDeliveryNetwork.Api.Data
                 result.AppendFormat("{0}<br />", OrganisationName);
             if (includeAddressLines && !string.IsNullOrWhiteSpace(AddressLines))
                 result.AppendFormat("{0}<br />", AddressLines);
-            if (includeCity && !string.IsNullOrWhiteSpace(City))
-                result.AppendFormat("{0}<br />", City);
-            if (includeStateRegion && !string.IsNullOrWhiteSpace(StateRegion))
-                result.AppendFormat("{0}<br />", StateRegion);
-            if (includeZipPostcode && !string.IsNullOrWhiteSpace(ZipPostCode))
-                result.AppendFormat("{0}<br />", ZipPostCode);
+
+            if (isUSFormat && !string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(StateRegion) && !string.IsNullOrWhiteSpace(ZipPostCode))
+            {
+                result.AppendFormat("{0}, {1} {2}<br />", City, StateRegion, ZipPostCode);
+            }
+            else
+            {
+                if (includeCity && !string.IsNullOrWhiteSpace(City))
+                    result.AppendFormat("{0}<br />", City);
+                if (includeStateRegion && !string.IsNullOrWhiteSpace(StateRegion))
+                    result.AppendFormat("{0}<br />", StateRegion);
+                if (includeZipPostcode && !string.IsNullOrWhiteSpace(ZipPostCode))
+                    result.AppendFormat("{0}<br />", ZipPostCode);
+            }
+
             if (includePhones && !string.IsNullOrWhiteSpace(Phone))
                 result.AppendFormat("{0}<br />", Phone);
             if (includePhones && !string.IsNullOrWhiteSpace(OtherPhone))
