@@ -16,7 +16,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         string Uri { get;}
 
         /// <summary>
-        /// Gets the API key.
+        /// Gets or Sets the API key.
         /// </summary>
         /// <value>
         /// The API key.

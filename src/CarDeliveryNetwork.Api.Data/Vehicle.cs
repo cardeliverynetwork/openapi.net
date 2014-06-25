@@ -88,11 +88,17 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         public virtual Dictionary<string, string> Paperwork { get; set; }
 
+        /// <summary>
+        /// Readonly - Indicates that the vehicle has been picked up (or delivered)
+        /// </summary>
         public bool IsPickedUp
         {
             get { return Status == VehicleStatus.Delivered || Status == VehicleStatus.PickedUp; }   
         }
 
+        /// <summary>
+        /// Readonly - Indicates that the vehicle has been delivered
+        /// </summary>
         public bool IsDelivered
         {
             get { return Status == VehicleStatus.Delivered; }

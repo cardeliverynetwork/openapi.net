@@ -12,6 +12,7 @@ namespace CdnLink
                 LoadId = LoadId,
                 AllocatedCarrierScac = AllocatedCarrierScac,
                 AssignedDriverRemoteId = AssignedDriverRemoteId,
+                AssignedTruckRemoteId = AssignedTruckRemoteId,
                 BuyPrice = BuyPrice ?? 0,
                 ContractedCarrierScac = ContractedCarrierScac,
                 CustomerReference = CustomerReference,

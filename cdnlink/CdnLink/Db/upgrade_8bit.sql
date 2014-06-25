@@ -6,7 +6,7 @@ IF NOT EXISTS (SELECT * FROM sys.columns
 BEGIN
    ALTER TABLE CdnReceivedLoads
 ADD 
-	[PickupProofDocUrl] [nvarchar](1000) NULL
+	[PickupProofDocUrl] [varchar](1000) NULL
 END
 GO
 
@@ -15,7 +15,7 @@ IF NOT EXISTS (SELECT * FROM sys.columns
 BEGIN
    ALTER TABLE CdnReceivedLoads
 ADD 
-	[DropoffProofDocUrl] [nvarchar](1000) NULL
+	[DropoffProofDocUrl] [varchar](1000) NULL
 END
 GO
 
@@ -34,7 +34,7 @@ BEGIN
    ALTER TABLE CdnReceivedDocuments
 ADD 
 	[Type] [int] NULL,
-	[FriendlyType] [nvarchar] (25) NULL
+	[FriendlyType] [varchar] (25) NULL
 END
 GO
 
@@ -43,7 +43,7 @@ IF NOT EXISTS (SELECT * FROM sys.columns
 BEGIN
    ALTER TABLE CdnSendLoads
 ADD 
-	[ContractedCarrierScac] [nvarchar](10) NULL
+	[ContractedCarrierScac] [varchar](10) NULL
 END
 GO
 
@@ -52,7 +52,7 @@ IF NOT EXISTS (SELECT * FROM sys.columns
 BEGIN
    ALTER TABLE CdnReceivedLoads
 ADD 
-	[ContractedCarrierScac] [nvarchar](10) NULL
+	[ContractedCarrierScac] [varchar](10) NULL
 END
 GO
 
@@ -61,7 +61,7 @@ IF NOT EXISTS (SELECT * FROM sys.columns
 BEGIN
    ALTER TABLE CdnSendLoads
 ADD 
-	[AssignedTruckRemoteId] [nvarchar](40) NULL
+	[AssignedTruckRemoteId] [varchar](40) NULL
 END
 GO
 
@@ -70,7 +70,7 @@ IF NOT EXISTS (SELECT * FROM sys.columns
 BEGIN
    ALTER TABLE CdnReceivedLoads
 ADD 
-	[AssignedTruckRemoteId] [nvarchar](40) NULL
+	[AssignedTruckRemoteId] [varchar](40) NULL
 END
 GO
 

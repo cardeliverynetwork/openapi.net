@@ -44,6 +44,7 @@
       <Column Name="CdnId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="AllocatedCarrierScac" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="AssignedDriverRemoteId" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="AssignedTruckRemoteId" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
       <Column Name="BuyPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContractedCarrierScac" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="CustomerReference" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -152,6 +153,7 @@
       <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="AllocatedCarrierScac" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="AssignedDriverRemoteId" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="AssignedTruckRemoteId" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
       <Column Name="BuyPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContractedCarrierScac" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="CustomerReference" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
