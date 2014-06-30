@@ -2,6 +2,15 @@
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'NonCompletionReason' and Object_ID = Object_ID(N'CdnReceivedLoads'))
+BEGIN
+   ALTER TABLE CdnReceivedLoads
+ADD 
+	[NonCompletionReason] [nvarchar](255) NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
             WHERE Name = N'PickupProofDocUrl' and Object_ID = Object_ID(N'CdnReceivedLoads'))
 BEGIN
    ALTER TABLE CdnReceivedLoads
