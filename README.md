@@ -30,5 +30,5 @@ See COPYING for license information. Copyright (c) 2010, 2011, 2012, 2013, 2014 
 
 Integration Builds
 ---
-[![Build Status](http://build.cardeliverynetwork.com:8080/app/rest/builds/buildType:%28id:bt7%29/statusIcon)]
-(http://build.cardeliverynetwork.com:8080/viewType.html?buildTypeId=bt7&guest=1)
+[![Build Status](http://build.cardeliverynetwork.com:8080/app/rest/builds/buildType:cdnopen_openapinet/statusIcon)]
+(http://build.cardeliverynetwork.com:8080/viewType.html?buildTypeId=cdnopen_openapinet&guest=1)
