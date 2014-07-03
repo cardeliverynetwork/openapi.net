@@ -68,10 +68,9 @@ namespace CdnLink
                         send.Status = (int)CdnSend.SendStatus.Processing;
                         db.SubmitChanges();
 
-                        // If we're using loadId and have a prefix, add it now.
-                        var loadId = PrepareApiForSend(send);
+                        // Get the job and set it's prefixed LoadId prior to send
                         var theJob = send.CdnSendLoad.ToCdnJob();
-                        theJob.LoadId = loadId;
+                        theJob.LoadId = PrepareApiForSend(send);
 
                         switch (send.Action)
                         {
@@ -81,11 +80,11 @@ namespace CdnLink
                                 break;
 
                             case (int)CdnSend.SendAction.Cancel:
-                                Api.CancelJob(loadId, null);
+                                Api.CancelJob(theJob.LoadId, null);
                                 break;
 
                             case (int)CdnSend.SendAction.Update:
-                                Api.UpdateJob(loadId, theJob);
+                                Api.UpdateJob(theJob.LoadId, theJob);
                                 break;
 
                             default:
