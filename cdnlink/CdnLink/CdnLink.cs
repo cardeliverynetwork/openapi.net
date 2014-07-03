@@ -36,7 +36,7 @@ namespace CdnLink
                 throw new ArgumentException("Config setting CDNLINK_API_URL must be populated");
             if (string.IsNullOrWhiteSpace(ftp.Host))
                 throw new ArgumentException("Config setting CDNLINK_FTP_HOST must be populated");
-            if (string.IsNullOrWhiteSpace(api.ApiKey) && (_apiKeysByScac == null || _apiKeysByScac.Count == 0))
+            if (string.IsNullOrWhiteSpace(api.ApiKey) && (apiKeysByScacs == null || apiKeysByScacs.Count == 0))
                 throw new ArgumentException("Config setting CDNLINK_API_KEY or apiKeyScacList must be populated");
 
             ConnectionString = connectionString;
