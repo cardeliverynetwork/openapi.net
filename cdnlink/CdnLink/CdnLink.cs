@@ -11,17 +11,17 @@ namespace CdnLink
 {
     public class CdnLink
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(CdnLink));
+
         private const string ScacCacheFile = "~scac.cache";
         private const char LoadIdPrefixEnd = '-';
-        private static readonly ILog Log = LogManager.GetLogger(typeof(CdnLink));
-        private string LoadIdPrefix { get; set; }
 
-        public Dictionary<string, string> _apiKeysByScac;
+        private Dictionary<string, string> _apiKeysByScac;
+        private string _loadIdPrefix { get; set; }
 
         public string ConnectionString { get; private set; }
         public ICdnApi Api { get; private set; }
         public ICdnFtpBox FtpBox { get; private set; }
-
         public bool IsKeyByScacLookupMode { get { return _apiKeysByScac != null && _apiKeysByScac.Count > 0; } }
 
         public CdnLink(
@@ -39,12 +39,11 @@ namespace CdnLink
             if (string.IsNullOrWhiteSpace(api.ApiKey) && (_apiKeysByScac == null || _apiKeysByScac.Count == 0))
                 throw new ArgumentException("Config setting CDNLINK_API_KEY or apiKeyScacList must be populated");
 
-            _apiKeysByScac = apiKeysByScacs;
             ConnectionString = connectionString;
             Api = api;
             FtpBox = ftp;
-
-            LoadIdPrefix = IsKeyByScacLookupMode
+            _apiKeysByScac = apiKeysByScacs;
+            _loadIdPrefix = IsKeyByScacLookupMode
                 ? null
                 : GetApiKeyScac(api.ApiKey);
         }
@@ -146,16 +145,13 @@ namespace CdnLink
                             var receivedFile = new CdnReceivedFtpFile
                             {
                                 Filename = file,
-                                JsonMessage = json
+                                JsonMessage = json,
+                                CdnReceive = new CdnReceive
+                                {
+                                    FetchedDate = DateTime.Now,
+                                    Status = (int)CdnReceive.ReceiveStatus.Processing
+                                }
                             };
-
-                            var receive = new CdnReceive
-                            {
-                                FetchedDate = DateTime.Now,
-                                Status = (int)CdnReceive.ReceiveStatus.Processing
-                            };
-
-                            receivedFile.CdnReceive = receive;
 
                             db.CdnReceivedFtpFiles.InsertOnSubmit(receivedFile);
                             db.SubmitChanges();
@@ -164,19 +160,15 @@ namespace CdnLink
                             {
                                 Log.Debug("Receive: Setting the received load");
                                 receivedFile.CdnReceivedLoads.Add(new CdnReceivedLoad(job));
-                                Log.Debug("Receive: Setting the status to queued");
-                                receive.Status = (int)CdnReceive.ReceiveStatus.Queued;
-                                Log.Debug("Receive: Submittig ...");
+                                receivedFile.CdnReceive.Status = (int)CdnReceive.ReceiveStatus.Queued;
                                 db.SubmitChanges();
                                 Log.Debug("Receive: Done.");
                             }
                             catch (Exception ex)
                             {
-                                Log.Debug("Receive: Error:  Setting error info ...");
-                                receive.SetAsError(ex.Message);
-                                Log.Debug("Receive: Error:  Saving error info ...");
+                                Log.Debug("Receive: Error:  Writing error info to DB...");
+                                receivedFile.CdnReceive.SetAsError(ex.Message);
                                 db.SubmitChanges();
-                                Log.Debug("Receive: Re-throwing.");
                                 throw;
                             }
                         }
@@ -185,7 +177,6 @@ namespace CdnLink
                     // Delete file from FTP server
                     Log.DebugFormat("Receive: Deleting FTP file: {0} ...", file);
                     FtpBox.DeleteFile(file);
-                    Log.Debug("Receive: Done.");
                 }
             }
             return fileCount;
@@ -193,7 +184,7 @@ namespace CdnLink
 
         private string PrepareApiForSend(CdnSend send)
         {
-            var workingScac = LoadIdPrefix;
+            var workingScac = _loadIdPrefix;
 
             if (IsKeyByScacLookupMode)
             {
