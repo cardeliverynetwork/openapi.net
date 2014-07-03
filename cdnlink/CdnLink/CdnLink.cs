@@ -187,14 +187,14 @@ namespace CdnLink
 
             if (IsKeyByScacLookupMode)
             {
-                var shipperScac = send.CdnSendLoad.ShipperScac;
-                if (string.IsNullOrWhiteSpace(shipperScac))
-                    throw new ArgumentException("ShipperScac must always be populated when using a SCAC/ApiKey lookup list");
-                if (!_apiKeysByScac.ContainsKey(shipperScac))
-                    throw new ArgumentException(string.Format("apiKeyScacList did not contain an entry for SCAC '{0}'", shipperScac));
+                var ccScac = send.CdnSendLoad.ContractedCarrierScac;
+                if (string.IsNullOrWhiteSpace(ccScac))
+                    throw new ArgumentException("ContractedCarrierScac must always be populated when using a SCAC/ApiKey lookup list");
+                if (!_apiKeysByScac.ContainsKey(ccScac))
+                    throw new ArgumentException(string.Format("apiKeyScacList did not contain an entry for SCAC '{0}'", ccScac));
 
-                workingScac = shipperScac;
-                Api.ApiKey = _apiKeysByScac[shipperScac];
+                workingScac = ccScac;
+                Api.ApiKey = _apiKeysByScac[ccScac];
             }
 
             // Return the prefixed load Id we'll use for this send
