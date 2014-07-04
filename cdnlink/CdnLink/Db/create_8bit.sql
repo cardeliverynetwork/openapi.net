@@ -81,6 +81,7 @@ CREATE TABLE [dbo].[CdnSends]
 	[QueuedDate] [datetime] NOT NULL,
 	[Status] [int] NOT NULL,
 	[Action] [int] NULL,
+	[ActionMessage] [varchar] (100) NULL,
 	[ProcessingDate] [datetime] NULL,
 	[SentDate] [datetime] NULL,
 	[FailedDate] [datetime] NULL,

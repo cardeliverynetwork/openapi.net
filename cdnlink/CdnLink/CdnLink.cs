@@ -80,7 +80,7 @@ namespace CdnLink
                                 break;
 
                             case (int)CdnSend.SendAction.Cancel:
-                                Api.CancelJob(theJob.LoadId, null);
+                                Api.CancelJob(theJob.LoadId, send.ActionMessage);
                                 break;
 
                             case (int)CdnSend.SendAction.Update:

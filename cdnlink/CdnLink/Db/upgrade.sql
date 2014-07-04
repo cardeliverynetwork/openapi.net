@@ -38,6 +38,15 @@ END
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'ActionMessage' and Object_ID = Object_ID(N'CdnSends'))
+BEGIN
+   ALTER TABLE CdnSends
+ADD 
+	[ActionMessage] [nvarchar] (100) NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
             WHERE Name = N'Type' and Object_ID = Object_ID(N'CdnReceivedDocuments'))
 BEGIN
    ALTER TABLE CdnReceivedDocuments

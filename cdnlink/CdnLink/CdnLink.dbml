@@ -217,6 +217,7 @@
       <Column Name="QueuedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Action" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ActionMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="ProcessingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="SentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="FailedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
