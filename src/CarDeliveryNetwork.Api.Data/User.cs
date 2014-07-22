@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
 
 namespace CarDeliveryNetwork.Api.Data
@@ -79,6 +80,16 @@ namespace CarDeliveryNetwork.Api.Data
         /// Gets the last known position of this user
         /// </summary>
         public virtual Position LastPosition { get; set; }
+
+        /// <summary>
+        /// Get the recency of the user's last hearbeat
+        /// </summary>
+        public virtual HeartbeatRecency LastHeartbeatRecency { get; set; }
+
+        /// <summary>
+        /// Get the recency of the user's last hearbeat with loction
+        /// </summary>
+        public virtual HeartbeatRecency LastLocationRecency { get; set; }
 
         /// <summary>
         /// Optional - A tag/group for this user
