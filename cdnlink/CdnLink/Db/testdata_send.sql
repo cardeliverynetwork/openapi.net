@@ -37,6 +37,7 @@ INSERT INTO CdnSendLoads
 --  Optional allocation fields.  Uncomment as required
 --	
 --	, ShipperScac
+--	, ContractedCarrierScac
 --	, AssignedDriverRemoteId
 ) 
 VALUES 
@@ -73,6 +74,7 @@ VALUES
 --  Optional allocation fields.  Uncomment as required
 
 --	, 'CHRY',                                 -- Used to originate job from entity other than the creating entity
+--  , 'MID',                                  -- Used when specifying Shipper, Contracted Carrier and Subcontractor.  Must be the caller
 --	, 'henry1234'                             -- Driver to assign to
 );
 

@@ -87,7 +87,9 @@
     <Content Include="db\testdata_send.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="db\upgrade_8bit.sql" />
+    <Content Include="db\upgrade_8bit.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="db\upgrade.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

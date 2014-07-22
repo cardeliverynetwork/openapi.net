@@ -35,8 +35,8 @@ namespace CdnHookToFtp
                 var ftpUser = Request.Query.ftpuser.Value ?? GetSetting(FtpUserVariable);
                 var ftpPass = Request.Query.ftppass.Value ?? GetSetting(FtpPassVariable);
 
-                // Create a unique filename
-                var fileName = Guid.NewGuid().ToString();
+                // Use passed filename from URL or create a unique one
+                var fileName = Request.Query.filename.Value ?? Guid.NewGuid().ToString();
 
                 // Get extension based on request content type
                 var fileExtension = GetRequestType(Request).ToString().ToLower();
