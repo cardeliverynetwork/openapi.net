@@ -187,9 +187,9 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
             DestinationCode = job.Dropoff.Destination.QuickCode;
 
             if (job.Pickup.Signoff != null && job.Pickup.Signoff.Time.HasValue)
-                DepartureDateTime = job.Pickup.Signoff.Time.Value.ToString("u");
+                DepartureDateTime = job.Pickup.Signoff.Time.Value.ToString("o");
             if (job.Dropoff.Signoff != null && job.Dropoff.Signoff.Time.HasValue)
-                DeliveryDateTime = job.Dropoff.Signoff.Time.Value.ToString("u");
+                DeliveryDateTime = job.Dropoff.Signoff.Time.Value.ToString("o");
 
             SpecialInstructions = job.Customer.Notes;
         }
