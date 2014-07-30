@@ -82,6 +82,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual Position LastPosition { get; set; }
 
         /// <summary>
+        /// Get the last known transmission time of this user
+        /// </summary>
+        public virtual DateTime? LastHeartbeatTime { get; set; }
+
+        /// <summary>
         /// Get the recency of the user's last hearbeat
         /// </summary>
         public virtual HeartbeatRecency LastHeartbeatRecency { get; set; }
