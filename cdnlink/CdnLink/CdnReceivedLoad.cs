@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CarDeliveryNetwork.Api.Data;
+using CarDeliveryNetwork.Types;
 
 namespace CdnLink
 {
@@ -25,7 +26,17 @@ namespace CdnLink
             SellPrice = job.SellPrice;
             ServiceRequired = (int)job.ServiceRequired;
             ShipperScac = job.ShipperScac;
-            Status = (int)job.Status;
+
+            var isCollectedStatus =
+                job.Status == JobStatus.Collected ||
+                job.Status == JobStatus.OnWayToDeliver ||
+                job.Status == JobStatus.OnHoldDelivery ||
+                job.Status == JobStatus.AtDelivery;
+
+            Status = isCollectedStatus
+                ? (int)JobStatus.Collected
+                : (int)job.Status;
+            
             TripId = job.TripId;
 
             // Customer                                                       
