@@ -125,11 +125,11 @@ namespace CdnLink
                 var index = 1;
                 foreach (var file in files.ToArray())
                 {
-                    // If we haven't already processed this file
+                    Log.DebugFormat("Receive: Checking file {0} for already processed.", file);
                     var seenFile = db.CdnReceivedFtpFiles.Count(f => f.Filename.Contains(file)) > 0;
                     if (!seenFile)
                     {
-                        Log.InfoFormat("Processing file {0} of {1}: {2}", index++, fileCount, file);
+                        Log.InfoFormat("Receive: Processing file {0} of {1}: {2}", index++, fileCount, file);
                         var json = FtpBox.GetFileContents(file);
                         var job = Job.FromString(json);
                         if (job == null)
@@ -172,10 +172,13 @@ namespace CdnLink
                             }
                         }
                     }
+                    else
+                        Log.DebugFormat("Receive: File {0} was already processed.  Skipping.", file);
 
                     // Delete file from FTP server
                     Log.DebugFormat("Receive: Deleting FTP file: {0} ...", file);
                     FtpBox.DeleteFile(file);
+                    Log.DebugFormat("Receive: Deleting FTP file: {0} succeeded.", file);
                 }
             }
             return fileCount;
