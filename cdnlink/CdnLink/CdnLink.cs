@@ -76,14 +76,19 @@ namespace CdnLink
                         {
                             case null:
                             case (int)CdnSend.SendAction.Create:
-                                Api.CreateJob(theJob);
+                                Log.InfoFormat("Creating Job with LoadId: {0} ...", theJob.LoadId ?? "");
+                                var createdJob = Api.CreateJob(theJob);
+                                if (createdJob != null)
+                                    Log.InfoFormat("Created Job with LoadId: {0} ({1})", theJob.LoadId ?? "", createdJob.JobNumber);
                                 break;
 
                             case (int)CdnSend.SendAction.Cancel:
+                                Log.InfoFormat("Cancelling Job with LoadId: {0} ...", theJob.LoadId ?? "");
                                 Api.CancelJob(theJob.LoadId, send.ActionMessage);
                                 break;
 
                             case (int)CdnSend.SendAction.Update:
+                                Log.InfoFormat("Updating Job with LoadId: {0} ...", theJob.LoadId ?? "");
                                 Api.UpdateJob(theJob.LoadId, theJob);
                                 break;
 
