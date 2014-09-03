@@ -56,14 +56,14 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string ZipPostCode { get; set; }
 
         /// <summary>
-        /// Readonly - Latitude
+        /// Latitude
         /// </summary>
-        public virtual float Latitude { get; set; }
+        public virtual double Latitude { get; set; }
 
         /// <summary>
-        /// Readonly - Longitude
-        /// </summary>
-        public virtual float Longitude { get; set; }
+        /// Longitude
+        /// </summary>7
+        public virtual double Longitude { get; set; }
 
         /// <summary>
         /// Optional (ntext) - The email address associated with this contact.
