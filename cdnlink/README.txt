@@ -91,7 +91,7 @@ Cancel Job
 ----------
 To cancel a job that was previously created through CdnLink, set the CdnSends.Action field to 10 (Cancel) and re-set the CdnSends.Status field to 10 (Queued).  For example:
 
-    UPDATE CdnSends SET [Action] = 10, [Status] = 10 WHERE LoadId = <theLoadId>
+    UPDATE CdnSends SET [Action] = 10, [Status] = 10, [ActionMessage] = 'No longer required' WHERE LoadId = <theLoadId>
     
 Then call CdnLink.exe with the /send switch to process the queued cancel action.
 
