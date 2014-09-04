@@ -1,6 +1,8 @@
-﻿
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 using CarDeliveryNetwork.Types.Interfaces;
+
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>
@@ -188,5 +190,33 @@ namespace CarDeliveryNetwork.Api.Data
                 result.AppendFormat("<br />{0}<br />", Notes);
             return result.ToString();
         }
+    }
+
+    /// <summary>
+    /// A collection of Car Delivery Network ContactDetails entities.
+    /// </summary>
+    [CollectionDataContract]
+    public class ContactDetailss : ApiEntityCollectionBase<ContactDetails, ContactDetailss>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.ContactDetailss"/> class
+        /// that is empty and has the default initial capacity.
+        /// </summary>
+        public ContactDetailss() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.ContactDetailss"/> class
+        /// that is empty and has the specified initial capacity.
+        /// </summary>
+        /// <param name="capacity">The number of elements that the new list can initially store</param>
+        public ContactDetailss(int capacity) : base(capacity) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.ContactDetailss"/> class
+        /// that contains elements copied from the specified collection and has sufficient
+        /// capacity to accommodate the number of elements copied.
+        /// </summary>
+        /// <param name="devices">The collection of devices whose elements are copied to the new collection.</param>
+        public ContactDetailss(IEnumerable<ContactDetails> devices) : base(devices) { }
     }
 }
