@@ -68,6 +68,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual double Longitude { get; set; }
 
         /// <summary>
+        /// Readonly - BestGeoLookupString
+        /// </summary>
+        public virtual string BestGeoLookupString { get; set; }
+        
+        /// <summary>
         /// Optional (ntext) - The email address associated with this contact.
         /// </summary>
         public virtual string Email { get; set; }
