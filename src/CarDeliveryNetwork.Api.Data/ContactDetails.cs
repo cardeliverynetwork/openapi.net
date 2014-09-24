@@ -142,6 +142,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="includeFax">Indicates that the Fax field should be included</param>
         /// <param name="includeEmail">Indicates that the Email field should be included</param>
         /// <param name="includeNotes">Indicates that the Notes field should be included</param>
+        /// <param name="isUSFormat">Indicates that the address should be in US format</param>
         /// <returns>A web friendly address string</returns>
         public string ToWebString(
             bool includeQuickCode = false,
