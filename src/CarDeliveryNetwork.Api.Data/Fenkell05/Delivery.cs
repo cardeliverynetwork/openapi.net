@@ -84,7 +84,9 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
                 ReferenceId = ReferenceId
             };
 
-            Vehicle = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered)
+            // Throw away non delivered vehicles, or where VIN 
+            // is not populated or has single digit from device default
+            Vehicle = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered && (!string.IsNullOrWhiteSpace(v.Vin) && v.Vin.Length > 1))
                                   .Select(v => new Vehicle(v))
                                   .ToList();
         }
