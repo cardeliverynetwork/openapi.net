@@ -36,7 +36,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         public virtual string CarrierComment { get; set; }
 
         /// <summary>
-        /// Gets or sets the carrier.
+        /// Gets or sets the contracted carrier.
         /// </summary>
         public virtual Carrier Carrier { get; set; }
 
@@ -137,7 +137,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// <param name="job">The job.</param>
         public Carrier(ApiData.Job job)
         {
-            Code = job.AllocatedCarrierScac;
+            Code = job.ContractedCarrierScac;
             DriverName = job.AssignedDriverRemoteId;
             TrailerNumber = job.AssignedAppId;
             TruckNumber = job.AssignedTruckRemoteId;
