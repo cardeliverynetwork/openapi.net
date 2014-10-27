@@ -137,7 +137,11 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// <param name="job">The job.</param>
         public Carrier(ApiData.Job job)
         {
-            Code = job.ContractedCarrierScac;
+            // Fix for Harbour jobs - make them look like Hansens for Fenkell
+            Code = job.ContractedCarrierScac == "HRBR"
+                ? "HATA"
+                : job.ContractedCarrierScac;
+
             DriverName = job.AssignedDriverRemoteId;
             TrailerNumber = job.AssignedAppId;
             TruckNumber = job.AssignedTruckRemoteId;
