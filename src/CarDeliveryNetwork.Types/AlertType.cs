@@ -102,8 +102,13 @@ namespace CarDeliveryNetwork.Types
         ExpensesApproved,
 
         /// <summary>
-        /// The job was requested to be cancelled
+        /// (unused) The job was requested to be cancelled
         /// </summary>
-        CancelRequested
+        CancelRequested,
+
+        /// <summary>
+        /// The job was cancelled
+        /// </summary>
+        Canceled
     }
 }
