@@ -103,14 +103,15 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Notes { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class.
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.ContactDetails"/> class.
         /// </summary>
         public ContactDetails() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.ContactDetails"/> class
         /// with fields copied from the specified contact
         /// </summary>
+        /// <param name="c">The contact to copy into this new instance</param>
         public ContactDetails(IContactDetails c)
         {
             QuickCode = c.QuickCode;

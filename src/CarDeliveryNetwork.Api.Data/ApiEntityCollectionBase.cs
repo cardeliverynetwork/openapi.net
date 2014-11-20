@@ -7,6 +7,8 @@ namespace CarDeliveryNetwork.Api.Data
     /// <summary>
     /// A collection of Car Delivery Network <see cref="CarDeliveryNetwork.Api.Data.Job"/> entities.
     /// </summary>
+    /// <typeparam name="T">The type held in the collection</typeparam>
+    /// <typeparam name="TC">The type of the collection</typeparam>
     [CollectionDataContract]
     public class ApiEntityCollectionBase<T, TC> : List<T>, IApiEntity
     {
