@@ -19,6 +19,11 @@ namespace CarDeliveryNetwork.Api.Data
         public string SignedBy { get; set; }
 
         /// <summary>
+        /// Readonly - Signoff comment
+        /// </summary>
+        public string Comment { get; set; }
+
+        /// <summary>
         /// Readonly - The sign time, or time the signature was declared as not available
         /// </summary>
         public DateTime? Time { get; set; }
