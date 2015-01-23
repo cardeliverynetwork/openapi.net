@@ -294,6 +294,24 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             return Devices.FromString(Call(resource, "POST", false, devices, callParams), _interfaceFormat);
         }
 
+        /// <summary>
+        /// Sends the hooks for the specified hook event, of the specified schema
+        /// </summary>
+        /// <param name="hookEvent">The hook event to send for</param>
+        /// <param name="doForSchema">The hook schame to send for</param>
+        public void SendJobHooks(int id, WebHookEvent hookEvent, string doForSchema)
+        {
+            var action = new CarDeliveryNetwork.Api.Data.Action
+            {
+                Name = "sendhook",
+                AssociatedId = hookEvent.ToString()
+            };
+
+            var resource = string.Format("Jobs/{0}/Action", id);
+            var callParams = string.Format("sendhook_schema={0}", doForSchema);
+            Call(resource, "POST", false, action, callParams);
+        }
+
         private void PerformJobAction(int id, Data.Action action)
         {
             PerformAction("Jobs", id, action);
