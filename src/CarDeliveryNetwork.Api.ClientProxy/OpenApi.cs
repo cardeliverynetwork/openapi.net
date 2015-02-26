@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using CarDeliveryNetwork.Api.Data;
 using CarDeliveryNetwork.Types;
 
@@ -67,7 +69,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (string.IsNullOrEmpty(loadId))
                 throw new Exception("LoadId must be non null and at least 1 character in length");
             var resource = string.Format("Jobs/{0}", loadId);
-            return Job.FromString(Call(resource, "GET", true, null, callParams), _interfaceFormat);
+            return Job.FromString(CallWithRetry(resource, "GET", true, null, callParams), _interfaceFormat);
         }
 
         /// <summary>
@@ -81,7 +83,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (id == 0)
                 throw new Exception("Id must be greater than zero");
             var resource = string.Format("Jobs/{0}", id);
-            return Job.FromString(Call(resource, "GET", false, null, callParams), _interfaceFormat);
+            return Job.FromString(CallWithRetry(resource, "GET", false, null, callParams), _interfaceFormat);
         }
 
         /// <summary>
@@ -94,7 +96,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (id == 0)
                 throw new Exception("Id must be greater than zero");
             var resource = string.Format("Jobs/{0}/Documents", id);
-            return Documents.FromString(Call(resource, "GET"), _interfaceFormat);
+            return Documents.FromString(CallWithRetry(resource, "GET"), _interfaceFormat);
         }
 
         /// <summary>
@@ -107,7 +109,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (string.IsNullOrEmpty(loadId))
                 throw new Exception("LoadId must be non null and at least 1 character in length");
             var resource = string.Format("Jobs/{0}/Documents", loadId);
-            return Documents.FromString(Call(resource, "GET", true), _interfaceFormat);
+            return Documents.FromString(CallWithRetry(resource, "GET", true), _interfaceFormat);
         }
 
         /// <summary>
@@ -121,7 +123,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (id == 0)
                 throw new Exception("Id must be greater than zero");
             var resource = string.Format("Proof/{0}/{1}", id, pin);
-            return Proof.FromString(Call(resource, "GET"), _interfaceFormat);
+            return Proof.FromString(CallWithRetry(resource, "GET"), _interfaceFormat);
         }
 
         /// <summary>
@@ -146,7 +148,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         {
             if (jobs == null || jobs.Count == 0)
                 throw new ArgumentException("Jobs collection was null or empty");
-            return Jobs.FromString(Call("Jobs", "POST", false, jobs), _interfaceFormat);
+            return Jobs.FromString(CallWithRetry("Jobs", "POST", false, jobs), _interfaceFormat);
         }
 
         /// <summary>
@@ -179,7 +181,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         {
             if (job == null)
                 throw new ArgumentException("Job connot be null");
-            return Job.FromString(Call(resource, "PUT", isUsingLoadIds, job), _interfaceFormat);
+            return Job.FromString(CallWithRetry(resource, "PUT", isUsingLoadIds, job), _interfaceFormat);
         }
 
         /// <summary>
@@ -193,7 +195,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (vehicles == null || vehicles.Count == 0)
                 throw new ArgumentException("Vehicles collection was null or empty");
             var resource = string.Format("Jobs/{0}/Vehicles", jobId);
-            return Vehicles.FromString(Call(resource, "POST", false, vehicles), _interfaceFormat);
+            return Vehicles.FromString(CallWithRetry(resource, "POST", false, vehicles), _interfaceFormat);
         }
 
         /// <summary>
@@ -207,7 +209,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (vehicles == null || vehicles.Count == 0)
                 throw new ArgumentException("Vehicles collection was null or empty");
             var resource = string.Format("Jobs/{0}/Vehicles", loadId);
-            return Vehicles.FromString(Call(resource, "POST", true, vehicles), _interfaceFormat);
+            return Vehicles.FromString(CallWithRetry(resource, "POST", true, vehicles), _interfaceFormat);
         }
 
         /// <summary>
@@ -218,7 +220,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         public Vehicles GetJobVehicles(int jobId)
         {
             var resource = string.Format("Jobs/{0}/Vehicles", jobId);
-            return Vehicles.FromString(Call(resource, "GET"), _interfaceFormat);
+            return Vehicles.FromString(CallWithRetry(resource, "GET"), _interfaceFormat);
         }
 
         /// <summary>
@@ -229,7 +231,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         public Vehicles GetJobVehicles(string loadId)
         {
             var resource = string.Format("Jobs/{0}/Vehicles", loadId);
-            return Vehicles.FromString(Call(resource, "GET", true), _interfaceFormat);
+            return Vehicles.FromString(CallWithRetry(resource, "GET", true), _interfaceFormat);
         }
 
         /// <summary>
@@ -265,7 +267,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         {
             if (users == null || users.Count == 0)
                 throw new ArgumentException("Users collection was null or empty");
-            return Users.FromString(Call("Users", "POST", false, users), _interfaceFormat);
+            return Users.FromString(CallWithRetry("Users", "POST", false, users), _interfaceFormat);
         }
 
         /// <summary>
@@ -274,7 +276,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <returns>The home fleet of the calling user</returns>
         public Fleet GetHomeFleet()
         {
-            return Fleet.FromString(Call("HomeFleet", "GET"), _interfaceFormat);
+            return Fleet.FromString(CallWithRetry("HomeFleet", "GET"), _interfaceFormat);
         }
 
         /// <summary>
@@ -291,7 +293,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
                 throw new ArgumentException("Devices collection was null or empty");
             var resource = string.Format("Fleets/{0}/Devices", fleetId);
             var callParams = string.Format("iscmac={0}&sendtestjob={1}", isCmac, sendTestJob);
-            return Devices.FromString(Call(resource, "POST", false, devices, callParams), _interfaceFormat);
+            return Devices.FromString(CallWithRetry(resource, "POST", false, devices, callParams), _interfaceFormat);
         }
 
         /// <summary>
@@ -309,7 +311,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
 
             var resource = string.Format("Jobs/{0}/Action", id);
             var callParams = string.Format("sendhook_schema={0}", doForSchema);
-            Call(resource, "POST", false, action, callParams);
+            CallWithRetry(resource, "POST", false, action, callParams);
         }
 
         private void PerformJobAction(int id, Data.Action action)
@@ -335,7 +337,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
                 throw new ArgumentException("Action.Name must be populated");
 
             var resource = string.Format("{0}/{1}/Action", resourceName, id);
-            Call(resource, "POST", false, action);
+            CallWithRetry(resource, "POST", false, action);
         }
 
         private void PerformAction(string resourceName, string loadId, Data.Action action)
@@ -346,19 +348,63 @@ namespace CarDeliveryNetwork.Api.ClientProxy
                 throw new ArgumentException("Action.Name must be populated");
 
             var resource = string.Format("{0}/{1}/Action", resourceName, loadId);
-            Call(resource, "POST", true, action);
+            CallWithRetry(resource, "POST", true, action);
         }
 
         /// <summary>
-        /// Calls the API with the specified resource and method.
+        /// Calls the API with the specified resource and method.  Retries 3 times on "Unable to connect to the remote server"
         /// </summary>
-        /// <param name="resuorce">The target resource.</param>
+        /// <param name="resource">The target resource.</param>
         /// <param name="method">The HTTP method to perform on the target resource.</param>
         /// <param name="isUsingLoadIds">When true, the target resource is identified by a client specified LoadId.</param>
         /// <param name="data">The data body for POST and PUT methods.</param>
         /// <param name="callParams">Paramater string to be added to the end of the API call.</param>
         /// <returns>The response string from the API call.</returns>
-        public string Call(string resuorce, string method, bool isUsingLoadIds = false, IApiEntity data = null, string callParams = null)
+        public string CallWithRetry(
+            string resource, 
+            string method, 
+            bool isUsingLoadIds = false, 
+            IApiEntity data = null, 
+            string callParams = null)
+        {
+            var exceptions = new List<Exception>();
+            int doTries = 5;
+
+            for (int retry = 0; retry < doTries; retry++)
+                try
+                {
+                    return Call(resource, method, isUsingLoadIds, data, callParams);
+                }
+                catch (WebException ex)
+                {
+                    // If something other than cannot reach server, throw immediately
+                    if (!ex.Message.Contains("Unable to connect to the remote server"))
+                        throw;
+
+                    exceptions.Add(ex);
+
+                    // Pause for increasingly long time (2, 4, 8, 16ish seconds, etc)
+                    Thread.Sleep(new Random().Next(900, 1100) * (retry + 1));
+                }
+
+            throw new AggregateException(exceptions);
+        }
+
+        /// <summary>
+        /// Calls the API with the specified resource and method.
+        /// </summary>
+        /// <param name="resource">The target resource.</param>
+        /// <param name="method">The HTTP method to perform on the target resource.</param>
+        /// <param name="isUsingLoadIds">When true, the target resource is identified by a client specified LoadId.</param>
+        /// <param name="data">The data body for POST and PUT methods.</param>
+        /// <param name="callParams">Paramater string to be added to the end of the API call.</param>
+        /// <returns>The response string from the API call.</returns>
+        public string Call(
+            string resource, 
+            string method, 
+            bool isUsingLoadIds = false, 
+            IApiEntity data = null, 
+            string callParams = null)
         {
             // Remove whitespace, get rid of leading ? or &
             callParams = string.IsNullOrWhiteSpace(callParams)
@@ -369,7 +415,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (!string.IsNullOrWhiteSpace(App))
                 callParams += string.Concat("&app=", App);
 
-            var requestUri = string.Format("{0}/{1}?apikey={2}&isloadid={3}{4}", Uri, resuorce, ApiKey, isUsingLoadIds, callParams);
+            var requestUri = string.Format("{0}/{1}?apikey={2}&isloadid={3}{4}", Uri, resource, ApiKey, isUsingLoadIds, callParams);
             var req = WebRequest.Create(requestUri) as HttpWebRequest;
             req.KeepAlive = false;
             req.ContentType = "application/" + _interfaceFormat.ToString().ToLower();
