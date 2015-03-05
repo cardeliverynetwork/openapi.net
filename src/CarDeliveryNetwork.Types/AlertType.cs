@@ -109,6 +109,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// The job was cancelled
         /// </summary>
-        Canceled
+        Canceled,
+
+        /// <summary>
+        /// You have not won a bid
+        /// </summary>
+        LosingBid
     }
 }
