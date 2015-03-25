@@ -297,6 +297,18 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
+        /// Attempts to create the specified master destinations on Car Delivery Network.
+        /// </summary>
+        /// <param name="jobs">The collection of master destinations to create.</param>
+        /// <returns>A collection of the successfully created destinations.</returns>
+        public ContactDetailss CreateMasterDestinations(ContactDetailss destinations)
+        {
+            if (destinations == null || destinations.Count == 0)
+                throw new ArgumentException("Destinations collection was null or empty");
+            return ContactDetailss.FromString(Call("Destinations", "POST", false, destinations), _interfaceFormat);
+        }
+
+        /// <summary>
         /// Sends the hooks for the specified hook event, of the specified schema
         /// </summary>
         /// <param name="hookEvent">The hook event to send for</param>
