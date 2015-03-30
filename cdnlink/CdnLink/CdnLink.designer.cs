@@ -1517,8 +1517,8 @@ namespace CdnLink
 				}
 			}
 		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(256)")]
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Notes", DbType = "NVarChar(MAX)")]
 		public string Notes
 		{
 			get
@@ -2962,7 +2962,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="NVarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="NVarChar(50)")]
 		public string Make
 		{
 			get
@@ -2982,7 +2982,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(50)")]
 		public string Model
 		{
 			get
@@ -3042,7 +3042,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(MAX)")]
 		public string Notes
 		{
 			get
@@ -5378,7 +5378,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="NVarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="NVarChar(50)")]
 		public string Make
 		{
 			get
@@ -5398,7 +5398,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(50)")]
 		public string Model
 		{
 			get

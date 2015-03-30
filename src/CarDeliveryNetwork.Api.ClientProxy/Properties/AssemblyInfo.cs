@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CarDeliveryNetwork.Api.ClientProxy")]
-[assembly: AssemblyCopyright("Copyright © Car Delivery Network Ltd. 2014")]
+[assembly: AssemblyCopyright("Copyright © Car Delivery Network Ltd. 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

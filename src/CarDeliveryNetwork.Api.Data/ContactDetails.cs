@@ -16,7 +16,7 @@ namespace CarDeliveryNetwork.Api.Data
     /// The more address detail provided for a contact the more accurate a map location will be. 
     /// The system will use google maps and the data provided to pin point a contact on a map.
     /// </remarks>
-    public class ContactDetails : ApiEntityBase<ContactDetails>, IContactDetails
+    public class ContactDetails : ApiEntityBase<ContactDetails>, IContactDetails, IImportable
     {
         /// <summary>
         /// Optional (255) - A unique identifier with which to refer to this contact.
@@ -103,14 +103,15 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Notes { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class.
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.ContactDetails"/> class.
         /// </summary>
         public ContactDetails() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.ContactDetails"/> class
         /// with fields copied from the specified contact
         /// </summary>
+        /// <param name="c">The contact to copy into this new instance</param>
         public ContactDetails(IContactDetails c)
         {
             QuickCode = c.QuickCode;
@@ -196,6 +197,14 @@ namespace CarDeliveryNetwork.Api.Data
                 result.AppendFormat("<br />{0}<br />", Notes);
             return result.ToString();
         }
+
+        /// <summary>
+        /// String to display after importing this object
+        /// </summary>
+        public string ImportDisplayString
+        {
+            get { return string.Format("{0}, {1}, {2}, {3}", QuickCode, OrganisationName, City, ZipPostCode); }
+        }
     }
 
     /// <summary>
@@ -223,6 +232,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// capacity to accommodate the number of elements copied.
         /// </summary>
         /// <param name="devices">The collection of devices whose elements are copied to the new collection.</param>
-        public ContactDetailss(IEnumerable<ContactDetails> devices) : base(devices) { }
+        public ContactDetailss(IEnumerable<ContactDetails> contacts) : base(contacts) { }
     }
 }

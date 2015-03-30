@@ -16,6 +16,7 @@ test-results
 *.pidb
 /Build
 /packages
+/cdnlink/packages
 NDependOut
 Credentials.config
 coverage.xml

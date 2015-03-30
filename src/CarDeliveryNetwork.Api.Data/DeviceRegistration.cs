@@ -28,10 +28,15 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string ApiUrl { get; set; }
 
         /// <summary>
-        /// Readonly - Gets the JSOM Forwarder URL for this device registration
+        /// Readonly - Gets the JSON Forwarder URL for this device registration
         /// </summary>
         public virtual string JsonForwarderUrl { get; set; }
-   
+
+        /// <summary>
+        /// Readonly - Gets the vinYARD API URL for this device registration
+        /// </summary>
+        public virtual string VinYardApiUrl { get; set; }
+
         /// <summary>
         /// Returns a serial representation of the object in JSON format.
         /// </summary>
