@@ -231,7 +231,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// that contains elements copied from the specified collection and has sufficient
         /// capacity to accommodate the number of elements copied.
         /// </summary>
-        /// <param name="devices">The collection of devices whose elements are copied to the new collection.</param>
+        /// <param name="contacts">The collection of devices whose elements are copied to the new collection.</param>
         public ContactDetailss(IEnumerable<ContactDetails> contacts) : base(contacts) { }
     }
 }

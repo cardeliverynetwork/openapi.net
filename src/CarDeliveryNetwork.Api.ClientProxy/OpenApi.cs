@@ -299,7 +299,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <summary>
         /// Attempts to create the specified master destinations on Car Delivery Network.
         /// </summary>
-        /// <param name="jobs">The collection of master destinations to create.</param>
+        /// <param name="destinations">The collection of master destinations to create.</param>
         /// <returns>A collection of the successfully created destinations.</returns>
         public ContactDetailss CreateMasterDestinations(ContactDetailss destinations)
         {
@@ -311,6 +311,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <summary>
         /// Sends the hooks for the specified hook event, of the specified schema
         /// </summary>
+        /// <param name="id">Id of job to send hooks for</param>
         /// <param name="hookEvent">The hook event to send for</param>
         /// <param name="doForSchema">The hook schame to send for</param>
         public void SendJobHooks(int id, WebHookEvent hookEvent, string doForSchema)
