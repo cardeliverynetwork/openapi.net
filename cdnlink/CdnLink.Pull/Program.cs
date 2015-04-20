@@ -10,7 +10,7 @@ namespace CdnLink.Pull
     {
         static void Main(string[] args)
         {
-            CdnReceivedFtpFile.ConnectionString = "Data Source=localhost;Initial Catalog=CdnLink;uid=CdnLinkUsr;pwd=UrsaMaj0r";
+            CdnReceivedFtpFile.ConnectionString = "Data Source=localhost;Initial Catalog=CdnLink;uid=CdnLinkUsr;pwd=CdnLinkPasswd";
 
             // Get the list of updates to process
             var queuedUpdates = CdnReceivedFtpFile.GetAllQueued();
@@ -30,7 +30,7 @@ namespace CdnLink.Pull
                     // http://docs.cardeliverynetwork.com/?topic=html/T_CarDeliveryNetwork_Api_Data_Job.htm
                     //
 
-                    throw new Exception("tatatat");
+
                     // Mark the update as processed by the client
                     update.SetAsClientProcessed();
                 }
