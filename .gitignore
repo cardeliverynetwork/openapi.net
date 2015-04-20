@@ -17,6 +17,7 @@ test-results
 /Build
 /packages
 /cdnlink/packages
+/webhooks/CdnHookToFtp/packages/
 NDependOut
 Credentials.config
 coverage.xml
