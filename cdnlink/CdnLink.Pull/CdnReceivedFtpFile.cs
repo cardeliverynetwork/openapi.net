@@ -71,7 +71,7 @@ namespace CdnLink.Pull
         /// <param name="errorMessage">Error message</param>
         public void SetAsError(string errorCode, string errorMessage)
         {
-            // Set this update to status 70 (Error) andset an error message
+            // Set this update to status 70 (Error) and set an error code and message
             this.Status = 70;
 
             var sql = "UPDATE CdnReceives SET Status = @Status, FailedDate = @FailedDate, ErrorCode = @ErrorCode, ErrorMessage = @ErrorMessage WHERE FtpFileId = @FtpFileId";
