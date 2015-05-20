@@ -68,6 +68,7 @@
     <Compile Include="Network.cs" />
     <Compile Include="Proof.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegionSettings.cs" />
     <Compile Include="Report.cs" />
     <Compile Include="Serialization.cs" />
     <Compile Include="Signature.cs" />
