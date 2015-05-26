@@ -59,6 +59,11 @@ namespace CarDeliveryNetwork.Types.Interfaces
         string MobilePhone { get; }
 
         /// <summary>
+        /// LicenseNumber
+        /// </summary>
+        string LicenseNumber { get; }
+
+        /// <summary>
         /// LastLogin
         /// </summary>
         DateTime? LastLogin { get; }

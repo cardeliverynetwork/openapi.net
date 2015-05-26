@@ -57,6 +57,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string MobilePhone { get; set; }
 
         /// <summary>
+        /// LicenseNumber
+        /// </summary>
+        public virtual string LicenseNumber { get; set; }
+
+        /// <summary>
         /// The fleet to which this user belongs
         /// </summary>
         public virtual Fleet HomeFleet { get; set; }
