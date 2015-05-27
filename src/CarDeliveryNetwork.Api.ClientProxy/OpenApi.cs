@@ -280,6 +280,18 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
+        /// Attempts to create the specified fleets on Car Delivery Network.
+        /// </summary>
+        /// <param name="users">The collection of fleets to create.</param>
+        /// <returns>A collection of the successfully created fleets.</returns>
+        public Users CreateFleets(Fleets fleets)
+        {
+            if (fleets == null || fleets.Count == 0)
+                throw new ArgumentException("Fleets collection was null or empty");
+            return Users.FromString(CallWithRetry("Fleets", "POST", false, fleets), _interfaceFormat);
+        }
+
+        /// <summary>
         /// Creates the specified devices against the specified Fleet.
         /// </summary>
         /// <param name="fleetId">The Fleet Id or 2 RH fields from CMAC</param>
