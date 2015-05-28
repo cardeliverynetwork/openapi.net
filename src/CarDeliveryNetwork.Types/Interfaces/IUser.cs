@@ -51,7 +51,7 @@ namespace CarDeliveryNetwork.Types.Interfaces
         /// <summary>
         /// Email
         /// </summary>
-        string Email { get; }
+        string Email { get; set; }
 
         /// <summary>
         /// MobilePhone
