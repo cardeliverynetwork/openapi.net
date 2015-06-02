@@ -23,6 +23,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual DateTime? RequestedDate { get; set; }
 
         /// <summary>
+        /// Readonly - The date the job is scheduled by the carrier
+        /// </summary>
+        public virtual DateTime? ScheduledDate { get; set; }
+
+        /// <summary>
+        /// Readonly - The driver estimated ETA at this endpoint
+        /// </summary>
+        public virtual DateTime? Eta { get; set; }
+
+        /// <summary>
         /// Mandatory - When true, indicates that RequestedDate is an exact date.  Pickup/Delivery must be ON this date.
         /// When false, indicates that RequestedDate is not exact.  Pickup/Delivery should be FROM/UP TO this date
         /// </summary>
