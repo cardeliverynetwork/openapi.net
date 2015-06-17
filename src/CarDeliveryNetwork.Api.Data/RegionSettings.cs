@@ -1,6 +1,9 @@
 ﻿
 namespace CarDeliveryNetwork.Api.Data
 {
+    /// <summary>
+    /// Class to hold various settings for a CDN region
+    /// </summary>
     public class RegionSettings
     {
         /// <summary>

@@ -28,6 +28,12 @@ namespace CarDeliveryNetwork.Api.Data
             StatusCode = statusCode;
         }
 
+        /// <summary>
+        /// Helper method to throw HttpResourceFaultException Forbodden
+        /// </summary>
+        /// <param name="messageFormat">Message format string</param>
+        /// <param name="args">Message format string args</param>
+        /// <returns></returns>
         public static HttpResourceFaultException Forbidden(string messageFormat, params object[] args)
         {
             return new HttpResourceFaultException(HttpStatusCode.Forbidden, string.Format(messageFormat, args));
