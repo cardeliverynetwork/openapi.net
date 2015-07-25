@@ -282,7 +282,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <summary>
         /// Attempts to create the specified fleets on Car Delivery Network.
         /// </summary>
-        /// <param name="users">The collection of fleets to create.</param>
+        /// <param name="fleets">The collection of fleets to create.</param>
         /// <returns>A collection of the successfully created fleets.</returns>
         public Users CreateFleets(Fleets fleets)
         {
