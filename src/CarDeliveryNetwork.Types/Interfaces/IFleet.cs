@@ -56,5 +56,10 @@ namespace CarDeliveryNetwork.Types.Interfaces
         /// MenuProfile
         /// </summary>
         FleetMenuProfile MenuProfile { get; set; }
+
+        /// <summary>
+        /// Logo URL
+        /// </summary>
+        string LogoUrl { get; set; }
     }
 }
