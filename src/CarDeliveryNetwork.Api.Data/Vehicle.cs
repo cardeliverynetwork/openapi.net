@@ -54,6 +54,21 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Notes { get; set; }
 
         /// <summary>
+        /// Readonly - Name of person signing off this vehicle
+        /// </summary>
+        public virtual string SignedBy { get; set; }
+
+        /// <summary>
+        /// Readonly - SignoffComment
+        /// </summary>
+        public virtual string SignoffComment { get; set; }
+
+        /// <summary>
+        /// Readonly - Signature of person signing off this vehicle
+        /// </summary>
+        public virtual string Signature { get; set; }
+
+        /// <summary>
         /// Readonly - The current status of the Vehicle
         /// </summary>
         public virtual VehicleStatus Status { get; set; }
