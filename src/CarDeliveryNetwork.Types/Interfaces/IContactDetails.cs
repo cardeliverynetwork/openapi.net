@@ -12,6 +12,11 @@ namespace CarDeliveryNetwork.Types.Interfaces
         string QuickCode { get; set; }
 
         /// <summary>
+        /// The location code for this location
+        /// </summary>
+        string LocationCode { get; }
+
+        /// <summary>
         ///  The name of the person associated with this contact.
         /// </summary>
         string Contact { get; }

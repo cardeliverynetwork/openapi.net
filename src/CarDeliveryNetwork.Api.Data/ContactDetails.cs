@@ -28,6 +28,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string QuickCode { get; set; }
 
         /// <summary>
+        /// Optional (30) - The location code for this location
+        /// </summary>
+        public virtual string LocationCode { get; set; }
+
+        /// <summary>
         /// Optional (100) - The name of the person associated with this contact.
         /// </summary>
         public virtual string Contact { get; set; }
@@ -115,6 +120,7 @@ namespace CarDeliveryNetwork.Api.Data
         public ContactDetails(IContactDetails c)
         {
             QuickCode = c.QuickCode;
+            LocationCode = c.LocationCode;
             Contact = c.Contact;
             OrganisationName = c.OrganisationName;
             AddressLines = c.AddressLines;
