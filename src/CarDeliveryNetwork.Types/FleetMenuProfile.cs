@@ -12,13 +12,18 @@ namespace CarDeliveryNetwork.Types
         Standard,
 
         /// <summary>
-        /// The vindelivered.com menu profile showing a cutdown version of the Standard profile.
+        /// The vinDELIVER profile showing a cutdown version of the Standard profile.
         /// </summary>
-        Vindelivered,
+        VinDeliver,
 
         /// <summary>
         /// A Profile for General Motors.
         /// </summary>
-        Gm
+        Gm,
+
+        /// <summary>
+        /// The vinDEMAND profile showing a cutdown version of the Standard profile.
+        /// </summary>
+        VinDemand
     }
 }
