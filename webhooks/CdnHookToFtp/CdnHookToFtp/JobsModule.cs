@@ -11,6 +11,7 @@ namespace CdnHookToFtp
         const string FtpHostVariable = "CDN_FTP_HOST";
         const string FtpUserVariable = "CDN_FTP_USER";
         const string FtpPassVariable = "CDN_FTP_PASS";
+        const string FileIncompleteExtension = "incomplete";
 
         public JobsModule()
             : base("/jobs")
@@ -20,7 +21,7 @@ namespace CdnHookToFtp
 
             // PUT - To put a job update to server-configured FTP
             // Example: http://example.com/jobs
-            // Example: http://build.cardeliverynetwork.com/jobs?ftphost=ftp://ftp.example.com/dir&ftpuser=theuser&ftppass=thepass
+            // Example: http://build.cardeliverynetwork.com/jobs?ftphost=ftp://ftp.example.com/dir&ftpuser=theuser&ftppass=thepass&filename=CDN1234&fileextension=IN
             Put["/"] = UpdateJob;
 
             Post["/"] = UpdateJob;
@@ -31,9 +32,10 @@ namespace CdnHookToFtp
             try
             {
                 // Get the host, user and pass from URL, environment or web.config
-                var ftpHost = (Request.Query.ftphost.Value ?? GetSetting(FtpHostVariable)).Trim('/');
+                var ftpHost = Request.Query.ftphost.Value ?? GetSetting(FtpHostVariable);
                 var ftpUser = Request.Query.ftpuser.Value ?? GetSetting(FtpUserVariable);
                 var ftpPass = Request.Query.ftppass.Value ?? GetSetting(FtpPassVariable);
+                var ftpHostUri = new Uri(ftpHost.TrimEnd('/'));
 
                 // Use passed filename from URL or create a unique one
                 var fileName = Request.Query.filename.Value ?? Guid.NewGuid().ToString();
@@ -42,10 +44,13 @@ namespace CdnHookToFtp
                 var fileExtension = Request.Query.fileextension.Value ?? GetRequestType(Request).ToString().ToLower();
 
                 // The full filename to be PUT to FTP root
-                var ftpFile = string.Format("{0}/{1}.{2}", ftpHost, fileName, fileExtension);
+                var ftpFile = string.Format("{0}.{1}", fileName, fileExtension);
 
-                // Create the FTP request
-                var request = (FtpWebRequest)WebRequest.Create(ftpFile);
+                // The full path and filename whilst uploading in progress
+                var ftpUploadingPath = string.Format("{0}/{1}.{2}", ftpHostUri.AbsoluteUri.TrimEnd('/'), ftpFile, FileIncompleteExtension);
+                
+                // Create the FTP upload request
+                var request = (FtpWebRequest)WebRequest.Create(ftpUploadingPath);
                 request.Method = WebRequestMethods.Ftp.UploadFile;
                 request.Credentials = new NetworkCredential(ftpUser, ftpPass);
                 request.ContentLength = Context.Request.Body.Length;
@@ -56,6 +61,15 @@ namespace CdnHookToFtp
                     Context.Request.Body.CopyTo(requestStream);
                     requestStream.Close();
                 }
+
+                using (var response = (FtpWebResponse)request.GetResponse())
+                    response.Close();
+
+                // Create the FTP rename request
+                request = (FtpWebRequest)FtpWebRequest.Create(ftpUploadingPath);
+                request.Credentials = new NetworkCredential(ftpUser, ftpPass);
+                request.Method = WebRequestMethods.Ftp.Rename;
+                request.RenameTo = string.Format("{0}/{1}", ftpHostUri.AbsolutePath.TrimEnd('/'), ftpFile);
 
                 using (var response = (FtpWebResponse)request.GetResponse())
                     response.Close();
