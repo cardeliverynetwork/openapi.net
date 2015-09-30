@@ -6,7 +6,7 @@ using ApiData = CarDeliveryNetwork.Api.Data;
 namespace CarDeliveryNetwork.Api.Data.Fenkell05
 {
     /// <summary>
-    /// 
+    /// Class representing a Fenkell05 delivery
     /// </summary>
     public class Delivery
     {
@@ -63,7 +63,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// <summary>
         /// Initializes a new instance of the <see cref="Delivery"/> class.
         /// </summary>
-        /// <param name="job"></param>
+        /// <param name="job">The API job from which to contruct this Delivery</param>
         public Delivery(ApiData.Job job)
         {
             ReferenceId = string.IsNullOrWhiteSpace(job.LoadId)
