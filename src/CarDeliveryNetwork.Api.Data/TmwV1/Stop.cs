@@ -114,7 +114,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
 
             var damageAsString = new StringBuilder();
             foreach (var item in damage)
-                damageAsString.AppendFormat("{0}-{1}-{2}, ", item.Area, item.Type, item.Severity);
+                damageAsString.AppendFormat("{0}-{1}-{2}, ", item.Area.Code, item.Type.Code, item.Severity.Code);
             return damageAsString.ToString().Trim(' ', ',');
         }
     }
