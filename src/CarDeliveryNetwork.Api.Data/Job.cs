@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using CarDeliveryNetwork.Api.Data.Fenkell05;
+using CarDeliveryNetwork.Api.Data.TmwV1;
 using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
 
@@ -246,7 +247,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="format">Format to serialize to.</param>
         /// <param name="schema">Schema to serialize to.</param>
         /// <returns>The serialized object.</returns>
-        public string ToString(MessageFormat format, WebHookSchema schema)
+        public string ToString(MessageFormat format, WebHookSchema schema, WebHookEvent forEvent)
         {
             switch (schema)
             {
@@ -254,6 +255,8 @@ namespace CarDeliveryNetwork.Api.Data
                     return Serialization.Serialize(this, format);
                 case WebHookSchema.Fenkell05:
                     return new Delivery(this).ToString();
+                case WebHookSchema.TmwV1:
+                    return new Stop(this).ToString(forEvent);
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
             };

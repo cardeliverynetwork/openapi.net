@@ -15,5 +15,10 @@ namespace CarDeliveryNetwork.Types
         /// The JavaScript Object Notation (JSON) format.
         /// </summary>
         Json = 1,
+
+        /// <summary>
+        /// An unstructured format
+        /// </summary>
+        Flat = 2,
     }
 }

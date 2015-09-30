@@ -14,6 +14,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// The Fenkell05 Schema
         /// </summary>
-        Fenkell05 = 10
+        Fenkell05 = 10,
+
+        /// <summary>
+        /// The TMW V1 Schema
+        /// </summary>
+        TmwV1 = 20
     }
 }
