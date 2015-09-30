@@ -38,8 +38,8 @@ namespace CdnHookToFtp
                 // Use passed filename from URL or create a unique one
                 var fileName = Request.Query.filename.Value ?? Guid.NewGuid().ToString();
 
-                // Get extension based on request content type
-                var fileExtension = GetRequestType(Request).ToString().ToLower();
+                // Use passed fileextension from URL or get based on request content type
+                var fileExtension = Request.Query.fileextension.Value ?? GetRequestType(Request).ToString().ToLower();
 
                 // The full filename to be PUT to FTP root
                 var ftpFile = string.Format("{0}/{1}.{2}", ftpHost, fileName, fileExtension);
