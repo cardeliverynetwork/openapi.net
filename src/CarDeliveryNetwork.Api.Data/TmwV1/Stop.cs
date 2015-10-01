@@ -33,20 +33,18 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
         /// <param name="forEvent">The event for which to serialise this job</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <returns>The serialized object.</returns>
-        public string ToString(WebHookEvent forEvent, DateTime timeStamp)
+        public string ToString(WebHookEvent forEvent, DateTime timeStamp, string messageGuid)
         {
             var lineEndChar = "\r\n";
             
             var stop = new StringBuilder();
 
-            // TODO - find out how to get the stop number - passed from TMW?  New field?
-            stop.AppendFormat("ID=SN:{0}{1}", 601, lineEndChar);
-
+            stop.AppendFormat("ID=SN:{0}{1}", messageGuid, lineEndChar);
             stop.AppendFormat("Subject=*Stop Info*{0}", lineEndChar);
             stop.AppendFormat("Preview=*Stop Info*{0}", lineEndChar);
             stop.AppendFormat("FormID=1-R{0}", lineEndChar);
             stop.AppendFormat("DataType=Form{0}", lineEndChar);
-            stop.AppendFormat("FromName=TMW1{0}", lineEndChar);
+            stop.AppendFormat("FromName={0}{1}", _job.AssignedAppId, lineEndChar);
             stop.AppendFormat("CreateTime={0:yyyy-MM-dd hh:mm:ss}{1}", timeStamp, lineEndChar);
             stop.AppendFormat("CreateTimeTZ=0{0}", lineEndChar);
             stop.AppendFormat("ReplyMsgID=SN:0{0}", lineEndChar);
