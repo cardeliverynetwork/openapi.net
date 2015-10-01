@@ -31,8 +31,9 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
         /// Returns a serial representation of the object.
         /// </summary>
         /// <param name="forEvent">The event for which to serialise this job</param>
+        /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <returns>The serialized object.</returns>
-        public string ToString(WebHookEvent forEvent)
+        public string ToString(WebHookEvent forEvent, DateTime timeStamp)
         {
             var lineEndChar = "\r\n";
             
@@ -46,7 +47,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
             stop.AppendFormat("FormID=1-R{0}", lineEndChar);
             stop.AppendFormat("DataType=Form{0}", lineEndChar);
             stop.AppendFormat("FromName=TMW1{0}", lineEndChar);
-            stop.AppendFormat("CreateTime={0:yyyy-MM-dd hh:mm:ss}{1}", DateTime.UtcNow, lineEndChar);
+            stop.AppendFormat("CreateTime={0:yyyy-MM-dd hh:mm:ss}{1}", timeStamp, lineEndChar);
             stop.AppendFormat("CreateTimeTZ=0{0}", lineEndChar);
             stop.AppendFormat("ReplyMsgID=SN:0{0}", lineEndChar);
             stop.AppendFormat("Priority=0{0}", lineEndChar);
@@ -114,7 +115,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
 
             var damageAsString = new StringBuilder();
             foreach (var item in damage)
-                damageAsString.AppendFormat("{0}-{1}-{2}, ", item.Area, item.Type, item.Severity);
+                damageAsString.AppendFormat("{0}-{1}-{2}, ", item.Area.Code, item.Type.Code, item.Severity.Code);
             return damageAsString.ToString().Trim(' ', ',');
         }
     }
