@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Web.Configuration;
 using Nancy;
@@ -11,7 +12,6 @@ namespace CdnHookToFtp
         const string FtpHostVariable = "CDN_FTP_HOST";
         const string FtpUserVariable = "CDN_FTP_USER";
         const string FtpPassVariable = "CDN_FTP_PASS";
-        const string FileIncompleteExtension = "incomplete";
 
         public JobsModule()
             : base("/jobs")
@@ -35,7 +35,6 @@ namespace CdnHookToFtp
                 var ftpHost = Request.Query.ftphost.Value ?? GetSetting(FtpHostVariable);
                 var ftpUser = Request.Query.ftpuser.Value ?? GetSetting(FtpUserVariable);
                 var ftpPass = Request.Query.ftppass.Value ?? GetSetting(FtpPassVariable);
-                var ftpHostUri = new Uri(ftpHost.TrimEnd('/'));
 
                 // Use passed filename from URL or create a unique one
                 var fileName = Request.Query.filename.Value ?? Guid.NewGuid().ToString();
@@ -46,33 +45,7 @@ namespace CdnHookToFtp
                 // The full filename to be PUT to FTP root
                 var ftpFile = string.Format("{0}.{1}", fileName, fileExtension);
 
-                // The full path and filename whilst uploading in progress
-                var ftpUploadingPath = string.Format("{0}/{1}.{2}", ftpHostUri.AbsoluteUri.TrimEnd('/'), ftpFile, FileIncompleteExtension);
-                
-                // Create the FTP upload request
-                var request = (FtpWebRequest)WebRequest.Create(ftpUploadingPath);
-                request.Method = WebRequestMethods.Ftp.UploadFile;
-                request.Credentials = new NetworkCredential(ftpUser, ftpPass);
-                request.ContentLength = Context.Request.Body.Length;
-
-                using (var requestStream = request.GetRequestStream())
-                {
-                    // Copy the body of this request to the new request stream
-                    Context.Request.Body.CopyTo(requestStream);
-                    requestStream.Close();
-                }
-
-                using (var response = (FtpWebResponse)request.GetResponse())
-                    response.Close();
-
-                // Create the FTP rename request
-                request = (FtpWebRequest)FtpWebRequest.Create(ftpUploadingPath);
-                request.Credentials = new NetworkCredential(ftpUser, ftpPass);
-                request.Method = WebRequestMethods.Ftp.Rename;
-                request.RenameTo = string.Format("{0}/{1}", ftpHostUri.AbsolutePath.TrimEnd('/'), ftpFile);
-
-                using (var response = (FtpWebResponse)request.GetResponse())
-                    response.Close();
+                UploadFileToFtp(ftpHost, ftpUser, ftpPass, Context.Request.Body, ftpFile);
 
                 return Nancy.HttpStatusCode.OK;
             }
@@ -90,6 +63,57 @@ namespace CdnHookToFtp
                 response.StatusCode = Nancy.HttpStatusCode.InternalServerError;
                 return response;
             }
+        }
+
+        /// <summary>
+        /// Uploads the specified stream to FTP
+        /// </summary>
+        /// <param name="ftpHost">The ftp host and path eg: ftp://ftp.example.com/customer/in </param>
+        /// <param name="ftpUser">The ftp username</param>
+        /// <param name="ftpPass">The ftp password</param>
+        /// <param name="stream">Stream to write to the request</param>
+        /// <param name="ftpFileName">File name of remote file</param>
+        private void UploadFileToFtp(string ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName)
+        {
+            // Create a Uri object to help parse up the host and path
+            var ftpHostUri = new Uri(ftpHost.TrimEnd('/'));
+
+            // The full path and filename whilst uploading in progress
+            var ftpUploadingPath = string.Format("{0}/{1}.incomplete", ftpHostUri.AbsoluteUri.TrimEnd('/'), ftpFileName);
+
+            // Create the FTP upload request
+            var uploadRequest = GetFtpRequest(ftpUploadingPath, ftpUser, ftpPass, WebRequestMethods.Ftp.UploadFile);
+            uploadRequest.ContentLength = Context.Request.Body.Length;
+
+            // Copy stream to the FTP upload request stream
+            using (var requestStream = uploadRequest.GetRequestStream())
+            {
+                stream.CopyTo(requestStream);
+                requestStream.Close();
+            }
+
+            // Create the FTP rename request
+            var renameRequest = GetFtpRequest(ftpUploadingPath, ftpUser, ftpPass, WebRequestMethods.Ftp.Rename);
+            renameRequest.RenameTo = string.Format("{0}/{1}", ftpHostUri.AbsolutePath.TrimEnd('/'), ftpFileName);
+
+            // Upload file
+            using (var response = (FtpWebResponse)uploadRequest.GetResponse())
+                response.Close();
+
+            // Rename file
+            using (var response = (FtpWebResponse)renameRequest.GetResponse())
+                response.Close();
+        }
+
+        /// <summary>
+        /// Creates an ftp request with the specified credentias and method
+        /// </summary>
+        private FtpWebRequest GetFtpRequest(string requestUriString, string ftpUser, string ftpPass, string method)
+        {
+            var request = (FtpWebRequest)WebRequest.Create(requestUriString);
+            request.Credentials = new NetworkCredential(ftpUser, ftpPass);
+            request.Method = method;
+            return request;
         }
 
         /// <summary>
