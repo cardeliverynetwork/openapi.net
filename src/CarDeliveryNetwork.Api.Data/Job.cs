@@ -246,8 +246,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         /// <param name="format">Format to serialize to.</param>
         /// <param name="schema">Schema to serialize to.</param>
+        /// <param name="forEvent">The WebHookEvent that this message represents.</param>
+        /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <returns>The serialized object.</returns>
-        public string ToString(MessageFormat format, WebHookSchema schema, WebHookEvent forEvent)
+        public string ToString(MessageFormat format, WebHookSchema schema, WebHookEvent forEvent, DateTime timeStamp)
         {
             switch (schema)
             {
@@ -256,7 +258,7 @@ namespace CarDeliveryNetwork.Api.Data
                 case WebHookSchema.Fenkell05:
                     return new Delivery(this).ToString();
                 case WebHookSchema.TmwV1:
-                    return new Stop(this).ToString(forEvent);
+                    return new Stop(this).ToString(forEvent, timeStamp);
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
             };
