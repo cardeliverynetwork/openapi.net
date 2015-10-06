@@ -143,6 +143,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string ContractedCarrierScac { get; set; }
 
         /// <summary>
+        /// Readonly - The CDN Id of the allocated carrier
+        /// </summary>
+        public virtual int AllocatedCarrierId { get; set; }
+
+        /// <summary>
         /// Optional - The SCAC of the allocated carrier
         /// </summary>
         /// <remarks>
