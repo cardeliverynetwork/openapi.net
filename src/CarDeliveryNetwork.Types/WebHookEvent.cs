@@ -18,6 +18,11 @@
         /// <summary>
         /// WebHook Event for carrier claimed
         /// </summary>
-        CarrierClaimApproved = 20
+        CarrierClaimApproved = 20,
+
+        /// <summary>
+        /// WebHook Event for driver logged in to device
+        /// </summary>
+        DriverLogin = 30
     }
 }

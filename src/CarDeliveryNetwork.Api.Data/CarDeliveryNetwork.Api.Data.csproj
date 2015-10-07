@@ -73,6 +73,7 @@
     <Compile Include="Report.cs" />
     <Compile Include="Serialization.cs" />
     <Compile Include="Signature.cs" />
+    <Compile Include="TmwV1\DriverLogin.cs" />
     <Compile Include="TmwV1\Stop.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Vehicle.cs" />
