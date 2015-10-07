@@ -199,7 +199,7 @@ namespace CarDeliveryNetwork.Api.Data
             {
                 return Vehicles == null
                     ? 0
-                    : Vehicles.Where(v => v.Status == VehicleStatus.PickedUp || v.Status == VehicleStatus.Delivered).Count();
+                    : Vehicles.Count(v => v.Status == VehicleStatus.PickedUp || v.Status == VehicleStatus.Delivered);
             }
         }
 
@@ -212,7 +212,7 @@ namespace CarDeliveryNetwork.Api.Data
             {
                 return Vehicles == null
                     ? 0
-                    : Vehicles.Where(v => v.Status == VehicleStatus.Delivered).Count();
+                    : Vehicles.Count(v => v.Status == VehicleStatus.Delivered);
             }
         }
 
@@ -253,6 +253,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="schema">Schema to serialize to.</param>
         /// <param name="forEvent">The WebHookEvent that this message represents.</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
+        /// <param name="hookId">The id of the hook this that will send this data</param>
         /// <returns>The serialized object.</returns>
         public string ToString(MessageFormat format, WebHookSchema schema, WebHookEvent forEvent, DateTime timeStamp, int hookId)
         {
@@ -266,7 +267,7 @@ namespace CarDeliveryNetwork.Api.Data
                     return new Stop(this).ToString(forEvent, timeStamp, hookId.ToString());
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
-            };
+            }
         }
     }
 

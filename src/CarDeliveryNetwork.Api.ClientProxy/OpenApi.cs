@@ -328,7 +328,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <param name="doForSchema">The hook schame to send for</param>
         public void SendJobHooks(int id, WebHookEvent hookEvent, string doForSchema)
         {
-            var action = new CarDeliveryNetwork.Api.Data.Action
+            var action = new Data.Action
             {
                 Name = "sendhook",
                 AssociatedId = hookEvent.ToString()
@@ -347,11 +347,6 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         private void PerformJobAction(string loadId, Data.Action action)
         {
             PerformAction("Jobs", loadId, action);
-        }
-
-        private void PerformJourneyAction(int id, Data.Action action)
-        {
-            PerformAction("Journeys", id, action);
         }
 
         private void PerformAction(string resourceName, int id, Data.Action action)

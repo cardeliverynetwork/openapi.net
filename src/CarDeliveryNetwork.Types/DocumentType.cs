@@ -41,7 +41,7 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// The DOT
         /// </summary>
-        DOT = 8,
+        Dot = 8,
         /// <summary>
         /// The w9
         /// </summary>

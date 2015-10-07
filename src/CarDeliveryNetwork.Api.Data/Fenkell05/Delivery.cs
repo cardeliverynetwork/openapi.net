@@ -13,47 +13,47 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// <summary>
         /// Gets or sets the Message reference id
         /// </summary>
-        public virtual string ReferenceId { get; set; }
+        public string ReferenceId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating the inspection type code
         /// </summary>
-        public virtual string InspectionType { get; set; }
+        public string InspectionType { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the delivery is Subject To Inspection by dealer
         /// </summary>
-        public virtual bool SubjectToInspection { get; set; }
+        public bool SubjectToInspection { get; set; }
 
         /// <summary>
         /// Gets or sets the Dealer comment
         /// </summary>
-        public virtual string Comment { get; set; }
+        public string Comment { get; set; }
 
         /// <summary>
         /// Gets or sets the Carrier comment
         /// </summary>
-        public virtual string CarrierComment { get; set; }
+        public string CarrierComment { get; set; }
 
         /// <summary>
         /// Gets or sets the contracted carrier.
         /// </summary>
-        public virtual Carrier Carrier { get; set; }
+        public Carrier Carrier { get; set; }
 
         /// <summary>
         /// Gets or sets the shipment.
         /// </summary>
-        public virtual Shipment Shipment { get; set; }
+        public Shipment Shipment { get; set; }
 
         /// <summary>
         /// Gets or sets the delivery receipt.
         /// </summary>
-        public virtual HostedDocument DeliveryReceipt { get; set; }
+        public HostedDocument DeliveryReceipt { get; set; }
 
         /// <summary>
         /// Gets or sets the vehicle.
         /// </summary>
-        public virtual List<Vehicle> Vehicle { get; set; }
+        public List<Vehicle> Vehicle { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Delivery"/> class.
@@ -64,7 +64,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// Initializes a new instance of the <see cref="Delivery"/> class.
         /// </summary>
         /// <param name="job">The API job from which to contruct this Delivery</param>
-        public Delivery(ApiData.Job job)
+        public Delivery(Job job)
         {
             ReferenceId = string.IsNullOrWhiteSpace(job.LoadId)
                 ? string.Format("{0}", job.JobNumber)
@@ -109,22 +109,22 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// <summary>
         /// Gets or sets the SCAC or code assigned by OEM
         /// </summary>
-        public virtual string Code { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the driver.
         /// </summary>
-        public virtual string DriverName { get; set; }
+        public string DriverName { get; set; }
 
         /// <summary>
         /// Gets or sets the truck number.
         /// </summary>
-        public virtual string TruckNumber { get; set; }
+        public string TruckNumber { get; set; }
 
         /// <summary>
         /// Gets or sets the trailer number.
         /// </summary>
-        public virtual string TrailerNumber { get; set; }
+        public string TrailerNumber { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Carrier"/> class.
@@ -135,7 +135,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// Initializes a new instance of the <see cref="Carrier"/> class.
         /// </summary>
         /// <param name="job">The job.</param>
-        public Carrier(ApiData.Job job)
+        public Carrier(Job job)
         {
             // Fix for Harbour jobs - make them look like Hansens for Fenkell
             Code = job.ContractedCarrierScac == "HRBR"
@@ -156,27 +156,27 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// <summary>
         /// Gets or sets the Origin location code assigned by OEM
         /// </summary>
-        public virtual string OriginCode { get; set; }
+        public string OriginCode { get; set; }
 
         /// <summary>
         /// Gets or sets the destination Destination code assigned by OEM
         /// </summary>
-        public virtual string DestinationCode { get; set; }
+        public string DestinationCode { get; set; }
 
         /// <summary>
         /// Gets or sets the Departure date and time.
         /// </summary>
-        public virtual string DepartureDateTime { get; set; }
+        public string DepartureDateTime { get; set; }
 
         /// <summary>
         /// Gets or sets the Delivery date and time
         /// </summary>
-        public virtual string DeliveryDateTime { get; set; }
+        public string DeliveryDateTime { get; set; }
 
         /// <summary>
         /// Gets or sets the Special delivery instructions
         /// </summary>
-        public virtual string SpecialInstructions { get; set; }
+        public string SpecialInstructions { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Shipment"/> class.
@@ -187,7 +187,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// Initializes a new instance of the <see cref="Shipment"/> class.
         /// </summary>
         /// <param name="job">The job.</param>
-        public Shipment(ApiData.Job job)
+        public Shipment(Job job)
         {
             OriginCode = job.Pickup.Destination.QuickCode;
             DestinationCode = job.Dropoff.Destination.QuickCode;
@@ -209,17 +209,17 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// <summary>
         /// Gets or sets the VIN.
         /// </summary>
-        public virtual string VIN { get; set; }
+        public string VIN { get; set; }
 
         /// <summary>
         /// Gets or sets the damage.
         /// </summary>
-        public virtual List<Damage> Damage { get; set; }
+        public List<Damage> Damage { get; set; }
 
         /// <summary>
         /// Gets or sets the photos.
         /// </summary>
-        public virtual List<HostedDocument> Photo { get; set; }
+        public List<HostedDocument> Photo { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vehicle"/> class.
@@ -248,22 +248,22 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// <summary>
         /// Gets or sets the Damage area code.
         /// </summary>
-        public virtual string AreaCode { get; set; }
+        public string AreaCode { get; set; }
 
         /// <summary>
         /// Gets or sets the Damage type code.
         /// </summary>
-        public virtual string TypeCode { get; set; }
+        public string TypeCode { get; set; }
 
         /// <summary>
         /// Gets or sets theDamage severity code.
         /// </summary>
-        public virtual string SeverityCode { get; set; }
+        public string SeverityCode { get; set; }
 
         /// <summary>
         /// Gets or sets the Damage comment
         /// </summary>
-        public virtual string Comment { get; set; }
+        public string Comment { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Damage"/> class.
@@ -274,7 +274,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// Initializes a new instance of the <see cref="Damage"/> class.
         /// </summary>
         /// <param name="damage">The damage.</param>
-        public Damage(ApiData.DamageItem damage)
+        public Damage(DamageItem damage)
         {
             AreaCode = damage.Area.Code;
             TypeCode = damage.Type.Code;
@@ -291,17 +291,17 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// <summary>
         /// Gets or sets the reference id.
         /// </summary>
-        public virtual string ReferenceId { get; set; }
+        public string ReferenceId { get; set; }
 
         /// <summary>
         /// Gets or sets the URL.
         /// </summary>
-        public virtual string URL { get; set; }
+        public string URL { get; set; }
 
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
-        public virtual string Title { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HostedDocument"/> class.
@@ -312,7 +312,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell05
         /// Initializes a new instance of the <see cref="HostedDocument"/> class.
         /// </summary>
         /// <param name="document">The document.</param>
-        public HostedDocument(ApiData.Document document)
+        public HostedDocument(Document document)
         {
             // ReferenceId = document.Filename;
             URL = document.Url;

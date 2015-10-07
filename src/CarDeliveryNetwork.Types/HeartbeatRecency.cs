@@ -24,7 +24,7 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// More than 24 hours
         /// </summary>
-        Hrs24plus,
+        Hrs24Plus,
 
         /// <summary>
         /// Never heard from
