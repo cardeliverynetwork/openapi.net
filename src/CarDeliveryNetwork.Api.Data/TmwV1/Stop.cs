@@ -45,7 +45,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
             message.AppendFormat("FormID=1-R{0}", lineEndChar);
             message.AppendFormat("DataType=Form{0}", lineEndChar);
             message.AppendFormat("FromName={0}{1}", _job.AssignedAppId, lineEndChar);
-            message.AppendFormat("CreateTime={0:yyyy-MM-dd hh:mm:ss}{1}", timeStamp, lineEndChar);
+            message.AppendFormat("CreateTime={0:yyyy-MM-dd HH:mm:ss}{1}", timeStamp, lineEndChar);
             message.AppendFormat("CreateTimeTZ=0{0}", lineEndChar);
             message.AppendFormat("ReplyMsgID=SN:0{0}", lineEndChar);
             message.AppendFormat("Priority=0{0}", lineEndChar);
@@ -67,7 +67,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
             message.AppendFormat("{0}{1}", _job.Id, lineEndChar);
             message.AppendFormat("{0}{1}", _job.JobNumber, lineEndChar);
             message.AppendFormat("{0}{1}", endPoint.ProofDocUrl, lineEndChar);
-            message.AppendFormat("{0:yyyy-MM-dd hh:mm:ss}{1}", endPoint.Signoff.Time, lineEndChar);
+            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", endPoint.Signoff.Time, lineEndChar);
 
             var status = forEvent == WebHookEvent.PickupStop
                 ? "PickedUp"
@@ -82,7 +82,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
             {
                 message.AppendFormat("{0}{1}", v.Vin, lineEndChar);
                 message.AppendFormat("{0}{1}", v.MovementNumber, lineEndChar);
-                message.AppendFormat("{0}{1}", v.Status.ToString(), lineEndChar);
+                message.AppendFormat("{0}{1}", v.Status, lineEndChar);
                 message.AppendFormat("{0}{1}", v.NonCompletionReason, lineEndChar);
 
                 var damage = forEvent == WebHookEvent.PickupStop

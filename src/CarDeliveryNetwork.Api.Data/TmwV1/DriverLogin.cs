@@ -47,7 +47,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
             message.AppendFormat("FormID=2-R{0}", lineEndChar);
             message.AppendFormat("DataType=Form{0}", lineEndChar);
             message.AppendFormat("FromName={0}{1}", _device.Name, lineEndChar);
-            message.AppendFormat("CreateTime={0:yyyy-MM-dd hh:mm:ss}{1}", timeStamp, lineEndChar);
+            message.AppendFormat("CreateTime={0:yyyy-MM-dd HH:mm:ss}{1}", timeStamp, lineEndChar);
             message.AppendFormat("CreateTimeTZ=0{0}", lineEndChar);
             message.AppendFormat("ReplyMsgID=SN:0{0}", lineEndChar);
             message.AppendFormat("Priority=0{0}", lineEndChar);
@@ -55,7 +55,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
 
             message.AppendFormat("{0}{1}", _driver.RemoteId, lineEndChar);
             message.AppendFormat("{0}{1}", "Login", lineEndChar);
-            message.AppendFormat("{0:yyyy-MM-dd hh:mm:ss}{1}", timeStamp, lineEndChar);
+            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", timeStamp, lineEndChar);
 
             return message.ToString();
         }
