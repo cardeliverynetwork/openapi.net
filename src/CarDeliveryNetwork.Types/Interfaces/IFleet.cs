@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 namespace CarDeliveryNetwork.Types.Interfaces
 {
     /// <summary>
@@ -31,6 +32,11 @@ namespace CarDeliveryNetwork.Types.Interfaces
         /// CMAC
         /// </summary>
         string Cmac { get; }
+
+        /// <summary>
+        /// DateTime terms were accepted
+        /// </summary>
+        DateTime? AcceptedTerms { get; }
 
         /// <summary>
         /// Fleet can do transported work
