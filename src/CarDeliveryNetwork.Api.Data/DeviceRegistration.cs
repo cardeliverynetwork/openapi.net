@@ -48,7 +48,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>The serialized object.</returns>
         public override string ToString()
         {
-            return ToString(Types.MessageFormat.Json);
+            return ToString(MessageFormat.Json);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         /// <param name="format">Format to serialize to.</param>
         /// <returns>The serialized object.</returns>
-        public string ToString(Types.MessageFormat format)
+        public string ToString(MessageFormat format)
         {
             return Serialization.Serialize(this, format);
         }
