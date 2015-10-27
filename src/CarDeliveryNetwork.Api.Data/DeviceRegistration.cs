@@ -23,12 +23,12 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual bool SendTestJob { get; set; }
 
         /// <summary>
-        /// Readonly - Gets the vinDISPATCH API URL for this device registration
+        /// Readonly - Gets the vinDELIVER API URL for this device registration
         /// </summary>
         public virtual string ApiUrl { get; set; }
 
         /// <summary>
-        /// Readonly - Gets the vinDISPATCH2 API URL for this device registration
+        /// Readonly - Gets the vinDELIVER2 API URL for this device registration
         /// </summary>
         public virtual string Api2Url { get; set; }
 
