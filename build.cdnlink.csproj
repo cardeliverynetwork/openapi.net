@@ -3,7 +3,7 @@
   <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
 
   <PropertyGroup>
-    <SolutionRootDir>$(MSBuildProjectDirectory)\..</SolutionRootDir>
+    <SolutionRootDir>$(MSBuildProjectDirectory)</SolutionRootDir>
     <ApplicationName>OpenApi.NET CdnLink</ApplicationName>
     <Version>0.0.1.0</Version>
     <Company>Car Delivery Network Limited</Company>
