@@ -23,6 +23,11 @@
         /// <summary>
         /// WebHook Event for driver logged in to device
         /// </summary>
-        DriverLogin = 30
+        DriverLogin = 30,
+
+        /// <summary>
+        /// WebHook Event for load assigned to driver
+        /// </summary>
+        AssignedToDriver = 40
     }
 }

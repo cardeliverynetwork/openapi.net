@@ -19,6 +19,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// The TMW V1 Schema
         /// </summary>
-        TmwV1 = 20
+        TmwV1 = 20,
+
+        /// <summary>
+        /// Email
+        /// </summary>
+        Email = 30
     }
 }
