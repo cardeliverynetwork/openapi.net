@@ -22,8 +22,8 @@ namespace CarDeliveryNetwork.Types
         Gm,
 
         /// <summary>
-        /// The vinDEMAND profile showing a cutdown version of the Standard profile.
+        /// The vinDISPATCH profile showing a cutdown version of the Standard profile.
         /// </summary>
-        VinDemand
+        VinDispatch
     }
 }
