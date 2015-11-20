@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using CarDeliveryNetwork.Api.Data.Fenkell05;
+using CarDeliveryNetwork.Api.Data.Fenkell;
 using CarDeliveryNetwork.Api.Data.TmwV1;
 using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;

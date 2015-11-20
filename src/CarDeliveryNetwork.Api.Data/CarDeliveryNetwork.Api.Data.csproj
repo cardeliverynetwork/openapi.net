@@ -50,7 +50,12 @@
     <Compile Include="Export.cs" />
     <Compile Include="Contract.cs" />
     <Compile Include="Device.cs" />
-    <Compile Include="Fenkell05\Delivery.cs" />
+    <Compile Include="Fenkell\HostedDocument.cs" />
+    <Compile Include="Fenkell\Damage.cs" />
+    <Compile Include="Fenkell\Shipment.cs" />
+    <Compile Include="Fenkell\Delivery.cs" />
+    <Compile Include="Fenkell\Carrier.cs" />
+    <Compile Include="Fenkell\Vehicle.cs" />
     <Compile Include="Fleet.cs" />
     <Compile Include="FoundJob.cs" />
     <Compile Include="Insurance.cs" />
