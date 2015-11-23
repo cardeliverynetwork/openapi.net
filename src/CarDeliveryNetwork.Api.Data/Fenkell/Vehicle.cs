@@ -40,14 +40,14 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
             if (atPickup)
             {
                 Damage = vehicle.DamageAtPickup.Select(d => new Damage(d)).ToList();
-                Photo = vehicle.Photos.Where(p => !p.Url.Contains("CollectionDamage"))
+                Photo = vehicle.Photos.Where(p => p.Url.Contains("CollectionDamage"))
                     .Select(p => new HostedDocument(p))
                     .ToList();
             }
             else
             {
                 Damage = vehicle.DamageAtDropoff.Select(d => new Damage(d)).ToList();
-                Photo = vehicle.Photos.Where(p => !p.Url.Contains("DeliveryDamage"))
+                Photo = vehicle.Photos.Where(p => p.Url.Contains("DeliveryDamage"))
                     .Select(p => new HostedDocument(p))
                     .ToList();
             }
