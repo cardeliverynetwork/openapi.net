@@ -12,6 +12,11 @@ namespace CarDeliveryNetwork.Types
         Cdn = 0,
 
         /// <summary>
+        /// The Fenkell02 Schema
+        /// </summary>
+        Fenkell02 = 5,
+
+        /// <summary>
         /// The Fenkell05 Schema
         /// </summary>
         Fenkell05 = 10,

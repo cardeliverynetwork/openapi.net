@@ -32,13 +32,25 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
         /// Initializes a new instance of the <see cref="Vehicle"/> class.
         /// </summary>
         /// <param name="vehicle">The vehicle.</param>
-        public Vehicle(Data.Vehicle vehicle)
+        /// <param name="atPickup">When true, populates pickup damage info, when false, delivery.</param>
+        public Vehicle(Data.Vehicle vehicle, bool atPickup)
         {
             VIN = vehicle.Vin;
-            Damage = vehicle.DamageAtDropoff.Select(d => new Damage(d)).ToList();
-            Photo = vehicle.Photos.Where(p => !p.Url.Contains("CollectionDamage"))
-                                  .Select(p => new HostedDocument(p))
-                                  .ToList();
+
+            if (atPickup)
+            {
+                Damage = vehicle.DamageAtPickup.Select(d => new Damage(d)).ToList();
+                Photo = vehicle.Photos.Where(p => !p.Url.Contains("CollectionDamage"))
+                    .Select(p => new HostedDocument(p))
+                    .ToList();
+            }
+            else
+            {
+                Damage = vehicle.DamageAtDropoff.Select(d => new Damage(d)).ToList();
+                Photo = vehicle.Photos.Where(p => !p.Url.Contains("DeliveryDamage"))
+                    .Select(p => new HostedDocument(p))
+                    .ToList();
+            }
         }
     }
 }

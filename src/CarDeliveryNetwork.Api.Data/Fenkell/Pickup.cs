@@ -5,9 +5,9 @@ using CarDeliveryNetwork.Types;
 namespace CarDeliveryNetwork.Api.Data.Fenkell
 {
     /// <summary>
-    /// Class representing a Fenkell05 delivery
+    /// Class representing a Fenkell02 pickup
     /// </summary>
-    public class Delivery
+    public class Pickup
     {
         /// <summary>
         /// Gets or sets the Message reference id
@@ -20,7 +20,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
         public string InspectionType { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the delivery is Subject To Inspection by dealer
+        /// Gets or sets a value indicating whether the pickup is Subject To Inspection by dealer
         /// </summary>
         public bool SubjectToInspection { get; set; }
 
@@ -45,9 +45,9 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
         public Shipment Shipment { get; set; }
 
         /// <summary>
-        /// Gets or sets the delivery receipt.
+        /// Gets or sets the pickup receipt.
         /// </summary>
-        public HostedDocument DeliveryReceipt { get; set; }
+        public HostedDocument PickupReceipt { get; set; }
 
         /// <summary>
         /// Gets or sets the vehicle.
@@ -55,38 +55,38 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
         public List<Vehicle> Vehicle { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Delivery"/> class.
+        /// Initializes a new instance of the <see cref="Pickup"/> class.
         /// </summary>
-        public Delivery() { }
+        public Pickup() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Delivery"/> class.
+        /// Initializes a new instance of the <see cref="Pickup"/> class.
         /// </summary>
-        /// <param name="job">The API job from which to contruct this Delivery</param>
-        public Delivery(Job job)
+        /// <param name="job">The API job from which to contruct this Pickup</param>
+        public Pickup(Job job)
         {
             ReferenceId = string.IsNullOrWhiteSpace(job.LoadId)
                 ? string.Format("{0}", job.JobNumber)
                 : string.Format("{0}:{1}", job.JobNumber, job.LoadId);
 
-            InspectionType = "05";
-            SubjectToInspection = job.Dropoff.Signoff == null || job.Dropoff.Signoff.NotSignedReasons != null;
+            InspectionType = "02";
+            SubjectToInspection = job.Pickup.Signoff == null || job.Pickup.Signoff.NotSignedReasons != null;
             Comment = job.Notes;
             // CarrierComment = 
             Carrier = new Carrier(job);
             Shipment = new Shipment(job);
 
-            DeliveryReceipt = new HostedDocument
+            PickupReceipt = new HostedDocument
             {
-                Title = "Proof of Delivery",
-                URL = job.Dropoff.ProofDocUrl,
+                Title = "Proof of Pickup",
+                URL = job.Pickup.ProofDocUrl,
                 ReferenceId = ReferenceId
             };
 
-            // Throw away non delivered vehicles, or where VIN 
+            // Throw away non collected vehicles, or where VIN 
             // is not populated or has single digit from device default
-            Vehicle = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered && (!string.IsNullOrWhiteSpace(v.Vin) && v.Vin.Length > 1))
-                                  .Select(v => new Vehicle(v, false /*With Delivery Damage*/))
+            Vehicle = job.Vehicles.Where(v => v.Status == VehicleStatus.PickedUp && (!string.IsNullOrWhiteSpace(v.Vin) && v.Vin.Length > 1))
+                                  .Select(v => new Vehicle(v, true /*With Pickup Damage*/))
                                   .ToList();
         }
 
@@ -96,18 +96,18 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
         /// <returns>The serialized object.</returns>
         public override string ToString()
         {
-            return Serialization.Serialize(new DeliveryRootObject { Delivery = this }, MessageFormat.Json);
+            return Serialization.Serialize(new PickupRootObject { Pickup = this }, MessageFormat.Json);
         }
     }
 
     /// <summary>
     /// A root object for JSON serialization
     /// </summary>
-    public class DeliveryRootObject
+    public class PickupRootObject
     {
         /// <summary>
-        /// Gets or sets the delivery.
+        /// Gets or sets the pickup.
         /// </summary>
-        public Delivery Delivery { get; set; }
+        public Pickup Pickup { get; set; }
     }
 }

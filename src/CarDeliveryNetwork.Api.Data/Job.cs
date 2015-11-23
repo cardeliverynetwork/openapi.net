@@ -261,6 +261,8 @@ namespace CarDeliveryNetwork.Api.Data
             {
                 case WebHookSchema.Cdn:
                     return Serialization.Serialize(this, format);
+                case WebHookSchema.Fenkell02:
+                    return new Pickup(this).ToString();
                 case WebHookSchema.Fenkell05:
                     return new Delivery(this).ToString();
                 case WebHookSchema.TmwV1:
