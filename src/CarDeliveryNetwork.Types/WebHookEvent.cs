@@ -28,6 +28,11 @@
         /// <summary>
         /// WebHook Event for load assigned to driver
         /// </summary>
-        AssignedToDriver = 40
+        AssignedToDriver = 40,
+
+        /// <summary>
+        /// WebHook Event for ETA Received
+        /// </summary>
+        EtaReceived = 50
     }
 }
