@@ -53,7 +53,7 @@
       <Column Name="JobNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="LoadId" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
       <Column Name="Mileage" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Notes" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="SellPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ServiceRequired" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ShipperScac" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
@@ -87,6 +87,7 @@
       <Column Name="DropoffZipPostCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="DropoffRequestedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DropoffRequestedDateIsExact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DropoffEta" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DropoffNotSignedReason" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Column Name="DropoffSignedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="DropoffTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -107,6 +108,7 @@
       <Column Name="PickupZipPostCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="PickupRequestedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="PickupRequestedDateIsExact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PickupEta" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="PickupNotSignedReason" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Column Name="PickupSignedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="PickupTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -123,8 +125,8 @@
       <Column Name="CdnVehicleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ReceivedLoadId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Make" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="Model" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Make" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Model" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="MovementNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="NonCompletionReason" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Notes" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
@@ -159,7 +161,7 @@
       <Column Name="CustomerReference" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="DriverPay" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="JobInitiator" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
-      <Column Name="Notes" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="SellPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ServiceRequired" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ShipperScac" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
@@ -231,8 +233,8 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
       <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Make" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="Model" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Make" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Model" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="MovementNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Notes" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Registration" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />

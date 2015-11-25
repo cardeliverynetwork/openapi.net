@@ -57,6 +57,7 @@ namespace CdnLink
             // Pickup                                                         
             PickupRequestedDate = job.Pickup.RequestedDate;
             PickupRequestedDateIsExact = job.Pickup.RequestedDateIsExact;
+            PickupEta = job.Pickup.Eta;
             PickupProofDocUrl = job.Pickup.ProofDocUrl;
             PickupQuickCode = job.Pickup.Destination.QuickCode;
             PickupContact = job.Pickup.Destination.Contact;
@@ -83,6 +84,7 @@ namespace CdnLink
             // Dropoff                                                        
             DropoffRequestedDate = job.Dropoff.RequestedDate;
             DropoffRequestedDateIsExact = job.Dropoff.RequestedDateIsExact;
+            DropoffEta = job.Dropoff.Eta;
             DropoffProofDocUrl = job.Dropoff.ProofDocUrl;
             DropoffQuickCode = job.Dropoff.Destination.QuickCode;
             DropoffContact = job.Dropoff.Destination.Contact;

@@ -110,3 +110,21 @@ ALTER COLUMN Make NVARCHAR(50) NULL
 ALTER TABLE CdnReceivedVehicles 
 ALTER COLUMN Model NVARCHAR(50) NULL
 GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'PickupEta' and Object_ID = Object_ID(N'CdnReceivedLoads'))
+BEGIN
+   ALTER TABLE CdnReceivedLoads
+ADD 
+	[PickupEta] [datetime] NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'DropoffEta' and Object_ID = Object_ID(N'CdnReceivedLoads'))
+BEGIN
+   ALTER TABLE CdnReceivedLoads
+ADD 
+	[DropoffEta] [datetime] NULL
+END
+GO
