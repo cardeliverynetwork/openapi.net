@@ -133,6 +133,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string ShipperScac { get; set; }
 
         /// <summary>
+        /// Optional - The CDN Id of the shipper to whom this job belongs
+        /// </summary>
+        /// <remarks>
+        /// (Overrides ShipperScac) Specifying ShipperId during job creation will create the job on behalf of the
+        /// specified shipper.  The job will be automatically allocated to the carrier creating the job.  
+        /// If ShipperId is set, AllocatedCarrierId is ignored.
+        /// </remarks>
+        public virtual int ShipperId { get; set; }
+
+        /// <summary>
         /// Optional - The SCAC of the entity contracted by the shipper.
         /// </summary>
         /// <remarks>
@@ -143,9 +153,14 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string ContractedCarrierScac { get; set; }
 
         /// <summary>
-        /// Readonly - The CDN Id of the allocated carrier
+        /// Optional - The CDN Id of the entity contracted by the shipper.
         /// </summary>
-        public virtual int AllocatedCarrierId { get; set; }
+        /// <remarks>
+        /// (Overrides ContractedCarrierId) To be specified when a different carrier will be carrying out the job.  Must be specified 
+        /// in conjunction with a ShipperId and AllocatedCarrierId.  Only specifiable in API calls
+        /// made BY the contracted carrier.
+        /// </remarks>
+        public virtual int ContractedCarrierId { get; set; }
 
         /// <summary>
         /// Optional - The SCAC of the allocated carrier
@@ -155,6 +170,15 @@ namespace CarDeliveryNetwork.Api.Data
         /// allocate the job directly to this carrier.  Status will be set to 'Allocated'
         /// </remarks>
         public virtual string AllocatedCarrierScac { get; set; }
+
+        /// <summary>
+        /// Optional - The CDN Id of the allocated carrier
+        /// </summary>
+        /// <remarks>
+        /// (Overrides AllocatedCarrierScac) Specifying AllocatedCarrierId during job creation will ignore the Status field and attempt to 
+        /// allocate the job directly to this carrier.  Status will be set to 'Allocated'
+        /// </remarks>
+        public virtual int AllocatedCarrierId { get; set; }
 
         /// <summary>
         /// Optional - The RemoteId of the assigned driver
