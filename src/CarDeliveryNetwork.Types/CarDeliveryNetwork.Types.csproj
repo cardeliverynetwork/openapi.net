@@ -40,6 +40,7 @@
     <Compile Include="AlertType.cs" />
     <Compile Include="AllocateType.cs" />
     <Compile Include="DocumentType.cs" />
+    <Compile Include="DocViewMode.cs" />
     <Compile Include="FleetJobContext.cs" />
     <Compile Include="FleetMenuProfile.cs" />
     <Compile Include="HeartbeatRecency.cs" />
