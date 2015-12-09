@@ -44,7 +44,7 @@
     <Compile Include="FleetJobContext.cs" />
     <Compile Include="FleetLicence.cs" />
     <Compile Include="FleetMenuProfile.cs" />
-    <Compile Include="FleetType.cs" />
+    <Compile Include="FleetActivity.cs" />
     <Compile Include="HeartbeatRecency.cs" />
     <Compile Include="Interfaces\IContactDetails.cs" />
     <Compile Include="Interfaces\NamespaceDoc.cs" />
