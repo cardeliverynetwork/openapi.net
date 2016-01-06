@@ -31,8 +31,23 @@
         AssignedToDriver = 40,
 
         /// <summary>
-        /// WebHook Event for ETA Received
+        /// WebHook Event for on way to Pickup
         /// </summary>
-        EtaReceived = 50
+        OnWayPickup = 50,
+
+        /// <summary>
+        /// WebHook Event for on way to Delivery
+        /// </summary>
+        OnWayDeliver = 60,
+
+        /// <summary>
+        /// WebHook Event for at Pickup
+        /// </summary>
+        AtPickup = 70,
+
+        /// <summary>
+        /// WebHook Event for at Delivery
+        /// </summary>
+        AtDelivery = 80
     }
 }
