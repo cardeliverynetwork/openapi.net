@@ -59,7 +59,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
             message.AppendFormat("{0}{1}", _job.ShipperScac, lineEndChar);
             message.AppendFormat("{0}{1}", _job.TripId, lineEndChar);
 
-            var endPoint = forEvent == WebHookEvent.PickupStop
+            var endPoint = forEvent == WebHookEvent.OnWayPickup || forEvent == WebHookEvent.AtPickup || forEvent == WebHookEvent.PickupStop
                 ? _job.Pickup
                 : _job.Dropoff;
 
@@ -67,31 +67,53 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
             message.AppendFormat("{0}{1}", _job.Id, lineEndChar);
             message.AppendFormat("{0}{1}", _job.JobNumber, lineEndChar);
             message.AppendFormat("{0}{1}", endPoint.ProofDocUrl, lineEndChar);
-            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", endPoint.Signoff.Time, lineEndChar);
+            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", endPoint.Signoff != null ? endPoint.Signoff.Time : null, lineEndChar);
 
-            var status = forEvent == WebHookEvent.PickupStop
-                ? "PickedUp"
-                : "Complete";
+            var status = "Unknown";
+            switch (forEvent)
+            {
+                case WebHookEvent.PickupStop:
+                    status = "PickedUp";
+                    break;
+                case WebHookEvent.DropoffStop:
+                    status = "Complete";
+                    break;
+                case WebHookEvent.OnWayPickup:
+                    status = "OnWayToPickup";
+                    break;
+                case WebHookEvent.OnWayDeliver:
+                    status = "OnWayToDelivery";
+                    break;
+                case WebHookEvent.AtPickup:
+                    status = "AtPickup";
+                    break;
+                case WebHookEvent.AtDelivery:
+                    status = "AtDelivery";
+                    break;
+            }
 
             message.AppendFormat("{0}{1}", status, lineEndChar);
-            message.AppendFormat("{0}{1}", endPoint.Destination.Email, lineEndChar);
-            message.AppendFormat("{0}{1}", ListToString(endPoint.Signoff.NotSignedReasons), lineEndChar);
-            message.AppendFormat("{0}{1}", endPoint.Signoff.SignedBy, lineEndChar);
 
-            foreach (var v in _job.Vehicles)
+            // Only do signoff and vehicle deets on collection/delivery
+            if (forEvent == WebHookEvent.PickupStop || forEvent == WebHookEvent.DropoffStop)
             {
-                message.AppendFormat("{0}{1}", v.Vin, lineEndChar);
-                message.AppendFormat("{0}{1}", v.MovementNumber, lineEndChar);
-                message.AppendFormat("{0}{1}", v.Status, lineEndChar);
-                message.AppendFormat("{0}{1}", v.NonCompletionReason, lineEndChar);
+                message.AppendFormat("{0}{1}", endPoint.Destination.Email, lineEndChar);
+                message.AppendFormat("{0}{1}", ListToString(endPoint.Signoff.NotSignedReasons), lineEndChar);
+                message.AppendFormat("{0}{1}", endPoint.Signoff.SignedBy, lineEndChar);
 
-                var damage = forEvent == WebHookEvent.PickupStop
-                    ? v.DamageAtPickup
-                    : v.DamageAtDropoff;
+                foreach (var v in _job.Vehicles)
+                {
+                    message.AppendFormat("{0}{1}", v.Vin, lineEndChar);
+                    message.AppendFormat("{0}{1}", v.MovementNumber, lineEndChar);
+                    message.AppendFormat("{0}{1}", v.Status, lineEndChar);
+                    message.AppendFormat("{0}{1}", v.NonCompletionReason, lineEndChar);
 
-                message.AppendFormat("{0}{1}", DamageToString(damage), lineEndChar);
+                    var damage = forEvent == WebHookEvent.PickupStop ? v.DamageAtPickup : v.DamageAtDropoff;
+
+                    message.AppendFormat("{0}{1}", DamageToString(damage), lineEndChar);
+                }
             }
-            
+
             return message.ToString();
         }
 
