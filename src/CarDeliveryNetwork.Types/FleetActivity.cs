@@ -22,6 +22,11 @@ namespace CarDeliveryNetwork.Types
         SecondaryDealer,
 
         /// <summary>
+        /// DailyService
+        /// </summary>
+        DailyService,
+
+        /// <summary>
         /// DailyRental
         /// </summary>
         DailyRental,
