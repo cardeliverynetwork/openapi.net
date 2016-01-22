@@ -7,14 +7,14 @@ namespace CarDeliveryNetwork.Types
     public enum ServiceType
     {
         /// <summary>
-        /// A job performed by a professional driver.
-        /// </summary>
-        Driven,
-
-        /// <summary>
         /// A job where the vehicle is moved on a transporter.
         /// </summary>
         Transported,
+
+        /// <summary>
+        /// A job performed by a professional driver.
+        /// </summary>
+        Driven,
 
         /// <summary>
         /// A job that can either be driven or transported.
