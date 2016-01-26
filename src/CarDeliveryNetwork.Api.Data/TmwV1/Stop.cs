@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using CarDeliveryNetwork.Types;
 
@@ -67,7 +68,22 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
             message.AppendFormat("{0}{1}", _job.Id, lineEndChar);
             message.AppendFormat("{0}{1}", _job.JobNumber, lineEndChar);
             message.AppendFormat("{0}{1}", endPoint.ProofDocUrl, lineEndChar);
-            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", endPoint.Signoff != null ? endPoint.Signoff.Time : null, lineEndChar);
+
+            DateTime? statusTime = null;
+
+            if (endPoint.Signoff != null)
+                statusTime = endPoint.Signoff.Time;
+            else
+            {
+                // Iterate through history to find this status and grab status time
+                foreach (var item in _job.History.Where(item => item.Status == _job.Status))
+                {
+                    statusTime = item.Changed;
+                    break;
+                }
+            }
+
+            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", statusTime, lineEndChar);
 
             var status = "Unknown";
             switch (forEvent)
@@ -93,6 +109,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
             }
 
             message.AppendFormat("{0}{1}", status, lineEndChar);
+            message.AppendFormat("{0}{1}", endPoint.Eta, lineEndChar);
 
             // Only do signoff and vehicle deets on collection/delivery
             if (forEvent == WebHookEvent.PickupStop || forEvent == WebHookEvent.DropoffStop)
