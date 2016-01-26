@@ -109,7 +109,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
             }
 
             message.AppendFormat("{0}{1}", status, lineEndChar);
-            message.AppendFormat("{0}{1}", endPoint.Eta, lineEndChar);
+            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", endPoint.Eta, lineEndChar);
 
             // Only do signoff and vehicle deets on collection/delivery
             if (forEvent == WebHookEvent.PickupStop || forEvent == WebHookEvent.DropoffStop)
