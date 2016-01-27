@@ -33,8 +33,9 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
         /// <param name="forEvent">The event for which to serialise this job</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <param name="messageGuid">A unique identifier for this message</param>
+        /// <param name="deviceTime">Time in UTC that the associaed message was created on the device</param>
         /// <returns>The serialized object.</returns>
-        public string ToString(WebHookEvent forEvent, DateTime timeStamp, string messageGuid)
+        public string ToString(WebHookEvent forEvent, DateTime timeStamp, string messageGuid, DateTime? deviceTime = null)
         {
             const string lineEndChar = "\r\n";
             
@@ -68,22 +69,7 @@ namespace CarDeliveryNetwork.Api.Data.TmwV1
             message.AppendFormat("{0}{1}", _job.Id, lineEndChar);
             message.AppendFormat("{0}{1}", _job.JobNumber, lineEndChar);
             message.AppendFormat("{0}{1}", endPoint.ProofDocUrl, lineEndChar);
-
-            DateTime? statusTime = null;
-
-            if (endPoint.Signoff != null)
-                statusTime = endPoint.Signoff.Time;
-            else
-            {
-                // Iterate through history to find this status and grab status time
-                foreach (var item in _job.History.Where(item => item.Status == _job.Status))
-                {
-                    statusTime = item.Changed;
-                    break;
-                }
-            }
-
-            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", statusTime, lineEndChar);
+            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", deviceTime, lineEndChar);
 
             var status = "Unknown";
             switch (forEvent)
