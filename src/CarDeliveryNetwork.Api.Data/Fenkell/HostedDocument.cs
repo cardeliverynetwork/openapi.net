@@ -1,4 +1,6 @@
-﻿namespace CarDeliveryNetwork.Api.Data.Fenkell
+﻿using System;
+
+namespace CarDeliveryNetwork.Api.Data.Fenkell
 {
     /// <summary>
     /// 
@@ -31,7 +33,7 @@
         /// <param name="document">The document.</param>
         public HostedDocument(Document document)
         {
-            // ReferenceId = document.Filename;
+            ReferenceId = Guid.NewGuid().ToString();
             URL = document.Url;
             Title = string.IsNullOrWhiteSpace(document.Comment)
                 ? document.Title
