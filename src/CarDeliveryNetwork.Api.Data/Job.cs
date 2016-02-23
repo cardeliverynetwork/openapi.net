@@ -293,9 +293,9 @@ namespace CarDeliveryNetwork.Api.Data
                 case WebHookSchema.Cdn:
                     return Serialization.Serialize(this, format);
                 case WebHookSchema.Fenkell02:
-                    return new Pickup(this).ToString();
+                    return new Delivery(this, true).ToString();
                 case WebHookSchema.Fenkell05:
-                    return new Delivery(this).ToString();
+                    return new Delivery(this, false).ToString();
                 case WebHookSchema.TmwV1:
                     return new Stop(this).ToString(forEvent, timeStamp, hookId.ToString(), deviceTime);
                 default:

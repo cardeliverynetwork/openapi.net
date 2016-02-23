@@ -63,31 +63,50 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
         /// Initializes a new instance of the <see cref="Delivery"/> class.
         /// </summary>
         /// <param name="job">The API job from which to contruct this Delivery</param>
-        public Delivery(Job job)
+        /// <param name="isPickup">When true, indicates that this Fenkell delivery object 
+        /// is actually a Fenkell pickup object.</param>
+        public Delivery(Job job, bool isPickup)
         {
             ReferenceId = string.IsNullOrWhiteSpace(job.LoadId)
                 ? string.Format("{0}", job.JobNumber)
                 : string.Format("{0}:{1}", job.JobNumber, job.LoadId);
 
-            InspectionType = "05";
-            SubjectToInspection = job.Dropoff.Signoff == null || job.Dropoff.Signoff.NotSignedReasons != null;
             Comment = job.Notes;
-            // CarrierComment = 
             Carrier = new Carrier(job);
             Shipment = new Shipment(job);
 
             DeliveryReceipt = new HostedDocument
             {
-                Title = "Proof of Delivery",
                 URL = job.Dropoff.ProofDocUrl,
                 ReferenceId = ReferenceId
             };
 
-            // Throw away non delivered vehicles, or where VIN 
-            // is not populated or has single digit from device default
-            Vehicle = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered && (!string.IsNullOrWhiteSpace(v.Vin) && v.Vin.Length > 1))
-                                  .Select(v => new Vehicle(v, false /*With Delivery Damage*/))
-                                  .ToList();
+            if (isPickup)
+            {
+                InspectionType = "02";
+                DeliveryReceipt.Title = "Proof of Pickup";
+                DeliveryReceipt.URL = job.Pickup.ProofDocUrl;
+                SubjectToInspection = job.Pickup.Signoff == null || job.Pickup.Signoff.NotSignedReasons != null;
+
+                // Throw away non collected vehicles, or where VIN 
+                // is not populated or has single digit from device default
+                Vehicle = job.Vehicles.Where(v => v.Status == VehicleStatus.PickedUp && (!string.IsNullOrWhiteSpace(v.Vin) && v.Vin.Length > 1))
+                                      .Select(v => new Vehicle(v, true /*With Pickup Damage*/))
+                                      .ToList();
+            }
+            else
+            {
+                InspectionType = "05";
+                DeliveryReceipt.Title = "Proof of Delivery";
+                DeliveryReceipt.URL = job.Dropoff.ProofDocUrl;
+                SubjectToInspection = job.Dropoff.Signoff == null || job.Dropoff.Signoff.NotSignedReasons != null;
+
+                // Throw away non delivered vehicles, or where VIN 
+                // is not populated or has single digit from device default
+                Vehicle = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered && (!string.IsNullOrWhiteSpace(v.Vin) && v.Vin.Length > 1))
+                                      .Select(v => new Vehicle(v, false /*With Delivery Damage*/))
+                                      .ToList();   
+            }
         }
 
         /// <summary>
