@@ -48,6 +48,7 @@
     <Compile Include="HeartbeatRecency.cs" />
     <Compile Include="Interfaces\IContactDetails.cs" />
     <Compile Include="Interfaces\NamespaceDoc.cs" />
+    <Compile Include="JobAllocationActivity.cs" />
     <Compile Include="VehicleStatus.cs" />
     <Compile Include="WebHookSchema.cs" />
     <Compile Include="WebHookStatus.cs" />
