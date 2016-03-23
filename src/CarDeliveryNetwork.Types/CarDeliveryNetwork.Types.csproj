@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="AlertType.cs" />
     <Compile Include="AllocateType.cs" />
+    <Compile Include="ContractStatus.cs" />
     <Compile Include="DocumentType.cs" />
     <Compile Include="DocViewMode.cs" />
     <Compile Include="EndPointType.cs" />
@@ -46,6 +47,7 @@
     <Compile Include="FleetLicence.cs" />
     <Compile Include="FleetMenuProfile.cs" />
     <Compile Include="FleetActivity.cs" />
+    <Compile Include="FleetPropertyType.cs" />
     <Compile Include="HeartbeatRecency.cs" />
     <Compile Include="Interfaces\IContactDetails.cs" />
     <Compile Include="Interfaces\NamespaceDoc.cs" />
