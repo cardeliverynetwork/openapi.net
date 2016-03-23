@@ -10,7 +10,7 @@ This is a .NET/C# interface into the Car Delivery Network Service.
 
 Necessary prerequisites
 ---
-* Visual Studio 2013
+* Visual Studio 2013/15
 * .NET 4.0 
 
 [Examples](https://github.com/cardeliverynetwork/openapi.net/wiki/Code-Examples)
@@ -26,7 +26,7 @@ Committers
 
 License
 ---
-See COPYING for license information. Copyright (c) 2010, 2011, 2012, 2013, 2014 Car Delivery Network Ltd.
+See COPYING for license information. Copyright (c) 2016 Car Delivery Network Ltd.
 
 Integration Builds
 ---
