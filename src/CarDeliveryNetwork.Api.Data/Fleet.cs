@@ -29,6 +29,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string LogoUrl { get; set; }
 
         /// <summary>
+        /// When a contracted carrier, note to displat on ePoDs
+        /// </summary>
+        public virtual string PodNote { get; set; }
+
+        /// <summary>
         /// The URL of this fleet's supplier terms
         /// </summary>
         public virtual string SupplierTermsUrl { get; set; }
