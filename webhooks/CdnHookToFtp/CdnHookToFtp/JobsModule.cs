@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Web.Configuration;
 using Nancy;
 
@@ -22,6 +23,9 @@ namespace CdnHookToFtp
             // PUT - To put a job update to server-configured FTP
             // Example: http://example.com/jobs
             // Example: http://build.cardeliverynetwork.com/jobs?ftphost=ftp://ftp.example.com/dir&ftpuser=theuser&ftppass=thepass&filename=CDN1234&fileextension=IN
+
+            // For ePoC or ePoD drop only (BCA)
+            // Example: http://build.cardeliverynetwork.com/jobs?ftphost=ftp://ftp.example.com/dir&ftpuser=theuser&ftppass=thepass&filename=CDN1234.pdf&getbody=true
             Put["/"] = UpdateJob;
 
             Post["/"] = UpdateJob;
@@ -39,13 +43,33 @@ namespace CdnHookToFtp
                 // Use passed filename from URL or create a unique one
                 var fileName = Request.Query.filename.Value ?? Guid.NewGuid().ToString();
 
-                // Use passed fileextension from URL or get based on request content type
-                var fileExtension = Request.Query.fileextension.Value ?? GetRequestType(Request).ToString().ToLower();
+                // Find out if the body is just a URL to get
+                var getbody = Request.Query.getbody.Value == "true";
+                if (getbody)
+                {
+                    string fetchUrl;
 
-                // The full filename to be PUT to FTP root
-                var ftpFile = string.Format("{0}.{1}", fileName, fileExtension);
+                    using (var reader = new StreamReader(Context.Request.Body, Encoding.UTF8))
+                    {
+                        fetchUrl = reader.ReadToEnd();
+                    }
 
-                UploadFileToFtp(ftpHost, ftpUser, ftpPass, Context.Request.Body, ftpFile);
+                    using (var response = WebRequest.Create(fetchUrl).GetResponse())
+                    using (var responseStream = response.GetResponseStream())
+                    {
+                        UploadFileToFtp(ftpHost, ftpUser, ftpPass, responseStream, fileName);
+                    }
+                }
+                else
+                {
+                    // Use passed fileextension from URL or get based on request content type
+                    var fileExtension = Request.Query.fileextension.Value ?? GetRequestType(Request).ToString().ToLower();
+
+                    // The full filename to be PUT to FTP root
+                    var ftpFile = string.Format("{0}.{1}", fileName, fileExtension);
+
+                    UploadFileToFtp(ftpHost, ftpUser, ftpPass, Context.Request.Body, ftpFile);
+                }
 
                 return Nancy.HttpStatusCode.OK;
             }
