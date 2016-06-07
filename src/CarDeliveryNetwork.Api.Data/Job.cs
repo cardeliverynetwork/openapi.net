@@ -298,6 +298,18 @@ namespace CarDeliveryNetwork.Api.Data
                     return new Delivery(this, false).ToString();
                 case WebHookSchema.TmwV1:
                     return new Stop(this).ToString(forEvent, timeStamp, hookId.ToString(), deviceTime);
+                case WebHookSchema.PodUrl:
+                {
+                    switch (forEvent)
+                    {
+                        case WebHookEvent.PickupStop:
+                            return this.Pickup.ProofDocUrl + "?m=download";
+                        case WebHookEvent.DropoffStop:
+                            return this.Dropoff.ProofDocUrl + "?m=download";
+                        default:
+                            return null;
+                    }
+                }
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
             }

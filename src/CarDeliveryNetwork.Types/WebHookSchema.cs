@@ -29,6 +29,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// Email
         /// </summary>
-        Email = 30
+        Email = 30,
+
+        /// <summary>
+        /// PoD URL
+        /// </summary>
+        PodUrl = 40
     }
 }
