@@ -303,9 +303,9 @@ namespace CarDeliveryNetwork.Api.Data
                     switch (forEvent)
                     {
                         case WebHookEvent.PickupStop:
-                            return this.Pickup.ProofDocUrl + "?m=download";
+                            return this.Pickup.ProofDocUrl + "&m=download";
                         case WebHookEvent.DropoffStop:
-                            return this.Dropoff.ProofDocUrl + "?m=download";
+                            return this.Dropoff.ProofDocUrl + "&m=download";
                         default:
                             return null;
                     }
