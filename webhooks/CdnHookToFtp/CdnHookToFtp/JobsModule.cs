@@ -118,7 +118,7 @@ namespace CdnHookToFtp
 
             // Create the FTP rename request
             var renameRequest = GetFtpRequest(ftpUploadingPath, ftpUser, ftpPass, WebRequestMethods.Ftp.Rename);
-            renameRequest.RenameTo = string.Format("{0}/{1}", ftpHostUri.AbsolutePath.TrimEnd('/'), ftpFileName);
+            renameRequest.RenameTo = string.Format("./{0}", ftpFileName);
 
             // Upload file
             using (var response = (FtpWebResponse)uploadRequest.GetResponse())
