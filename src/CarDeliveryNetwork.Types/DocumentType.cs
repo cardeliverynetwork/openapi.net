@@ -82,5 +82,10 @@ namespace CarDeliveryNetwork.Types
         /// The equipment list
         /// </summary>
         EquipmentList = 18,
+
+        /// <summary>
+        /// CSV Vehicle Improt
+        /// </summary>
+        VehicleImport = 19
     }
 }
