@@ -167,6 +167,27 @@
         /// </summary>
         BondAmount,
 
+        /// <summary>
+        /// InsuranceSummary
+        /// </summary>
+        InsuranceSummary,
+
+        /// <summary>
+        /// EquipmentDescription
+        /// </summary>
+        EquipmentDescription,
+
+
+        /// <summary>
+        /// OperatingArea
+        /// </summary>
+        OperatingArea,
+
+        /// <summary>
+        /// CarrierType
+        /// </summary>
+        CarrierType,
+
         // Fleet settings
 
 
