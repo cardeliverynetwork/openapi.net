@@ -90,7 +90,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
 
                 // Throw away non collected vehicles, or where VIN 
                 // is not populated or has single digit from device default
-                Vehicle = job.Vehicles.Where(v => v.Status == VehicleStatus.PickedUp && (!string.IsNullOrWhiteSpace(v.Vin) && v.Vin.Length > 1))
+                Vehicle = job.Vehicles.Where(v => (!string.IsNullOrWhiteSpace(v.Vin) && v.Vin.Length > 1) && (v.Status == VehicleStatus.PickedUp || v.Status == VehicleStatus.Delivered))
                                       .Select(v => new Vehicle(v, true /*With Pickup Damage*/))
                                       .ToList();
             }
@@ -103,7 +103,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
 
                 // Throw away non delivered vehicles, or where VIN 
                 // is not populated or has single digit from device default
-                Vehicle = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered && (!string.IsNullOrWhiteSpace(v.Vin) && v.Vin.Length > 1))
+                Vehicle = job.Vehicles.Where(v => (!string.IsNullOrWhiteSpace(v.Vin) && v.Vin.Length > 1) && v.Status == VehicleStatus.Delivered)
                                       .Select(v => new Vehicle(v, false /*With Delivery Damage*/))
                                       .ToList();   
             }
