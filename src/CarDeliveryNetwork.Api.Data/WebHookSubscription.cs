@@ -25,6 +25,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Url { get; set; }
 
         /// <summary>
+        /// Headers
+        /// </summary>
+        public virtual string Headers { get; set; }
+
+        /// <summary>
         /// Schama of this hook subscription's data
         /// </summary>
         public virtual WebHookSchema DataSchema { get; set; }
