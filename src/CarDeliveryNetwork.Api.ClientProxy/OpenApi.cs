@@ -339,6 +339,17 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             CallWithRetry(resource, "POST", false, action, callParams);
         }
 
+        /// <summary>
+        /// Allocates the specified jobs to this fleet resource.
+        /// </summary>
+        /// <param name="id">Resource Id</param>
+        /// <param name="jobs">The list of jobs to allocate to this fleet resource</param>
+        public void AllocateJobsToFleet(int id, Jobs jobs)
+        {
+            var resource = string.Format("Fleets/{0}/Jobs", id);
+            Call(resource, "PUT", false, jobs);
+        }
+
         private void PerformJobAction(int id, Data.Action action)
         {
             PerformAction("Jobs", id, action);

@@ -241,6 +241,12 @@ namespace CarDeliveryNetwork.Api.Data
         }
 
         /// <summary>
+        /// Does the job originate from the vinDispatch marketplace
+        /// </summary>
+        public virtual bool IsVinDispatchJob { get; set; }
+        
+        
+        /// <summary>
         /// String to display after importing this object
         /// </summary>
         public string ImportDisplayString
