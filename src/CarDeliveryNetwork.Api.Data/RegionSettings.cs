@@ -30,5 +30,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// Readonly - Gets the vinYARD API URL for this device registration
         /// </summary>
         public virtual string VinYardApiUrl { get; set; }
+
+        /// <summary>
+        /// Readonly - Gets the SPOG API URL for this device registration
+        /// </summary>
+        public virtual string SpogApiUrl { get; set; }
     }
 }
