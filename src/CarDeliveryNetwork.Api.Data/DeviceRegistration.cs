@@ -18,6 +18,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual Device TheDevice { get; set; }
 
         /// <summary>
+        /// Gets or sets the truck.
+        /// </summary>
+        public virtual Truck TheTruck { get; set; }
+
+        /// <summary>
         /// Indicates that a test job should be sent to the new device
         /// </summary>
         public virtual bool SendTestJob { get; set; }

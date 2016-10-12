@@ -309,6 +309,22 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
+        /// Creates the specified trucks against the specified Fleet.
+        /// </summary>
+        /// <param name="fleetId">The Fleet IdC</param>
+        /// <param name="trucks">The trucks to create</param>
+        /// <param name="isCmac">Indicates that the fleetId is a CMAC</param>
+        /// <returns>The created devices</returns>
+        public Trucks CreateFleetTrucks(string fleetId, Trucks trucks, bool isCmac)
+        {
+            if (trucks == null || trucks.Count == 0)
+                throw new ArgumentException("Trucks collection was null or empty");
+            var resource = string.Format("Fleets/{0}/Trucks", fleetId);
+            var callParams = string.Format("iscmac={0}", isCmac);
+            return Trucks.FromString(CallWithRetry(resource, "POST", false, trucks, resource), _interfaceFormat);
+        }
+
+        /// <summary>
         /// Attempts to create the specified master destinations on Car Delivery Network.
         /// </summary>
         /// <param name="destinations">The collection of master destinations to create.</param>

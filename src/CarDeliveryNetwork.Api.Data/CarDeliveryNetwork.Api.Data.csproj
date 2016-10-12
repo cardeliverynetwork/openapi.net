@@ -43,6 +43,7 @@
     <Compile Include="Alert.cs" />
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="Bid.cs" />
+    <Compile Include="Truck.cs" />
     <Compile Include="CustomerUser.cs" />
     <Compile Include="DamageItem.cs" />
     <Compile Include="DeviceRegistration.cs" />
