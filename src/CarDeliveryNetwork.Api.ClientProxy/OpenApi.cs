@@ -321,7 +321,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
                 throw new ArgumentException("Trucks collection was null or empty");
             var resource = string.Format("Fleets/{0}/Trucks", fleetId);
             var callParams = string.Format("iscmac={0}", isCmac);
-            return Trucks.FromString(CallWithRetry(resource, "POST", false, trucks, resource), _interfaceFormat);
+            return Trucks.FromString(CallWithRetry(resource, "POST", false, trucks, callParams), _interfaceFormat);
         }
 
         /// <summary>
