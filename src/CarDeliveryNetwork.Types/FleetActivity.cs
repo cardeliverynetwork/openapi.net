@@ -12,48 +12,39 @@ namespace CarDeliveryNetwork.Types
         Oem,
 
         /// <summary>
-        /// NewCarDealer
+        ///  NetworkDealer
         /// </summary>
-        NewCarDealer,
+        NetworkDealer,
 
         /// <summary>
-        /// SecondaryDealer
+        /// IndependentDealer
         /// </summary>
-        SecondaryDealer,
+        IndependentDealer,
 
         /// <summary>
-        /// DailyService
+        /// Auction
         /// </summary>
-        DailyService,
+        Auction,
 
         /// <summary>
-        /// DailyRental
+        /// Rental
         /// </summary>
-        DailyRental,
+        Rental,
 
         /// <summary>
-        /// Broker
+        /// Broker                       
         /// </summary>
         Broker,
 
         /// <summary>
-        /// OnetoTwoCarTransporters
+        /// Carrier
         /// </summary>
-        OnetoTwoCarTransporters,
+        Carrier,
 
         /// <summary>
-        /// MultiCarCarrier
+        /// Buisness
         /// </summary>
-        MultiCarCarrier,
+        Business
 
-        /// <summary>
-        /// DrivenService
-        /// </summary>
-        DrivenService,
-
-        /// <summary>
-        /// TransportedAndDriven
-        /// </summary>
-        TransportedAndDriven
     }
 }
