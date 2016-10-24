@@ -35,5 +35,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// Readonly - Gets the SPOG API URL for this device registration
         /// </summary>
         public virtual string SpogApiUrl { get; set; }
+
+        /// <summary>
+        /// Readonly - Gets the SPOG RethinkDB API URL for this device registration
+        /// </summary>
+        public virtual string SpogRethinkApiUrl { get; set; }
     }
 }

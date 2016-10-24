@@ -18,6 +18,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual Device TheDevice { get; set; }
 
         /// <summary>
+        /// Gets or sets the truck.
+        /// </summary>
+        public virtual Truck TheTruck { get; set; }
+
+        /// <summary>
         /// Indicates that a test job should be sent to the new device
         /// </summary>
         public virtual bool SendTestJob { get; set; }
@@ -46,6 +51,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// Readonly - Gets the SPOG API URL for this device registration
         /// </summary>
         public virtual string SpogApiUrl { get; set; }
+
+        /// <summary>
+        /// Readonly - Gets the SPOG RethinkDB API URL for this device registration
+        /// </summary>
+        public virtual string SpogRethinkApiUrl { get; set; }
 
         /// <summary>
         /// Returns a serial representation of the object in JSON format.
