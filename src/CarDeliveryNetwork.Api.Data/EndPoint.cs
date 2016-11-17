@@ -28,6 +28,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual DateTime? ScheduledDate { get; set; }
 
         /// <summary>
+        /// Readonly - The vinYARD gate release code generated at this endpoint
+        /// </summary>
+        public virtual string GateOutCode { get; set; }
+
+        /// <summary>
         /// Readonly - The driver estimated ETA at this endpoint
         /// </summary>
         public virtual DateTime? Eta { get; set; }
