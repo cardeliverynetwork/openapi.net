@@ -40,6 +40,7 @@
     <Compile Include="AlertType.cs" />
     <Compile Include="AllocateType.cs" />
     <Compile Include="ContractStatus.cs" />
+    <Compile Include="CreditStateResult.cs" />
     <Compile Include="DocumentType.cs" />
     <Compile Include="DocViewMode.cs" />
     <Compile Include="EndPointType.cs" />
