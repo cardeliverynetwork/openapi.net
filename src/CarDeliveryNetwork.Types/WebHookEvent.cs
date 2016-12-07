@@ -48,6 +48,11 @@
         /// <summary>
         /// WebHook Event for at Delivery
         /// </summary>
-        AtDelivery = 80
+        AtDelivery = 80,
+
+        /// <summary>
+        /// WebHook Event for job creation
+        /// </summary>
+        JobCreated = 90
     }
 }
