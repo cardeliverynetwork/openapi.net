@@ -360,10 +360,11 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// </summary>
         /// <param name="id">Resource Id</param>
         /// <param name="jobs">The list of jobs to allocate to this fleet resource</param>
-        public void AllocateJobsToFleet(int id, Jobs jobs)
+        /// <param name="queryStringParameters">Additonal parameters: scheduled dates and buy price</param>
+        public void AllocateJobsToFleet(int id, Jobs jobs, string queryStringParameters = null)
         {
             var resource = string.Format("Fleets/{0}/Jobs", id);
-            Call(resource, "PUT", false, jobs);
+            Call(resource, "PUT", false, jobs, queryStringParameters);
         }
 
         private void PerformJobAction(int id, Data.Action action)
