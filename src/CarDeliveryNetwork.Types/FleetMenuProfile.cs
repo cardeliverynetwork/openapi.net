@@ -19,11 +19,6 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// A Profile for General Motors.
         /// </summary>
-        Gm,
-
-        /// <summary>
-        /// The vinDISPATCH profile showing a cutdown version of the Standard profile.
-        /// </summary>
-        VinDispatch
+        Gm
     }
 }
