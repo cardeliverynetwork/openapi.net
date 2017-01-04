@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using CarDeliveryNetwork.Api.Data.Fenkell;
+using CarDeliveryNetwork.Api.Data.Icl;
 using CarDeliveryNetwork.Api.Data.TmwV1;
 using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
@@ -301,8 +302,13 @@ namespace CarDeliveryNetwork.Api.Data
             WebHookEvent forEvent, 
             DateTime timeStamp, 
             int hookId, 
+            short sequenceNumber,
+            string senderId,
+            out string fileName,
             DateTime? deviceTime = null)
         {
+            fileName = string.Empty;
+           
             switch (schema)
             {
                 case WebHookSchema.Cdn:
@@ -315,6 +321,7 @@ namespace CarDeliveryNetwork.Api.Data
                     return new Stop(this).ToString(forEvent, timeStamp, hookId.ToString(), deviceTime);
                 case WebHookSchema.PodUrl:
                 {
+                    fileName = $"{(forEvent == WebHookEvent.PickupStop ? "C" : "D")}_{this.CustomerReference.Trim()}_{this.Vehicles.FirstOrDefault()?.Registration.Trim()}.pdf";
                     switch (forEvent)
                     {
                         case WebHookEvent.PickupStop:
@@ -325,6 +332,10 @@ namespace CarDeliveryNetwork.Api.Data
                             return null;
                     }
                 }
+                case WebHookSchema.IclR41:
+                    var r41 = new R41(this, sequenceNumber, senderId);
+                    fileName = r41.FileName;
+                    return r41.ToString();
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
             }
