@@ -114,6 +114,7 @@
       <Column Name="PickupTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="PickupUrl" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Column Name="PickupProofDocUrl" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Member="GateOutCode" Type="System.String" CanBeNull="false" />
       <Association Name="CdnReceivedLoad_CdnReceivedDocument" Member="CdnReceivedDocuments" ThisKey="Id" OtherKey="ReceivedLoadId" Type="CdnReceivedDocument" />
       <Association Name="CdnReceivedLoad_CdnReceivedVehicle" Member="CdnReceivedVehicles" ThisKey="Id" OtherKey="ReceivedLoadId" Type="CdnReceivedVehicle" />
       <Association Name="CdnReceivedFtpFile_CdnReceivedLoad" Member="CdnReceivedFtpFile" ThisKey="FtpFileId" OtherKey="Id" Type="CdnReceivedFtpFile" IsForeignKey="true" />

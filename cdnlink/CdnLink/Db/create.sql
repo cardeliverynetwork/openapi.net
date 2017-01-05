@@ -57,6 +57,7 @@
 	[PickupZipPostCode] [nvarchar] (10) NULL,
 	[PickupRequestedDate] [datetime] NULL,
 	[PickupRequestedDateIsExact] [bit] NULL,
+	[GateOutCode] [nvarchar] (25) NULL,
 	PRIMARY KEY CLUSTERED (LoadId)
 )
 

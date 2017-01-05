@@ -128,3 +128,12 @@ ADD
 	[DropoffEta] [datetime] NULL
 END
 GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'GateOutCode' and Object_ID = Object_ID(N'CdnReceivedLoads'))
+BEGIN
+   ALTER TABLE CdnReceivedLoads
+ADD 
+	[GateOutCode] [varchar](25) NULL
+END
+GO

@@ -128,6 +128,8 @@ namespace CdnLink
                 foreach (var document in job.Documents)
                     if(CdnReceivedDocuments.Where(d=> d.Url == document.Url).Count() == 0)
                         CdnReceivedDocuments.Add(new CdnReceivedDocument(document));
+
+            GateOutCode = job.Pickup.GateOutCode;
         }
 
         private string GetNotSignedReasonString(List<string> reasons)

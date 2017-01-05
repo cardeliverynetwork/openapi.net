@@ -59,6 +59,12 @@ namespace CdnLink
     partial void DeleteCdnSendVehicle(CdnSendVehicle instance);
     #endregion
 		
+		public CdnLinkDataContext() : 
+				base(global::CdnLink.Settings.Default.CdnLinkConnectionString1, mappingSource)
+		{
+			OnCreated();
+		}
+		
 		public CdnLinkDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -1072,6 +1078,8 @@ namespace CdnLink
 		
 		private string _PickupProofDocUrl;
 		
+		private string _GateOutCode;
+		
 		private EntitySet<CdnReceivedDocument> _CdnReceivedDocuments;
 		
 		private EntitySet<CdnReceivedVehicle> _CdnReceivedVehicles;
@@ -1232,6 +1240,8 @@ namespace CdnLink
     partial void OnPickupUrlChanged();
     partial void OnPickupProofDocUrlChanging(string value);
     partial void OnPickupProofDocUrlChanged();
+    partial void OnGateOutCodeChanging(string value);
+    partial void OnGateOutCodeChanged();
     #endregion
 		
 		public CdnReceivedLoad()
@@ -2742,6 +2752,26 @@ namespace CdnLink
 					this._PickupProofDocUrl = value;
 					this.SendPropertyChanged("PickupProofDocUrl");
 					this.OnPickupProofDocUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GateOutCode", CanBeNull=false)]
+		public string GateOutCode
+		{
+			get
+			{
+				return this._GateOutCode;
+			}
+			set
+			{
+				if ((this._GateOutCode != value))
+				{
+					this.OnGateOutCodeChanging(value);
+					this.SendPropertyChanging();
+					this._GateOutCode = value;
+					this.SendPropertyChanged("GateOutCode");
+					this.OnGateOutCodeChanged();
 				}
 			}
 		}
