@@ -12,23 +12,65 @@ namespace CarDeliveryNetwork.Api.Data.Icl
     public class R41
     {
         private string _loadId;
+        private string _senderId;
         private string _destinationCode;
         private DateTime _generatedTime;
         private DateTime _statusDateTime;
         private readonly short _serialNumber;
 
-        private string SenderId {get; }
-        private string ReceiverId { get { return "SC"; } }
-        private string TransmissionId { get { return "R41"; } }
-        private string TransmissionDate { get { return _generatedTime.ToString("MMddyy"); } }
-        private string TransmissionTime {  get { return _generatedTime.ToString("HHmm"); } }
-        private string TotalRecordCount {  get { return (Vehicles.Count+2).ToString("D6"); } }
-        private string SerialNumber { get { return _serialNumber.ToString("D4"); } }
-        private string LoadId { get { return _loadId.PadRight(15); } set { _loadId = value.Split('.').First(); } }
+        private string SenderId
+        {
+            get { return _senderId.PadRight(2); }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    value = string.Empty;
+                }
+                _senderId = value.Length > 2 ? value.Substring(0, 2) : value;
+            }
+        }
+
+        private string ReceiverId => "SC";
+        private string TransmissionId => "R41";
+        private string TransmissionDate => _generatedTime.ToString("MMddyy");
+        private string TransmissionTime => _generatedTime.ToString("HHmm");
+        private string TotalRecordCount => (Vehicles.Count + 2).ToString("D6");//Header + Vehicles + Footer
+        private string SerialNumber => _serialNumber.ToString("D4");
+
+        private string LoadId
+        {
+            get
+            {
+                return _loadId.PadRight(15);
+            }
+            set
+            {
+                var loadIdWithoutSubParts = string.IsNullOrWhiteSpace(value) ? string.Empty : value.Split('.').First();
+                _loadId = (loadIdWithoutSubParts.Length > 15
+                    ? loadIdWithoutSubParts.Substring(0, 15)
+                    : loadIdWithoutSubParts);
+            }
+        }
         private string StatusDate { get { return _statusDateTime.ToString("MMddyy"); } }
         private string StatusTime { get { return _statusDateTime.ToString("HHmm"); } }
         private string StatusCode { get { return "D09"; } }
-        private string DestinationCode { get { return _destinationCode.PadRight(9); } set { _destinationCode = value; } }
+
+        private string DestinationCode
+        {
+            get
+            {
+                return _destinationCode.PadRight(9);
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    value = string.Empty;
+                }
+                _destinationCode = value.Length > 9 ? value.Substring(0, 9) : value;
+            }
+        }
         private List<Vehicle> Vehicles { get; }
 
         /// <summary>
@@ -53,9 +95,9 @@ namespace CarDeliveryNetwork.Api.Data.Icl
             _generatedTime = DateTime.UtcNow;
             _statusDateTime = job.Dropoff.Signoff.Time ?? DateTime.UtcNow;
 
-            Vehicles = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered).ToList();
+            Vehicles = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered && !string.IsNullOrWhiteSpace(v.Vin)).ToList();
 
-            SenderId = senderId.Substring(0,2);
+            SenderId = senderId;
             _serialNumber = sequenceNumber;
         }
 
@@ -65,14 +107,20 @@ namespace CarDeliveryNetwork.Api.Data.Icl
         /// <returns></returns>
         public override string ToString()
         {
+            if (Vehicles.Count == 0 || string.IsNullOrWhiteSpace(SenderId) || string.IsNullOrWhiteSpace(LoadId) || string.IsNullOrWhiteSpace(DestinationCode))
+            {
+                return string.Empty;
+            }
+
+
             var stringBuilder = new StringBuilder();
 
             //Header
             stringBuilder.AppendLine($"{SenderId}{TransmissionId}{TransmissionDate}{TransmissionTime}{TotalRecordCount}{FileName}");
 
-            foreach (var vehicle in Vehicles)
+            foreach (var vehicleVin in Vehicles.Select(vehicle => vehicle.Vin.Length > 17 ? vehicle.Vin.Substring(0, 17) : vehicle.Vin))
             {
-                stringBuilder.AppendLine($"{LoadId}{vehicle.Vin}{StatusDate}{StatusTime}{StatusCode}{"",19}{DestinationCode}{"",43}");
+                stringBuilder.AppendLine($"{LoadId}{vehicleVin,-17}{StatusDate}{StatusTime}{StatusCode}{"",19}{DestinationCode}{"",43}");
             }
 
             //Footer

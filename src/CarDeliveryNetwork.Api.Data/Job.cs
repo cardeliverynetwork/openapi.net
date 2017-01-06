@@ -294,7 +294,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="forEvent">The WebHookEvent that this message represents.</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <param name="hookId">The id of the hook this that will send this data</param>
+        /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
         /// <param name="deviceTime">Time in UTC that the associated message was created on the device</param>
+        /// <param name="sequenceNumber">Sequential output id for ICL R41</param>
+        /// <param name="senderId">Sender identifier for ICL R41</param>
         /// <returns>The serialized object.</returns>
         public string ToString(
             MessageFormat format, 
