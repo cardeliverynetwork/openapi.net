@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using CarDeliveryNetwork.Api.Data.Fenkell;
+using CarDeliveryNetwork.Api.Data.Icl;
 using CarDeliveryNetwork.Api.Data.TmwV1;
 using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
@@ -293,7 +294,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="forEvent">The WebHookEvent that this message represents.</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <param name="hookId">The id of the hook this that will send this data</param>
+        /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
         /// <param name="deviceTime">Time in UTC that the associated message was created on the device</param>
+        /// <param name="sequenceNumber">Sequential output id for ICL R41</param>
+        /// <param name="senderId">Sender identifier for ICL R41</param>
         /// <returns>The serialized object.</returns>
         public string ToString(
             MessageFormat format, 
@@ -301,8 +305,13 @@ namespace CarDeliveryNetwork.Api.Data
             WebHookEvent forEvent, 
             DateTime timeStamp, 
             int hookId, 
+            short sequenceNumber,
+            string senderId,
+            out string fileName,
             DateTime? deviceTime = null)
         {
+            fileName = string.Empty;
+           
             switch (schema)
             {
                 case WebHookSchema.Cdn:
@@ -315,6 +324,7 @@ namespace CarDeliveryNetwork.Api.Data
                     return new Stop(this).ToString(forEvent, timeStamp, hookId.ToString(), deviceTime);
                 case WebHookSchema.PodUrl:
                 {
+                    fileName = $"{(forEvent == WebHookEvent.PickupStop ? "C" : "D")}_{this.CustomerReference.Trim()}_{this.Vehicles.FirstOrDefault()?.Registration.Trim()}.pdf";
                     switch (forEvent)
                     {
                         case WebHookEvent.PickupStop:
@@ -325,6 +335,10 @@ namespace CarDeliveryNetwork.Api.Data
                             return null;
                     }
                 }
+                case WebHookSchema.IclR41:
+                    var r41 = new R41(this, sequenceNumber, senderId);
+                    fileName = r41.FileName;
+                    return r41.ToString();
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
             }

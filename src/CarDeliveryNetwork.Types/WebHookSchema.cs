@@ -34,6 +34,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// PoD URL
         /// </summary>
-        PodUrl = 40
+        PodUrl = 40,
+
+        /// <summary>
+        ///  
+        /// </summary>
+        IclR41 = 50
     }
 }
