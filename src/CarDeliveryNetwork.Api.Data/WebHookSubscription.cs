@@ -43,6 +43,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// Paramaters to be added to the URL used to fetch the data for this hook
         /// </summary>
         public virtual string FetchParams { get; set; }
+
+        /// <summary>
+        /// Identifier of the sender
+        /// </summary>
+        public virtual string SenderId { get; set; }
     }
 
     /// <summary>
