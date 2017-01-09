@@ -31,12 +31,12 @@ namespace CarDeliveryNetwork.Api.Data.Icl
             }
         }
 
-        private string ReceiverId => "SC";
-        private string TransmissionId => "R41";
-        private string TransmissionDate => _generatedTime.ToString("MMddyy");
-        private string TransmissionTime => _generatedTime.ToString("HHmm");
-        private string TotalRecordCount => (Vehicles.Count + 2).ToString("D6");//Header + Vehicles + Footer
-        private string SerialNumber => _serialNumber.ToString("D4");
+        private string ReceiverId { get { return "SC"; } }
+        private string TransmissionId { get { return "R41"; } }
+        private string TransmissionDate { get { return _generatedTime.ToString("MMddyy"); } }
+        private string TransmissionTime { get { return _generatedTime.ToString("HHmm"); } }
+        private string TotalRecordCount { get { return (Vehicles.Count + 2).ToString("D6"); } }//Header + Vehicles + Footer
+        private string SerialNumber { get { return _serialNumber.ToString("D4"); } } 
 
         private string LoadId
         {
@@ -71,14 +71,14 @@ namespace CarDeliveryNetwork.Api.Data.Icl
                 _destinationCode = value.Length > 9 ? value.Substring(0, 9) : value;
             }
         }
-        private List<Vehicle> Vehicles { get; }
+        private List<Vehicle> Vehicles { get; set; }
 
         /// <summary>
         /// Name generated for output file
         /// </summary>
         public string FileName
         {
-            get { return $"{SenderId}{ReceiverId}{SerialNumber}.{TransmissionId}"; }
+            get { return string.Format("{0}{1}{2}.{3}", SenderId, ReceiverId, SerialNumber, TransmissionId); }
         }
 
 
@@ -116,11 +116,11 @@ namespace CarDeliveryNetwork.Api.Data.Icl
             var stringBuilder = new StringBuilder();
 
             //Header
-            stringBuilder.AppendLine($"{SenderId}{TransmissionId}{TransmissionDate}{TransmissionTime}{TotalRecordCount}{FileName}");
+            stringBuilder.AppendFormat("{0}{1}{2}{3}{4}{5}\n", SenderId, TransmissionId, TransmissionDate, TransmissionTime, TotalRecordCount, FileName);
 
             foreach (var vehicleVin in Vehicles.Select(vehicle => vehicle.Vin.Length > 17 ? vehicle.Vin.Substring(0, 17) : vehicle.Vin))
             {
-                stringBuilder.AppendLine($"{LoadId}{vehicleVin,-17}{StatusDate}{StatusTime}{StatusCode}{"",19}{DestinationCode}{"",43}");
+                stringBuilder.AppendFormat("{0}{1,-17}{2}{3}{4}                   {5}                                           \n", LoadId, vehicleVin, StatusDate, StatusTime, StatusCode,DestinationCode);
             }
 
             //Footer

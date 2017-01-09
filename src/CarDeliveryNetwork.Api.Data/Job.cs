@@ -324,7 +324,16 @@ namespace CarDeliveryNetwork.Api.Data
                     return new Stop(this).ToString(forEvent, timeStamp, hookId.ToString(), deviceTime);
                 case WebHookSchema.PodUrl:
                 {
-                    fileName = $"{(forEvent == WebHookEvent.PickupStop ? "C" : "D")}_{this.CustomerReference?.Trim()}_{this.Vehicles.FirstOrDefault()?.Registration?.Trim()}.pdf";
+                    var prefix = (forEvent == WebHookEvent.PickupStop ? "C" : "D");
+                    var customerReference = !string.IsNullOrWhiteSpace(this.CustomerReference)
+                        ? this.CustomerReference.Trim()
+                        : string.Empty;
+                    var firstVehicle = this.Vehicles.FirstOrDefault();
+                    var firstVehicleVin = firstVehicle != null && string.IsNullOrWhiteSpace(firstVehicle.Registration)
+                        ? firstVehicle.Registration.Trim()
+                        : string.Empty;
+
+                    fileName = string.Format("{0}_{1}_{2}.pdf", prefix, customerReference, firstVehicleVin);
                     switch (forEvent)
                     {
                         case WebHookEvent.PickupStop:
