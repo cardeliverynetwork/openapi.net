@@ -324,7 +324,7 @@ namespace CarDeliveryNetwork.Api.Data
                     return new Stop(this).ToString(forEvent, timeStamp, hookId.ToString(), deviceTime);
                 case WebHookSchema.PodUrl:
                 {
-                    fileName = $"{(forEvent == WebHookEvent.PickupStop ? "C" : "D")}_{this.CustomerReference.Trim()}_{this.Vehicles.FirstOrDefault()?.Registration.Trim()}.pdf";
+                    fileName = $"{(forEvent == WebHookEvent.PickupStop ? "C" : "D")}_{this.CustomerReference?.Trim()}_{this.Vehicles.FirstOrDefault()?.Registration?.Trim()}.pdf";
                     switch (forEvent)
                     {
                         case WebHookEvent.PickupStop:
