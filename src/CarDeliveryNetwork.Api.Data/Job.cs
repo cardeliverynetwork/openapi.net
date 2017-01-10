@@ -329,7 +329,7 @@ namespace CarDeliveryNetwork.Api.Data
                         ? this.CustomerReference.Trim()
                         : string.Empty;
                     var firstVehicle = this.Vehicles.FirstOrDefault();
-                    var firstVehicleVin = firstVehicle != null && string.IsNullOrWhiteSpace(firstVehicle.Registration)
+                    var firstVehicleVin = firstVehicle != null && !string.IsNullOrWhiteSpace(firstVehicle.Registration)
                         ? firstVehicle.Registration.Trim()
                         : string.Empty;
 
