@@ -90,10 +90,13 @@ namespace CarDeliveryNetwork.Api.Data.Icl
         /// <param name="senderId"></param>
         public R41(Job job, short sequenceNumber, string senderId)
         {
+            var cstZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+            //Hacking dates as ICL require Carrier time. Fudging with CST
+
             LoadId = job.LoadId;
             DestinationCode = job.Dropoff.Destination.QuickCode;
-            _generatedTime = DateTime.UtcNow;
-            _statusDateTime = job.Dropoff.Signoff.Time ?? DateTime.UtcNow;
+            _generatedTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
+            _statusDateTime = TimeZoneInfo.ConvertTimeFromUtc(job.Dropoff.Signoff.Time ?? DateTime.UtcNow, cstZone);
 
             Vehicles = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered && !string.IsNullOrWhiteSpace(v.Vin)).ToList();
 
