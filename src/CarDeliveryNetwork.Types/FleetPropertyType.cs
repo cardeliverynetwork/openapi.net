@@ -204,6 +204,11 @@
         /// <summary>
         /// ClaimOnDeviceComplete
         /// </summary>
-        ClaimOnDeviceComplete
+        ClaimOnDeviceComplete,
+
+        /// <summary>
+        /// 7 or 8 day basis used to compute cumulative duty hours for ELD
+        /// </summary>
+        FleetConnectMultiDayBasis
     }
 }
