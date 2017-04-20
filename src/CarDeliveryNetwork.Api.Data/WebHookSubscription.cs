@@ -48,6 +48,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// Identifier of the sender
         /// </summary>
         public virtual string SenderId { get; set; }
+
+        /// <summary>
+        /// Only applies to data where this is the shipper
+        /// </summary>
+        public virtual int? ApplicableShipperId { get; set; }
     }
 
     /// <summary>
