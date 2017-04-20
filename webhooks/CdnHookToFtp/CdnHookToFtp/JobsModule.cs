@@ -124,7 +124,7 @@ namespace CdnHookToFtp
             switch (ftpType)
             {
                 case FtpType.FtpS:
-                    UploadFileToFfpS(ftpHostUri, ftpUser, ftpPass, stream, ftpFileName);
+                    UploadFileToFtpS(ftpHostUri, ftpUser, ftpPass, stream, ftpFileName);
                     break;
                 case FtpType.Ftp:
                 default:
@@ -141,7 +141,7 @@ namespace CdnHookToFtp
         /// <param name="ftpPass">The ftp password</param>
         /// <param name="stream">Stream to write to the request</param>
         /// <param name="ftpFileName">File name of remote file</param>
-        private void UploadFileToFfpS(Uri ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName)
+        private void UploadFileToFtpS(Uri ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName)
         { 
             // The full path and filename whilst uploading in progress
             var uploadPath = string.Format("{0}/{1}.incomplete", ftpHost.AbsolutePath.TrimEnd('/'), ftpFileName);
