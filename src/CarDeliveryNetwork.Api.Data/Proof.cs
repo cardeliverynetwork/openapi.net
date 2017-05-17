@@ -8,6 +8,16 @@ namespace CarDeliveryNetwork.Api.Data
     public class Proof : IApiEntity
     {
         /// <summary>
+        /// Gets or sets the jobId.
+        /// </summary>
+        public virtual int JobId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Pin.
+        /// </summary>
+        public virtual string Pin { get; set; }
+
+        /// <summary>
         /// Gets or sets the job.
         /// </summary>
         /// <value>
