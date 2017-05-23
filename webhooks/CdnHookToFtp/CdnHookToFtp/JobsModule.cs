@@ -31,6 +31,9 @@ namespace CdnHookToFtp
             // Don't add an extension to the file
             // Example: http://build.cardeliverynetwork.com/jobs?ftphost=ftp://ftp.example.com/dir&ftpuser=theuser&ftppass=thepass&filename=CDN1234.pdf&addfileextension=false
 
+            // Don't use a .incomplete extension on writing
+            // Example: http://build.cardeliverynetwork.com/jobs?ftphost=ftp://ftp.example.com/dir&ftpuser=theuser&ftppass=thepass&filename=CDN1234.pdf&nameoncomplete=false
+
             // Use FTPS
             // Example: http://build.cardeliverynetwork.com/jobs?ftphost=ftp://ftp.example.com/dir&ftpuser=theuser&ftppass=thepass&ftptype=ftps
 
@@ -54,6 +57,9 @@ namespace CdnHookToFtp
                 // Use passed filename from URL or create a unique one
                 var fileName = Request.Query.filename.Value ?? Guid.NewGuid().ToString();
 
+                // If explicitly specified as true, or unspecified, use a .incomplete extension during writing
+                var nameOnComplete = Request.Query.nameoncomplete.Value == "true" || Request.Query.nameoncomplete.Value == null;
+
                 // Find out if the body is just a URL to get
                 var getbody = Request.Query.getbody.Value == "true";
                 if (getbody)
@@ -68,7 +74,7 @@ namespace CdnHookToFtp
                     using (var response = WebRequest.Create(fetchUrl).GetResponse())
                     using (var responseStream = response.GetResponseStream())
                     {
-                        UploadFile(ftpHost, ftpUser, ftpPass, responseStream, fileName, ftpType);
+                        UploadFile(ftpHost, ftpUser, ftpPass, responseStream, fileName, ftpType, nameOnComplete);
                     }
                 }
                 else
@@ -86,7 +92,7 @@ namespace CdnHookToFtp
                         ? fileName
                         : string.Format("{0}.{1}", fileName, fileExtension);
 
-                    UploadFile(ftpHost, ftpUser, ftpPass, Context.Request.Body, ftpFile, ftpType);
+                    UploadFile(ftpHost, ftpUser, ftpPass, Context.Request.Body, ftpFile, ftpType, nameOnComplete);
                 }
 
                 return Nancy.HttpStatusCode.OK;
@@ -116,7 +122,8 @@ namespace CdnHookToFtp
         /// <param name="stream">Stream to write to the request</param>
         /// <param name="ftpFileName">File name of remote file</param>
         /// <param name="ftpType">The Type of FTP to use</param>
-        private void UploadFile(string ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName, FtpType ftpType)
+        /// <param name="nameOnComplete">When true, uses a .incomplete extension during writing</param>
+        private void UploadFile(string ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName, FtpType ftpType, bool nameOnComplete)
         {
             // Create a Uri object to help parse up the host and path
             var ftpHostUri = new Uri(ftpHost.TrimEnd('/'));
@@ -124,11 +131,11 @@ namespace CdnHookToFtp
             switch (ftpType)
             {
                 case FtpType.FtpS:
-                    UploadFileToFtpS(ftpHostUri, ftpUser, ftpPass, stream, ftpFileName);
+                    UploadFileToFtpS(ftpHostUri, ftpUser, ftpPass, stream, ftpFileName, nameOnComplete);
                     break;
                 case FtpType.Ftp:
                 default:
-                    UploadFileToFtp(ftpHostUri, ftpUser, ftpPass, stream, ftpFileName);
+                    UploadFileToFtp(ftpHostUri, ftpUser, ftpPass, stream, ftpFileName, nameOnComplete);
                     break;
             }
         }
@@ -141,11 +148,15 @@ namespace CdnHookToFtp
         /// <param name="ftpPass">The ftp password</param>
         /// <param name="stream">Stream to write to the request</param>
         /// <param name="ftpFileName">File name of remote file</param>
-        private void UploadFileToFtpS(Uri ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName)
+        /// <param name="nameOnComplete">When true, uses a .incomplete extension during writing</param>
+        private void UploadFileToFtpS(Uri ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName, bool nameOnComplete)
         { 
+            var finalName = string.Format("{0}/{1}", ftpHost.AbsolutePath.TrimEnd('/'), ftpFileName);
+
             // The full path and filename whilst uploading in progress
-            var uploadPath = string.Format("{0}/{1}.incomplete", ftpHost.AbsolutePath.TrimEnd('/'), ftpFileName);
-            var renamePath = string.Format("{0}/{1}", ftpHost.AbsolutePath.TrimEnd('/'), ftpFileName);
+            var uploadPath = nameOnComplete 
+                ? string.Format("{0}/{1}.incomplete", ftpHost.AbsolutePath.TrimEnd('/'), ftpFileName)
+                : finalName;
 
             // create an FTP client
             var client = new FtpClient();
@@ -153,7 +164,12 @@ namespace CdnHookToFtp
             client.Credentials = new NetworkCredential(ftpUser, ftpPass);
             client.Connect();
             client.UploadFile(stream, uploadPath);
-            client.Rename(uploadPath, renamePath);
+
+            if (nameOnComplete)
+            {
+                client.Rename(uploadPath, finalName);
+            }
+
             client.Disconnect();
         }
 
@@ -165,10 +181,15 @@ namespace CdnHookToFtp
         /// <param name="ftpPass">The ftp password</param>
         /// <param name="stream">Stream to write to the request</param>
         /// <param name="ftpFileName">File name of remote file</param>
-        private void UploadFileToFtp(Uri ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName)
+        /// <param name="nameOnComplete">When true, uses a .incomplete extension during writing</param>
+        private void UploadFileToFtp(Uri ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName, bool nameOnComplete)
         {
+            var finalName = ftpFileName;
+
             // The full path and filename whilst uploading in progress
-            var ftpUploadingPath = string.Format("{0}/{1}.incomplete", ftpHost.AbsoluteUri.TrimEnd('/'), ftpFileName);
+            var ftpUploadingPath = nameOnComplete
+                ? string.Format("{0}/{1}.incomplete", ftpHost.AbsoluteUri.TrimEnd('/'), ftpFileName)
+                : string.Format("{0}/{1}", ftpHost.AbsoluteUri.TrimEnd('/'), ftpFileName);
 
             // Create the FTP upload request
             var uploadRequest = GetFtpRequest(ftpUploadingPath, ftpUser, ftpPass, WebRequestMethods.Ftp.UploadFile);
@@ -181,17 +202,20 @@ namespace CdnHookToFtp
                 requestStream.Close();
             }
 
-            // Create the FTP rename request
-            var renameRequest = GetFtpRequest(ftpUploadingPath, ftpUser, ftpPass, WebRequestMethods.Ftp.Rename);
-            renameRequest.RenameTo = string.Format("./{0}", ftpFileName);
-
             // Upload file
             using (var response = (FtpWebResponse)uploadRequest.GetResponse())
                 response.Close();
 
-            // Rename file
-            using (var response = (FtpWebResponse)renameRequest.GetResponse())
-                response.Close();
+            if (nameOnComplete)
+            {
+                // Create the FTP rename request
+                var renameRequest = GetFtpRequest(ftpUploadingPath, ftpUser, ftpPass, WebRequestMethods.Ftp.Rename);
+                renameRequest.RenameTo = string.Format("./{0}", finalName);
+
+                // Rename file
+                using (var response = (FtpWebResponse)renameRequest.GetResponse())
+                    response.Close();
+            }
         }
 
         /// <summary>
