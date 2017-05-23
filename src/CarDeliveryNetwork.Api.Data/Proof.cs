@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CarDeliveryNetwork.Types;
+﻿using CarDeliveryNetwork.Types;
 
 namespace CarDeliveryNetwork.Api.Data
 {
