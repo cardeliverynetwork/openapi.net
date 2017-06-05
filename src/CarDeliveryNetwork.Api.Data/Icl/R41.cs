@@ -121,9 +121,11 @@ namespace CarDeliveryNetwork.Api.Data.Icl
             //Header
             stringBuilder.AppendFormat("{0}{1}{2}{3}{4}{5}\n", SenderId, TransmissionId, TransmissionDate, TransmissionTime, TotalRecordCount, FileName);
 
-            foreach (var vehicleVin in Vehicles.Select(vehicle => vehicle.Vin.Length > 17 ? vehicle.Vin.Substring(0, 17) : vehicle.Vin))
+            foreach (var vehicle in Vehicles)
             {
-                stringBuilder.AppendFormat("{0}{1,-17}{2}{3}{4}                   {5}                                           \n", LoadId, vehicleVin, StatusDate, StatusTime, StatusCode,DestinationCode);
+                var vehicleVin = (vehicle.Vin.Length > 17) ? vehicle.Vin.Substring(0, 17) : vehicle.Vin;
+                var damageIndicator = (vehicle.DamageAtDropoff.Any() || vehicle.DamageAtPickup.Any()) ? 'Y' : 'N';
+                stringBuilder.AppendFormat("{0}{1,-17}{2}{3}{4}                   {5,-9}         {6}                                 \n", LoadId, vehicleVin, StatusDate, StatusTime, StatusCode,DestinationCode, damageIndicator);
             }
 
             //Footer
