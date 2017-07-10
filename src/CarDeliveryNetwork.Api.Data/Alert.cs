@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace CarDeliveryNetwork.Api.Data
@@ -17,6 +18,26 @@ namespace CarDeliveryNetwork.Api.Data
         /// A description of the alert
         /// </summary>
         public virtual string Description { get; set; }
+
+        /// <summary>
+        /// The associated JobId of the alert
+        /// </summary>
+         public virtual int AssociatedObjectId { get; set; }
+
+        /// <summary>
+        /// The associated FleetId of the alert
+        /// </summary>
+        public virtual int FleetId { get; set; }
+
+        /// <summary>
+        /// The associated FleetId of the alert
+        /// </summary>
+        public virtual DateTime Date { get; set; }
+
+        /// <summary>
+        /// The AlertType for VinDispatch
+        /// </summary>
+        public virtual int Type { get; set; }
     }
 
     /// <summary>
