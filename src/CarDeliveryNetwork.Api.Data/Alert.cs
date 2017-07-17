@@ -27,7 +27,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// An associated Fleet Id of the alert
         /// </summary>
-        public virtual int FleetId { get; set; }
+        public virtual int? FleetId { get; set; }
 
         /// <summary>
         /// A vindispatch alert Type 
