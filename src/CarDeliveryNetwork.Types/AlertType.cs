@@ -114,6 +114,12 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// You have not won a bid
         /// </summary>
-        LosingBid
+        LosingBid,
+
+        /// <summary>
+        /// Driver's out of GeoFence
+        /// </summary>
+        GeoFence
+
     }
 }
