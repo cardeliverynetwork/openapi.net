@@ -13,10 +13,11 @@ namespace CarDeliveryNetwork.Api.Data.Icl
     {
         private string _loadId;
         private string _senderId;
+        private string _receiverId;
         private string _destinationCode;
         private DateTime _generatedTime;
         private DateTime _statusDateTime;
-        private readonly short _serialNumber;
+        private readonly short _serialNumber;        
 
         private string SenderId
         {
@@ -31,7 +32,18 @@ namespace CarDeliveryNetwork.Api.Data.Icl
             }
         }
 
-        private string ReceiverId { get { return "SC"; } }
+        private string ReceiverId
+        {
+            get { return _receiverId.PadRight(2); }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    value = string.Empty;
+                }
+                _receiverId = value.Length > 2 ? value.Substring(0, 2) : value;
+            }
+        }
         private string TransmissionId { get { return "R41"; } }
         private string TransmissionDate { get { return _generatedTime.ToString("MMddyy"); } }
         private string TransmissionTime { get { return _generatedTime.ToString("HHmm"); } }
@@ -83,12 +95,13 @@ namespace CarDeliveryNetwork.Api.Data.Icl
 
 
         /// <summary>
-        /// Generate R41 from job, sequential serial number and sender identifier
+        /// Generate R41 from job, sequential serial number, sender identifier and receiver identifier
         /// </summary>
         /// <param name="job"></param>
         /// <param name="sequenceNumber"></param>
         /// <param name="senderId"></param>
-        public R41(Job job, short sequenceNumber, string senderId)
+        /// /// <param name="receiverId"></param>
+        public R41(Job job, short sequenceNumber, string senderId, string receiverId)
         {
             var cstZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
             //Hacking dates as ICL require Carrier time. Fudging with CST
@@ -101,6 +114,7 @@ namespace CarDeliveryNetwork.Api.Data.Icl
             Vehicles = job.Vehicles.Where(v => v.Status == VehicleStatus.Delivered && !string.IsNullOrWhiteSpace(v.Vin)).ToList();
 
             SenderId = senderId;
+            ReceiverId = receiverId;
             _serialNumber = sequenceNumber;
         }
 
@@ -121,9 +135,11 @@ namespace CarDeliveryNetwork.Api.Data.Icl
             //Header
             stringBuilder.AppendFormat("{0}{1}{2}{3}{4}{5}\n", SenderId, TransmissionId, TransmissionDate, TransmissionTime, TotalRecordCount, FileName);
 
-            foreach (var vehicleVin in Vehicles.Select(vehicle => vehicle.Vin.Length > 17 ? vehicle.Vin.Substring(0, 17) : vehicle.Vin))
+            foreach (var vehicle in Vehicles)
             {
-                stringBuilder.AppendFormat("{0}{1,-17}{2}{3}{4}                   {5}                                           \n", LoadId, vehicleVin, StatusDate, StatusTime, StatusCode,DestinationCode);
+                var vehicleVin = (vehicle.Vin.Length > 17) ? vehicle.Vin.Substring(0, 17) : vehicle.Vin;
+                var damageIndicator = (vehicle.DamageAtDropoff.Any() || vehicle.DamageAtPickup.Any()) ? 'Y' : 'N';
+                stringBuilder.AppendFormat("{0}{1,-17}{2}{3}{4}                   {5,-9}         {6}                                 \n", LoadId, vehicleVin, StatusDate, StatusTime, StatusCode,DestinationCode, damageIndicator);
             }
 
             //Footer
