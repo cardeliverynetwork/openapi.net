@@ -67,8 +67,11 @@ namespace CdnLink
                 var filename = reader.ReadLine();
                 while (!string.IsNullOrWhiteSpace(filename))
                 {
-                    if (filename != "." && filename != "..")
+                    if (filename != "." && filename != ".." && !filename.ToLower().EndsWith("incomplete"))
+                    {
                         fileList.Add(filename);
+                    }
+
                     filename = reader.ReadLine();
                 }
             }
