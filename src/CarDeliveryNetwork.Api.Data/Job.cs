@@ -85,7 +85,7 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual int Mileage { get; set; }
 
         /// <summary>
-        /// Optional - The estimated Travel Time in minutes of the job.
+        /// Optional - The estimated travel time of the job.
         /// </summary>
         public virtual int TravelTimeMinutes { get; set; }
 
