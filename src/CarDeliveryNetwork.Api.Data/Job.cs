@@ -85,6 +85,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual int Mileage { get; set; }
 
         /// <summary>
+        /// Optional - The estimated Travel Time in minutes of the job.
+        /// </summary>
+        public virtual int TravelTimeMinutes { get; set; }
+
+        /// <summary>
         /// Optional - The price that the customer will be charged, in the smallest denomination of the currency 
         /// (pennies, cents etc). If not specified will be set to 0.
         /// </summary>
