@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace CarDeliveryNetwork.Api.Data
@@ -19,14 +20,64 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Vin { get; set; }
 
         /// <summary>
-        /// BluetoothId, normally the MAC address of the truck's vehicle information device
+        /// BluetoothId, normally the MAC address of the truck's ELD
         /// </summary>
         public virtual string BluetoothId { get; set; }
 
         /// <summary>
-        /// Bluetooth name of the truck's vehicle information device
+        /// Bluetooth name of the truck's ELD
         /// </summary>
         public virtual string BluetoothName { get; set; }
+
+        /// <summary>
+        /// ELD device code
+        /// </summary>
+        public virtual string DeviceCode { get; set; }
+
+        /// <summary>
+        /// ELD Serial Number
+        /// </summary>
+        public virtual int? SerialNumber { get; set; }
+
+        /// <summary>
+        /// ELD DCF Name
+        /// </summary>
+        public virtual string DcfName { get; set; }
+
+        /// <summary>
+        /// ELD Hardware Version
+        /// </summary>
+        public virtual int? HardwareVersion { get; set; }
+
+        /// <summary>
+        /// ELD Software Version
+        /// </summary>
+        public virtual int? SoftwareVersion { get; set; }
+
+        /// <summary>
+        /// ELD DDF Version
+        /// </summary>
+        public virtual int? DdfVersion { get; set; }
+
+        /// <summary>
+        /// ELD GDS Version
+        /// </summary>
+        public virtual int? GdsVersion { get; set; }
+
+        /// <summary>
+        /// ELD Firmware version
+        /// </summary>
+        public virtual int? FirmwareVersion { get; set; }
+
+        /// <summary>
+        /// ELD Product Profile
+        /// </summary>
+        public virtual string ProductProfile { get; set; }
+
+        /// <summary>
+        /// Last time record was updated
+        /// </summary>
+        public virtual DateTime? UpdatedDate { get; set; }
     }
 
     /// <summary>
