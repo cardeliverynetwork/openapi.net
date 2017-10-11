@@ -26,12 +26,28 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         public string Uri { get; private set; }
 
         /// <summary>
-        /// Gets or sets the API key.
+        /// Gets or sets the API key of the calling user.
         /// </summary>
         /// <value>
         /// The API key.
         /// </value>
         public string ApiKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the username of the calling user.
+        /// </summary>
+        /// <value>
+        /// The Username.
+        /// </value>
+        public string Username { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password of the calling user.
+        /// </summary>
+        /// <value>
+        /// The Password.
+        /// </value>
+        public string Password { get; set; }
 
         /// <summary>
         /// Gets the App.
@@ -47,7 +63,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <param name="uri">The uri of the target service.</param>
         /// <param name="apiKey">Your API key.</param>
         /// <param name="app">The application constructing this OpenApi instance.</param>
-        public OpenApi(string uri, string apiKey = null, string app = null)
+        public OpenApi(string uri, string apiKey, string app)
         {
             if (string.IsNullOrWhiteSpace(uri))
                 throw new ArgumentException("uri string cannot be null or empty");
@@ -55,6 +71,25 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             _interfaceFormat = MessageFormat.Json;
             Uri = uri;
             ApiKey = apiKey;
+            App = app;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.ClientProxy.OpenApi"/> class.
+        /// </summary>
+        /// <param name="uri">The uri of the target service.</param>
+        /// <param name="username">Your username.</param>
+        /// <param name="password">Your password.</param>
+        /// <param name="app">The application constructing this OpenApi instance.</param>
+        public OpenApi(string uri, string username, string password, string app)
+        {
+            if (string.IsNullOrWhiteSpace(uri))
+                throw new ArgumentException("uri string cannot be null or empty");
+
+            _interfaceFormat = MessageFormat.Json;
+            Uri = uri;
+            Username = username;
+            Password = password;
             App = app;
         }
 
@@ -148,7 +183,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         {
             if (jobs == null || jobs.Count == 0)
                 throw new ArgumentException("Jobs collection was null or empty");
-            return Jobs.FromString(CallWithRetry("Jobs", "POST", false, jobs), _interfaceFormat);
+            return Jobs.FromString(CallWithRetry("jobs", "POST", false, jobs), _interfaceFormat);
         }
 
         /// <summary>
@@ -463,12 +498,20 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             if (!string.IsNullOrWhiteSpace(App))
                 callParams += string.Concat("&app=", App);
 
-            var requestUri = string.Format("{0}/{1}?apikey={2}&isloadid={3}{4}", Uri, resource, ApiKey, isUsingLoadIds, callParams);
+            var requestUri =string.Format("{0}/{1}?apikey={2}&isloadid={3}{4}", Uri, resource, ApiKey, isUsingLoadIds, callParams);
             var req = WebRequest.Create(requestUri) as HttpWebRequest;
             req.KeepAlive = false;
             req.ContentType = "application/" + _interfaceFormat.ToString().ToLower();
             req.Method = method.ToUpper();
 
+            // If this is an API 2 call, add the basic auth headers
+            var isApi2 = !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
+            if (isApi2)
+            {
+                var encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(Username + ":" + Password));
+                req.Headers.Add("Authorization", "Basic " + encoded);
+            }
+            
             if (method == "POST" || method == "PUT")
             {
                 var json = data != null
@@ -493,9 +536,29 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             catch (WebException ex)
             {
                 var response = ex.Response as HttpWebResponse;
-                if (response != null)
+                if (response == null)
+                {
+                    throw;
+                }
+
+                if (!isApi2)
+                {
                     throw new HttpResourceFaultException(response.StatusCode, response.StatusDescription, ex);
-                throw;
+                }
+             
+                using (var respStream = new StreamReader(response.GetResponseStream()))
+                {
+                    var responseBody = respStream.ReadToEnd();
+
+                    if (string.IsNullOrWhiteSpace(responseBody))
+                        throw;
+                           
+                    var error = ApiError.FromString(responseBody);
+                    if (error == null || error.ResponseStatus == null)
+                        throw;
+
+                    throw new HttpResourceFaultException(response.StatusCode, error.ResponseStatus.Message, ex);
+                }
             }
         }
     }

@@ -8,22 +8,34 @@ namespace console
 {
     class Program
     {
-        // Car Delivery Network API url
-        const string ServiceUrl = "http://localhost/cdn/openapi";
+        const bool useApi2 = true;
 
-        // const string ServiceUrl = "https://go.cardeliverynetwork.com/trainingus/openapi";   // CDN US Training
-        // const string ServiceUrl = "https://go.cardeliverynetwork.com/traininguk/openapi";   // CDN UK Training
+        // API 2 URLs
+        const string ServiceUrl = "http://localhost/cdn/openapi";                                                   // Local Dev
+        //const string ServiceUrl = "https://build1.cardeliverynetwork.com/vindeliver2uatuk/api/vind2/openapi";   // vinDELIVER2 UK UAT
+        //const string ServiceUrl = "https://vindeliver.cardeliverynetwork.com/uk/api/vind2/openapi";             // vinDELIVER UK Training
+        //const string ServiceUrl = "https://vindeliver.cardeliverynetwork.com/us/api/vind2/openapi";             // vinDELIVER US Training
 
-        // API user's key
-         const string ServiceApiKey = "fb04420a-49d0-4585-af57-1d390bfa12e7"; // local dev key - do not use
+        // Legacy API URLs
+        // const string ServiceUrl = "http://localhost/cdn/openapi";                                            // Local Dev
+        // const string ServiceUrl = "https://go.cardeliverynetwork.com/trainingus/openapi";                    // vinDELIVER US Training
+        // const string ServiceUrl = "https://go.cardeliverynetwork.com/traininguk/openapi";                    // vinDELIVER UK Training
+
+        // API 2 user's credentials
+        const string ServiceUsername = "local";
+        const string ServicePassword = "dev";
+
+        // Legacy API user's key
+        const string ServiceApiKey = "fb04420a-49d0-4585-af57-1d390bfa12e7"; // local dev key - do not use
 
         static void Main(string[] args)
         {
             try
             {
                 // Construct an instance of the API
-                var api = new OpenApi(ServiceUrl, ServiceApiKey);
-
+                var api = useApi2
+                    ? new OpenApi(ServiceUrl, ServiceUsername, ServicePassword, "The Calling App")
+                    : new OpenApi(ServiceUrl, ServiceApiKey, "The Calling App");
 
                 //////////////////
                 // Create a job //
@@ -34,7 +46,6 @@ namespace console
 
                 // Create the new job.
                 var newjob = api.CreateJob(GetTestJob(loadId));
-
 
                 ///////////////////////
                 // Add more vehicles //
