@@ -11,19 +11,19 @@ namespace console
         const bool useApi2 = true;
 
         // API 2 URLs
-        const string ServiceUrl = "http://localhost/cdn/openapi";                                                   // Local Dev
-        //const string ServiceUrl = "https://build1.cardeliverynetwork.com/vindeliver2uatuk/api/vind2/openapi";   // vinDELIVER2 UK UAT
-        //const string ServiceUrl = "https://vindeliver.cardeliverynetwork.com/uk/api/vind2/openapi";             // vinDELIVER UK Training
-        //const string ServiceUrl = "https://vindeliver.cardeliverynetwork.com/us/api/vind2/openapi";             // vinDELIVER US Training
+        const string ServiceUrl = "http://localhost/vindeliver/api/vind2/openapi";                                    // Local Dev
+        // const string ServiceUrl = "https://build1.cardeliverynetwork.com/vindeliver2uatuk/api/vind2/openapi";   // UK UAT
+        // const string ServiceUrl = "https://vindeliver.cardeliverynetwork.com/uk/api/vind2/openapi";             // UK Training
+        // const string ServiceUrl = "https://vindeliver.cardeliverynetwork.com/us/api/vind2/openapi";             // US Training
 
         // Legacy API URLs
         // const string ServiceUrl = "http://localhost/cdn/openapi";                                            // Local Dev
-        // const string ServiceUrl = "https://go.cardeliverynetwork.com/trainingus/openapi";                    // vinDELIVER US Training
-        // const string ServiceUrl = "https://go.cardeliverynetwork.com/traininguk/openapi";                    // vinDELIVER UK Training
+        // const string ServiceUrl = "https://go.cardeliverynetwork.com/trainingus/openapi";                    // US Training
+        // const string ServiceUrl = "https://go.cardeliverynetwork.com/traininguk/openapi";                    // UK Training
 
         // API 2 user's credentials
-        const string ServiceUsername = "local";
-        const string ServicePassword = "dev";
+        const string ServiceUsername = "cwallis";
+        const string ServicePassword = "test";
 
         // Legacy API user's key
         const string ServiceApiKey = "fb04420a-49d0-4585-af57-1d390bfa12e7"; // local dev key - do not use
@@ -42,7 +42,7 @@ namespace console
                 //////////////////
 
                 // The load Id, can only be used once
-                var loadId = "TestLoad2";
+                var loadId = string.Format("Load-{0}", DateTime.UtcNow.Ticks);
 
                 // Create the new job.
                 var newjob = api.CreateJob(GetTestJob(loadId));
@@ -52,10 +52,10 @@ namespace console
                 ///////////////////////
                 
                 // Identifying the job by its Id, create some extra vehicles
-                api.CreateJobVehicles(newjob.Id, new Vehicles { new Vehicle { Vin = "aaaa" } });
+                //api.CreateJobVehicles(newjob.Id, new Vehicles { new Vehicle { Vin = "aaaa" } });
               
                 // Identifying the job by its LoadId, create some extra vehicles
-                api.CreateJobVehicles(loadId, new Vehicles { new Vehicle { Vin = "bbbb" } });
+                //api.CreateJobVehicles(loadId, new Vehicles { new Vehicle { Vin = "bbbb" } });
 
 
                 //////////////////////////////////
