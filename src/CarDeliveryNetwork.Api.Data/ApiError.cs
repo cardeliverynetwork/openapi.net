@@ -19,10 +19,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// Reads the JSON document and returns the deserialized object.
         /// </summary>
         /// <param name="serializedObject">The JSON serialized object.</param>
+        /// <param name="format">Format to deserialize from.</param>
         /// <returns>The deserialized object.</returns>
-        public static ApiError FromString(string serializedObject)
+        public static ApiError FromString(string serializedObject, MessageFormat format = MessageFormat.Json)
         {
-            return Serialization.Deserialise<ApiError>(serializedObject, MessageFormat.Json);
+            return Serialization.Deserialise<ApiError>(serializedObject, format);
         }
     }
 
