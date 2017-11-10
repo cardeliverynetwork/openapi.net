@@ -548,7 +548,9 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             
             if (method == "POST" || method == "PUT")
             {
-                var json = data?.ToString(_interfaceFormat);
+                var json = data == null
+                    ? null
+                    : data.ToString(_interfaceFormat);
 
                 var buffer = !string.IsNullOrEmpty(json)
                     ? Encoding.UTF8.GetBytes(json)
