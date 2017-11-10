@@ -30,6 +30,15 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string LoadId { get; set; }
 
         /// <summary>
+        /// Optional (API2) - A suffix to apply to the generated job number
+        /// </summary>
+        /// <remarks>
+        /// JobNumberSuffix is an optional.  Appended to the end of the generated job number on 
+        /// job ceation.
+        /// </remarks>
+        public virtual string JobNumberSuffix { get; set; }
+
+        /// <summary>
         /// Readonly (25) - The job's associated Request Reference Id from vinDISPATCH, if applicable
         /// </summary>
         /// <remarks>
