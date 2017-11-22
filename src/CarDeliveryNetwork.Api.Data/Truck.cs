@@ -78,6 +78,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// Last time record was updated
         /// </summary>
         public virtual DateTime? UpdatedDate { get; set; }
+
+        /// <summary>
+        /// Last fleet connect client used with the truck
+        /// </summary>
+        public virtual int? LastClientId { get; set; }
     }
 
     /// <summary>

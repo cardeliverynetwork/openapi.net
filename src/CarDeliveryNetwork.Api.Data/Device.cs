@@ -39,6 +39,21 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         public virtual User CurrentUser { get; set; }
 
+        /// <summary>
+        /// The device model
+        /// </summary>
+        public virtual string HardwareVersion { get; set; }
+
+        /// <summary>
+        /// Operating System Version
+        /// </summary>
+        public virtual string OSVersion { get; set; }
+
+        /// <summary>
+        /// The version of fleet connect in use
+        /// </summary>
+        public virtual string FleetConnectVersion { get; set; }
+
 
          /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Device"/> class.
