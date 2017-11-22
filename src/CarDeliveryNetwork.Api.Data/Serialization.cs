@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using CarDeliveryNetwork.Types;
+using Newtonsoft.Json;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -19,17 +20,37 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>The serialised message</returns>
         public static string Serialize(object o, MessageFormat format)
         {
-            var serializer = format == MessageFormat.Json
-                ? new DataContractJsonSerializer(o.GetType()) as XmlObjectSerializer
-                : new DataContractSerializer(o.GetType()) as XmlObjectSerializer;
-
-            using (var stream = new MemoryStream())
-            using (var reader = new StreamReader(stream))
+            if (format == MessageFormat.Json)
             {
-                serializer.WriteObject(stream, o);
-                stream.Position = 0;
-                return reader.ReadToEnd();
+                return JsonConvert.SerializeObject(o,
+                    new JsonSerializerSettings() {DateFormatHandling = DateFormatHandling.MicrosoftDateFormat});
             }
+            else
+            {
+                var serializer = new DataContractSerializer(o.GetType()) as XmlObjectSerializer;
+
+                using (var stream = new MemoryStream())
+                using (var reader = new StreamReader(stream))
+                {
+                    serializer.WriteObject(stream, o);
+                    stream.Position = 0;
+                    return reader.ReadToEnd();
+                }
+            }
+
+
+            //    var serializer = format == MessageFormat.Json
+            //    ? new DataContractJsonSerializer(o.GetType()) as XmlObjectSerializer
+            //    : new DataContractSerializer(o.GetType()) as XmlObjectSerializer;
+
+            //using (var stream = new MemoryStream())
+            //using (var reader = new StreamReader(stream))
+            //{
+            //    serializer.WriteObject(stream, o);
+            //    stream.Position = 0;
+            //    return reader.ReadToEnd();
+            //}
+        
         }
 
         /// <summary>
@@ -41,12 +62,17 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>An instance of type T</returns>
         public static T Deserialise<T>(string serialisedObject, MessageFormat format)
         {
-            var serializer = format == MessageFormat.Json
-                ? new DataContractJsonSerializer(typeof(T)) as XmlObjectSerializer
-                : new DataContractSerializer(typeof(T)) as XmlObjectSerializer;
-
-            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(serialisedObject)))
-                return (T)serializer.ReadObject(stream);
+            if (format == MessageFormat.Json)
+            {
+                return JsonConvert.DeserializeObject<T>(serialisedObject,
+                    new JsonSerializerSettings() {DateFormatHandling = DateFormatHandling.MicrosoftDateFormat});
+            }
+            else
+            {
+                var serializer = new DataContractSerializer(typeof(T)) as XmlObjectSerializer;
+                using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(serialisedObject)))
+                    return (T)serializer.ReadObject(stream);
+            }
         }
     }
 }

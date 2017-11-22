@@ -23,7 +23,7 @@ namespace console
 
         // API 2 user's credentials
         const string ServiceUsername = "cwallis";
-        const string ServicePassword = "test";
+        const string ServicePassword = "test123ddd";
 
         // Legacy API user's key
         const string ServiceApiKey = "fb04420a-49d0-4585-af57-1d390bfa12e7"; // local dev key - do not use

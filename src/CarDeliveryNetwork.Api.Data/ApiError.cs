@@ -12,7 +12,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// 
         /// </summary>
-        [DataMember(Name = "responseStatus")]
+        //[DataMember(Name = "responseStatus")]
         public ResponseStatus ResponseStatus { get; set; }
 
         /// <summary>
@@ -36,19 +36,19 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// 
         /// </summary>
-        [DataMember(Name = "errorCode")]
+       // [DataMember(Name = "errorCode")]
         public string ErrorCode { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [DataMember(Name = "message")]
+       // [DataMember(Name = "message")]
         public string Message { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [DataMember(Name = "stackTrace")]
+        //[DataMember(Name = "stackTrace")]
         public string StackTrace { get; set; }
     }
 }
