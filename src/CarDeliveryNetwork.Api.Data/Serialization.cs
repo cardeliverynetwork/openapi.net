@@ -37,20 +37,6 @@ namespace CarDeliveryNetwork.Api.Data
                     return reader.ReadToEnd();
                 }
             }
-
-
-            //    var serializer = format == MessageFormat.Json
-            //    ? new DataContractJsonSerializer(o.GetType()) as XmlObjectSerializer
-            //    : new DataContractSerializer(o.GetType()) as XmlObjectSerializer;
-
-            //using (var stream = new MemoryStream())
-            //using (var reader = new StreamReader(stream))
-            //{
-            //    serializer.WriteObject(stream, o);
-            //    stream.Position = 0;
-            //    return reader.ReadToEnd();
-            //}
-        
         }
 
         /// <summary>

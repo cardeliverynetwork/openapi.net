@@ -8,34 +8,30 @@ namespace console
 {
     class Program
     {
-        const bool useApi2 = true;
-
         // API 2 URLs
-        const string ServiceUrl = "http://localhost/vindeliver/api/vind2/openapi";                                    // Local Dev
+        // const string ServiceUrl = "http://localhost/vindeliver/api/vind2/openapi";                                    // Local Dev
         // const string ServiceUrl = "https://build1.cardeliverynetwork.com/vindeliver2uatuk/api/vind2/openapi";   // UK UAT
         // const string ServiceUrl = "https://vindeliver.cardeliverynetwork.com/uk/api/vind2/openapi";             // UK Training
         // const string ServiceUrl = "https://vindeliver.cardeliverynetwork.com/us/api/vind2/openapi";             // US Training
 
         // Legacy API URLs
-        // const string ServiceUrl = "http://localhost/cdn/openapi";                                            // Local Dev
+         const string ServiceUrl = "http://localhost/cdn/openapi";                                            // Local Dev
         // const string ServiceUrl = "https://go.cardeliverynetwork.com/trainingus/openapi";                    // US Training
         // const string ServiceUrl = "https://go.cardeliverynetwork.com/traininguk/openapi";                    // UK Training
 
         // API 2 user's credentials
         const string ServiceUsername = "cwallis";
-        const string ServicePassword = "test123ddd";
+        const string ServicePassword = "tesfgfft";
 
         // Legacy API user's key
-        const string ServiceApiKey = "fb04420a-49d0-4585-af57-1d390bfa12e7"; // local dev key - do not use
+        const string ServiceApiKey = "F6743D98-A126-4F34-A1FC-2C37FB5A85AD"; // local dev key - do not use
 
         static void Main(string[] args)
         {
             try
             {
                 // Construct an instance of the API
-                var api = useApi2
-                    ? new OpenApi(ServiceUrl, ServiceUsername, ServicePassword, "The Calling App")
-                    : new OpenApi(ServiceUrl, ServiceApiKey, "The Calling App");
+                var api = new OpenApi(ServiceUrl, ServiceApiKey, "The Calling App");
 
                 //////////////////
                 // Create a job //
