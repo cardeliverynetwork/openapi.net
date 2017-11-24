@@ -41,6 +41,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>An instance of type T</returns>
         public static T Deserialise<T>(string serialisedObject, MessageFormat format)
         {
+            // Horrible hack in lieu of a serialiser that can do Camel and Pascal
+            serialisedObject = serialisedObject.Replace("id", "Id")
+                                               .Replace("jobNumber", "JobNumber");
+
             var serializer = format == MessageFormat.Json
                 ? new DataContractJsonSerializer(typeof(T)) as XmlObjectSerializer
                 : new DataContractSerializer(typeof(T)) as XmlObjectSerializer;
