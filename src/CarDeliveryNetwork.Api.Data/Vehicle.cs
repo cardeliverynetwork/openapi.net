@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using CarDeliveryNetwork.Types;
+using System;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -69,6 +70,26 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Signature { get; set; }
 
         /// <summary>
+        /// Readonly - Name of person damage claim signing off this vehicle
+        /// </summary>
+        public virtual string DamageClaimSignedBy { get; set; }
+
+        /// <summary>
+        /// Readonly - DamageClaimSignoffComment
+        /// </summary>
+        public virtual string DamageClaimSignoffComment { get; set; }
+
+        /// <summary>
+        /// Readonly - Signature of person damage claim signing off this vehicle
+        /// </summary>
+        public virtual Document DamageClaimSignature { get; set; }
+
+        /// <summary>
+        /// Readonly - Date Time of damage claim this vehicle
+        /// </summary>
+        public virtual DateTime? DamageClaimDate { get; set; }
+
+        /// <summary>
         /// Readonly - The current status of the Vehicle
         /// </summary>
         public virtual VehicleStatus Status { get; set; }
@@ -87,6 +108,16 @@ namespace CarDeliveryNetwork.Api.Data
         /// Readonly - A collection of EXTRA damage items recorded at dropoff
         /// </summary>
         public virtual List<DamageItem> DamageAtDropoff { get; set; }
+
+        /// <summary>
+        /// Readonly - A collection of EXTRA damage items recorded at delivery
+        /// </summary>
+        public virtual List<DamageItem> DamageClaims { get; set; }
+
+        /// <summary>
+        /// Readonly - A collection of EXTRA damage claim items recorded at delivery
+        /// </summary>
+        public virtual List<Document> DamageClaimDocuments { get; set; }
 
         /// <summary>
         /// Readonly - A collection of photos assocated with this vehicle
