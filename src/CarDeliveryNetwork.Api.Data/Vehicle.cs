@@ -112,12 +112,12 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// Readonly - A collection of EXTRA damage items recorded at delivery
         /// </summary>
-        public virtual List<DamageItem> DamageClaims { get; set; }
+        public virtual List<DamageClaim> DamageClaims { get; set; }
 
-        /// <summary>
-        /// Readonly - A collection of EXTRA damage claim items recorded at delivery
-        /// </summary>
-        public virtual List<Document> DamageClaimDocuments { get; set; }
+        ///// <summary>
+        ///// Readonly - A collection of EXTRA damage claim items recorded at delivery
+        ///// </summary>
+        //public virtual List<Document> DamageClaimDocuments { get; set; }
 
         /// <summary>
         /// Readonly - A collection of photos assocated with this vehicle
@@ -128,7 +128,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// Readonly - A collection of duty of care fields assocated with this vehicle
         /// </summary>
         public virtual Dictionary<string, string> DutyOfCare { get; set; }
-        
+
         /// <summary>
         /// Readonly - A collection of paperwork fields assocated with this vehicle
         /// </summary>
@@ -139,7 +139,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         public bool IsPickedUp
         {
-            get { return Status == VehicleStatus.Delivered || Status == VehicleStatus.PickedUp; }   
+            get { return Status == VehicleStatus.Delivered || Status == VehicleStatus.PickedUp; }
         }
 
         /// <summary>
