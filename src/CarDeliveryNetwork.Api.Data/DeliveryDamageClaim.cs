@@ -79,10 +79,10 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Description { get; set; }
 
         /// <summary>
-
         /// Damage Claim Documents
-        /// </summary>
-        public virtual List<Document> Documents  { get; set; }
+        /// </summary>     
+        public virtual List<Document> Documents { get; set; }
+
     }
 
     /// <summary>
