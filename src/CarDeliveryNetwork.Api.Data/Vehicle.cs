@@ -110,9 +110,14 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<DamageItem> DamageAtDropoff { get; set; }
 
         /// <summary>
-        /// Readonly - A collection of EXTRA damage items recorded at delivery
+        /// Readonly - A collection of EXTRA damage claim items recorded at delivery
         /// </summary>
         public virtual List<DamageClaim> DamageClaims { get; set; }
+
+        /// <summary>
+        /// Readonly - A collection of VEXTRA damage claims items recorded at delivery
+        /// </summary>
+        public virtual List<DamageClaim> DamageClaimExtras { get; set; }
 
         ///// <summary>
         ///// Readonly - A collection of EXTRA damage claim items recorded at delivery
