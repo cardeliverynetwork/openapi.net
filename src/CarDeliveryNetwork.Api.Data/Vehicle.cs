@@ -15,11 +15,6 @@ namespace CarDeliveryNetwork.Api.Data
     public class Vehicle : ApiEntityBase<Vehicle>
     {
         /// <summary>
-        /// Optional (50) - An order number for this vehicle
-        /// </summary>
-        public virtual string OrderNumber { get; set; }
-
-        /// <summary>
         /// Optional (10) - The vehicle registration number or year manufactured.
         /// </summary>
         public virtual string Registration { get; set; }
