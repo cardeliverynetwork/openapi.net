@@ -50,10 +50,14 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string OSVersion { get; set; }
 
         /// <summary>
-        /// The version of fleet connect in use
+        /// The app this device is associated with
         /// </summary>
-        public virtual string FleetConnectVersion { get; set; }
+        public virtual string AppName { get; set; }
 
+        /// <summary>
+        /// The version of the app this device is associated with
+        /// </summary>
+        public virtual string AppVersion { get; set; }
 
          /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Device"/> class.
