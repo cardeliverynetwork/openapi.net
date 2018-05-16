@@ -44,7 +44,8 @@ namespace CarDeliveryNetwork.Api.Data
             // Horrible hack in lieu of a serialiser that can do Camel and Pascal
             serialisedObject = serialisedObject.Replace("\"id\":", "\"Id\":")
                                                .Replace("\"jobNumber\":", "\"JobNumber\":")
-                                               .Replace("\"allocatedCarrierId\":", "\"AllocatedCarrierId\":");
+                                               .Replace("\"allocatedCarrierId\":", "\"AllocatedCarrierId\":")
+                                               .Replace("\"isVinDispatchJob\":", "\"IsVinDispatchJob\":");
 
             var serializer = format == MessageFormat.Json
                 ? new DataContractJsonSerializer(typeof(T)) as XmlObjectSerializer

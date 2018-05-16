@@ -214,7 +214,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// </summary>
         /// <param name="jobs">The collection of jobs to create.</param>
         /// <returns>A collection of the successfully created jobs.</returns>
-        public Jobs CreateJobs(Jobs jobs)
+        public virtual Jobs CreateJobs(Jobs jobs)
         {
             if (jobs == null || jobs.Count == 0)
                 throw new ArgumentException("Jobs collection was null or empty");
@@ -309,7 +309,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// </summary>
         /// <param name="id">Id of job to cancel</param>
         /// <param name="reason">Reason for job cancellation</param>
-        public void CancelJob(int id, string reason)
+        public virtual void CancelJob(int id, string reason)
         {
             if (id == 0)
                 throw new Exception("Id must be greater than zero");
@@ -431,7 +431,7 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <param name="id">Resource Id</param>
         /// <param name="jobs">The list of jobs to allocate to this fleet resource</param>
         /// <param name="queryStringParameters">Additonal parameters: scheduled dates and buy price</param>
-        public void AllocateJobsToFleet(int id, Jobs jobs, string queryStringParameters = null)
+        public virtual void AllocateJobsToFleet(int id, Jobs jobs, string queryStringParameters = null)
         {
             var resource = string.Format("Fleets/{0}/Jobs", id);
             Call(resource, "PUT", false, jobs, queryStringParameters);

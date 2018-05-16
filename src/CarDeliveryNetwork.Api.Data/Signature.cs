@@ -29,6 +29,11 @@ namespace CarDeliveryNetwork.Api.Data
         public DateTime? Time { get; set; }
 
         /// <summary>
+        /// Readonly - The sign time, or time the signature was declared as not available
+        /// </summary>
+        public string DisplayTime { get; set; }
+
+        /// <summary>
         /// Readonly - Obsolete - Returns the first in the list of NotSignedReasons
         /// </summary>
         [Obsolete("Please use the NotSignedReasons collection")]
