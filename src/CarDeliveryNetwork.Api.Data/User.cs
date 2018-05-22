@@ -107,6 +107,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Tag { get; set; }
 
         /// <summary>
+        /// ReadOnly - The date in unix time that this use accepted the CDN Privacy Policy
+        /// </summary>
+        public virtual double? PrivacyPolicyAccepted { get; set; }
+
+        /// <summary>
         /// The user's full name
         /// </summary>
         public string FullName

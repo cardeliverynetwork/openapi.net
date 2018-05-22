@@ -94,6 +94,12 @@ namespace CarDeliveryNetwork.Types.Interfaces
         string Tag { get; set; }
 
         /// <summary>
+        /// LastLogin
+        /// </summary>
+        DateTime? PrivacyPolicyAccepted { get; }
+
+
+        /// <summary>
         /// Signature Url
         /// </summary>
         string Signature { get; set; }
