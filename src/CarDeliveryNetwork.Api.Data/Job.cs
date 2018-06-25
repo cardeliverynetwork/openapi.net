@@ -119,7 +119,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// Mandatory - The customer details for this job.
         /// </summary>
-        public virtual ContactDetails Customer { get; set; }
+        public virtual Customer Customer { get; set; }
 
         /// <summary>
         /// Mandatory - The pick-up details for this job.
@@ -292,7 +292,7 @@ namespace CarDeliveryNetwork.Api.Data
         protected virtual void InitObjects()
         {
             CreatedDate = DateTime.UtcNow;
-            Customer = new ContactDetails();
+            Customer = new Customer();
             Pickup = new EndPoint();
             Dropoff = new EndPoint();
             Vehicles = new List<Vehicle>();
