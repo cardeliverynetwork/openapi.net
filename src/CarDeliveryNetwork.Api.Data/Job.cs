@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using CarDeliveryNetwork.Api.Data.Fenkell;
+using CarDeliveryNetwork.Api.Data.Ford;
 using CarDeliveryNetwork.Api.Data.Icl;
 using CarDeliveryNetwork.Api.Data.TmwV1;
 using CarDeliveryNetwork.Types;
@@ -364,6 +365,8 @@ namespace CarDeliveryNetwork.Api.Data
                     var r41 = new R41(this, sequenceNumber, senderId, receiverId);
                     fileName = r41.FileName;
                     return r41.ToString();
+                case WebHookSchema.Ford:
+                    return new Departed(this).ToString(forEvent, timeStamp, hookId.ToString(), deviceTime);
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
             }

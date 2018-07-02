@@ -1,0 +1,177 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using CarDeliveryNetwork.Types;
+
+namespace CarDeliveryNetwork.Api.Data.Ford
+{
+    /// <summary>
+    /// Class representing a TMW v1 Stop
+    /// </summary>
+    public class Departed
+    {
+        private readonly Job _job;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Departed"/> class.
+        /// </summary>
+        public Departed() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Departed"/> class.
+        /// </summary>
+        /// <param name="job">The API job from which to contruct this Stop</param>
+        public Departed(Job job)
+        {
+            _job = job;
+        }
+
+        /// <summary>
+        /// Returns a serial representation of the object.
+        /// </summary>
+        /// <param name="forEvent">The event for which to serialise this job</param>
+        /// <param name="timeStamp">Time in UTC that this message was created</param>
+        /// <param name="messageGuid">A unique identifier for this message</param>
+        /// <param name="deviceTime">Time in UTC that the associaed message was created on the device</param>
+        /// <param name="isTest">When true, indicated that this is a test message</param>
+        /// <returns>The serialized object.</returns>
+        public string ToString(WebHookEvent forEvent, DateTime timeStamp, string messageGuid, DateTime? deviceTime, bool isTest = false)
+        {
+            const string lineEndChar = "\r\n";
+            
+            var message = new StringBuilder();
+
+            message.AppendFormat("ISA*00*          *00*          *ZZ*{0}       *ZZ*GTNEXUS        *{1:YYMMdd}*{1:HHmm}*U*00401*000000263*0*{2}*>{3}", "SENDERID", deviceTime, isTest ? "T" : "P", lineEndChar);
+            message.AppendFormat("GS*QM*{0}*FORDIT*{1:YYYYMMdd}*{1:HHmm}*263*X*00401{2}", "SENDERID", deviceTime, lineEndChar);
+            message.AppendFormat("ST*214*000000001{0}", lineEndChar);
+            message.AppendFormat("B10*ZZMC60001*STDSHBL60001*ZZMC{0}", lineEndChar);
+
+            message.AppendFormat("L11*{0}*EQ{1}", _job.AssignedTruckRemoteId, lineEndChar);
+            message.AppendFormat("L11*{0}*VT{1}", _job.Vehicles[0].Vin, lineEndChar);
+            message.AppendFormat("L11*D*4C{0}", lineEndChar);
+            message.AppendFormat("L11*{0}*4B{1}", _job.Pickup.Destination.QuickCode, lineEndChar);
+            message.AppendFormat("L11*{0}*GL{1}", _job.Dropoff.Destination.QuickCode, lineEndChar);
+            message.AppendFormat("L11*GSDBCODE*MCI{0}", lineEndChar);
+
+            message.AppendFormat("N1*CA*{0}*94*{1}{2}", "Carrier Name", _job.AllocatedCarrierScac, lineEndChar);
+
+            
+            //N3*100 Automobile Street
+            //N4* Louisville*KY * 40201 * US * SL * 286545000
+            //N1* SF*Compound Code - ShipFrom Name * 94 * Compound Code - STDSP4
+            //N3 * 300 Revere Street
+            //N4* Louisville*KY * 40201 * US * SL * 286545000
+            //G62 * 69 * 20150826
+            //N1* ST*Compound Code - ShipTo Name * 94 * Compound Code - USTCP
+            //N3 * 2560 W.Commerce Street 
+            //N4* SILVER SPRING* MD*20904 * US * SL * 237450000
+            //G62 * 17 * 20150829 
+            //MS3* ZZMC*O * *DA
+            //LX * 1
+            //AT7* AF*NS * **20150826 * 1103 * LT
+            //MS1 * 237450000 * SL * US
+            //K1* Comments go here
+            //SE * 25 * 000000001
+            //GE * 1 * 263
+            //IEA * 1 * 000000263
+
+
+
+            message.AppendFormat("FromName={0}{1}", _job.AssignedAppId, lineEndChar);
+            message.AppendFormat("CreateTime={0:yyyy-MM-dd HH:mm:ss}{1}", timeStamp, lineEndChar);
+            message.AppendFormat("CreateTimeTZ=0{0}", lineEndChar);
+            message.AppendFormat("ReplyMsgID=SN:0{0}", lineEndChar);
+            message.AppendFormat("Priority=0{0}", lineEndChar);
+            message.AppendFormat("MessageData:{0}", lineEndChar);
+
+            message.AppendFormat("{0}{1}", _job.AllocatedCarrierScac, lineEndChar);
+            message.AppendFormat("{0}{1}", _job.AssignedDriverRemoteId, lineEndChar);
+            message.AppendFormat("{0}{1}", _job.AssignedTruckRemoteId, lineEndChar);
+            message.AppendFormat("{0}{1}", _job.ContractedCarrierScac, lineEndChar);
+            message.AppendFormat("{0}{1}", _job.LoadId, lineEndChar);
+            message.AppendFormat("{0}{1}", _job.ShipperScac, lineEndChar);
+            message.AppendFormat("{0}{1}", _job.TripId, lineEndChar);
+
+            var endPoint = forEvent == WebHookEvent.OnWayPickup || forEvent == WebHookEvent.AtPickup || forEvent == WebHookEvent.PickupStop
+                ? _job.Pickup
+                : _job.Dropoff;
+
+            message.AppendFormat("{0}{1}", endPoint.Destination.QuickCode, lineEndChar);
+            message.AppendFormat("{0}{1}", _job.Id, lineEndChar);
+            message.AppendFormat("{0}{1}", _job.JobNumber, lineEndChar);
+            message.AppendFormat("{0}{1}", endPoint.ProofDocUrl, lineEndChar);
+            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", deviceTime, lineEndChar);
+
+            var status = "Unknown";
+            switch (forEvent)
+            {
+                case WebHookEvent.PickupStop:
+                    status = "PickedUp";
+                    break;
+                case WebHookEvent.DropoffStop:
+                    status = "Complete";
+                    break;
+                case WebHookEvent.OnWayPickup:
+                    status = "OnWayToPickup";
+                    break;
+                case WebHookEvent.OnWayDeliver:
+                    status = "OnWayToDelivery";
+                    break;
+                case WebHookEvent.AtPickup:
+                    status = "AtPickup";
+                    break;
+                case WebHookEvent.AtDelivery:
+                    status = "AtDelivery";
+                    break;
+            }
+
+            message.AppendFormat("{0}{1}", status, lineEndChar);
+            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", endPoint.Eta, lineEndChar);
+
+            // Only do signoff and vehicle deets on collection/delivery
+            if (forEvent == WebHookEvent.PickupStop || forEvent == WebHookEvent.DropoffStop)
+            {
+                message.AppendFormat("{0}{1}", endPoint.Destination.Email, lineEndChar);
+                message.AppendFormat("{0}{1}", ListToString(endPoint.Signoff.NotSignedReasons), lineEndChar);
+                message.AppendFormat("{0}{1}", endPoint.Signoff.SignedBy, lineEndChar);
+
+                foreach (var v in _job.Vehicles)
+                {
+                    message.AppendFormat("{0}{1}", v.Vin, lineEndChar);
+                    message.AppendFormat("{0}{1}", v.MovementNumber, lineEndChar);
+                    message.AppendFormat("{0}{1}", v.Status, lineEndChar);
+                    message.AppendFormat("{0}{1}", v.NonCompletionReason, lineEndChar);
+
+                    var damage = forEvent == WebHookEvent.PickupStop ? v.DamageAtPickup : v.DamageAtDropoff;
+
+                    message.AppendFormat("{0}{1}", DamageToString(damage), lineEndChar);
+                }
+            }
+
+            return message.ToString();
+        }
+
+        private static string ListToString(ICollection<string> list)
+        {
+            if (list == null || list.Count == 0)
+                return "";
+
+            var listAsString = new StringBuilder();
+            foreach (var item in list)
+                listAsString.AppendFormat("{0}, ", item);
+            return listAsString.ToString().Trim(' ', ',');
+        }
+
+        private static string DamageToString(ICollection<DamageItem> damage)
+        {
+            if (damage == null || damage.Count == 0)
+                return "";
+
+            var damageAsString = new StringBuilder();
+            foreach (var item in damage)
+                damageAsString.AppendFormat("{0}-{1}-{2}, ", item.Area.Code, item.Type.Code, item.Severity.Code);
+            return damageAsString.ToString().Trim(' ', ',');
+        }
+    }
+}

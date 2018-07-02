@@ -46,6 +46,7 @@
     <Compile Include="ApiError.cs" />
     <Compile Include="Bid.cs" />
     <Compile Include="DeliveryDamageClaim.cs" />
+    <Compile Include="Ford\Departed.cs" />
     <Compile Include="Icl\R41.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="CustomerUser.cs" />
