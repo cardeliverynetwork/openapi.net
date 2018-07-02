@@ -12,17 +12,24 @@ namespace CarDeliveryNetwork.Api.Data.Ford
     public class Departed
     {
         private readonly Job _job;
+        private readonly StringBuilder _message;
+        private int _lineCount;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Departed"/> class.
         /// </summary>
-        public Departed() { }
+        public Departed()
+        {
+            _message = new StringBuilder();
+            _lineCount = 0;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Departed"/> class.
         /// </summary>
         /// <param name="job">The API job from which to contruct this Stop</param>
         public Departed(Job job)
+            : this()        
         {
             _job = job;
         }
@@ -40,116 +47,79 @@ namespace CarDeliveryNetwork.Api.Data.Ford
         {
             const string lineEndChar = "\r\n";
             
-            var message = new StringBuilder();
+            var vehicle = _job.Vehicles[0];
+            var hasPickupDamage = vehicle.DamageAtPickup != null && vehicle.DamageAtPickup.Count > 0;
+            var status = "R1"; // Not used but not damaging, probably ..
 
-            message.AppendFormat("ISA*00*          *00*          *ZZ*{0}       *ZZ*GTNEXUS        *{1:YYMMdd}*{1:HHmm}*U*00401*000000263*0*{2}*>{3}", "SENDERID", deviceTime, isTest ? "T" : "P", lineEndChar);
-            message.AppendFormat("GS*QM*{0}*FORDIT*{1:YYYYMMdd}*{1:HHmm}*263*X*00401{2}", "SENDERID", deviceTime, lineEndChar);
-            message.AppendFormat("ST*214*000000001{0}", lineEndChar);
-            message.AppendFormat("B10*ZZMC60001*STDSHBL60001*ZZMC{0}", lineEndChar);
-
-            message.AppendFormat("L11*{0}*EQ{1}", _job.AssignedTruckRemoteId, lineEndChar);
-            message.AppendFormat("L11*{0}*VT{1}", _job.Vehicles[0].Vin, lineEndChar);
-            message.AppendFormat("L11*D*4C{0}", lineEndChar);
-            message.AppendFormat("L11*{0}*4B{1}", _job.Pickup.Destination.QuickCode, lineEndChar);
-            message.AppendFormat("L11*{0}*GL{1}", _job.Dropoff.Destination.QuickCode, lineEndChar);
-            message.AppendFormat("L11*GSDBCODE*MCI{0}", lineEndChar);
-
-            message.AppendFormat("N1*CA*{0}*94*{1}{2}", "Carrier Name", _job.AllocatedCarrierScac, lineEndChar);
-
-            
-            //N3*100 Automobile Street
-            //N4* Louisville*KY * 40201 * US * SL * 286545000
-            //N1* SF*Compound Code - ShipFrom Name * 94 * Compound Code - STDSP4
-            //N3 * 300 Revere Street
-            //N4* Louisville*KY * 40201 * US * SL * 286545000
-            //G62 * 69 * 20150826
-            //N1* ST*Compound Code - ShipTo Name * 94 * Compound Code - USTCP
-            //N3 * 2560 W.Commerce Street 
-            //N4* SILVER SPRING* MD*20904 * US * SL * 237450000
-            //G62 * 17 * 20150829 
-            //MS3* ZZMC*O * *DA
-            //LX * 1
-            //AT7* AF*NS * **20150826 * 1103 * LT
-            //MS1 * 237450000 * SL * US
-            //K1* Comments go here
-            //SE * 25 * 000000001
-            //GE * 1 * 263
-            //IEA * 1 * 000000263
-
-
-
-            message.AppendFormat("FromName={0}{1}", _job.AssignedAppId, lineEndChar);
-            message.AppendFormat("CreateTime={0:yyyy-MM-dd HH:mm:ss}{1}", timeStamp, lineEndChar);
-            message.AppendFormat("CreateTimeTZ=0{0}", lineEndChar);
-            message.AppendFormat("ReplyMsgID=SN:0{0}", lineEndChar);
-            message.AppendFormat("Priority=0{0}", lineEndChar);
-            message.AppendFormat("MessageData:{0}", lineEndChar);
-
-            message.AppendFormat("{0}{1}", _job.AllocatedCarrierScac, lineEndChar);
-            message.AppendFormat("{0}{1}", _job.AssignedDriverRemoteId, lineEndChar);
-            message.AppendFormat("{0}{1}", _job.AssignedTruckRemoteId, lineEndChar);
-            message.AppendFormat("{0}{1}", _job.ContractedCarrierScac, lineEndChar);
-            message.AppendFormat("{0}{1}", _job.LoadId, lineEndChar);
-            message.AppendFormat("{0}{1}", _job.ShipperScac, lineEndChar);
-            message.AppendFormat("{0}{1}", _job.TripId, lineEndChar);
-
-            var endPoint = forEvent == WebHookEvent.OnWayPickup || forEvent == WebHookEvent.AtPickup || forEvent == WebHookEvent.PickupStop
-                ? _job.Pickup
-                : _job.Dropoff;
-
-            message.AppendFormat("{0}{1}", endPoint.Destination.QuickCode, lineEndChar);
-            message.AppendFormat("{0}{1}", _job.Id, lineEndChar);
-            message.AppendFormat("{0}{1}", _job.JobNumber, lineEndChar);
-            message.AppendFormat("{0}{1}", endPoint.ProofDocUrl, lineEndChar);
-            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", deviceTime, lineEndChar);
-
-            var status = "Unknown";
             switch (forEvent)
             {
                 case WebHookEvent.PickupStop:
-                    status = "PickedUp";
-                    break;
-                case WebHookEvent.DropoffStop:
-                    status = "Complete";
+                    status = hasPickupDamage ? "XB" : "A9";
                     break;
                 case WebHookEvent.OnWayPickup:
-                    status = "OnWayToPickup";
+                    status = "AF";
                     break;
-                case WebHookEvent.OnWayDeliver:
-                    status = "OnWayToDelivery";
-                    break;
-                case WebHookEvent.AtPickup:
-                    status = "AtPickup";
-                    break;
-                case WebHookEvent.AtDelivery:
-                    status = "AtDelivery";
+                case WebHookEvent.DropoffStop:
+                    status = "X1";
                     break;
             }
 
-            message.AppendFormat("{0}{1}", status, lineEndChar);
-            message.AppendFormat("{0:yyyy-MM-dd HH:mm:ss}{1}", endPoint.Eta, lineEndChar);
+            _message.AppendFormat("ISA*00*          *00*          *ZZ*{0}       *ZZ*GTNEXUS        *{1:YYMMdd}*{1:HHmm}*U*00401*000000263*0*{2}*>{3}", "SENDERID", deviceTime, isTest ? "T" : "P", lineEndChar);
+            _message.AppendFormat("GS*QM*{0}*FORDIT*{1:YYYYMMdd}*{1:HHmm}*263*X*00401{2}", "SENDERID", deviceTime, lineEndChar);
 
-            // Only do signoff and vehicle deets on collection/delivery
-            if (forEvent == WebHookEvent.PickupStop || forEvent == WebHookEvent.DropoffStop)
+            // Start counting lines now
+            MessageAppendFmtCounted("ST*214*000000001{0}", lineEndChar); // TODO - 000000001 is a Transaction Set Control Number??
+            MessageAppendFmtCounted("B10*ZZMC60001*STDSHBL60001*ZZMC{0}", lineEndChar);
+
+            MessageAppendFmtCounted("L11*{0}*EQ{1}", _job.AssignedTruckRemoteId, lineEndChar);
+            MessageAppendFmtCounted("L11*{0}*VT{1}", vehicle.Vin, lineEndChar);
+            MessageAppendFmtCounted("L11*D*4C{0}", lineEndChar);
+            MessageAppendFmtCounted("L11*{0}*4B{1}", _job.Pickup.Destination.QuickCode, lineEndChar);
+            MessageAppendFmtCounted("L11*{0}*GL{1}", _job.Dropoff.Destination.QuickCode, lineEndChar);
+            MessageAppendFmtCounted("L11*GSDBCODE*MCI{0}", lineEndChar);
+
+            if (forEvent == WebHookEvent.PickupStop && hasPickupDamage)
             {
-                message.AppendFormat("{0}{1}", endPoint.Destination.Email, lineEndChar);
-                message.AppendFormat("{0}{1}", ListToString(endPoint.Signoff.NotSignedReasons), lineEndChar);
-                message.AppendFormat("{0}{1}", endPoint.Signoff.SignedBy, lineEndChar);
-
-                foreach (var v in _job.Vehicles)
-                {
-                    message.AppendFormat("{0}{1}", v.Vin, lineEndChar);
-                    message.AppendFormat("{0}{1}", v.MovementNumber, lineEndChar);
-                    message.AppendFormat("{0}{1}", v.Status, lineEndChar);
-                    message.AppendFormat("{0}{1}", v.NonCompletionReason, lineEndChar);
-
-                    var damage = forEvent == WebHookEvent.PickupStop ? v.DamageAtPickup : v.DamageAtDropoff;
-
-                    message.AppendFormat("{0}{1}", DamageToString(damage), lineEndChar);
-                }
+                MessageAppendFmtCounted("L11*{0}*BZ{1}", DamageToString(vehicle.DamageAtDropoff), lineEndChar);   
             }
 
-            return message.ToString();
+            // Carrier
+            MessageAppendFmtCounted("N1*CA*{0}*94*{1}{2}", _job.AllocatedCarrierScac, _job.AllocatedCarrierScac, lineEndChar); // TODO - {0} is carrier name ?
+            MessageAppendFmtCounted("N3*100 Automobile Street{0}", lineEndChar);
+            MessageAppendFmtCounted("N4* Louisville*KY * 40201 * US * SL * 286545000{0}", lineEndChar);
+
+            // From
+            var pickupDest = _job.Pickup.Destination;
+            MessageAppendFmtCounted("N1*SF*{0}-{0}*94*{0}-{0}{1}", pickupDest.QuickCode, lineEndChar);
+            MessageAppendFmtCounted("N3*{0}{1}", pickupDest.AddressLines, lineEndChar);
+            MessageAppendFmtCounted("N4*{0}*{1}*{2}*US*SL*{0}", pickupDest.City, pickupDest.StateRegion, pickupDest.ZipPostCode, lineEndChar);
+            MessageAppendFmtCounted("G62*69*{0:YYYYMMdd}{1}", _job.Pickup.ScheduledDate, lineEndChar);
+
+            // To
+            var deliveryDest = _job.Pickup.Destination;
+            MessageAppendFmtCounted("N1*SF*{0}-{0}*94*{0}-{0}{1}", deliveryDest.QuickCode, lineEndChar);
+            MessageAppendFmtCounted("N3*{0}{1}", deliveryDest.AddressLines, lineEndChar);
+            MessageAppendFmtCounted("N4*{0}*{1}*{2}*US*SL*{0}", deliveryDest.City, deliveryDest.StateRegion, deliveryDest.ZipPostCode, lineEndChar);
+            MessageAppendFmtCounted("G62*17*{0:YYYYMMdd}{1}", _job.Dropoff.ScheduledDate, lineEndChar);
+
+            MessageAppendFmtCounted("MS3*{0}*M**J{1}", _job.AllocatedCarrierScac, lineEndChar);
+            MessageAppendFmtCounted("LX*{0}{1}", "Incrementing number", lineEndChar); // TODO - Add an incrementing number
+            MessageAppendFmtCounted("AT7*{0}*NS***{1:YYYYMMdd}*{1:HHmm}*UT{2}", status, deviceTime, lineEndChar);
+            MessageAppendFmtCounted("MS1*{0}*SL*US{1}", "City SPLC code???", lineEndChar); // TODO - What city code?
+            MessageAppendFmtCounted("K1*Empty{0}", lineEndChar);
+            MessageAppendFmtCounted("SE*{0}*000000001{1}", _lineCount + 1, lineEndChar);  // TODO - 000000001 is a Transaction Set Control Number??
+
+            // Don't count these lines
+            _message.AppendFormat("GE*1*263{0}", lineEndChar);
+            _message.AppendFormat("IEA*1*000000263{0}", lineEndChar);
+
+            return _message.ToString();
+        }
+
+        private void MessageAppendFmtCounted(string format, params object[] args)
+        {
+            _message.AppendFormat(format, args);
+            _lineCount++;
         }
 
         private static string ListToString(ICollection<string> list)
@@ -170,8 +140,8 @@ namespace CarDeliveryNetwork.Api.Data.Ford
 
             var damageAsString = new StringBuilder();
             foreach (var item in damage)
-                damageAsString.AppendFormat("{0}-{1}-{2}, ", item.Area.Code, item.Type.Code, item.Severity.Code);
-            return damageAsString.ToString().Trim(' ', ',');
+                damageAsString.AppendFormat("{0}{1}{2};", item.Area.Code, item.Type.Code, item.Severity.Code);
+            return damageAsString.ToString().Trim(';');
         }
     }
 }
