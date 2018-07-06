@@ -156,7 +156,7 @@ namespace console
 
         private static Jobs GetMultiDropJobs()
         {
-            var customer = new ContactDetails
+            var customer = new Customer
             {
                 // Customer address details
             };
