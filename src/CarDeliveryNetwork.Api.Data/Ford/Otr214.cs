@@ -65,6 +65,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
         /// <param name="messageGuid">A unique identifier for this message</param>
         /// <param name="deviceTime">Time in UTC that the associaed message was created on the device</param>
         /// <param name="isTest">When true, indicated that this is a test message</param>
+        /// <param name="filename">Returns the filename for this message</param>
         /// <returns>The serialized object.</returns>
         public string ToString(
             int vehicleIndex, 
@@ -72,7 +73,8 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             DateTime timeStamp, 
             string messageGuid, 
             DateTime? deviceTime, 
-            bool isTest = false)
+            bool isTest,
+            out string filename)
         {   
             var vehicle = _job.Vehicles[vehicleIndex];
             var hasPickupDamage = vehicle.DamageAtPickup != null && vehicle.DamageAtPickup.Count > 0;
@@ -83,7 +85,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
                 case WebHookEvent.PickupStop:
                     status = hasPickupDamage ? "XB" : "A9";
                     break;
-                case WebHookEvent.OnWayPickup:
+                case WebHookEvent.OnWayDeliver:
                     status = "AF";
                     break;
                 case WebHookEvent.DropoffStop:
@@ -115,7 +117,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             // Carrier
             message.AppendFormat("N1*CA*{0}*94*{1}{2}", _job.AllocatedCarrierScac, _job.AllocatedCarrierScac, Eol); // TODO - {0} is carrier name ?
             message.AppendFormat("N3*100 Automobile Street{0}", Eol);
-            message.AppendFormat("N4* Louisville*KY * 40201 * US * SL * 286545000{0}", Eol);
+            message.AppendFormat("N4*Louisville*KY * 40201 * US * SL * 286545000{0}", Eol);
 
             // From
             var pickupDest = _job.Pickup.Destination;
@@ -142,6 +144,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             message.AppendFormatNoCount("GE*1*263{0}", Eol);
             message.AppendFormatNoCount("IEA*1*000000263{0}", Eol);
 
+            filename = Guid.NewGuid().ToString() + ".txt";
             return message.ToString();
         }
 

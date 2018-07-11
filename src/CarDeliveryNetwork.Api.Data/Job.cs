@@ -413,7 +413,7 @@ namespace CarDeliveryNetwork.Api.Data
                     throw new ArgumentException(string.Format("Schema {0} is a per job schema", schema), "schema");
 
                 case WebHookSchema.Ford:
-                    return new Otr214(this).ToString(vehicleIndex, forEvent, timeStamp, hookId.ToString(), deviceTime);
+                    return new Otr214(this).ToString(vehicleIndex, forEvent, timeStamp, hookId.ToString(), deviceTime, false, out fileName);
 
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
