@@ -36,6 +36,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
         }
 
         const string Eol = "\r\n";
+        const string MessageType = "QM";
 
         private readonly Job _job;
 
@@ -75,7 +76,13 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             DateTime? deviceTime, 
             bool isTest,
             out string filename)
-        {   
+        {
+
+            var now = DateTime.UtcNow;
+            var senderId = "SENDERID";
+            var receiverId = "RECEIVERID";
+            var transmissionId = "TRANSMISSIONID";
+
             var vehicle = _job.Vehicles[vehicleIndex];
             var hasPickupDamage = vehicle.DamageAtPickup != null && vehicle.DamageAtPickup.Count > 0;
             var status = "R1"; // Not used but not damaging, probably ..
@@ -96,18 +103,18 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             var message = new CountedOtr214StringBuilder();
 
             message.AppendFormatNoCount("ISA*00*          *00*          *ZZ*{0}       *ZZ*GTNEXUS        *{1:YYMMdd}*{1:HHmm}*U*00401*000000263*0*{2}*>{3}", "SENDERID", deviceTime, isTest ? "T" : "P", Eol);
-            message.AppendFormatNoCount("GS*QM*{0}*FORDIT*{1:YYYYMMdd}*{1:HHmm}*263*X*00401{2}", "SENDERID", deviceTime, Eol);
+            message.AppendFormatNoCount("GS*{0}*{1}*FORDIT*{2:YYYYMMdd}*{2:HHmm}*263*X*00401{3}", MessageType, senderId, deviceTime, Eol);
 
             // Start counting lines now
-            message.AppendFormat("ST*214*000000001{0}", Eol); // TODO - 000000001 is a Transaction Set Control Number??
-            message.AppendFormat("B10*ZZMC60001*STDSHBL60001*ZZMC{0}", Eol);
+            message.AppendFormat("ST*214*{0}{1}", messageGuid, Eol);
+            message.AppendFormat("B10*{0}*{0}*{1}{2}", _job.LoadId, _job.ContractedCarrierScac, Eol);
 
             message.AppendFormat("L11*{0}*EQ{1}", _job.AssignedTruckRemoteId, Eol);
             message.AppendFormat("L11*{0}*VT{1}", vehicle.Vin, Eol);
             message.AppendFormat("L11*D*4C{0}", Eol);
             message.AppendFormat("L11*{0}*4B{1}", _job.Pickup.Destination.QuickCode, Eol);
             message.AppendFormat("L11*{0}*GL{1}", _job.Dropoff.Destination.QuickCode, Eol);
-            message.AppendFormat("L11*GSDBCODE*MCI{0}", Eol);
+            message.AppendFormat("L11*{0}*MCI{1}", _job.AllocatedCarrierScac, Eol);
 
             if (forEvent == WebHookEvent.PickupStop && hasPickupDamage)
             {
@@ -116,8 +123,8 @@ namespace CarDeliveryNetwork.Api.Data.Ford
 
             // Carrier
             message.AppendFormat("N1*CA*{0}*94*{1}{2}", _job.AllocatedCarrierScac, _job.AllocatedCarrierScac, Eol); // TODO - {0} is carrier name ?
-            message.AppendFormat("N3*100 Automobile Street{0}", Eol);
-            message.AppendFormat("N4*Louisville*KY * 40201 * US * SL * 286545000{0}", Eol);
+            message.AppendFormat("N3*Carrier Street{0}", Eol);
+            message.AppendFormat("N4*Carrier City*State*Zip*US*SL*Carrier City Id{0}", Eol);
 
             // From
             var pickupDest = _job.Pickup.Destination;
@@ -134,17 +141,18 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             message.AppendFormat("G62*17*{0:YYYYMMdd}{1}", _job.Dropoff.ScheduledDate, Eol);
 
             message.AppendFormat("MS3*{0}*M**J{1}", _job.AllocatedCarrierScac, Eol);
-            message.AppendFormat("LX*{0}{1}", "Incrementing number", Eol); // TODO - Add an incrementing number
+            message.AppendFormat("LX*{0}{1}", messageGuid, Eol);
             message.AppendFormat("AT7*{0}*NS***{1:YYYYMMdd}*{1:HHmm}*UT{2}", status, deviceTime, Eol);
-            message.AppendFormat("MS1*{0}*SL*US{1}", "City SPLC code???", Eol); // TODO - What city code?
+            message.AppendFormat("MS1*{0}*SL*US{1}", "City SPLC code", Eol);
             message.AppendFormat("K1*Empty{0}", Eol);
-            message.AppendFormat("SE*{0}*000000001{1}", message.LineCount + 1, Eol);  // TODO - 000000001 is a Transaction Set Control Number??
+            message.AppendFormat("SE*{0}*{1}{2}", message.LineCount + 1, transmissionId, Eol);
 
             // Don't count these lines
             message.AppendFormatNoCount("GE*1*263{0}", Eol);
             message.AppendFormatNoCount("IEA*1*000000263{0}", Eol);
 
-            filename = Guid.NewGuid().ToString() + ".txt";
+            // TODO - check the time code.  Add milliseconds
+            filename = string.Format("{0}_{1}_{2}_{3}_{4:YYMMdd}T{4:HHmmss}.X12", senderId, receiverId, MessageType, transmissionId, now);
             return message.ToString();
         }
 
