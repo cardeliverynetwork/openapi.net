@@ -77,11 +77,10 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             bool isTest,
             out string filename)
         {
-
             var now = DateTime.UtcNow;
             var senderId = "SENDERID";
             var receiverId = "RECEIVERID";
-            var transmissionId = "TRANSMISSIONID";
+            var transmissionId = messageGuid;
 
             var vehicle = _job.Vehicles[vehicleIndex];
             var hasPickupDamage = vehicle.DamageAtPickup != null && vehicle.DamageAtPickup.Count > 0;
@@ -102,8 +101,8 @@ namespace CarDeliveryNetwork.Api.Data.Ford
 
             var message = new CountedOtr214StringBuilder();
 
-            message.AppendFormatNoCount("ISA*00*          *00*          *ZZ*{0}       *ZZ*GTNEXUS        *{1:YYMMdd}*{1:HHmm}*U*00401*000000263*0*{2}*>{3}", "SENDERID", deviceTime, isTest ? "T" : "P", Eol);
-            message.AppendFormatNoCount("GS*{0}*{1}*FORDIT*{2:YYYYMMdd}*{2:HHmm}*263*X*00401{3}", MessageType, senderId, deviceTime, Eol);
+            message.AppendFormatNoCount("ISA*00*          *00*          *ZZ*{0}       *ZZ*GTNEXUS        *{1:yyMMdd}*{1:HHmm}*U*00401*000000263*0*{2}*>{3}", "SENDERID", deviceTime, isTest ? "T" : "P", Eol);
+            message.AppendFormatNoCount("GS*{0}*{1}*FORDIT*{2:yyyyMMdd}*{2:HHmm}*263*X*00401{3}", MessageType, senderId, deviceTime, Eol);
 
             // Start counting lines now
             message.AppendFormat("ST*214*{0}{1}", messageGuid, Eol);
@@ -131,18 +130,18 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             message.AppendFormat("N1*SF*{0}-{0}*94*{0}-{0}{1}", pickupDest.QuickCode, Eol);
             message.AppendFormat("N3*{0}{1}", pickupDest.AddressLines, Eol);
             message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{0}", pickupDest.City, pickupDest.StateRegion, pickupDest.ZipPostCode, Eol);
-            message.AppendFormat("G62*69*{0:YYYYMMdd}{1}", _job.Pickup.ScheduledDate, Eol);
+            message.AppendFormat("G62*69*{0:yyyyMMdd}{1}", _job.Pickup.ScheduledDate, Eol);
 
             // To
-            var deliveryDest = _job.Pickup.Destination;
+            var deliveryDest = _job.Dropoff.Destination;
             message.AppendFormat("N1*SF*{0}-{0}*94*{0}-{0}{1}", deliveryDest.QuickCode, Eol);
             message.AppendFormat("N3*{0}{1}", deliveryDest.AddressLines, Eol);
             message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{0}", deliveryDest.City, deliveryDest.StateRegion, deliveryDest.ZipPostCode, Eol);
-            message.AppendFormat("G62*17*{0:YYYYMMdd}{1}", _job.Dropoff.ScheduledDate, Eol);
+            message.AppendFormat("G62*17*{0:yyyyMMdd}{1}", _job.Dropoff.ScheduledDate, Eol);
 
             message.AppendFormat("MS3*{0}*M**J{1}", _job.AllocatedCarrierScac, Eol);
             message.AppendFormat("LX*{0}{1}", messageGuid, Eol);
-            message.AppendFormat("AT7*{0}*NS***{1:YYYYMMdd}*{1:HHmm}*UT{2}", status, deviceTime, Eol);
+            message.AppendFormat("AT7*{0}*NS***{1:yyyyMMdd}*{1:HHmm}*UT{2}", status, deviceTime, Eol);
             message.AppendFormat("MS1*{0}*SL*US{1}", "City SPLC code", Eol);
             message.AppendFormat("K1*Empty{0}", Eol);
             message.AppendFormat("SE*{0}*{1}{2}", message.LineCount + 1, transmissionId, Eol);
@@ -152,7 +151,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             message.AppendFormatNoCount("IEA*1*000000263{0}", Eol);
 
             // TODO - check the time code.  Add milliseconds
-            filename = string.Format("{0}_{1}_{2}_{3}_{4:YYMMdd}T{4:HHmmss}.X12", senderId, receiverId, MessageType, transmissionId, now);
+            filename = string.Format("{0}_{1}_{2}_{3}_{4:yyMMdd}T{4:HHmmssff}.X12", senderId, receiverId, MessageType, transmissionId, now);
             return message.ToString();
         }
 
