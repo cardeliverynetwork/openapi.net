@@ -129,14 +129,14 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             var pickupDest = _job.Pickup.Destination;
             message.AppendFormat("N1*SF*{0}-{0}*94*{0}-{0}{1}", pickupDest.QuickCode, Eol);
             message.AppendFormat("N3*{0}{1}", pickupDest.AddressLines, Eol);
-            message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{0}", pickupDest.City, pickupDest.StateRegion, pickupDest.ZipPostCode, Eol);
+            message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{3}", pickupDest.City, pickupDest.StateRegion, pickupDest.ZipPostCode, Eol);
             message.AppendFormat("G62*69*{0:yyyyMMdd}{1}", _job.Pickup.ScheduledDate, Eol);
 
             // To
             var deliveryDest = _job.Dropoff.Destination;
             message.AppendFormat("N1*SF*{0}-{0}*94*{0}-{0}{1}", deliveryDest.QuickCode, Eol);
             message.AppendFormat("N3*{0}{1}", deliveryDest.AddressLines, Eol);
-            message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{0}", deliveryDest.City, deliveryDest.StateRegion, deliveryDest.ZipPostCode, Eol);
+            message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{3}", deliveryDest.City, deliveryDest.StateRegion, deliveryDest.ZipPostCode, Eol);
             message.AppendFormat("G62*17*{0:yyyyMMdd}{1}", _job.Dropoff.ScheduledDate, Eol);
 
             message.AppendFormat("MS3*{0}*M**J{1}", _job.AllocatedCarrierScac, Eol);
