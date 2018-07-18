@@ -382,6 +382,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <param name="hookId">The id of the hook this that will send this data</param>
         /// <param name="receiverId">Receiver identifier for ICL R41 schemas</param>
+        /// <param name="contractedCarrier">The carrier fleet</param>
         /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
         /// <param name="deviceTime">Time in UTC that the associated message was created on the device</param>
         /// <param name="sequenceNumber">Sequential output id for ICL R41</param>
@@ -397,6 +398,7 @@ namespace CarDeliveryNetwork.Api.Data
             short sequenceNumber,
             string senderId,
             string receiverId,
+            Fleet contractedCarrier,
             out string fileName,
             DateTime? deviceTime)
         {
@@ -413,7 +415,7 @@ namespace CarDeliveryNetwork.Api.Data
                     throw new ArgumentException(string.Format("Schema {0} is a per job schema", schema), "schema");
 
                 case WebHookSchema.Ford:
-                    return new Otr214(this).ToString(vehicleIndex, forEvent, timeStamp, hookId.ToString(), deviceTime, false, out fileName);
+                    return new Otr214(this, contractedCarrier, senderId).ToString(vehicleIndex, forEvent, timeStamp, hookId.ToString(), deviceTime, false, out fileName);
 
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
