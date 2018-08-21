@@ -132,6 +132,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual EndPoint Dropoff { get; set; }
 
         /// <summary>
+        /// Optional - A list of tranships associated with this job.
+        /// </summary>
+        public virtual List<Tranship> Tranships { get; set; }
+
+        /// <summary>
         /// Mandatory - A collection of vehicles associated with this job.
         /// </summary>
         public virtual List<Vehicle> Vehicles { get; set; }
