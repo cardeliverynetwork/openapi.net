@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using CarDeliveryNetwork.Api.Data.Fenkell;
+using CarDeliveryNetwork.Api.Data.Ford;
 using CarDeliveryNetwork.Api.Data.Icl;
 using CarDeliveryNetwork.Api.Data.TmwV1;
 using CarDeliveryNetwork.Types;
@@ -319,7 +320,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="sequenceNumber">Sequential output id for ICL R41</param>
         /// <param name="senderId">Sender identifier for ICL R41</param>
         /// <returns>The serialized object.</returns>
-        public string ToString(
+        public string ToHookString(
             MessageFormat format, 
             WebHookSchema schema, 
             WebHookEvent forEvent, 
@@ -369,11 +370,65 @@ namespace CarDeliveryNetwork.Api.Data
                     var r41 = new R41(this, sequenceNumber, senderId, receiverId);
                     fileName = r41.FileName;
                     return r41.ToString();
+                case WebHookSchema.Ford:
+                    throw new ArgumentException(string.Format("Schema {0} is a per vehicle schema", schema), "schema");
+                default:
+                    throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
+            }
+        }
+
+        /// <summary>
+        /// Returns a serial representation of the job in the specified format and schema.
+        /// </summary>
+        /// <param name="vehicleIndex">Index of the vehicle on this job to process</param>
+        /// <param name="format">Format to serialize to.</param>
+        /// <param name="schema">Schema to serialize to.</param>
+        /// <param name="forEvent">The WebHookEvent that this message represents.</param>
+        /// <param name="timeStamp">Time in UTC that this message was created</param>
+        /// <param name="hookId">The id of the hook this that will send this data</param>
+        /// <param name="receiverId">Receiver identifier for ICL R41 schemas</param>
+        /// <param name="contractedCarrier">The carrier fleet</param>
+        /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
+        /// <param name="deviceTime">Time in UTC that the associated message was created on the device</param>
+        /// <param name="sequenceNumber">Sequential output id for ICL R41</param>
+        /// <param name="senderId">Sender identifier for ICL R41</param>
+        /// <returns>The serialized object.</returns>
+        public string ToVehicleHookString(
+            int vehicleIndex,
+            MessageFormat format,
+            WebHookSchema schema,
+            WebHookEvent forEvent,
+            DateTime timeStamp,
+            int hookId,
+            short sequenceNumber,
+            string senderId,
+            string receiverId,
+            Fleet contractedCarrier,
+            out string fileName,
+            DateTime? deviceTime)
+        {
+            fileName = string.Empty;
+
+            switch (schema)
+            {
+                case WebHookSchema.Cdn:
+                case WebHookSchema.Fenkell02:
+                case WebHookSchema.Fenkell05:
+                case WebHookSchema.TmwV1:
+                case WebHookSchema.PodUrl:
+                case WebHookSchema.IclR41:
+                    throw new ArgumentException(string.Format("Schema {0} is a per job schema", schema), "schema");
+
+                case WebHookSchema.Ford:
+                    return new Otr214(this, contractedCarrier, senderId).ToString(vehicleIndex, forEvent, timeStamp, hookId.ToString(), deviceTime, false, out fileName);
+
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
             }
         }
     }
+
+ 
 
     /// <summary>
     /// A collection of Car Delivery Network Job job entities.

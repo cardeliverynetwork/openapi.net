@@ -39,6 +39,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         ///  
         /// </summary>
-        IclR41 = 50
+        IclR41 = 50,
+
+        /// <summary>
+        /// The Ford Schema
+        /// </summary>
+        Ford = 60,
     }
 }

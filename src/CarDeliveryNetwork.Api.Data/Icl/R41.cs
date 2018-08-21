@@ -100,7 +100,7 @@ namespace CarDeliveryNetwork.Api.Data.Icl
         /// <param name="job"></param>
         /// <param name="sequenceNumber"></param>
         /// <param name="senderId"></param>
-        /// /// <param name="receiverId"></param>
+        /// <param name="receiverId"></param>
         public R41(Job job, short sequenceNumber, string senderId, string receiverId)
         {
             var cstZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
