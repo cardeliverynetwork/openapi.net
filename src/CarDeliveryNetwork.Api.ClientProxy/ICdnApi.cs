@@ -73,5 +73,20 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// </summary>
         /// <returns>The home fleet of the calling user</returns>
         Fleet GetHomeFleet();
+
+        /// <summary>
+        /// Allocates the specified jobs to this fleet resource.
+        /// </summary>
+        /// <param name="id">Resource Id</param>
+        /// <param name="jobs">The list of jobs to allocate to this fleet resource</param>
+        /// <param name="queryStringParameters">Additonal parameters: scheduled dates and buy price</param>
+        void AllocateJobsToFleet(int id, Jobs jobs, string queryStringParameters = null);
+
+        /// <summary>
+        /// Attempts to create the specified jobs on Car Delivery Network.
+        /// </summary>
+        /// <param name="jobs">The collection of jobs to create.</param>
+        /// <returns>A collection of the successfully created jobs.</returns>
+        Jobs CreateJobs(Jobs jobs);
     }
 }
