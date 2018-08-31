@@ -11,6 +11,11 @@
         PickupStop,
 
         /// <summary>
+        /// WebHook Event for when damage was recorded at pickup
+        /// </summary>
+        PickupDamageRecorded = 5,
+
+        /// <summary>
         /// WebHook Event for a stop where vehicles were dropped off
         /// </summary>
         DropoffStop = 10,
