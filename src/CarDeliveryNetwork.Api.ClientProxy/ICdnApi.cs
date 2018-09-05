@@ -88,5 +88,12 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// <param name="jobs">The collection of jobs to create.</param>
         /// <returns>A collection of the successfully created jobs.</returns>
         Jobs CreateJobs(Jobs jobs);
+
+        /// <summary>
+        /// Release the job back to owner
+        /// </summary>
+        /// <param name="id">Id of the job to release</param>
+        /// <param name="reason">Reason for the release</param>
+        void ReleaseJobToOwner(int id, string reason);
     }
 }
