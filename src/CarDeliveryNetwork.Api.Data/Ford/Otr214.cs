@@ -86,20 +86,30 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             var senderId = _contractedCarrier.Scac + "SP";
 
             var vehicle = _job.Vehicles[vehicleIndex];
-            var hasPickupDamage = vehicle.DamageAtPickup != null && vehicle.DamageAtPickup.Count > 0;
-            var status = "R1"; // Not used but not damaging, probably ..
+            var status = "R1";
 
             switch (forEvent)
             {
+                //case WebHookEvent.AssignedToDriver:
+                //    status = "R1";
+                //    break;
+
                 case WebHookEvent.PickupStop:
                     status = "XB";
                     break;
+
                 case WebHookEvent.PickupDamageRecorded:
                     status = "A9";
                     break;
+
                 case WebHookEvent.OnWayDeliver:
                     status = "AF";
                     break;
+
+                //case WebHookEvent.Eta:
+                //    status = "AF";
+                //    break;
+
                 case WebHookEvent.DropoffStop:
                     status = "X1";
                     break;
@@ -117,7 +127,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             message.AppendFormatNoCount("GS*{0}*{1}*{2}*{3:yyyyMMdd}*{3:HHmm}*{4}*X*004010{5}", MessageType, senderId, ReceiverId, deviceTime, transmissionId, Eol);
 
             // Start counting lines now
-            message.AppendFormat("ST*214*{0}{1}", transmissionId, Eol);
+            message.AppendFormat("ST*214*{0}{1}", transmissionId, Eol);  //Transaction Set Control Number 
             message.AppendFormat("B10*{0}*{0}*{1}{2}", _job.LoadId, _job.ContractedCarrierScac, Eol);
 
             message.AppendFormat("L11*{0}*EQ{1}", _job.AssignedTruckRemoteId, Eol);
@@ -153,7 +163,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
 
             message.AppendFormat("MS3*{0}*O**J{1}", _job.AllocatedCarrierScac, Eol);
             message.AppendFormat("LX*1{0}", Eol);
-            message.AppendFormat("AT7*{0}*{1}***{2:yyyyMMdd}*{2:HHmm}*UT{3}", status, hasPickupDamage ? "BG" : "NS", deviceTime, Eol);
+            message.AppendFormat("AT7*{0}*{1}***{2:yyyyMMdd}*{2:HHmm}*UT{3}", status, forEvent == WebHookEvent.PickupDamageRecorded ? "BG" : "NS", deviceTime, Eol);
             message.AppendFormat("MS1*{0}*SL*US{1}", pickupDest.LocationCode, Eol);
             message.AppendFormat("SE*{0}*{1}{2}", message.LineCount + 1, transmissionId, Eol);
 

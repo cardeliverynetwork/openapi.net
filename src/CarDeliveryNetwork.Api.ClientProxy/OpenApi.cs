@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using CarDeliveryNetwork.Api.Data;
 using CarDeliveryNetwork.Types;
+using Action = CarDeliveryNetwork.Api.Data.Action;
 
 namespace CarDeliveryNetwork.Api.ClientProxy
 {
@@ -423,6 +424,16 @@ namespace CarDeliveryNetwork.Api.ClientProxy
             var resource = string.Format("Jobs/{0}/Action", id);
             var callParams = string.Format("sendhook_schema={0}", doForSchema);
             CallWithRetry(resource, "POST", false, action, callParams);
+        }
+
+        /// <summary>
+        /// Release the job back to owner
+        /// </summary>
+        /// <param name="id">Id of the job to release</param>
+        /// <param name="reason">Reason for the release</param>
+        public virtual void ReleaseJobToOwner(int id, string reason)
+        {
+            PerformJobAction(id, new Data.Action{ Name = "release", Note = reason});
         }
 
         /// <summary>
