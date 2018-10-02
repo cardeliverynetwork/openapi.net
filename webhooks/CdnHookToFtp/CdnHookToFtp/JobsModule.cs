@@ -5,6 +5,8 @@ using System.Text;
 using System.Web.Configuration;
 using FluentFTP;
 using Nancy;
+using Renci.SshNet;
+using System.Reflection;
 
 namespace CdnHookToFtp
 {
@@ -14,6 +16,7 @@ namespace CdnHookToFtp
         const string FtpHostVariable = "CDN_FTP_HOST";
         const string FtpUserVariable = "CDN_FTP_USER";
         const string FtpPassVariable = "CDN_FTP_PASS";
+        const string FtpPortVariable = "CDN_FTP_PORT";
 
         public JobsModule()
             : base("/jobs")
@@ -49,7 +52,11 @@ namespace CdnHookToFtp
                 // Get the host, user and pass from URL, environment or web.config
                 var ftpHost = Request.Query.ftphost.Value ?? GetSetting(FtpHostVariable);
                 var ftpUser = Request.Query.ftpuser.Value ?? GetSetting(FtpUserVariable);
-                var ftpPass = Request.Query.ftppass.Value ?? GetSetting(FtpPassVariable);
+                var ftpPass = Request.Query.ftppass.Value ?? Request.Query.keypass.Value ?? GetSetting(FtpPassVariable);
+                var ftpPortString = Request.Query.ftpport.Value ?? GetSetting(FtpPortVariable);
+
+                int ftpPort;
+                int.TryParse(ftpPortString, out ftpPort);
 
                 FtpType ftpType = FtpType.Ftp;
                 Enum.TryParse(Request.Query.ftptype.Value ?? "ftp", true, out ftpType);
@@ -74,7 +81,7 @@ namespace CdnHookToFtp
                     using (var response = WebRequest.Create(fetchUrl).GetResponse())
                     using (var responseStream = response.GetResponseStream())
                     {
-                        UploadFile(ftpHost, ftpUser, ftpPass, responseStream, fileName, ftpType, nameOnComplete);
+                        UploadFile(ftpHost, ftpPort, ftpUser, ftpPass, responseStream, fileName, ftpType, nameOnComplete);
                     }
                 }
                 else
@@ -92,7 +99,7 @@ namespace CdnHookToFtp
                         ? fileName
                         : string.Format("{0}.{1}", fileName, fileExtension);
 
-                    UploadFile(ftpHost, ftpUser, ftpPass, Context.Request.Body, ftpFile, ftpType, nameOnComplete);
+                    UploadFile(ftpHost, ftpPort, ftpUser, ftpPass, Context.Request.Body, ftpFile, ftpType, nameOnComplete);
                 }
 
                 return Nancy.HttpStatusCode.OK;
@@ -117,13 +124,14 @@ namespace CdnHookToFtp
         /// Uploads the specified stream to FTP or SFTP
         /// </summary>
         /// <param name="ftpHost">The ftp host and path eg: ftp://ftp.example.com/customer/in </param>
+        /// <param name="ftpPort">The ftp port</param>
         /// <param name="ftpUser">The ftp username</param>
         /// <param name="ftpPass">The ftp password</param>
         /// <param name="stream">Stream to write to the request</param>
         /// <param name="ftpFileName">File name of remote file</param>
         /// <param name="ftpType">The Type of FTP to use</param>
         /// <param name="nameOnComplete">When true, uses a .incomplete extension during writing</param>
-        private void UploadFile(string ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName, FtpType ftpType, bool nameOnComplete)
+        private void UploadFile(string ftpHost, int port, string ftpUser, string ftpPass, Stream stream, string ftpFileName, FtpType ftpType, bool nameOnComplete)
         {
             // Create a Uri object to help parse up the host and path
             var ftpHostUri = new Uri(ftpHost.TrimEnd('/'));
@@ -131,25 +139,29 @@ namespace CdnHookToFtp
             switch (ftpType)
             {
                 case FtpType.FtpS:
-                    UploadFileToFtpS(ftpHostUri, ftpUser, ftpPass, stream, ftpFileName, nameOnComplete);
+                    UploadFileToFtpS(ftpHostUri, port, ftpUser, ftpPass, stream, ftpFileName, nameOnComplete);
+                    break;
+                case FtpType.Sftp:
+                    UploadFileToSftp(ftpHostUri, port, ftpUser, ftpPass, stream, ftpFileName, nameOnComplete);
                     break;
                 case FtpType.Ftp:
                 default:
-                    UploadFileToFtp(ftpHostUri, ftpUser, ftpPass, stream, ftpFileName, nameOnComplete);
+                    UploadFileToFtp(ftpHostUri, port, ftpUser, ftpPass, stream, ftpFileName, nameOnComplete);
                     break;
             }
         }
 
         /// <summary>
-        /// Uploads the specified stream to SFTP
+        /// Uploads the specified stream to FTPS
         /// </summary>
         /// <param name="ftpHost">The ftp host and path eg: ftp://ftp.example.com/customer/in </param>
+        /// <param name="port">The ftp port (unsupported)</param>
         /// <param name="ftpUser">The ftp username</param>
         /// <param name="ftpPass">The ftp password</param>
         /// <param name="stream">Stream to write to the request</param>
         /// <param name="ftpFileName">File name of remote file</param>
         /// <param name="nameOnComplete">When true, uses a .incomplete extension during writing</param>
-        private void UploadFileToFtpS(Uri ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName, bool nameOnComplete)
+        private void UploadFileToFtpS(Uri ftpHost, int port, string ftpUser, string ftpPass, Stream stream, string ftpFileName, bool nameOnComplete)
         { 
             var finalName = string.Format("{0}/{1}", ftpHost.AbsolutePath.TrimEnd('/'), ftpFileName);
 
@@ -174,15 +186,70 @@ namespace CdnHookToFtp
         }
 
         /// <summary>
+        /// Uploads the specified stream to SFTP
+        /// </summary>
+        /// <param name="ftpHost">The ftp host and path eg: ftp://ftp.example.com/customer/in </param>
+        /// <param name="ftpUser">The ftp username</param>
+        /// <param name="ftpPort">The ftp username</param>
+        /// <param name="stream">Stream to write to the request</param>
+        /// <param name="ftpFileName">File name of remote file</param>
+        /// <param name="nameOnComplete">When true, uses a .incomplete extension during writing</param>
+        private void UploadFileToSftp(Uri ftpHost, int sftpPort, string sftpUser, string keyPass, Stream stream, string ftpFileName, bool nameOnComplete)
+        {
+            var uriBuilder = new UriBuilder(ftpHost)
+            {
+                Port = sftpPort
+            };
+
+            var sftpUri = uriBuilder.Uri;
+
+            var finalName = string.Format("{0}/{1}", sftpUri.AbsolutePath.TrimEnd('/'), ftpFileName);
+
+            // The full path and filename whilst uploading in progress
+            var uploadPath = nameOnComplete
+                ? string.Format("{0}/{1}.incomplete", sftpUri.AbsolutePath.TrimEnd('/'), ftpFileName)
+                : finalName;
+
+            var codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            var uri = new UriBuilder(codeBase);
+            var path = Uri.UnescapeDataString(uri.Path);
+            var keyfile = Path.GetDirectoryName(path) + @"\keys\sftp.openssh.key";
+
+            // Setup Credentials and Server Information
+            var connectionInfo = new ConnectionInfo(sftpUri.Host, sftpUri.Port, sftpUser,
+                new AuthenticationMethod[] {
+                    new PrivateKeyAuthenticationMethod(sftpUser, new PrivateKeyFile[] {
+                        new PrivateKeyFile(keyfile, keyPass)
+                    }),
+                }
+            );
+
+            // Upload A File
+            using (var client = new SftpClient(connectionInfo))
+            {
+                client.Connect();
+                client.UploadFile(stream, ftpFileName, true);
+
+                if (nameOnComplete)
+                {
+                    client.RenameFile(uploadPath, finalName);
+                }
+
+                client.Disconnect();
+            }
+        }
+
+        /// <summary>
         /// Uploads the specified stream to FTP
         /// </summary>
         /// <param name="ftpHost">The ftp host and path eg: ftp://ftp.example.com/customer/in </param>
+        /// <param name="port">The ftp port (unsupported - always 21)</param>
         /// <param name="ftpUser">The ftp username</param>
         /// <param name="ftpPass">The ftp password</param>
         /// <param name="stream">Stream to write to the request</param>
         /// <param name="ftpFileName">File name of remote file</param>
         /// <param name="nameOnComplete">When true, uses a .incomplete extension during writing</param>
-        private void UploadFileToFtp(Uri ftpHost, string ftpUser, string ftpPass, Stream stream, string ftpFileName, bool nameOnComplete)
+        private void UploadFileToFtp(Uri ftpHost, int port, string ftpUser, string ftpPass, Stream stream, string ftpFileName, bool nameOnComplete)
         {
             var finalName = ftpFileName;
 
