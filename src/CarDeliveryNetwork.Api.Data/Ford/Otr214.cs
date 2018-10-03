@@ -42,8 +42,6 @@ namespace CarDeliveryNetwork.Api.Data.Ford
         private readonly Job _job;
         private readonly Fleet _contractedCarrier;
 
-        public string SenderId { get; private set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Otr214"/> class.
         /// </summary>
@@ -56,13 +54,11 @@ namespace CarDeliveryNetwork.Api.Data.Ford
         /// </summary>
         /// <param name="job">The API job from which to contruct this Stop</param>
         /// <param name="contractedCarrier">The carrier fleet</param>
-        /// <param name="senderId"></param>
-        public Otr214(Job job, Fleet contractedCarrier, string senderId)
+        public Otr214(Job job, Fleet contractedCarrier)
             : this()        
         {
             _job = job;
             _contractedCarrier = contractedCarrier;
-            SenderId = senderId;
         }
 
         /// <summary>
@@ -87,19 +83,33 @@ namespace CarDeliveryNetwork.Api.Data.Ford
         {
             var now = DateTime.UtcNow;
             var transmissionId = messageGuid;
+            var senderId = _contractedCarrier.Scac + "SP";
 
             var vehicle = _job.Vehicles[vehicleIndex];
-            var hasPickupDamage = vehicle.DamageAtPickup != null && vehicle.DamageAtPickup.Count > 0;
-            var status = "R1"; // Not used but not damaging, probably ..
+            var status = "R1";
 
             switch (forEvent)
             {
+                //case WebHookEvent.AssignedToDriver:
+                //    status = "R1";
+                //    break;
+
                 case WebHookEvent.PickupStop:
-                    status = hasPickupDamage ? "XB" : "A9";
+                    status = "XB";
                     break;
+
+                case WebHookEvent.PickupDamageRecorded:
+                    status = "A9";
+                    break;
+
                 case WebHookEvent.OnWayDeliver:
                     status = "AF";
                     break;
+
+                //case WebHookEvent.Eta:
+                //    status = "AF";
+                //    break;
+
                 case WebHookEvent.DropoffStop:
                     status = "X1";
                     break;
@@ -107,69 +117,62 @@ namespace CarDeliveryNetwork.Api.Data.Ford
 
             var message = new CountedOtr214StringBuilder();
 
-            message.AppendFormatNoCount("ISA*00*          *00*          *ZZ*{0}*ZZ*GTNEXUS        *{1:yyMMdd}*{1:HHmm}*U*00401*000000263*0*{2}*>{3}", SenderId.PadRight(15), deviceTime, isTest ? "T" : "P", Eol);
-            message.AppendFormatNoCount("GS*{0}*{1}*{2}*{3:yyyyMMdd}*{3:HHmm}*263*X*00401{4}", MessageType, SenderId, ReceiverId, deviceTime, Eol);
+            message.AppendFormatNoCount(
+                "ISA*00*          *00*          *ZZ*{0}*ZZ*GTNEXUS        *{1:yyMMdd}*{1:HHmm}*U*00401*{2}*0*{3}*>{4}", 
+                senderId.PadRight(15), 
+                deviceTime,
+                transmissionId.PadLeft(9, '0'), 
+                isTest ? "T" : "P", Eol);
+
+            message.AppendFormatNoCount("GS*{0}*{1}*{2}*{3:yyyyMMdd}*{3:HHmm}*{4}*X*004010{5}", MessageType, senderId, ReceiverId, deviceTime, transmissionId, Eol);
 
             // Start counting lines now
-            message.AppendFormat("ST*214*{0}{1}", messageGuid, Eol);
+            message.AppendFormat("ST*214*{0}{1}", transmissionId, Eol);  //Transaction Set Control Number 
             message.AppendFormat("B10*{0}*{0}*{1}{2}", _job.LoadId, _job.ContractedCarrierScac, Eol);
 
-            message.AppendFormat("L11*{0}*EQ{1}", _job.AssignedTruckRemoteId, Eol);
+            message.AppendFormat("L11*{0}*EQ{1}", vehicle.Vin, Eol);
             message.AppendFormat("L11*{0}*VT{1}", vehicle.Vin, Eol);
             message.AppendFormat("L11*D*4C{0}", Eol);
             message.AppendFormat("L11*{0}*4B{1}", _job.Pickup.Destination.QuickCode, Eol);
             message.AppendFormat("L11*{0}*GL{1}", _job.Dropoff.Destination.QuickCode, Eol);
             message.AppendFormat("L11*{0}*MCI{1}", _job.AllocatedCarrierScac, Eol);
 
-            if (forEvent == WebHookEvent.PickupStop && hasPickupDamage)
-            {
-                message.AppendFormat("L11*{0}*BZ{1}", DamageToString(vehicle.DamageAtDropoff), Eol);   
-            }
+            if (forEvent == WebHookEvent.PickupDamageRecorded && vehicle.DamageAtPickup != null)
+                foreach (var item in vehicle.DamageAtPickup)
+                    message.AppendFormat("L11*{0}{1}{2}*BZ{3}", item.Area.Code, item.Type.Code, item.Severity.Code, Eol);
 
             // Carrier
             var carrierAddress = _contractedCarrier.Contact;
             message.AppendFormat("N1*CA*{0}*94*{1}{2}", _contractedCarrier.Name, _contractedCarrier.Scac, Eol);
-            message.AppendFormat("N3*{0}{1}", carrierAddress.AddressLines, Eol);
+            message.AppendFormat("N3*{0}{1}", carrierAddress.AddressLines.Replace("\r\n", ", ").Replace("\r", ", ").Replace("\n", ", "), Eol);
             message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{3}", carrierAddress.City, carrierAddress.StateRegion, carrierAddress.ZipPostCode, Eol);
 
             // From
             var pickupDest = _job.Pickup.Destination;
-            message.AppendFormat("N1*SF*{0}-{1}*94*{0}-{0}{2}", pickupDest.QuickCode, pickupDest.OrganisationName, Eol);
-            message.AppendFormat("N3*{0}{1}", pickupDest.AddressLines, Eol);
-            message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{3}", pickupDest.City, pickupDest.StateRegion, pickupDest.ZipPostCode, Eol);
+            message.AppendFormat("N1*SF*{0}-{1}*94*{0}-{2}{3}", pickupDest.LocationCode, pickupDest.OrganisationName, _contractedCarrier.Scac, Eol);
+            message.AppendFormat("N3*{0}{1}", pickupDest.AddressLines.Replace("\r\n", ", ").Replace("\r", ", ").Replace("\n", ", "), Eol);
+            message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{3}{4}", pickupDest.City, pickupDest.StateRegion, pickupDest.ZipPostCode, pickupDest.QuickCode, Eol);
             message.AppendFormat("G62*69*{0:yyyyMMdd}{1}", _job.Pickup.ScheduledDate, Eol);
 
             // To
             var deliveryDest = _job.Dropoff.Destination;
-            message.AppendFormat("N1*ST*{0}-{1}*94*{0}-{0}{2}", deliveryDest.QuickCode, deliveryDest.OrganisationName, Eol);
-            message.AppendFormat("N3*{0}{1}", deliveryDest.AddressLines, Eol);
-            message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{3}", deliveryDest.City, deliveryDest.StateRegion, deliveryDest.ZipPostCode, Eol);
+            message.AppendFormat("N1*ST*{0}-{1}*94*{0}-{2}{3}", deliveryDest.LocationCode, deliveryDest.OrganisationName, _contractedCarrier.Scac, Eol);
+            message.AppendFormat("N3*{0}{1}", deliveryDest.AddressLines.Replace("\r\n", ", ").Replace("\r", ", ").Replace("\n", ", "), Eol);
+            message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{3}{4}", deliveryDest.City, deliveryDest.StateRegion, deliveryDest.ZipPostCode, deliveryDest.QuickCode, Eol);
             message.AppendFormat("G62*17*{0:yyyyMMdd}{1}", _job.Dropoff.ScheduledDate, Eol);
 
-            message.AppendFormat("MS3*{0}*M**J{1}", _job.AllocatedCarrierScac, Eol);
-            message.AppendFormat("LX*{0}{1}", messageGuid, Eol);
-            message.AppendFormat("AT7*{0}*NS***{1:yyyyMMdd}*{1:HHmm}*UT{2}", status, deviceTime, Eol);
-            message.AppendFormat("MS1*{0}*SL*US{1}", "City SPLC code", Eol);
-            message.AppendFormat("K1*Empty{0}", Eol);
+            message.AppendFormat("MS3*{0}*O**J{1}", _job.AllocatedCarrierScac, Eol);
+            message.AppendFormat("LX*1{0}", Eol);
+            message.AppendFormat("AT7*{0}*{1}***{2:yyyyMMdd}*{2:HHmm}*UT{3}", status, forEvent == WebHookEvent.PickupDamageRecorded ? "BG" : "NS", deviceTime, Eol);
+            message.AppendFormat("MS1*{0}*SL*US{1}", pickupDest.LocationCode, Eol);
             message.AppendFormat("SE*{0}*{1}{2}", message.LineCount + 1, transmissionId, Eol);
 
             // Don't count these lines
-            message.AppendFormatNoCount("GE*1*263{0}", Eol);
-            message.AppendFormatNoCount("IEA*1*000000263{0}", Eol);
+            message.AppendFormatNoCount("GE*1*{0}{1}", transmissionId, Eol);
+            message.AppendFormatNoCount("IEA*1*{0}{1}", transmissionId.PadLeft(9, '0'), Eol);
 
-            filename = string.Format("{0}_{1}_{2}_{3}_{4:yyMMdd}T{4:HHmmssff}.X12", SenderId, ReceiverId, MessageType, transmissionId, now);
+            filename = string.Format("{0}_{1}_{2}_{3}_{4:yyMMdd}T{4:HHmmssff}.X12", senderId, ReceiverId, MessageType, transmissionId, now);
             return message.ToString();
-        }
-
-        private static string DamageToString(ICollection<DamageItem> damage)
-        {
-            if (damage == null || damage.Count == 0)
-                return "";
-
-            var damageAsString = new StringBuilder();
-            foreach (var item in damage)
-                damageAsString.AppendFormat("{0}{1}{2};", item.Area.Code, item.Type.Code, item.Severity.Code);
-            return damageAsString.ToString().Trim(';');
         }
     }
 }
