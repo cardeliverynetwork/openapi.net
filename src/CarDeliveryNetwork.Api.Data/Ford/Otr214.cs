@@ -145,7 +145,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             var carrierAddress = _contractedCarrier.Contact;
             message.AppendFormat("N1*CA*{0}*94*{1}{2}", _contractedCarrier.Name, _contractedCarrier.Scac, Eol);
             message.AppendFormat("N3*{0}{1}", AddressToOneLine(carrierAddress.AddressLines), Eol);
-            message.AppendFormat("N4*{0}*{1}*{2}*{3}*SL*{4}{5}", carrierAddress.City, carrierAddress.StateRegion, carrierAddress.ZipPostCode, carrierAddress.CountryCode, carrierAddress.QuickCode, Eol);
+            message.AppendFormat("N4*{0}*{1}*{2}*{3}*SL*{4}{5}", carrierAddress.City, carrierAddress.StateRegion, carrierAddress.ZipPostCode, carrierAddress.CountryCode, _contractedCarrier.Scac, Eol);
 
             // From
             var pickupDest = _job.Pickup.Destination;
@@ -180,7 +180,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
         {
             return address == null 
                 ? "unspecified" 
-                : address.Replace("\r\n", ", ").Replace("\r", ", ").Replace("\n", ", ").Replace(", ", "");
+                : address.Replace("\r\n", ", ").Replace("\r", ", ").Replace("\n", ", ").Trim(' ', ',');
         }
     }
 }
