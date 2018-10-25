@@ -18,6 +18,23 @@ namespace CarDeliveryNetwork.Api.Data
     /// </remarks>
     public class ContactDetails : ApiEntityBase<ContactDetails>, IContactDetails, IImportable
     {
+        private readonly List<string> CanadianTerritories = new List<string>
+        {
+            "AB",
+            "BC",
+            "MB",
+            "NB",
+            "NL",
+            "NT",
+            "NS",
+            "NU",
+            "ON",
+            "PE",
+            "QC",
+            "SK",
+            "YT"
+        };
+
         /// <summary>
         /// Optional (255) - A unique identifier with which to refer to this contact.
         /// </summary>
@@ -106,6 +123,35 @@ namespace CarDeliveryNetwork.Api.Data
         /// Optional (ntext) - Notes relating to this contact.
         /// </summary>
         public virtual string Notes { get; set; }
+
+        /// <summary>
+        /// Returns a guess at country code for this contact, looked up using StateRegion
+        /// </summary>
+        public string CountryCode
+        {
+            get
+            {
+                var stateRegion = StateRegion == null ? null : StateRegion.Trim().ToUpper();
+
+                if (string.IsNullOrEmpty(stateRegion))
+                    return "";
+
+                if (stateRegion.Length > 2)
+                    return "UK";
+
+                return CanadianTerritories.Contains(stateRegion)
+                    ? "CA"
+                    : "US";
+            }
+        }
+
+        /// <summary>
+        /// String to display after importing this object
+        /// </summary>
+        public string ImportDisplayString
+        {
+            get { return string.Format("{0}, {1}, {2}, {3}", QuickCode, OrganisationName, City, ZipPostCode); }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.ContactDetails"/> class.
@@ -202,14 +248,6 @@ namespace CarDeliveryNetwork.Api.Data
             if (includeNotes && !string.IsNullOrWhiteSpace(Notes))
                 result.AppendFormat("<br />{0}<br />", Notes);
             return result.ToString();
-        }
-
-        /// <summary>
-        /// String to display after importing this object
-        /// </summary>
-        public string ImportDisplayString
-        {
-            get { return string.Format("{0}, {1}, {2}, {3}", QuickCode, OrganisationName, City, ZipPostCode); }
         }
     }
 

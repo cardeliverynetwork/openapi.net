@@ -90,16 +90,16 @@ namespace CarDeliveryNetwork.Api.Data.Ford
 
             switch (forEvent)
             {
-                //case WebHookEvent.AssignedToDriver:
-                //    status = "R1";
-                //    break;
-
-                case WebHookEvent.PickupStop:
-                    status = "XB";
+                case WebHookEvent.AssignedToDriver:
+                    status = "R1";
                     break;
 
                 case WebHookEvent.PickupDamageRecorded:
                     status = "A9";
+                    break;
+
+                case WebHookEvent.PickupStop:
+                    status = "XB";
                     break;
 
                 case WebHookEvent.OnWayDeliver:
@@ -133,7 +133,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             message.AppendFormat("L11*{0}*EQ{1}", vehicle.Vin, Eol);
             message.AppendFormat("L11*{0}*VT{1}", vehicle.Vin, Eol);
             message.AppendFormat("L11*D*4C{0}", Eol);
-            message.AppendFormat("L11*{0}*4B{1}", _job.Pickup.Destination.QuickCode, Eol);
+            message.AppendFormat("L11*{0}*4B{1}", _job.Pickup.Destination.LocationCode, Eol);
             message.AppendFormat("L11*{0}*GL{1}", _job.Dropoff.Destination.QuickCode, Eol);
             message.AppendFormat("L11*{0}*MCI{1}", _job.AllocatedCarrierScac, Eol);
 
@@ -143,25 +143,22 @@ namespace CarDeliveryNetwork.Api.Data.Ford
 
             // Carrier
             var carrierAddress = _contractedCarrier.Contact;
-            var carrierAddressLines = carrierAddress.AddressLines == null ? "unspecified" : carrierAddress.AddressLines.Replace("\r\n", ", ").Replace("\r", ", ").Replace("\n", ", ");
             message.AppendFormat("N1*CA*{0}*94*{1}{2}", _contractedCarrier.Name, _contractedCarrier.Scac, Eol);
-            message.AppendFormat("N3*{0}{1}", carrierAddressLines, Eol);
-            message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{3}", carrierAddress.City, carrierAddress.StateRegion, carrierAddress.ZipPostCode, Eol);
+            message.AppendFormat("N3*{0}{1}", AddressToOneLine(carrierAddress.AddressLines), Eol);
+            message.AppendFormat("N4*{0}*{1}*{2}*{3}*SL*{4}{5}", carrierAddress.City, carrierAddress.StateRegion, carrierAddress.ZipPostCode, carrierAddress.CountryCode, carrierAddress.QuickCode, Eol);
 
             // From
             var pickupDest = _job.Pickup.Destination;
-            var pickupDestAddressLines = pickupDest.AddressLines == null ? "unspecified" : pickupDest.AddressLines.Replace("\r\n", ", ").Replace("\r", ", ").Replace("\n", ", ");
             message.AppendFormat("N1*SF*{0}-{1}*94*{0}-{2}{3}", pickupDest.LocationCode, pickupDest.OrganisationName, _contractedCarrier.Scac, Eol);
-            message.AppendFormat("N3*{0}{1}", pickupDestAddressLines, Eol);
-            message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{3}{4}", pickupDest.City, pickupDest.StateRegion, pickupDest.ZipPostCode, pickupDest.QuickCode, Eol);
+            message.AppendFormat("N3*{0}{1}", AddressToOneLine(pickupDest.AddressLines), Eol);
+            message.AppendFormat("N4*{0}*{1}*{2}*{3}*SL*{4}{5}", pickupDest.City, pickupDest.StateRegion, pickupDest.ZipPostCode, pickupDest.CountryCode, pickupDest.QuickCode, Eol);
             message.AppendFormat("G62*69*{0:yyyyMMdd}{1}", _job.Pickup.ScheduledDate, Eol);
 
             // To
             var deliveryDest = _job.Dropoff.Destination;
-            var deliveryDestAddressLines = deliveryDest.AddressLines == null ? "unspecified" : deliveryDest.AddressLines.Replace("\r\n", ", ").Replace("\r", ", ").Replace("\n", ", ");
             message.AppendFormat("N1*ST*{0}-{1}*94*{0}-{2}{3}", deliveryDest.LocationCode, deliveryDest.OrganisationName, _contractedCarrier.Scac, Eol);
-            message.AppendFormat("N3*{0}{1}", deliveryDestAddressLines, Eol);
-            message.AppendFormat("N4*{0}*{1}*{2}*US*SL*{3}{4}", deliveryDest.City, deliveryDest.StateRegion, deliveryDest.ZipPostCode, deliveryDest.QuickCode, Eol);
+            message.AppendFormat("N3*{0}{1}", AddressToOneLine(deliveryDest.AddressLines), Eol);
+            message.AppendFormat("N4*{0}*{1}*{2}*{3}*SL*{4}{5}", deliveryDest.City, deliveryDest.StateRegion, deliveryDest.ZipPostCode, deliveryDest.CountryCode, deliveryDest.QuickCode, Eol);
             message.AppendFormat("G62*17*{0:yyyyMMdd}{1}", _job.Dropoff.ScheduledDate, Eol);
 
             message.AppendFormat("MS3*{0}*O**J{1}", _job.AllocatedCarrierScac, Eol);
@@ -176,6 +173,14 @@ namespace CarDeliveryNetwork.Api.Data.Ford
 
             filename = string.Format("{0}_{1}_{2}_{3}_{4:yyMMdd}T{4:HHmmssff}.X12", senderId, ReceiverId, MessageType, transmissionId, now);
             return message.ToString();
+        }
+
+        // Replaces common line end characters in address lines field for comma + space.
+        private static string AddressToOneLine(string address)
+        {
+            return address == null 
+                ? "unspecified" 
+                : address.Replace("\r\n", ", ").Replace("\r", ", ").Replace("\n", ", ").Replace(", ", "");
         }
     }
 }
