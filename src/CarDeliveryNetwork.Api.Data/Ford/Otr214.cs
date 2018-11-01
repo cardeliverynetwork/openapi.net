@@ -145,20 +145,20 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             var carrierAddress = _contractedCarrier.Contact;
             message.AppendFormat("N1*CA*{0}*94*{1}{2}", _contractedCarrier.Name, _contractedCarrier.Scac, Eol);
             message.AppendFormat("N3*{0}{1}", AddressToOneLine(carrierAddress.AddressLines), Eol);
-            message.AppendFormat("N4*{0}*{1}*{2}*{3}*SL*{4}{5}", carrierAddress.City, carrierAddress.StateRegion, carrierAddress.ZipPostCode, carrierAddress.CountryCode, _contractedCarrier.Scac, Eol);
+            message.AppendFormat("N4*{0}*{1}*{2}*{3}*SL*{4}{5}", carrierAddress.City, carrierAddress.StateRegion, carrierAddress.ZipPostCode, carrierAddress.CountryCode, carrierAddress.LocationCode, Eol);
 
             // From
             var pickupDest = _job.Pickup.Destination;
-            message.AppendFormat("N1*SF*{0}-{1}*94*{0}-{2}{3}", pickupDest.LocationCode, pickupDest.OrganisationName, _contractedCarrier.Scac, Eol);
+            message.AppendFormat("N1*SF*{0}-{1}*94*{0}-{2}{3}", pickupDest.QuickCode, pickupDest.OrganisationName, _contractedCarrier.Scac, Eol);
             message.AppendFormat("N3*{0}{1}", AddressToOneLine(pickupDest.AddressLines), Eol);
-            message.AppendFormat("N4*{0}*{1}*{2}*{3}*SL*{4}{5}", pickupDest.City, pickupDest.StateRegion, pickupDest.ZipPostCode, pickupDest.CountryCode, pickupDest.QuickCode, Eol);
+            message.AppendFormat("N4*{0}*{1}*{2}*{3}*SL*{4}{5}", pickupDest.City, pickupDest.StateRegion, pickupDest.ZipPostCode, pickupDest.CountryCode, pickupDest.LocationCode, Eol);
             message.AppendFormat("G62*69*{0:yyyyMMdd}{1}", _job.Pickup.ScheduledDate, Eol);
 
             // To
             var deliveryDest = _job.Dropoff.Destination;
-            message.AppendFormat("N1*ST*{0}-{1}*94*{0}-{2}{3}", deliveryDest.LocationCode, deliveryDest.OrganisationName, _contractedCarrier.Scac, Eol);
+            message.AppendFormat("N1*ST*{0}-{1}*94*{0}-{2}{3}", deliveryDest.QuickCode, deliveryDest.OrganisationName, _contractedCarrier.Scac, Eol);
             message.AppendFormat("N3*{0}{1}", AddressToOneLine(deliveryDest.AddressLines), Eol);
-            message.AppendFormat("N4*{0}*{1}*{2}*{3}*SL*{4}{5}", deliveryDest.City, deliveryDest.StateRegion, deliveryDest.ZipPostCode, deliveryDest.CountryCode, deliveryDest.QuickCode, Eol);
+            message.AppendFormat("N4*{0}*{1}*{2}*{3}*SL*{4}{5}", deliveryDest.City, deliveryDest.StateRegion, deliveryDest.ZipPostCode, deliveryDest.CountryCode, deliveryDest.LocationCode, Eol);
             message.AppendFormat("G62*17*{0:yyyyMMdd}{1}", _job.Dropoff.ScheduledDate, Eol);
 
             message.AppendFormat("MS3*{0}*O**J{1}", _job.AllocatedCarrierScac, Eol);
@@ -179,7 +179,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
         private static string AddressToOneLine(string address)
         {
             return address == null 
-                ? "unspecified" 
+                ? "" 
                 : address.Replace("\r\n", ", ").Replace("\r", ", ").Replace("\n", ", ").Trim(' ', ',');
         }
     }
