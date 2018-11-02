@@ -86,6 +86,21 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// CSV Vehicle Improt
         /// </summary>
-        VehicleImport = 19
+        VehicleImport = 19,
+
+        /// <summary>
+        /// Dealer damage claim
+        /// </summary>
+        DeliveryClaimDamage = 20,
+
+        /// <summary>
+        /// Dealer delivery claim document
+        /// </summary>
+        DeliveryClaimDocument = 21,
+
+        /// <summary>
+        /// Dealer delivery claim photos
+        /// </summary>
+        DeliveryClaimPhoto = 22
     }
 }
