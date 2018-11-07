@@ -132,9 +132,9 @@ namespace CarDeliveryNetwork.Api.Data.Ford
 
             message.AppendFormat("L11*{0}*EQ{1}", vehicle.Vin, Eol);
             message.AppendFormat("L11*{0}*VT{1}", vehicle.Vin, Eol);
-            message.AppendFormat("L11*D*4C{0}", Eol);
+            message.AppendFormat("L11*D*4C{0}", Eol);                   // D Compound - Dealer  // C - Compound - Compound
             message.AppendFormat("L11*{0}*4B{1}", _job.Pickup.Destination.LocationCode, Eol);
-            message.AppendFormat("L11*{0}*GL{1}", _job.Dropoff.Destination.QuickCode, Eol);
+            message.AppendFormat("L11*{0}*GL{1}", _job.Dropoff.Destination.QuickCode, Eol);     // Destination - Dealer code
             message.AppendFormat("L11*{0}*MCI{1}", _job.AllocatedCarrierScac, Eol);
 
             if (forEvent == WebHookEvent.PickupDamageRecorded && vehicle.DamageAtPickup != null)
@@ -164,7 +164,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             message.AppendFormat("MS3*{0}*O**J{1}", _job.AllocatedCarrierScac, Eol);
             message.AppendFormat("LX*1{0}", Eol);
             message.AppendFormat("AT7*{0}*{1}***{2:yyyyMMdd}*{2:HHmm}*UT{3}", status, forEvent == WebHookEvent.PickupDamageRecorded ? "BG" : "NS", deviceTime, Eol);
-            message.AppendFormat("MS1*{0}*SL*US{1}", pickupDest.LocationCode, Eol);
+            message.AppendFormat("MS1*{0}*SL*US{1}", pickupDest.LocationCode, Eol);     // Origin // SPLC*SL*CA//
             message.AppendFormat("SE*{0}*{1}{2}", message.LineCount + 1, transmissionId, Eol);
 
             // Don't count these lines
