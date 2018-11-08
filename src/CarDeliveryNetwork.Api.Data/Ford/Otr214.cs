@@ -133,7 +133,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             message.AppendFormat("L11*{0}*EQ{1}", vehicle.Vin, Eol);
             message.AppendFormat("L11*{0}*VT{1}", vehicle.Vin, Eol);
             message.AppendFormat("L11*D*4C{0}", Eol);                   // D Compound - Dealer  // C - Compound - Compound
-            message.AppendFormat("L11*{0}*4B{1}", _job.Pickup.Destination.LocationCode, Eol);
+            message.AppendFormat("L11*{0}*4B{1}", _job.Pickup.Destination.QuickCode, Eol);
             message.AppendFormat("L11*{0}*GL{1}", _job.Dropoff.Destination.QuickCode, Eol);     // Destination - Dealer code
             message.AppendFormat("L11*{0}*MCI{1}", _job.AllocatedCarrierScac, Eol);
 
