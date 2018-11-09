@@ -164,7 +164,7 @@ namespace CarDeliveryNetwork.Api.Data.Ford
             message.AppendFormat("MS3*{0}*O**J{1}", _job.AllocatedCarrierScac, Eol);
             message.AppendFormat("LX*1{0}", Eol);
             message.AppendFormat("AT7*{0}*{1}***{2:yyyyMMdd}*{2:HHmm}*UT{3}", status, forEvent == WebHookEvent.PickupDamageRecorded ? "BG" : "NS", deviceTime, Eol);
-            message.AppendFormat("MS1*{0}*SL*US{1}", pickupDest.LocationCode, Eol);     // Origin // SPLC*SL*CA//
+            message.AppendFormat("MS1*{0}*SL*{1}{2}", pickupDest.LocationCode, pickupDest.CountryCode, Eol);     // Origin // SPLC*SL*CA//
             message.AppendFormat("SE*{0}*{1}{2}", message.LineCount + 1, transmissionId, Eol);
 
             // Don't count these lines
