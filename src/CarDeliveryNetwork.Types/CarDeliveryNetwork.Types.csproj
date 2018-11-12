@@ -56,6 +56,8 @@
     <Compile Include="JobAction.cs" />
     <Compile Include="JobAllocationActivity.cs" />
     <Compile Include="JourneyType.cs" />
+    <Compile Include="VehicleLoadDirection.cs" />
+    <Compile Include="VehicleLoadLevel.cs" />
     <Compile Include="VehicleStatus.cs" />
     <Compile Include="WebHookSchema.cs" />
     <Compile Include="WebHookStatus.cs" />

@@ -40,6 +40,31 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Variant { get; set; }
 
         /// <summary>
+        /// Optional (25) - The vehicle color, type or sub-model.
+        /// </summary>
+        public virtual string Color { get; set; }
+
+        /// <summary>
+        /// Optional - The vehicle mass in ????
+        /// </summary>
+        public virtual int Weight { get; set; }
+
+        /// <summary>
+        /// Readonly - The direction the vehicle was loaded in
+        /// </summary>
+        public virtual VehicleLoadDirection LoadDirection { get; set; }
+
+        /// <summary>
+        /// Readonly - The ramp level the vehicle was loaded onto
+        /// </summary>
+        public virtual VehicleLoadLevel LoadLevel { get; set; }
+
+        /// <summary>
+        /// Readonly - The position the vehicle was loaded onto the ramp
+        /// </summary>
+        public virtual int LoadPosition { get; set; }
+
+        /// <summary>
         /// Optional (50) - The vehicle's location or bay number
         /// </summary>
         public virtual string Location { get; set; }
