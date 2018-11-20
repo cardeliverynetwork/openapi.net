@@ -30,5 +30,5 @@ See COPYING for license information. Copyright (c) 2016 Car Delivery Network Ltd
 
 Integration Builds
 ---
-[![Build Status](http://build.cardeliverynetwork.com:8080/app/rest/builds/buildType:cdnopen_openapinet/statusIcon)]
-(http://build.cardeliverynetwork.com:8080/viewType.html?buildTypeId=cdnopen_openapinet&guest=1)
+[![Build Status](http://build1.cardeliverynetwork.com:8080/app/rest/builds/buildType:cdnopen_openapinet/statusIcon)]
+(http://build1.cardeliverynetwork.com:8080/viewType.html?buildTypeId=cdnopen_openapinet&guest=1)
