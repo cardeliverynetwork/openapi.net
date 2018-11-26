@@ -209,6 +209,46 @@
         /// <summary>
         /// 7 or 8 day basis used to compute cumulative duty hours for ELD
         /// </summary>
-        FleetConnectMultiDayBasis
+        FleetConnectMultiDayBasis,
+
+        /// <summary>
+        /// Requires Driver Handover
+        /// </summary>
+        RequiresDriverHandover,
+
+        /// <summary>
+        /// Requires Model
+        /// </summary>
+        RequiresModel,
+
+        /// <summary>
+        /// Requires tracking
+        /// </summary>
+        RequiresTracking,
+
+        /// <summary>
+        /// Requires Epod
+        /// </summary>
+        RequiresEpod,
+
+        /// <summary>
+        /// Requires lease paperwork
+        /// </summary>
+        RequiresLeasePaperwork,
+
+        /// <summary>
+        /// Vehicle is Road Legal to drive
+        /// </summary>
+        IsRoadLegal,
+
+        /// <summary>
+        /// Fuel is inclusive
+        /// </summary>
+        FuelInclusive,
+
+        /// <summary>
+        ///Enclosed Transportation
+        /// </summary>
+        EnclosedTransportation,
     }
 }
