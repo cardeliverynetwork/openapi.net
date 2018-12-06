@@ -8,10 +8,10 @@ namespace console
 {
     class Program
     {
-        const bool useApi2 = true;
+        const bool useApi2 = false;
 
         // API 2 URLs
-        const string ServiceUrl = "http://localhost/vindeliver/api/vind2/openapi";                                    // Local Dev
+        //const string ServiceUrl = "http://localhost/vindeliver/api/vind2/openapi";                                    // Local Dev
         // const string ServiceUrl = "https://build1.cardeliverynetwork.com/vindeliver2uatuk/api/vind2/openapi";   // UK UAT
         // const string ServiceUrl = "https://vindeliver.cardeliverynetwork.com/uk/api/vind2/openapi";             // UK Training
         // const string ServiceUrl = "https://vindeliver.cardeliverynetwork.com/us/api/vind2/openapi";             // US Training
@@ -20,13 +20,18 @@ namespace console
         // const string ServiceUrl = "http://localhost/cdn/openapi";                                            // Local Dev
         // const string ServiceUrl = "https://go.cardeliverynetwork.com/trainingus/openapi";                    // US Training
         // const string ServiceUrl = "https://go.cardeliverynetwork.com/traininguk/openapi";                    // UK Training
+         const string ServiceUrl = "https://go.cardeliverynetwork.com/us/openapi";                    // UK Training
+
+        // http://go.cardeliverynetwork.com/us/OpenApi/Jobs/4089747/Action?apikey=d8dd7eee-1eb7-4d38-9e6b-c6f10333a6bd&format=json,
 
         // API 2 user's credentials
         const string ServiceUsername = "cwallis";
         const string ServicePassword = "test";
 
         // Legacy API user's key
-        const string ServiceApiKey = "fb04420a-49d0-4585-af57-1d390bfa12e7"; // local dev key - do not use
+        //const string ServiceApiKey = "1dfbedad-5f79-45c1-b835-408d24688377"; // local dev key - do not use
+
+        const string ServiceApiKey = "d8dd7eee-1eb7-4d38-9e6b-c6f10333a6bd"; // us live
 
         static void Main(string[] args)
         {
@@ -40,6 +45,14 @@ namespace console
                 //////////////////
                 // Create a job //
                 //////////////////
+
+                var kwjob = api.GetJob(4089747);
+                var kw = api.GetHomeFleet();
+                var otr = new CarDeliveryNetwork.Api.Data.Ford.Otr214(kwjob, kw);
+
+                string filename;
+                var otrString = otr.ToString(0, WebHookEvent.PickupStop, DateTime.Now, "lala123", DateTime.Now, true, out filename); 
+
 
                 // The load Id, can only be used once
                 var loadId = string.Format("Load-{0}", DateTime.UtcNow.Ticks);
