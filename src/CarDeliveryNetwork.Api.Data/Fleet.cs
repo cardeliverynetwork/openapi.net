@@ -19,6 +19,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Scac { get; set; }
 
         /// <summary>
+        /// The fleet's US DOT Number
+        /// </summary>
+        public virtual string DotNumber { get; set; }
+
+        /// <summary>
+        /// The fleet's US DOT Number
+        /// </summary>
+        public virtual int MultiTransporters { get; set; }
+
+        /// <summary>
         /// Indicates that the fleet is primarily a broker
         /// </summary>
         public virtual bool IsBroker { get; set; }
