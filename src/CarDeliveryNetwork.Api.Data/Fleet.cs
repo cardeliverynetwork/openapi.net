@@ -24,7 +24,7 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string DotNumber { get; set; }
 
         /// <summary>
-        /// The fleet's US DOT Number
+        /// The fleet's number of multi-transporters
         /// </summary>
         public virtual int MultiTransporters { get; set; }
 
