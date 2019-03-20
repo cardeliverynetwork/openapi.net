@@ -43,6 +43,10 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="TestFiles\CdxVehicleExchange.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\CarDeliveryNetwork.Api.ClientProxy\CarDeliveryNetwork.Api.ClientProxy.csproj">

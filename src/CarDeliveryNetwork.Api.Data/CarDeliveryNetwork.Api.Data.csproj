@@ -45,6 +45,7 @@
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="ApiError.cs" />
     <Compile Include="Bid.cs" />
+    <Compile Include="CdxVehicleExchange.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="DeliveryDamageClaim.cs" />
     <Compile Include="Tranship.cs" />
@@ -99,6 +100,7 @@
       <Name>CarDeliveryNetwork.Types</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

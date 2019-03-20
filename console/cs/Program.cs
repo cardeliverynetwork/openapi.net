@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
 using CarDeliveryNetwork.Types;
@@ -37,6 +38,9 @@ namespace console
         {
             try
             {
+                //TestCdx();
+                //return;
+
                 // Construct an instance of the API
                 var api = useApi2
                     ? new OpenApi(ServiceUrl, ServiceUsername, ServicePassword, "The Calling App")
@@ -51,7 +55,7 @@ namespace console
                 var otr = new CarDeliveryNetwork.Api.Data.Ford.Otr214(kwjob, kw);
 
                 string filename;
-                var otrString = otr.ToString(0, WebHookEvent.PickupStop, DateTime.Now, "lala123", DateTime.Now, true, out filename); 
+                var otrString = otr.ToString(0, WebHookEvent.PickupStop, DateTime.Now, "lala123", DateTime.Now, true, out filename);
 
 
                 // The load Id, can only be used once
@@ -63,10 +67,10 @@ namespace console
                 ///////////////////////
                 // Add more vehicles //
                 ///////////////////////
-                
+
                 // Identifying the job by its Id, create some extra vehicles
                 //api.CreateJobVehicles(newjob.Id, new Vehicles { new Vehicle { Vin = "aaaa" } });
-              
+
                 // Identifying the job by its LoadId, create some extra vehicles
                 //api.CreateJobVehicles(loadId, new Vehicles { new Vehicle { Vin = "bbbb" } });
 
@@ -95,6 +99,91 @@ namespace console
             {
                 Console.WriteLine("Exception: Message: {0}", ex.Message);
             }
+        }
+
+        private static void TestCdx()
+        {
+            var cdx = new CdxVehicleExchange
+            {
+                Shipment = new CdxShipment
+                {
+                    CreatedDateTime = DateTime.UtcNow,
+                    EventDateTime = DateTime.UtcNow - TimeSpan.FromSeconds(42),
+                    SenderInventoryId = "USAA-8333306-00052-G1316414",
+                    SenderScac = "USAA",
+                    ReceiverScac = "CENT",
+                    SenderJobNumber = "Unknown",
+                    SenderLoadId = "USAA-8333306-00052-G1316414",
+                    SenderTripId = "8333306",
+                    ReceiverJobNumber = "Unknown",
+                    ReceiverLoadId = "Unknown",
+                    ReceiverTripId = "Unknown",
+                    Price = 123.12M,
+                    Notes = "shipmentnotes",
+                    TruckId = "Unknown",
+                    DriverId = "Unknown",
+                    
+                },
+                Vehicles = new List<CdxVehicle>
+                {
+                    new CdxVehicle
+                    {
+                         Make = "GMC",
+                         Model = "EQUINOX: 1XR26",
+                         ShipperScac = "GST",
+                         Vin = "3GNAXKEV6KS604218",
+                         Variant = "GD1",
+                         Color = "color",
+                         ScheduledPickupDate = DateTime.UtcNow + TimeSpan.FromDays(1),
+                         ScheduledDeliveryDate = DateTime.UtcNow + TimeSpan.FromDays(2),
+                         VehicleType = "vehicletype",
+                         Weight = 123,
+                         Location = "location",
+                         MovementNumber = "movementnumber",
+                         ReferenceNumber = "referencenumber",
+                         Price = 56.43M,
+                         Notes = "vehiclenotes",
+                         Origin = new ContactDetails
+                         {
+                            QuickCode = "1316414",
+                            InternalQuickCode = "G1316414",
+                            LocationCode = "senderlocationcode",
+                            OrganizationName = "SOUTH CHARLOTTE CHEVY",
+                            AddressLines = "9325 South BLVD",
+                            City = "Charlotte",
+                            StateRegion = "NC",
+                            ZipPostCode = "28273",
+                            CountryCode = "US",
+                            Contact = "*",
+                            Email = "email",
+                            Phone = "7045516400",
+                            Notes = "Origin Notes",
+                         },
+                         Destination = new ContactDetails
+                         {
+                            QuickCode = "1316415",
+                            InternalQuickCode = "G1316415",
+                            LocationCode = "senderlocationcode",
+                            OrganizationName = "Billy Bob",
+                            AddressLines = "9326 South BLVD",
+                            City = "Charlotte",
+                            StateRegion = "NC",
+                            ZipPostCode = "28273",
+                            CountryCode = "US",
+                            Contact = "Billy",
+                            Email = "email",
+                            Phone = "7045516401",
+                            Notes = "Destination Notes",
+                         }
+                    },
+                    //new Vehicle{},
+                }
+            };
+
+            var cdsstr = cdx.ToString(MessageFormat.Xml);
+            var xml = File.ReadAllText("TestFiles\\CdxVehicleExchange.xml");
+
+            var thing = CdxVehicleExchange.FromString(xml, MessageFormat.Xml);
         }
 
         private static Job GetTestJob(string loadId = null)

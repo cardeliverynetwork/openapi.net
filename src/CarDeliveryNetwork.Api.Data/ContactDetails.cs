@@ -18,6 +18,8 @@ namespace CarDeliveryNetwork.Api.Data
     /// </remarks>
     public class ContactDetails : ApiEntityBase<ContactDetails>, IContactDetails, IImportable
     {
+        private string _countryCode;
+
         private readonly List<string> CanadianTerritories = new List<string>
         {
             "AB",
@@ -45,6 +47,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string QuickCode { get; set; }
 
         /// <summary>
+        /// Optional (30) - A unique identifier with which to internally refer to this contact.
+        /// </summary>
+        public virtual string InternalQuickCode { get; set; }
+
+        /// <summary>
         /// Optional (30) - The location code for this location
         /// </summary>
         public virtual string LocationCode { get; set; }
@@ -55,9 +62,18 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Contact { get; set; }
 
         /// <summary>
-        /// Optional (100) - The organization name associated with this contact.
+        /// Optional (100) - The organisation name associated with this contact.
         /// </summary>
         public virtual string OrganisationName { get; set; }
+
+        /// <summary>
+        /// Optional (100) - Alias for US spelling of 'Organisation'
+        /// </summary>
+        public virtual string OrganizationName
+        {
+            get { return OrganisationName; }
+            set { OrganisationName = value; }
+        }
 
         /// <summary>
         /// Optional (300) - The first line(s) of the address, e.g. Building name/number and street name.
@@ -131,17 +147,29 @@ namespace CarDeliveryNetwork.Api.Data
         {
             get
             {
+                if (!string.IsNullOrWhiteSpace(_countryCode))
+                    return _countryCode;
+
                 var stateRegion = StateRegion == null ? null : StateRegion.Trim().ToUpper();
 
                 if (string.IsNullOrEmpty(stateRegion))
+                {
                     return "";
-
-                if (stateRegion.Length > 2)
+                }
+                else if (stateRegion.Length > 2)
+                {
                     return "UK";
-
-                return CanadianTerritories.Contains(stateRegion)
-                    ? "CA"
-                    : "US";
+                }
+                else
+                {
+                    return CanadianTerritories.Contains(stateRegion)
+                        ? "CA"
+                        : "US";
+                }
+            }
+            set
+            {
+                _countryCode = value;
             }
         }
 
@@ -166,6 +194,7 @@ namespace CarDeliveryNetwork.Api.Data
         public ContactDetails(IContactDetails c)
         {
             QuickCode = c.QuickCode;
+            InternalQuickCode = c.InternalQuickCode;
             LocationCode = c.LocationCode;
             Contact = c.Contact;
             OrganisationName = c.OrganisationName;
@@ -179,6 +208,7 @@ namespace CarDeliveryNetwork.Api.Data
             MobilePhone = c.MobilePhone;
             OtherPhone = c.OtherPhone;
             Notes = c.Notes;
+            CountryCode = c.CountryCode;
         }
 
         /// <summary>

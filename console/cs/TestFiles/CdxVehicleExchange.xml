@@ -1,0 +1,68 @@
+﻿<CdxVehicleExchange xmlns="http://schemas.datacontract.org/2004/07/CarDeliveryNetwork.Api.Data" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <Shipment>
+    <CreatedDateTime>2019-03-20T21:28:26Z</CreatedDateTime>
+    <DriverId>Unknown</DriverId>
+    <EventDateTime>2019-03-20T21:27:44Z</EventDateTime>
+    <Notes>shipmentnotes</Notes>
+    <Price>123.12</Price>
+    <ReceiverJobNumber>Unknown</ReceiverJobNumber>
+    <ReceiverLoadId>Unknown</ReceiverLoadId>
+    <ReceiverScac>CENT</ReceiverScac>
+    <ReceiverTripId>Unknown</ReceiverTripId>
+    <SenderInventoryId>USAA-8333306-00052-G1316414</SenderInventoryId>
+    <SenderJobNumber>Unknown</SenderJobNumber>
+    <SenderLoadId>USAA-8333306-00052-G1316414</SenderLoadId>
+    <SenderScac>USAA</SenderScac>
+    <SenderTripId>8333306</SenderTripId>
+    <TruckId>Unknown</TruckId>
+  </Shipment>
+  <Vehicles>
+    <CdxVehicle>
+      <Color>color</Color>
+      <Location>location</Location>
+      <Make>GMC</Make>
+      <Model>EQUINOX: 1XR26</Model>
+      <MovementNumber>movementnumber</MovementNumber>
+      <Notes>vehiclenotes</Notes>
+      <Variant>GD1</Variant>
+      <Vin>3GNAXKEV6KS604218</Vin>
+      <Weight>123</Weight>
+      <Destination>
+        <AddressLines>9326 South BLVD</AddressLines>
+        <City>Charlotte</City>
+        <Contact>Billy</Contact>
+        <CountryCode>US</CountryCode>
+        <Email>email</Email>
+        <InternalQuickCode>G1316415</InternalQuickCode>
+        <LocationCode>senderlocationcode</LocationCode>
+        <Notes>Destination Notes</Notes>
+        <OrganizationName>Billy Bob</OrganizationName>
+        <Phone>7045516401</Phone>
+        <QuickCode>1316415</QuickCode>
+        <StateRegion>NC</StateRegion>
+        <ZipPostCode>28273</ZipPostCode>
+      </Destination>
+      <Origin>
+        <AddressLines>9325 South BLVD</AddressLines>
+        <City>Charlotte</City>
+        <Contact>*</Contact>
+        <CountryCode>US</CountryCode>
+        <Email>email</Email>
+        <InternalQuickCode>G1316414</InternalQuickCode>
+        <LocationCode>senderlocationcode</LocationCode>
+        <Notes>notes</Notes>
+        <OrganizationName>SOUTH CHARLOTTE CHEVY</OrganizationName>
+        <Phone>7045516400</Phone>
+        <QuickCode>1316414</QuickCode>
+        <StateRegion>NC</StateRegion>
+        <ZipPostCode>28273</ZipPostCode>
+      </Origin>
+      <Price>56.43</Price>
+      <ReferenceNumber>referencenumber</ReferenceNumber>
+      <ScheduledDeliveryDate>2015-09-10</ScheduledDeliveryDate>
+      <ScheduledPickupDate>2015-09-09</ScheduledPickupDate>
+      <ShipperScac>GST</ShipperScac>
+      <VehicleType>vehicletype</VehicleType>
+    </CdxVehicle>
+  </Vehicles>
+</CdxVehicleExchange>
