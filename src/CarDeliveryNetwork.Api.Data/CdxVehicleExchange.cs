@@ -4,39 +4,14 @@ using System.Collections.Generic;
 
 namespace CarDeliveryNetwork.Api.Data
 {
-    public class CdxShipment
-    {
-        public DateTime? CreatedDateTime { get; set; }
-        public DateTime? EventDateTime { get; set; }
-        public string SenderInventoryId { get; set; }
-        public string SenderScac { get; set; }
-        public string ReceiverScac { get; set; }
-        public string SenderJobNumber { get; set; }
-        public string SenderLoadId { get; set; }
-        public string SenderTripId { get; set; }
-        public string ReceiverJobNumber { get; set; }
-        public string ReceiverLoadId { get; set; }
-        public string ReceiverTripId { get; set; }
-        public decimal? Price { get; set; }
-        public string Notes { get; set; }
-        public string TruckId { get; set; }
-        public string DriverId { get; set; }
-    }
-
-    public class CdxVehicle : Vehicle
-    {
-        public string ShipperScac { get; set; }
-        public string VehicleType { get; set; }
-        public string ReferenceNumber { get; set; }
-        public decimal? Price { get; set; }
-        public DateTime? ScheduledPickupDate { get; set; }
-        public DateTime? ScheduledDeliveryDate { get; set; }
-        public ContactDetails Origin { get; set; }
-        public ContactDetails Destination { get; set; }
-    }
-
     public class CdxVehicleExchange : ApiEntityBase<CdxVehicleExchange>
     {
+        private static readonly new Type[] KnownTypes = new Type[]
+        {
+            typeof(Vehicle),
+            typeof(ContactDetails)
+        };
+
         public CdxShipment Shipment { get; set; }
         public List<CdxVehicle> Vehicles { get; set; }
 
@@ -48,12 +23,12 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns>The deserialized object.</returns>
         public new static CdxVehicleExchange FromString(string serializedObject, MessageFormat format)
         {
-            return Serialization.Deserialise<CdxVehicleExchange>(serializedObject, format, new Type[] { typeof(Vehicle), typeof(ContactDetails) });
+            return Serialization.Deserialise<CdxVehicleExchange>(serializedObject, format, KnownTypes);
         }
 
         public override string ToString()
         {
-            return Serialization.Serialize(this, Types.MessageFormat.Xml, new Type[] { typeof(Vehicle), typeof(ContactDetails) });
+            return Serialization.Serialize(this, MessageFormat.Xml, KnownTypes);
         }
     }
 }
