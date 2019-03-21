@@ -194,7 +194,6 @@ namespace CarDeliveryNetwork.Api.Data
         public ContactDetails(IContactDetails c)
         {
             QuickCode = c.QuickCode;
-            InternalQuickCode = c.InternalQuickCode;
             LocationCode = c.LocationCode;
             Contact = c.Contact;
             OrganisationName = c.OrganisationName;
@@ -208,7 +207,13 @@ namespace CarDeliveryNetwork.Api.Data
             MobilePhone = c.MobilePhone;
             OtherPhone = c.OtherPhone;
             Notes = c.Notes;
-            CountryCode = c.CountryCode;
+
+            // Fudge to stop us having to implement these fields in IContactDetails and therefore vinDEL1
+            if (c is ContactDetails)
+            {
+                CountryCode = ((ContactDetails)c).CountryCode;
+                InternalQuickCode = ((ContactDetails)c).InternalQuickCode;
+            }
         }
 
         /// <summary>

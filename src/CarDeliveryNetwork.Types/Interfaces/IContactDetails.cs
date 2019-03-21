@@ -12,11 +12,6 @@ namespace CarDeliveryNetwork.Types.Interfaces
         string QuickCode { get; set; }
 
         /// <summary>
-        /// A unique identifier with which to internally refer to this contact.
-        /// </summary>
-        string InternalQuickCode { get; set; }
-
-        /// <summary>
         /// The location code for this location
         /// </summary>
         string LocationCode { get; }
@@ -80,10 +75,5 @@ namespace CarDeliveryNetwork.Types.Interfaces
         /// Notes relating to this contact.
         /// </summary>
         string Notes { get; set; }
-
-        /// <summary>
-        /// Country Code (UK, US, CA, etc)
-        /// </summary>
-        string CountryCode { get; set; }
     }
 }
