@@ -118,7 +118,7 @@ namespace console
                     ReceiverJobNumber = "Unknown",
                     ReceiverLoadId = "Unknown",
                     ReceiverTripId = "Unknown",
-                    Price = 123.12M,
+                    Price = 12312,
                     Notes = "shipmentnotes",
                     TruckId = "Unknown",
                     DriverId = "Unknown",
@@ -141,7 +141,7 @@ namespace console
                          Location = "location",
                          MovementNumber = "movementnumber",
                          ReferenceNumber = "referencenumber",
-                         Price = 56.43M,
+                         Price = 5643,
                          Notes = "vehiclenotes",
                          Origin = new ContactDetails
                          {
