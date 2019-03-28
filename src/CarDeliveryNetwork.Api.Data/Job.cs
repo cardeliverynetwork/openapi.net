@@ -123,6 +123,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual int DriverPay { get; set; }
 
         /// <summary>
+        /// Optional - Payment term for this job.
+        /// </summary>
+        public virtual int PaymentTerm { get; set; }
+
+        /// <summary>
         /// Mandatory - The customer details for this job.
         /// </summary>
         public virtual Customer Customer { get; set; }

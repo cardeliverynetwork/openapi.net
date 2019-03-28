@@ -14,7 +14,7 @@ namespace CarDeliveryNetwork.Api.Data
         public string ReceiverJobNumber { get; set; }
         public string ReceiverLoadId { get; set; }
         public string ReceiverTripId { get; set; }
-        public decimal? Price { get; set; }
+        public int? Price { get; set; }
         public string Notes { get; set; }
         public string TruckId { get; set; }
         public string DriverId { get; set; }
