@@ -23,10 +23,10 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="eventDateTime"></param>
         /// <param name="forEvent"></param>
+        /// <param name="eventDateTime"></param>
         /// <returns></returns>
-        public string ToString(DateTime eventDateTime, WebHookEvent forEvent)
+        public string ToString(WebHookEvent forEvent, DateTime eventDateTime)
         {
             var flatFile = new StringBuilder();
 

@@ -4,6 +4,7 @@ namespace CarDeliveryNetwork.Api.Data
 {
     public class CdxShipment
     {
+        public int? ExchangeId { get; set; }
         public DateTime? EventDateTime { get; set; }
         public string SenderInventoryId { get; set; }
         public string SenderScac { get; set; }
