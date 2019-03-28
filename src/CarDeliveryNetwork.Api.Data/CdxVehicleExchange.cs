@@ -13,7 +13,7 @@ namespace CarDeliveryNetwork.Api.Data
         };
 
         public CdxShipment Shipment { get; set; }
-        public List<CdxVehicle> Vehicles { get; set; }
+        public List<CdxVehicle> CdxVehicles { get; set; }
 
         /// <summary>
         /// Reads the JSON or XML document and returns the deserialized object.

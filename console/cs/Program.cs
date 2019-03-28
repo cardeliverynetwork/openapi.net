@@ -38,8 +38,8 @@ namespace console
         {
             try
             {
-                //TestCdx();
-                //return;
+                TestCdx();
+                return;
 
                 // Construct an instance of the API
                 var api = useApi2
@@ -107,7 +107,6 @@ namespace console
             {
                 Shipment = new CdxShipment
                 {
-                    CreatedDateTime = DateTime.UtcNow,
                     EventDateTime = DateTime.UtcNow - TimeSpan.FromSeconds(42),
                     SenderInventoryId = "USAA-8333306-00052-G1316414",
                     SenderScac = "USAA",
@@ -122,9 +121,8 @@ namespace console
                     Notes = "shipmentnotes",
                     TruckId = "Unknown",
                     DriverId = "Unknown",
-                    
                 },
-                Vehicles = new List<CdxVehicle>
+                CdxVehicles = new List<CdxVehicle>
                 {
                     new CdxVehicle
                     {

@@ -1,22 +1,5 @@
-﻿<CdxVehicleExchange xmlns="http://schemas.datacontract.org/2004/07/CarDeliveryNetwork.Api.Data" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-  <Shipment>
-    <CreatedDateTime>2019-03-20T21:28:26Z</CreatedDateTime>
-    <DriverId>Unknown</DriverId>
-    <EventDateTime>2019-03-20T21:27:44Z</EventDateTime>
-    <Notes>shipmentnotes</Notes>
-    <Price>123.12</Price>
-    <ReceiverJobNumber>Unknown</ReceiverJobNumber>
-    <ReceiverLoadId>Unknown</ReceiverLoadId>
-    <ReceiverScac>CENT</ReceiverScac>
-    <ReceiverTripId>Unknown</ReceiverTripId>
-    <SenderInventoryId>USAA-8333306-00052-G1316414</SenderInventoryId>
-    <SenderJobNumber>Unknown</SenderJobNumber>
-    <SenderLoadId>USAA-8333306-00052-G1316414</SenderLoadId>
-    <SenderScac>USAA</SenderScac>
-    <SenderTripId>8333306</SenderTripId>
-    <TruckId>Unknown</TruckId>
-  </Shipment>
-  <Vehicles>
+﻿<CdxVehicleExchange xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.datacontract.org/2004/07/CarDeliveryNetwork.Api.Data http://schemas.datacontract.org/2004/07/VinTransform.Client" xmlns="http://schemas.datacontract.org/2004/07/CarDeliveryNetwork.Api.Data">
+  <CdxVehicles>
     <CdxVehicle>
       <Color>color</Color>
       <Location>location</Location>
@@ -26,27 +9,11 @@
       <Notes>vehiclenotes</Notes>
       <Variant>GD1</Variant>
       <Vin>3GNAXKEV6KS604218</Vin>
-      <Weight>123</Weight>
+      <Weight>weight</Weight>
       <Destination>
-        <AddressLines>9326 South BLVD</AddressLines>
-        <City>Charlotte</City>
-        <Contact>Billy</Contact>
-        <CountryCode>US</CountryCode>
-        <Email>email</Email>
-        <InternalQuickCode>G1316415</InternalQuickCode>
-        <LocationCode>senderlocationcode</LocationCode>
-        <Notes>Destination Notes</Notes>
-        <OrganizationName>Billy Bob</OrganizationName>
-        <Phone>7045516401</Phone>
-        <QuickCode>1316415</QuickCode>
-        <StateRegion>NC</StateRegion>
-        <ZipPostCode>28273</ZipPostCode>
-      </Destination>
-      <Origin>
-        <AddressLines>9325 South BLVD</AddressLines>
+        <AddressLines>9325 South BLVD; Addressline2</AddressLines>
         <City>Charlotte</City>
         <Contact>*</Contact>
-        <CountryCode>US</CountryCode>
         <Email>email</Email>
         <InternalQuickCode>G1316414</InternalQuickCode>
         <LocationCode>senderlocationcode</LocationCode>
@@ -56,13 +23,175 @@
         <QuickCode>1316414</QuickCode>
         <StateRegion>NC</StateRegion>
         <ZipPostCode>28273</ZipPostCode>
+      </Destination>
+      <Origin>
+        <AddressLines>3937 US 321; Addressline2</AddressLines>
+        <City>West Columbia</City>
+        <Contact>Customer Contact</Contact>
+        <Email>email</Email>
+        <InternalQuickCode>00052</InternalQuickCode>
+        <LocationCode>senderlocationcode</LocationCode>
+        <Notes>Coming from 41S; turn left on 350S; coming from 41N; turn right on 350S; turn right at next traffic light; turn at next left; dispatch is inside the cubicle in the break room</Notes>
+        <OrganizationName>DIXIANA</OrganizationName>
+        <Phone>phone</Phone>
+        <QuickCode>00052</QuickCode>
+        <StateRegion>SC</StateRegion>
+        <ZipPostCode>29172</ZipPostCode>
       </Origin>
-      <Price>56.43</Price>
+      <Price>pervehicleprice</Price>
       <ReferenceNumber>referencenumber</ReferenceNumber>
-      <ScheduledDeliveryDate>2015-09-10</ScheduledDeliveryDate>
+      <ScheduledDeliveryDate>2015-09-09</ScheduledDeliveryDate>
       <ScheduledPickupDate>2015-09-09</ScheduledPickupDate>
       <ShipperScac>GST</ShipperScac>
       <VehicleType>vehicletype</VehicleType>
     </CdxVehicle>
-  </Vehicles>
+    <CdxVehicle>
+      <Color>color</Color>
+      <Location>location</Location>
+      <Make>GMC</Make>
+      <Model>EXPRESS: CG23405</Model>
+      <MovementNumber>movementnumber</MovementNumber>
+      <Notes>vehiclenotes</Notes>
+      <Variant>SUMMIT WHITE</Variant>
+      <Vin>1GCWGAFG9K1208147</Vin>
+      <Weight>weight</Weight>
+      <Destination>
+        <AddressLines>9325 South BLVD; Addressline2</AddressLines>
+        <City>Charlotte</City>
+        <Contact>*</Contact>
+        <Email>email</Email>
+        <InternalQuickCode>G1316414</InternalQuickCode>
+        <LocationCode>senderlocationcode</LocationCode>
+        <Notes>notes</Notes>
+        <OrganizationName>SOUTH CHARLOTTE CHEVY</OrganizationName>
+        <Phone>7045516400</Phone>
+        <QuickCode>1316414</QuickCode>
+        <StateRegion>NC</StateRegion>
+        <ZipPostCode>28273</ZipPostCode>
+      </Destination>
+      <Origin>
+        <AddressLines>3937 US 321; Addressline2</AddressLines>
+        <City>West Columbia</City>
+        <Contact>Customer Contact</Contact>
+        <Email>email</Email>
+        <InternalQuickCode>00052</InternalQuickCode>
+        <LocationCode>senderlocationcode</LocationCode>
+        <Notes>Coming from 41S; turn left on 350S; coming from 41N; turn right on 350S; turn right at next traffic light; turn at next left; dispatch is inside the cubicle in the break room</Notes>
+        <OrganizationName>DIXIANA</OrganizationName>
+        <Phone>phone</Phone>
+        <QuickCode>00052</QuickCode>
+        <StateRegion>SC</StateRegion>
+        <ZipPostCode>29172</ZipPostCode>
+      </Origin>
+      <Price>5000</Price>
+      <ReferenceNumber>referencenumber</ReferenceNumber>
+      <ScheduledDeliveryDate>2015-09-09</ScheduledDeliveryDate>
+      <ScheduledPickupDate>2015-09-09</ScheduledPickupDate>
+      <ShipperScac>GST</ShipperScac>
+      <VehicleType>vehicletype</VehicleType>
+    </CdxVehicle>
+    <CdxVehicle>
+      <Color>color</Color>
+      <Location>location</Location>
+      <Make>GMC</Make>
+      <Model>EXPRESS: CG23405</Model>
+      <MovementNumber>movementnumber</MovementNumber>
+      <Notes>vehiclenotes</Notes>
+      <Variant>SUMMIT WHITE</Variant>
+      <Vin>1GCWGAFGXK1200090</Vin>
+      <Weight>weight</Weight>
+      <Destination>
+        <AddressLines>9325 South BLVD; Addressline2</AddressLines>
+        <City>Charlotte</City>
+        <Contact>*</Contact>
+        <Email>email</Email>
+        <InternalQuickCode>G1316414</InternalQuickCode>
+        <LocationCode>senderlocationcode</LocationCode>
+        <Notes>notes</Notes>
+        <OrganizationName>SOUTH CHARLOTTE CHEVY</OrganizationName>
+        <Phone>7045516400</Phone>
+        <QuickCode>1316414</QuickCode>
+        <StateRegion>NC</StateRegion>
+        <ZipPostCode>28273</ZipPostCode>
+      </Destination>
+      <Origin>
+        <AddressLines>3937 US 321; Addressline2</AddressLines>
+        <City>West Columbia</City>
+        <Contact>Customer Contact</Contact>
+        <Email>email</Email>
+        <InternalQuickCode>00052</InternalQuickCode>
+        <LocationCode>senderlocationcode</LocationCode>
+        <Notes>Coming from 41S; turn left on 350S; coming from 41N; turn right on 350S; turn right at next traffic light; turn at next left; dispatch is inside the cubicle in the break room</Notes>
+        <OrganizationName>DIXIANA</OrganizationName>
+        <Phone>phone</Phone>
+        <QuickCode>00052</QuickCode>
+        <StateRegion>SC</StateRegion>
+        <ZipPostCode>29172</ZipPostCode>
+      </Origin>
+      <Price>5000</Price>
+      <ReferenceNumber>referencenumber</ReferenceNumber>
+      <ScheduledDeliveryDate>2015-09-09</ScheduledDeliveryDate>
+      <ScheduledPickupDate>2015-09-09</ScheduledPickupDate>
+      <ShipperScac>GST</ShipperScac>
+      <VehicleType>vehicletype</VehicleType>
+    </CdxVehicle>
+    <CdxVehicle>
+      <Color>color</Color>
+      <Location>location</Location>
+      <Make>GMC</Make>
+      <Model>EXPRESS: CG23405</Model>
+      <MovementNumber>movementnumber</MovementNumber>
+      <Notes>vehiclenotes</Notes>
+      <Variant>SUMMIT WHITE</Variant>
+      <Vin>1GCWGAFG1K1198312</Vin>
+      <Weight>weight</Weight>
+      <Destination>
+        <AddressLines>9325 South BLVD; Addressline2</AddressLines>
+        <City>Charlotte</City>
+        <Contact>*</Contact>
+        <Email>email</Email>
+        <InternalQuickCode>G1316414</InternalQuickCode>
+        <LocationCode>senderlocationcode</LocationCode>
+        <Notes>notes</Notes>
+        <OrganizationName>Billy Bob</OrganizationName>
+        <Phone>7045516400</Phone>
+        <QuickCode>1316415</QuickCode>
+        <StateRegion>NC</StateRegion>
+        <ZipPostCode>28273</ZipPostCode>
+      </Destination>
+      <Origin>
+        <AddressLines>3937 US 321; Addressline2</AddressLines>
+        <City>West Columbia</City>
+        <Contact>Customer Contact</Contact>
+        <Email>email</Email>
+        <InternalQuickCode>00052</InternalQuickCode>
+        <LocationCode>senderlocationcode</LocationCode>
+        <Notes>Coming from 41S; turn left on 350S; coming from 41N; turn right on 350S; turn right at next traffic light; turn at next left; dispatch is inside the cubicle in the break room</Notes>
+        <OrganizationName>DIXIANA</OrganizationName>
+        <Phone>phone</Phone>
+        <QuickCode>00052</QuickCode>
+        <StateRegion>SC</StateRegion>
+        <ZipPostCode>29172</ZipPostCode>
+      </Origin>
+      <Price>10000</Price>
+      <ReferenceNumber>referencenumber</ReferenceNumber>
+      <ScheduledDeliveryDate>2015-09-09</ScheduledDeliveryDate>
+      <ScheduledPickupDate>2015-09-09</ScheduledPickupDate>
+      <ShipperScac>GST</ShipperScac>
+      <VehicleType>vehicletype</VehicleType>
+    </CdxVehicle>
+  </CdxVehicles>
+  <Shipment>
+    <DriverId>T33</DriverId>
+    <EventDateTime>2015-09-09T17:26:17Z</EventDateTime>
+    <Notes>shipmentnotes</Notes>
+    <Price>2000</Price>
+    <ReceiverScac>CENT</ReceiverScac>
+    <SenderInventoryId>USAA-8333306-00052-G1316414</SenderInventoryId>
+    <SenderJobNumber>GMC1024631</SenderJobNumber>
+    <SenderLoadId>USAA-8333306-00052-G1316414</SenderLoadId>
+    <SenderScac>USAA</SenderScac>
+    <SenderTripId>8333306</SenderTripId>
+    <TruckId>R3456</TruckId>
+  </Shipment>
 </CdxVehicleExchange>
