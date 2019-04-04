@@ -9,7 +9,7 @@ namespace CarDeliveryNetwork.Api.Data
     /// </summary>
     public class CdxVehicleExchange : ApiEntityBase<CdxVehicleExchange>
     {
-        private static readonly new Type[] KnownTypes = new Type[]
+        private static readonly Type[] KnownTypes = new Type[]
         {
             typeof(Vehicle),
             typeof(ContactDetails)
