@@ -45,9 +45,9 @@
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="ApiError.cs" />
     <Compile Include="Bid.cs" />
-    <Compile Include="CdxFlat\CdxVehicles.cs" />
-    <Compile Include="CdxFlat\CdxStatus.cs" />
-    <Compile Include="CdxFlat\CdxStop.cs" />
+    <Compile Include="CdxFlat\CDXVEHICLES.cs" />
+    <Compile Include="CdxFlat\CDXSTATUS.cs" />
+    <Compile Include="CdxFlat\CDXSTOP.cs" />
     <Compile Include="CdxShipment.cs" />
     <Compile Include="CdxVehicle.cs" />
     <Compile Include="CdxVehicleExchange.cs" />

@@ -7,7 +7,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// <summary>
     /// 
     /// </summary>
-    public class CdxStatus
+    public class CDXSTOP
     {
         private Job _job;
         private CdxShipment _shipment;
@@ -17,7 +17,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         /// </summary>
         /// <param name="job"></param>
         /// <param name="shipment"></param>
-        public CdxStatus(Job job, CdxShipment shipment)
+        public CDXSTOP(Job job, CdxShipment shipment)
         {
             _job = job;
             _shipment = shipment;
@@ -33,7 +33,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         {
             var flatFile = new StringBuilder();
 
-            flatFile.AppendFormat("CDXSTATUS,{0},{1},{2},{3}", eventDateTime, _job.CdxExchangeId, _job.LoadId, "ReceiverExchangeId");
+            flatFile.AppendFormat("CDXSTOP,{0},{1},{2},{3}", eventDateTime, _job.CdxExchangeId, _job.LoadId, _shipment.ExchangeId);
             flatFile.AppendFormat("SHIPMENT,{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16}",
                 _shipment.SenderScac,
                 _shipment.ReceiverScac,
@@ -54,9 +54,28 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 null  // Gate Code
                 );
 
+            flatFile.AppendFormat("STOP,{0},{1},{2},{3},{4},{5},{6},{7}",
+                forEvent, 
+                "", 
+                "", 
+                "", 
+                "", 
+                "", 
+                "", 
+                "");
+
             foreach (var v in _job.Vehicles)
             {
-                flatFile.AppendFormat("VEHICLE,{0}", v.Vin);
+                flatFile.AppendFormat("VEHICLE,{0},{1},{2},{3},{4},{5}", v.Vin, v.Status, v.NonCompletionReason, v.SignedBy, v.Signature, v.SignoffComment);
+
+                var damage = forEvent == WebHookEvent.PickupStop
+                    ? v.DamageAtPickup
+                    : v.DamageAtDropoff;
+
+                foreach (var d in damage)
+                {
+                    flatFile.AppendFormat("DAMAGE,{0}{1}{2},{3},\"{4}\"", d.Area.Code, d.Type.Code, d.Severity.Code, "", d.Description);
+                }
             }
 
             flatFile.Append("CDXEND");
