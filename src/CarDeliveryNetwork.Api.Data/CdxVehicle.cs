@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -12,5 +13,6 @@ namespace CarDeliveryNetwork.Api.Data
         public DateTime? ScheduledDeliveryDate { get; set; }
         public ContactDetails Origin { get; set; }
         public ContactDetails Destination { get; set; }
+        public List<CdxDamage> Damage { get; set; }
     }
 }
