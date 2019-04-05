@@ -46,10 +46,10 @@
     <Compile Include="ApiError.cs" />
     <Compile Include="Bid.cs" />
     <Compile Include="CdxDamage.cs" />
-    <Compile Include="CdxFlat\CdxVehicles.cs" />
-    <Compile Include="CdxFlat\CdxStatus.cs" />
-    <Compile Include="CdxFlat\CdxStop.cs" />
     <Compile Include="CdxMessage.cs" />
+    <Compile Include="CdxFlat\CDXVEHICLES.cs" />
+    <Compile Include="CdxFlat\CDXSTATUS.cs" />
+    <Compile Include="CdxFlat\CDXSTOP.cs" />
     <Compile Include="CdxShipment.cs" />
     <Compile Include="CdxStatus.cs" />
     <Compile Include="CdxStop.cs" />

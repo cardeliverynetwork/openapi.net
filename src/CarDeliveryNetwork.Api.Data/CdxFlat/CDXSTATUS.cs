@@ -7,17 +7,20 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// <summary>
     /// 
     /// </summary>
-    public class CdxStatus
+    public class CDXSTATUS
     {
         private Job _job;
+        private CdxShipment _shipment;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="job"></param>
-        public CdxStatus(Job job)
+        /// <param name="shipment"></param>
+        public CDXSTATUS(Job job, CdxShipment shipment)
         {
             _job = job;
+            _shipment = shipment;
         }
 
         /// <summary>
@@ -30,25 +33,26 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         {
             var flatFile = new StringBuilder();
 
-            flatFile.AppendFormat("CDXSTATUS,{0},{1},{2},{3}", eventDateTime, _job.CdxExchangeId, _job.LoadId, "ReceiverExchangeId");
+            flatFile.AppendFormat("CDXSTATUS,{0},{1},{2},{3}", eventDateTime, _job.CdxExchangeId, _job.LoadId, _shipment.ExchangeId);
             flatFile.AppendFormat("SHIPMENT,{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16}",
-                "SenderSCAC",
-                "ReceiverSCAC",
-                "SenderJobNumber",
-                "SenderLoadId",
-                "SenderTripId",
-                "ReceiverJobNumber",
-                "ReceiverLoadId",
-                "ReceiverTripId",
-                "DriverName",
+                _shipment.SenderScac,
+                _shipment.ReceiverScac,
+                _shipment.SenderJobNumber,
+                _shipment.SenderLoadId,
+                _shipment.SenderTripId,
+                _shipment.ReceiverJobNumber,
+                _shipment.ReceiverLoadId,
+                _shipment.ReceiverTripId,
+                _shipment.DriverId,
                 _job.AssignedDriverRemoteId,
-                "Truck",
+                _shipment.TruckId,
                 _job.AssignedTruckRemoteId,
-                "Lat",
-                "Lon",
+                null, // Lat
+                null, // Lon
                 forEvent,
-                "EtaDateTime",
-                "GateCode");
+                null, // EtaDateTime
+                null  // Gate Code
+                );
 
             foreach (var v in _job.Vehicles)
             {

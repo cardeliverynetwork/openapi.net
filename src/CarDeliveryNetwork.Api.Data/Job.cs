@@ -383,13 +383,13 @@ namespace CarDeliveryNetwork.Api.Data
                     return r41.ToString();
 
                 case WebHookSchema.CdxVechicles:
-                    return new CdxVehicles(this).ToString(forEvent, timeStamp);
+                    return new CDXVEHICLES(this).ToString(forEvent, timeStamp);
 
                 case WebHookSchema.CdxStatus:
-                    return new CdxStatus(this).ToString(forEvent, timeStamp);
+                    return new CDXSTATUS(this, null).ToString(forEvent, timeStamp);
 
                 case WebHookSchema.CdxStop:
-                    return new CdxStop(this).ToString(forEvent, timeStamp);
+                    return new CDXSTOP(this, null).ToString(forEvent, timeStamp);
 
                 case WebHookSchema.Ford:
                     throw new ArgumentException(string.Format("Schema {0} is a per vehicle schema", schema), "schema");

@@ -9,7 +9,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// <summary>
     /// 
     /// </summary>
-    public class CdxVehicles
+    public class CDXVEHICLES
     {
         private Job _job;
 
@@ -17,7 +17,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         /// 
         /// </summary>
         /// <param name="job"></param>
-        public CdxVehicles(Job job)
+        public CDXVEHICLES(Job job)
         {
             _job = job;
         }

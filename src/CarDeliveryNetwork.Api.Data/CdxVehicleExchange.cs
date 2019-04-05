@@ -4,15 +4,25 @@ using System.Collections.Generic;
 
 namespace CarDeliveryNetwork.Api.Data
 {
+    /// <summary>
+    /// A CDc vehicle exchange
+    /// </summary>
     public class CdxVehicleExchange : ApiEntityBase<CdxVehicleExchange>
     {
-        private static readonly new Type[] KnownTypes = new Type[]
+        private static readonly Type[] KnownTypes = new Type[]
         {
             typeof(Vehicle),
             typeof(ContactDetails)
         };
 
+        /// <summary>
+        /// The Shipment associated with this CdxVehicleExchange
+        /// </summary>
         public CdxShipment Shipment { get; set; }
+
+        /// <summary>
+        /// The vehicles associated with this CdxVehicleExchange
+        /// </summary>
         public List<CdxVehicle> CdxVehicles { get; set; }
 
         /// <summary>
@@ -26,6 +36,10 @@ namespace CarDeliveryNetwork.Api.Data
             return Serialization.Deserialise<CdxVehicleExchange>(serializedObject, format, KnownTypes);
         }
 
+        /// <summary>
+        /// Serialise this CdxVehicleExchange to XML
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return Serialization.Serialize(this, MessageFormat.Xml, KnownTypes);
