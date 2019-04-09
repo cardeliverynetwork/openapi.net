@@ -47,6 +47,5 @@ namespace CarDeliveryNetwork.Api.Data
         /// This vehicle's eventual destination
         /// </summary>
         public ContactDetails Destination { get; set; }
-        public List<CdxDamage> Damage { get; set; }
     }
 }
