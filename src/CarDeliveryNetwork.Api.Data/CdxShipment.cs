@@ -81,5 +81,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// DriverId 
         /// </summary>
         public string DriverId { get; set; }
+
+        /// <summary>
+        /// Status
+        /// </summary>
+        public int? Status { get; set; }
     }
 }

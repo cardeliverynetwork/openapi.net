@@ -11,18 +11,4 @@
         public string NotSignedReasons { get; set; }
         public string SignOffComment { get; set; }
     }
-
-    public enum CdxStopType
-    {
-        Origin,
-        Intermediate,
-        Destination
-    }
-
-    public enum CdxSignatureType
-    {
-        Customer,
-        Driver,
-        Agent
-    }
 }
