@@ -236,6 +236,8 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         public virtual string AssignedAppId { get; set; }
 
+
+
         /// <summary>
         /// Readonly - The number of vehicles on this job
         /// </summary>
@@ -279,8 +281,13 @@ namespace CarDeliveryNetwork.Api.Data
         /// Does the job originate from the vinDispatch marketplace
         /// </summary>
         public virtual bool IsVinDispatchJob { get; set; }
-        
-        
+
+
+        /// <summary>
+        /// Is Job Archived
+        /// </summary>
+        public virtual bool IsArchived { get; set; }
+
         /// <summary>
         /// String to display after importing this object
         /// </summary>
