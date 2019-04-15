@@ -45,5 +45,20 @@ namespace CarDeliveryNetwork.Types
         /// The Ford Schema
         /// </summary>
         Ford = 60,
+
+        /// <summary>
+        /// CdxVechicles
+        /// </summary>
+        CdxVechicles = 70,
+
+        /// <summary>
+        /// CdxStatus
+        /// </summary>
+        CdxStatus = 80,
+
+        /// <summary>
+        /// CdxStop
+        /// </summary>
+        CdxStop = 90,
     }
 }

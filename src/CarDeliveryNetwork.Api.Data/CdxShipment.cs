@@ -2,22 +2,89 @@
 
 namespace CarDeliveryNetwork.Api.Data
 {
+    /// <summary>
+    /// A CDx shipment
+    /// </summary>
     public class CdxShipment
     {
-        public DateTime? CreatedDateTime { get; set; }
+        /// <summary>
+        /// A unique Id for this CDx shipment
+        /// </summary>
+        public int? ExchangeId { get; set; }
+
+        /// <summary>
+        /// Time shipment was created
+        /// </summary>
         public DateTime? EventDateTime { get; set; }
+
+        /// <summary>
+        /// SenderInventoryId
+        /// </summary>
         public string SenderInventoryId { get; set; }
+
+        /// <summary>
+        /// The Sender's SCAC
+        /// </summary>
         public string SenderScac { get; set; }
+
+        /// <summary>
+        /// the receiver's SCAC
+        /// </summary>
         public string ReceiverScac { get; set; }
+
+        /// <summary>
+        /// A job number identifying this shipment to the sender
+        /// </summary>
         public string SenderJobNumber { get; set; }
+
+        /// <summary>
+        /// A Load Id identifying this load to the sender
+        /// </summary>
         public string SenderLoadId { get; set; }
-        public string SenderTripId { get; set; }
-        public string ReceiverJobNumber { get; set; }
-        public string ReceiverLoadId { get; set; }
+
+        /// <summary>
+        /// A Load Id identifying this trip to the receiver
+        /// </summary>
         public string ReceiverTripId { get; set; }
-        public decimal? Price { get; set; }
+
+        /// <summary>
+        /// A job number identifying this shipment to the receiver
+        /// </summary>
+        public string ReceiverJobNumber { get; set; }
+
+        /// <summary>
+        /// A Load Id identifying this load to the receiver
+        /// </summary>
+        public string ReceiverLoadId { get; set; }
+
+        /// <summary>
+        /// A Load Id identifying this trip to the sender
+        /// </summary>
+        public string SenderTripId { get; set; }
+
+        /// <summary>
+        /// A price for the entire shipment
+        /// </summary>
+        public int? Price { get; set; }
+
+        /// <summary>
+        /// Notes
+        /// </summary>
         public string Notes { get; set; }
+
+        /// <summary>
+        /// TruckId
+        /// </summary>
         public string TruckId { get; set; }
+
+        /// <summary>
+        /// DriverId 
+        /// </summary>
         public string DriverId { get; set; }
+
+        /// <summary>
+        /// Status
+        /// </summary>
+        public int? Status { get; set; }
     }
 }

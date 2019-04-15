@@ -8,6 +8,7 @@ using CarDeliveryNetwork.Api.Data.Icl;
 using CarDeliveryNetwork.Api.Data.TmwV1;
 using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
+using CarDeliveryNetwork.Api.Data.CdxFlat;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -29,6 +30,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// referred to on Car Delivery Network.  Once the job is created, LoadId cannot be changed.
         /// </remarks>
         public virtual string LoadId { get; set; }
+
+        /// <summary>
+        /// Readonly - A unique identifier for the CdnExchange this job is part of
+        /// </summary>
+        public virtual string CdxExchangeId { get; set; }
 
         /// <summary>
         /// Optional (API2) - A suffix to apply to the generated job number
@@ -382,6 +388,16 @@ namespace CarDeliveryNetwork.Api.Data
                     var r41 = new R41(this, sequenceNumber, senderId, receiverId);
                     fileName = r41.FileName;
                     return r41.ToString();
+
+                case WebHookSchema.CdxVechicles:
+                    return new CDXVEHICLES(this).ToString(forEvent, timeStamp);
+
+                case WebHookSchema.CdxStatus:
+                    return new CDXSTATUS(this, null).ToString(forEvent, timeStamp);
+
+                case WebHookSchema.CdxStop:
+                    return new CDXSTOP(this, null).ToString(forEvent, timeStamp);
+
                 case WebHookSchema.Ford:
                     throw new ArgumentException(string.Format("Schema {0} is a per vehicle schema", schema), "schema");
                 default:
@@ -429,6 +445,9 @@ namespace CarDeliveryNetwork.Api.Data
                 case WebHookSchema.TmwV1:
                 case WebHookSchema.PodUrl:
                 case WebHookSchema.IclR41:
+                case WebHookSchema.CdxVechicles:
+                case WebHookSchema.CdxStatus:
+                case WebHookSchema.CdxStop:
                     throw new ArgumentException(string.Format("Schema {0} is a per job schema", schema), "schema");
 
                 case WebHookSchema.Ford:

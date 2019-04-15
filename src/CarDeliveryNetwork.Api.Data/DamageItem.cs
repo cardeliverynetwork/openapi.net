@@ -24,6 +24,11 @@ namespace CarDeliveryNetwork.Api.Data
             public virtual string Description { get; set; }
 
             /// <summary>
+            /// URLs of damage photos
+            /// </summary>
+            public virtual List<string> PhotoURL { get; set; }
+
+            /// <summary>
             /// Returns a serial representation of the object in JSON format.
             /// </summary>
             /// <returns>The serialized object.</returns>

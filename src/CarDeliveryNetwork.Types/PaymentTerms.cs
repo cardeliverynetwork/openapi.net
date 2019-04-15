@@ -1,5 +1,8 @@
 ﻿namespace CarDeliveryNetwork.Types
 {
+    /// <summary>
+    /// Enum of contract payment terms
+    /// </summary>
     public enum PaymentTerms
     {
         /// <summary>

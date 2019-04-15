@@ -1,28 +1,19 @@
-﻿using CarDeliveryNetwork.Types;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using CarDeliveryNetwork.Types;
 
 namespace CarDeliveryNetwork.Api.Data
 {
-    /// <summary>
-    /// A CDc vehicle exchange
-    /// </summary>
-    public class CdxVehicleExchange : ApiEntityBase<CdxVehicleExchange>
+    public class CdxMessage : ApiEntityBase<CdxMessage>
     {
-        private static readonly Type[] KnownTypes = new Type[]
+        private static readonly new Type[] KnownTypes = new Type[]
         {
             typeof(Vehicle),
-            typeof(ContactDetails)
+            typeof(ContactDetails),
+            typeof(DamageItem)
         };
 
-        /// <summary>
-        /// The Shipment associated with this CdxVehicleExchange
-        /// </summary>
         public CdxShipment Shipment { get; set; }
-
-        /// <summary>
-        /// The vehicles associated with this CdxVehicleExchange
-        /// </summary>
         public List<CdxVehicle> CdxVehicles { get; set; }
 
         /// <summary>
@@ -36,10 +27,6 @@ namespace CarDeliveryNetwork.Api.Data
             return Serialization.Deserialise<CdxVehicleExchange>(serializedObject, format, KnownTypes);
         }
 
-        /// <summary>
-        /// Serialise this CdxVehicleExchange to XML
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return Serialization.Serialize(this, MessageFormat.Xml, KnownTypes);
