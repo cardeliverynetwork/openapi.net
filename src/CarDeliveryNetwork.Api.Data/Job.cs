@@ -389,14 +389,15 @@ namespace CarDeliveryNetwork.Api.Data
                     fileName = r41.FileName;
                     return r41.ToString();
 
-                case WebHookSchema.CdxVechicles:
-                    return new CDXVEHICLES(this).ToString(forEvent, timeStamp);
-
                 case WebHookSchema.CdxStatus:
                     return new CDXSTATUS(this, null).ToString(forEvent, timeStamp);
 
                 case WebHookSchema.CdxStop:
                     return new CDXSTOP(this, null).ToString(forEvent, timeStamp);
+
+                case WebHookSchema.CdxVechicles:
+                    throw new ArgumentException(string.Format("Schema {0} is a per shipment schema", schema), "schema");
+                    //return new CDXVEHICLES(null, null).ToString(forEvent, timeStamp);
 
                 case WebHookSchema.Ford:
                     throw new ArgumentException(string.Format("Schema {0} is a per vehicle schema", schema), "schema");

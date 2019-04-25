@@ -33,8 +33,16 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         {
             var flatFile = new StringBuilder();
 
-            flatFile.AppendFormat("CDXSTATUS,{0},{1},{2},{3}", eventDateTime, _job.CdxExchangeId, _job.LoadId, _shipment.ExchangeId);
-            flatFile.AppendFormat("SHIPMENT,{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16}",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\"",
+                "CDXSTATUS",
+                eventDateTime, 
+                _job.CdxExchangeId, 
+                _job.LoadId, 
+                _shipment.ExchangeId
+                );
+
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\"",
+                "SHIPMENT",
                 _shipment.SenderScac,
                 _shipment.ReceiverScac,
                 _shipment.SenderJobNumber,
@@ -56,10 +64,13 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
 
             foreach (var v in _job.Vehicles)
             {
-                flatFile.AppendFormat("VEHICLE,{0}", v.Vin);
+                flatFile.AppendFormat("\"{0}\",\"{1}\"", 
+                    "VEHICLE",
+                    v.Vin
+                    );
             }
 
-            flatFile.Append("CDXEND");
+            flatFile.Append("\"CDXEND\"");
 
             return flatFile.ToString();
         }
