@@ -1,7 +1,4 @@
-﻿using CarDeliveryNetwork.Types;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
 using System.Text;
 
 namespace CarDeliveryNetwork.Api.Data.CdxFlat
@@ -11,64 +8,50 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// </summary>
     public class CDXVEHICLES
     {
-        private CdxShipment _shipment;
-        private List<CdxVehicle> _vehicels;
+        private CdxVehicleExchange _vehicleExchage;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="shipment"></param>
-        /// <param name="vehicles"></param>
-        public CDXVEHICLES(CdxShipment shipment, List<CdxVehicle> vehicles)
+        /// <param name="vehicleExchage"></param>
+        public CDXVEHICLES(CdxVehicleExchange vehicleExchage)
         {
-            if (shipment == null)
-                throw new ArgumentException("Shipment cannot be null");
-
-            if (vehicles == null)
-                throw new ArgumentException("Vehile collection cannot be null");
-
-            if (vehicles.Count == 0)
-                throw new ArgumentException("Vehile collection cannot be empty");
-
-            _shipment = shipment;
-            _vehicels = vehicles;
+            _vehicleExchage = vehicleExchage;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="forEvent"></param>
-        /// <param name="eventDateTime"></param>
         /// <returns></returns>
-        public string ToString(WebHookEvent forEvent, DateTime eventDateTime)
+        public override string ToString()
         {
             var flatFile = new StringBuilder();
+            var shipment = _vehicleExchage.Shipment;
 
             flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{4}\"",
                 "CDXVEHICLES",
-                eventDateTime, 
-                _shipment.SenderInventoryId, 
-                _shipment.ExchangeId);
+                shipment.EventDateTime,  //TODO - put this in the right format
+                shipment.SenderInventoryId,
+                shipment.ExchangeId);
 
-            var firstVehicle = _vehicels[0];
-
-            Debug.Assert(firstVehicle.Origin != null, "Must have origin");
+            var vehicles = _vehicleExchage.CdxVehicles;
+            var firstVehicle = vehicles[0];
 
             flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\",\"{18}\",\"{19}\",\"{20}\",\"{21}\",\"{22}\",\"{23}\",\"{24}\"",
                 "SHIPMENT",
-                _shipment.SenderScac,
-                _shipment.ReceiverScac,
-                _shipment.SenderJobNumber,
-                _shipment.SenderLoadId,
-                _shipment.SenderTripId,
-                _shipment.Price,
-                _shipment.Notes,
-                _shipment.TruckId,
-                _shipment.DriverId,
+                shipment.SenderScac,
+                shipment.ReceiverScac,
+                shipment.SenderJobNumber,
+                shipment.SenderLoadId,
+                shipment.SenderTripId,
+                shipment.Price,
+                shipment.Notes,
+                shipment.TruckId,
+                shipment.DriverId,
                 firstVehicle.Origin.QuickCode,
                 firstVehicle.Origin.InternalQuickCode,
                 firstVehicle.Origin.LocationCode,
-                firstVehicle.ScheduledPickupDate,
+                firstVehicle.ScheduledPickupDate, //TODO - put this in the right format
                 firstVehicle.Origin.OrganizationName,
                 firstVehicle.Origin.AddressLines,
                 "", // Address lines 2
@@ -82,7 +65,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 firstVehicle.Origin.CountryCode
                 );
 
-            foreach (var v in _vehicels)
+            foreach (var v in vehicles)
             {
                 flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\",\"{18}\",\"{19}\",\"{20}\",\"{21}\",\"{22}\",\"{23}\",\"{24}\",\"{25}\",\"{26}\",\"{27}\",\"{28}\",\"{29}\"",
                 "VEHICLE",
@@ -103,7 +86,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 v.Destination.QuickCode,
                 v.Destination.InternalQuickCode,
                 v.Destination.LocationCode,
-                v.ScheduledDeliveryDate,
+                v.ScheduledDeliveryDate, //TODO - put this in the right format
                 v.Destination.OrganizationName,
                 v.Destination.AddressLines,
                 "", // Address lines 2
