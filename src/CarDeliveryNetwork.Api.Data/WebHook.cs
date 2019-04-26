@@ -1,12 +1,13 @@
 ﻿using System;
 using CarDeliveryNetwork.Types;
+using CarDeliveryNetwork.Types.Interfaces;
 
 namespace CarDeliveryNetwork.Api.Data
 {
     /// <summary>
     /// A Car Delivery Network WebHook entity.
     /// </summary>
-    public class WebHook : ApiEntityBase<WebHook>
+    public class WebHook : ApiEntityBase<WebHook>, IWebHook
     {
         /// <summary>
         /// Date the hook was first sent
