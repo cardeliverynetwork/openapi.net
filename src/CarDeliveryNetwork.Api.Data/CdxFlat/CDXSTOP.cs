@@ -92,13 +92,14 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
 
                 foreach (var d in damage)
                 {
-                    flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"",
+                    flatFile.AppendFormat("\"{0}\",\"{1}{2}{3}\",\"{4}\",\"{5}\"",
                         "DAMAGE",
                         d.Area.Code, 
                         d.Type.Code, 
                         d.Severity.Code, 
-                        "", 
-                        d.Description);
+                        "",  // TODO - Photo URL
+                        d.Description
+                        );
                 }
             }
 
