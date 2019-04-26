@@ -54,11 +54,6 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// CdxStatus
         /// </summary>
-        CdxStatus = 80,
-
-        /// <summary>
-        /// CdxStop
-        /// </summary>
-        CdxStop = 90,
+        CdxStatus = 80
     }
 }

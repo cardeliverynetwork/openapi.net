@@ -390,14 +390,12 @@ namespace CarDeliveryNetwork.Api.Data
                     return r41.ToString();
 
                 case WebHookSchema.CdxStatus:
-                    return new CDXSTATUS(this, null).ToString(forEvent, timeStamp);
-
-                case WebHookSchema.CdxStop:
-                    return new CDXSTOP(this, null).ToString(forEvent, timeStamp);
+                    return forEvent == WebHookEvent.PickupStop || forEvent == WebHookEvent.DropoffStop
+                        ? new CDXSTOP(this, null).ToString(forEvent, timeStamp)
+                        : new CDXSTATUS(this, null).ToString(forEvent, timeStamp);
 
                 case WebHookSchema.CdxVechicles:
                     throw new ArgumentException(string.Format("Schema {0} is a per shipment schema", schema), "schema");
-                    //return new CDXVEHICLES(null, null).ToString(forEvent, timeStamp);
 
                 case WebHookSchema.Ford:
                     throw new ArgumentException(string.Format("Schema {0} is a per vehicle schema", schema), "schema");
@@ -446,10 +444,11 @@ namespace CarDeliveryNetwork.Api.Data
                 case WebHookSchema.TmwV1:
                 case WebHookSchema.PodUrl:
                 case WebHookSchema.IclR41:
-                case WebHookSchema.CdxVechicles:
                 case WebHookSchema.CdxStatus:
-                case WebHookSchema.CdxStop:
                     throw new ArgumentException(string.Format("Schema {0} is a per job schema", schema), "schema");
+
+                case WebHookSchema.CdxVechicles:
+                    throw new ArgumentException(string.Format("Schema {0} is a per shipment schema", schema), "schema");
 
                 case WebHookSchema.Ford:
                     return new Otr214(this, contractedCarrier).ToString(vehicleIndex, forEvent, timeStamp, hookId.ToString(), deviceTime, false, out fileName);
@@ -459,8 +458,6 @@ namespace CarDeliveryNetwork.Api.Data
             }
         }
     }
-
- 
 
     /// <summary>
     /// A collection of Car Delivery Network Job job entities.

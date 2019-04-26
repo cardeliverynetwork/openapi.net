@@ -58,6 +58,11 @@
         /// <summary>
         /// WebHook Event for job creation
         /// </summary>
-        JobCreated = 90
+        JobCreated = 90,
+
+        /// <summary>
+        /// WebHook Event for CDx Shipment creation
+        /// </summary>
+        CdxShipmentCreated = 100
     }
 }
