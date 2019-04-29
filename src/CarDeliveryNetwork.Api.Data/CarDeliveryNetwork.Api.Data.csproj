@@ -45,6 +45,7 @@
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="ApiError.cs" />
     <Compile Include="Bid.cs" />
+    <Compile Include="CdxFlat\CDxMessageBase.cs" />
     <Compile Include="CdxMessage.cs" />
     <Compile Include="CdxFlat\CDXVEHICLES.cs" />
     <Compile Include="CdxFlat\CDXSTATUS.cs" />

@@ -7,7 +7,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// <summary>
     /// 
     /// </summary>
-    public class CDXSTOP
+    public class CDXSTOP : CDxMessageBase
     {
         private Job _job;
         private CdxShipment _shipment;
@@ -33,15 +33,16 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         {
             var flatFile = new StringBuilder();
 
-            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\",\"{4}\"",
+            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\",\"{4}\"{5}",
                 "CDXSTOP",
                 eventDateTime,
                 _job.CdxExchangeId,
                 _job.LoadId,
-                _shipment.ExchangeId
+                _shipment.ExchangeId,
+                Eol
                 );
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\"",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\"{18}",
                 "SHIPMENT",
                 _shipment.SenderScac,
                 _shipment.ReceiverScac,
@@ -59,10 +60,11 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 null, // Lon
                 forEvent,
                 null, // EtaDateTime
-                null  // Gate Code
+                null, // Gate Code
+                Eol
                 );
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\"",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\"{9}",
                 "STOP",
                 forEvent, 
                 "", 
@@ -71,19 +73,21 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 "", 
                 "", 
                 "", 
-                ""
+                "",
+                Eol
                 );
 
             foreach (var v in _job.Vehicles)
             {
-                flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"",
+                flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"{7}",
                     "VEHICLE",
                     v.Vin, 
                     v.Status, 
                     v.NonCompletionReason, 
                     v.SignedBy, 
                     v.Signature, 
-                    v.SignoffComment
+                    v.SignoffComment,
+                    Eol
                     );
 
                 var damage = forEvent == WebHookEvent.PickupStop
@@ -92,13 +96,14 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
 
                 foreach (var d in damage)
                 {
-                    flatFile.AppendFormat("\"{0}\",\"{1}{2}{3}\",\"{4}\",\"{5}\"",
+                    flatFile.AppendFormat("\"{0}\",\"{1}{2}{3}\",\"{4}\",\"{5}\"{6}",
                         "DAMAGE",
                         d.Area.Code, 
                         d.Type.Code, 
                         d.Severity.Code, 
                         "",  // TODO - Photo URL
-                        d.Description
+                        d.Description,
+                        Eol
                         );
                 }
             }

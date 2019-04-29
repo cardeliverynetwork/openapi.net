@@ -6,7 +6,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// <summary>
     /// 
     /// </summary>
-    public class CDXVEHICLES
+    public class CDXVEHICLES : CDxMessageBase
     {
         private CdxVehicleExchange _vehicleExchange;
 
@@ -28,16 +28,18 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             var flatFile = new StringBuilder();
             var shipment = _vehicleExchange.Shipment;
 
-            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\"",
+            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\"{4}",
                 "CDXVEHICLES",
                 shipment.EventDateTime,
                 shipment.SenderInventoryId,
-                shipment.ExchangeId);
+                shipment.ExchangeId,
+                Eol
+                );
 
             var vehicles = _vehicleExchange.CdxVehicles;
             var firstVehicle = vehicles[0];
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13:yyyy-MM-dd}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\",\"{18}\",\"{19}\",\"{20}\",\"{21}\",\"{22}\",\"{23}\",\"{24}\"",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13:yyyy-MM-dd}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\",\"{18}\",\"{19}\",\"{20}\",\"{21}\",\"{22}\",\"{23}\",\"{24}\"{25}",
                 "SHIPMENT",
                 shipment.SenderScac,
                 shipment.ReceiverScac,
@@ -62,12 +64,13 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 firstVehicle.Origin.Email,
                 firstVehicle.Origin.Phone,
                 firstVehicle.Origin.Notes,
-                firstVehicle.Origin.CountryCode
+                firstVehicle.Origin.CountryCode,
+                Eol
                 );
 
             foreach (var v in vehicles)
             {
-                flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\",\"{18:yyyy-MM-dd}\",\"{19}\",\"{20}\",\"{21}\",\"{22}\",\"{23}\",\"{24}\",\"{25}\",\"{26}\",\"{27}\",\"{28}\",\"{29}\"",
+                flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\",\"{18:yyyy-MM-dd}\",\"{19}\",\"{20}\",\"{21}\",\"{22}\",\"{23}\",\"{24}\",\"{25}\",\"{26}\",\"{27}\",\"{28}\",\"{29}\"{30}",
                     "VEHICLE",
                     v.ShipperScac,
                     v.Vin,
@@ -97,7 +100,8 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                     v.Destination.Email,
                     v.Destination.Phone,
                     v.Destination.Notes,
-                    v.Destination.CountryCode
+                    v.Destination.CountryCode,
+                    Eol
                     );
             }
 

@@ -7,7 +7,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// <summary>
     /// 
     /// </summary>
-    public class CDXSTATUS
+    public class CDXSTATUS : CDxMessageBase
     {
         private Job _job;
         private CdxShipment _shipment;
@@ -33,15 +33,16 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         {
             var flatFile = new StringBuilder();
 
-            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\",\"{4}\"",
+            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\",\"{4}\"{5}",
                 "CDXSTATUS",
                 eventDateTime, 
                 _job.CdxExchangeId, 
                 _job.LoadId, 
-                _shipment.ExchangeId
+                _shipment.ExchangeId,
+                Eol
                 );
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\"",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\"{18}",
                 "SHIPMENT",
                 _shipment.SenderScac,
                 _shipment.ReceiverScac,
@@ -59,14 +60,16 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 null, // Lon
                 forEvent,
                 null, // EtaDateTime
-                null  // Gate Code
+                null,  // Gate Code
+                Eol
                 );
 
             foreach (var v in _job.Vehicles)
             {
-                flatFile.AppendFormat("\"{0}\",\"{1}\"", 
+                flatFile.AppendFormat("\"{0}\",\"{1}\"{2}", 
                     "VEHICLE",
-                    v.Vin
+                    v.Vin,
+                    Eol
                     );
             }
 
