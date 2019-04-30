@@ -6,7 +6,7 @@ namespace CarDeliveryNetwork.Api.Data
     /// <summary>
     /// A Car Delivery Network Damage Item entity
     /// </summary>
-    public class DamageItem : ApiEntityBase<Bid>
+    public class DamageItem : ApiEntityBase<DamageItem>
     {
         /// <summary>
         /// DamageProperty
