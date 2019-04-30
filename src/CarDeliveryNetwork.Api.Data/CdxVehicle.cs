@@ -47,5 +47,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// This vehicle's eventual destination
         /// </summary>
         public ContactDetails Destination { get; set; }
+
+        /// <summary>
+        /// Sign off comment
+        /// </summary>
+        public string SignOffComment { get; set; }
     }
 }
