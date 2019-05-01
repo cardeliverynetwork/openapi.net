@@ -6,7 +6,7 @@ namespace CarDeliveryNetwork.Api.Data
 {
     public class CdxMessage : ApiEntityBase<CdxMessage>
     {
-        private static readonly new Type[] KnownTypes = new Type[]
+        private static readonly Type[] KnownTypes = new Type[]
         {
             typeof(Vehicle),
             typeof(ContactDetails),

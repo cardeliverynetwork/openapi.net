@@ -391,8 +391,8 @@ namespace CarDeliveryNetwork.Api.Data
 
                 case WebHookSchema.CdxStatus:
                     return forEvent == WebHookEvent.PickupStop || forEvent == WebHookEvent.DropoffStop
-                        ? new CDXSTOP(this, null).ToString(forEvent, timeStamp)
-                        : new CDXSTATUS(this, null).ToString(forEvent, timeStamp);
+                        ? new CDXSTOP(this, null).ToString(forEvent, timeStamp, out fileName)
+                        : new CDXSTATUS(this, null).ToString(forEvent, timeStamp, out fileName);
 
                 case WebHookSchema.CdxVechicles:
                     throw new ArgumentException(string.Format("Schema {0} is a per shipment schema", schema), "schema");

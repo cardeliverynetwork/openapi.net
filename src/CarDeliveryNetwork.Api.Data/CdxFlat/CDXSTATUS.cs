@@ -28,8 +28,9 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         /// </summary>
         /// <param name="forEvent"></param>
         /// <param name="eventDateTime"></param>
+        /// <param name="fileName"></param>
         /// <returns></returns>
-        public string ToString(WebHookEvent forEvent, DateTime eventDateTime)
+        public string ToString(WebHookEvent forEvent, DateTime eventDateTime, out string fileName)
         {
             var flatFile = new StringBuilder();
 
@@ -74,6 +75,8 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             }
 
             flatFile.Append("\"CDXEND\"");
+
+            fileName = string.Format("CDXSTATUS_{0}_{1}_{2}_{3:s}.IN", forEvent, _shipment.ExchangeId, _job.JobNumber, DateTime.UtcNow);
 
             return flatFile.ToString();
         }
