@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -13,9 +14,9 @@ namespace CarDeliveryNetwork.Api.Data
         public int? ExchangeId { get; set; }
 
         /// <summary>
-        /// Time shipment was created
+        /// Time shipment was created at client (Format: 2019-04-16 10:28:17)
         /// </summary>
-        public DateTime? EventDateTime { get; set; }
+        public string EventDateTime { get; set; }
 
         /// <summary>
         /// SenderInventoryId
@@ -86,5 +87,23 @@ namespace CarDeliveryNetwork.Api.Data
         /// Status
         /// </summary>
         public int? Status { get; set; }
+
+        /// <summary>
+        ///  Gets a DateTime representation of the EventDateTime string
+        /// </summary>
+        /// <returns></returns>
+        public DateTime GetEventDateTime()
+        {
+            DateTime eventDateTime = DateTime.UtcNow;
+
+            DateTime.TryParseExact(
+                EventDateTime,
+                "yyyy-MM-dd hh:mm:ss",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None, 
+                out eventDateTime);
+
+            return eventDateTime;
+        }
     }
 }

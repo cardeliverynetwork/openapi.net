@@ -4,7 +4,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// <summary>
     /// 
     /// </summary>
-    public class CDxMessageBase
+    public abstract class CDxMessageBase
     {
         /// <summary>
         /// Line end character to CDx messages

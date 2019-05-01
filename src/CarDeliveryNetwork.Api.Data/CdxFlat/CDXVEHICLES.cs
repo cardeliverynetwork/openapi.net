@@ -22,8 +22,9 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="fileName"></param>
         /// <returns></returns>
-        public override string ToString()
+        public string ToString(out string fileName)
         {
             var flatFile = new StringBuilder();
             var shipment = _vehicleExchange.Shipment;
@@ -106,6 +107,8 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             }
 
             flatFile.Append("\"CDXEND\"");
+
+            fileName = string.Format("CDXVEHICLES_{0}_{1:s}.IN", _vehicleExchange.Id, DateTime.UtcNow);
 
             return flatFile.ToString();
         }
