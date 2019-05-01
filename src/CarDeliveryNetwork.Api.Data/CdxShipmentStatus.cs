@@ -6,6 +6,7 @@
         PickupOnHold,
         AtPickUp,
         PickedUp,
+        NotPickedUp,
         OnWayToDeliver,
         DeliveryOnHold,
         Delivered,

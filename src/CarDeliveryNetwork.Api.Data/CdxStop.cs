@@ -10,5 +10,6 @@
         public string SignedBy { get; set; }
         public string NotSignedReasons { get; set; }
         public string SignOffComment { get; set; }
+        public string Signature { get; set; }
     }
 }

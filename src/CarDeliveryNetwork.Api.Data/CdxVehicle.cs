@@ -52,5 +52,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// Sign off comment
         /// </summary>
         public string SignOffComment { get; set; }
+
+        /// <summary>
+        /// Reason vehicle was not completed
+        /// </summary>
+        public new string NonCompletionReason { get; set; }
     }
 }
