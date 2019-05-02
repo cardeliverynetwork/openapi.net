@@ -9,7 +9,7 @@
       <Notes>vehiclenotes</Notes>
       <Variant>GD1</Variant>
       <Vin>3GNAXKEV6KS604218</Vin>
-      <Weight>weight</Weight>
+      <Weight>213</Weight>
       <Destination>
         <AddressLines>9325 South BLVD; Addressline2</AddressLines>
         <City>Charlotte</City>
@@ -38,7 +38,7 @@
         <StateRegion>SC</StateRegion>
         <ZipPostCode>29172</ZipPostCode>
       </Origin>
-      <Price>pervehicleprice</Price>
+      <Price>42</Price>
       <ReferenceNumber>referencenumber</ReferenceNumber>
       <ScheduledDeliveryDate>2015-09-09</ScheduledDeliveryDate>
       <ScheduledPickupDate>2015-09-09</ScheduledPickupDate>
@@ -54,7 +54,7 @@
       <Notes>vehiclenotes</Notes>
       <Variant>SUMMIT WHITE</Variant>
       <Vin>1GCWGAFG9K1208147</Vin>
-      <Weight>weight</Weight>
+      <Weight>123</Weight>
       <Destination>
         <AddressLines>9325 South BLVD; Addressline2</AddressLines>
         <City>Charlotte</City>
@@ -99,7 +99,7 @@
       <Notes>vehiclenotes</Notes>
       <Variant>SUMMIT WHITE</Variant>
       <Vin>1GCWGAFGXK1200090</Vin>
-      <Weight>weight</Weight>
+      <Weight>123</Weight>
       <Destination>
         <AddressLines>9325 South BLVD; Addressline2</AddressLines>
         <City>Charlotte</City>
@@ -144,7 +144,7 @@
       <Notes>vehiclenotes</Notes>
       <Variant>SUMMIT WHITE</Variant>
       <Vin>1GCWGAFG1K1198312</Vin>
-      <Weight>weight</Weight>
+      <Weight>123</Weight>
       <Destination>
         <AddressLines>9325 South BLVD; Addressline2</AddressLines>
         <City>Charlotte</City>

@@ -1,0 +1,30 @@
+﻿<CdxStatus xmlns="http://schemas.datacontract.org/2004/07/CarDeliveryNetwork.Api.Data" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <CdxVehicles>
+    <CdxVehicle>
+      <Vin>3GNAXKEV6KS604218</Vin>
+    </CdxVehicle>
+    <CdxVehicle>
+      <Vin>3GNAXKEV6KS604219</Vin>
+    </CdxVehicle>
+    <CdxVehicle>
+      <Vin>3GNAXKEV6KS604220</Vin>
+    </CdxVehicle>
+  </CdxVehicles>
+  <Shipment>
+    <DriverId>DriverId</DriverId>
+    <EventDateTime>2019-05-02 09:16:17</EventDateTime>
+    <ExchangeId>42</ExchangeId>
+    <Notes>Notes</Notes>
+    <Price>12312</Price>
+    <ReceiverJobNumber>ReceiverJobNumber</ReceiverJobNumber>
+    <ReceiverLoadId>ReceiverLoadId</ReceiverLoadId>
+    <ReceiverScac>ReceiverScac</ReceiverScac>
+    <ReceiverTripId>ReceiverTripId</ReceiverTripId>
+    <SenderJobNumber>SenderJobNumber</SenderJobNumber>
+    <SenderLoadId>USAA-8333306-00052-G1316414</SenderLoadId>
+    <SenderScac>SenderScac</SenderScac>
+    <SenderTripId>8333306</SenderTripId>
+    <Status>12</Status>
+    <TruckId>TruckId</TruckId>
+  </Shipment>
+</CdxStatus>

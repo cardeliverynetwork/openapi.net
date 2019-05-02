@@ -44,6 +44,16 @@ namespace CarDeliveryNetwork.Api.Data
         public string SenderLoadId { get; set; }
 
         /// <summary>
+        /// A Load Id identifying this trip to the sender
+        /// </summary>
+        public string SenderTripId { get; set; }
+
+        /// <summary>
+        /// A Load Id identifying this load to the receiver
+        /// </summary>
+        public string ReceiverLoadId { get; set; }
+
+        /// <summary>
         /// A Load Id identifying this trip to the receiver
         /// </summary>
         public string ReceiverTripId { get; set; }
@@ -52,16 +62,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// A job number identifying this shipment to the receiver
         /// </summary>
         public string ReceiverJobNumber { get; set; }
-
-        /// <summary>
-        /// A Load Id identifying this load to the receiver
-        /// </summary>
-        public string ReceiverLoadId { get; set; }
-
-        /// <summary>
-        /// A Load Id identifying this trip to the sender
-        /// </summary>
-        public string SenderTripId { get; set; }
 
         /// <summary>
         /// A price for the entire shipment

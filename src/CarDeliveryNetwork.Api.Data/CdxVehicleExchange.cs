@@ -35,14 +35,5 @@ namespace CarDeliveryNetwork.Api.Data
         {
             return Serialization.Deserialise<CdxVehicleExchange>(serializedObject, format, KnownTypes);
         }
-
-        /// <summary>
-        /// Serialise this CdxVehicleExchange to XML
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return Serialization.Serialize(this, MessageFormat.Xml, KnownTypes);
-        }
     }
 }

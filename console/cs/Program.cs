@@ -107,16 +107,16 @@ namespace console
             {
                 Shipment = new CdxShipment
                 {
-                    EventDateTime = DateTime.UtcNow - TimeSpan.FromSeconds(42),
+                    EventDateTime = (DateTime.UtcNow - TimeSpan.FromSeconds(42)).ToString("yyyy-MM-dd hh:mm:ss"),
                     SenderInventoryId = "USAA-8333306-00052-G1316414",
                     SenderScac = "USAA",
                     ReceiverScac = "CENT",
                     SenderJobNumber = "Unknown",
                     SenderLoadId = "USAA-8333306-00052-G1316414",
                     SenderTripId = "8333306",
-                    ReceiverJobNumber = "Unknown",
                     ReceiverLoadId = "Unknown",
                     ReceiverTripId = "Unknown",
+                    ReceiverJobNumber = "Unknown",
                     Price = 12312,
                     Notes = "shipmentnotes",
                     TruckId = "Unknown",
@@ -180,8 +180,48 @@ namespace console
 
             var cdsstr = cdx.ToString(MessageFormat.Xml);
             var xml = File.ReadAllText("TestFiles\\CdxVehicleExchange.xml");
+            var deserialisedExchange = CdxVehicleExchange.FromString(xml, MessageFormat.Xml);
 
-            var thing = CdxVehicleExchange.FromString(xml, MessageFormat.Xml);
+            var cdxStatus = new CdxStatus
+            {
+                Shipment = new CdxShipment
+                {
+                    ExchangeId = 42,
+                    EventDateTime = (DateTime.UtcNow - TimeSpan.FromSeconds(42)).ToString("yyyy-MM-dd hh:mm:ss"),
+                    SenderScac = "SenderScac",
+                    ReceiverScac = "ReceiverScac",
+                    SenderJobNumber = "SenderJobNumber",
+                    SenderLoadId = "USAA-8333306-00052-G1316414",
+                    SenderTripId = "8333306",
+                    ReceiverJobNumber = "ReceiverJobNumber",
+                    ReceiverLoadId = "ReceiverLoadId",
+                    ReceiverTripId = "ReceiverTripId",
+                    DriverId = "Unknown",
+                    TruckId = "Unknown",
+                    Price = 12312,
+                    Notes = "shipmentnotes",
+                    Status = (int)JobStatus.OnWayToCollect,
+                },
+                CdxVehicles = new List<CdxVehicle>
+                {
+                    new CdxVehicle
+                    {
+                         Vin = "3GNAXKEV6KS604218",
+                    },
+                    new CdxVehicle
+                    {
+                         Vin = "3GNAXKEV6KS604219",
+                    },
+                    new CdxVehicle
+                    {
+                         Vin = "3GNAXKEV6KS604220",
+                    }
+                }
+            };
+
+            cdsstr = cdxStatus.ToString(MessageFormat.Xml);
+            xml = File.ReadAllText("TestFiles\\CdxStatus.xml");
+            var deserialisedStatus = CdxStatus.FromString(xml, MessageFormat.Xml);
         }
 
         private static Job GetTestJob(string loadId = null)
