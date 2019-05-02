@@ -196,10 +196,8 @@ namespace console
                     ReceiverJobNumber = "ReceiverJobNumber",
                     ReceiverLoadId = "ReceiverLoadId",
                     ReceiverTripId = "ReceiverTripId",
-                    DriverId = "Unknown",
-                    TruckId = "Unknown",
-                    Price = 12312,
-                    Notes = "shipmentnotes",
+                    DriverId = "DriverId",
+                    TruckId = "TruckId",
                     Status = (int)JobStatus.OnWayToCollect,
                 },
                 CdxVehicles = new List<CdxVehicle>
@@ -222,6 +220,85 @@ namespace console
             cdsstr = cdxStatus.ToString(MessageFormat.Xml);
             xml = File.ReadAllText("TestFiles\\CdxStatus.xml");
             var deserialisedStatus = CdxStatus.FromString(xml, MessageFormat.Xml);
+
+            var cdxStop = new CdxStop
+            {
+                StopType = 0,
+                NumberOfVehicles = 3,
+                ProofDocUrl = "https://go.cardeliverynetwork.com/us/Proof.aspx?uid=327110:C003F94",
+                EmailList = "abc@emailserver.com, 123@emailserver.com",
+                SignatureType = 0,
+                SignedBy = "James Shaw",
+                NotSignedReasons = "No one available to sign, Subject to inspection, Customer refused to sign device",
+                SignOffComment = "Damage already on vehicles",
+                Signature = "https://go.cardeliverynetwork.com/us/Proof.aspx?uid=327110:C003F94",
+
+                Shipment = new CdxShipment
+                {
+                    ExchangeId = 42,
+                    EventDateTime = (DateTime.UtcNow - TimeSpan.FromSeconds(42)).ToString("yyyy-MM-dd hh:mm:ss"),
+                    SenderScac = "SenderScac",
+                    ReceiverScac = "ReceiverScac",
+                    SenderJobNumber = "SenderJobNumber",
+                    SenderLoadId = "USAA-8333306-00052-G1316414",
+                    SenderTripId = "8333306",
+                    ReceiverJobNumber = "ReceiverJobNumber",
+                    ReceiverLoadId = "ReceiverLoadId",
+                    ReceiverTripId = "ReceiverTripId",
+                    DriverId = "DriverId",
+                    TruckId = "TruckId",
+                    Status = (int)JobStatus.OnWayToCollect,
+                },
+                CdxVehicles = new List<CdxVehicle>
+                {
+                    new CdxVehicle
+                    {
+                         Vin = "3GNAXKEV6KS604219",
+                         Status = VehicleStatus.PickedUp,
+                         SignedBy = "Mike Thorby",
+                         Signature = "https://go.cardeliverynetwork.com/us/Proof.aspx?uid=327110:C003F94",
+                         SignoffComment = "SignoffComment"
+                    },
+                    new CdxVehicle
+                    {
+                         Vin = "3GNAXKEV6KS604218",
+                         Status = VehicleStatus.PickedUp,
+                         SignedBy = "Mike Thorby",
+                         Signature = "https://go.cardeliverynetwork.com/us/Proof.aspx?uid=327110:C003F94",
+                         SignoffComment = "SignoffComment",
+                         DamageAtPickup = new List<DamageItem>
+                         {
+                             new DamageItem
+                             {
+                                 Area = new DamageItem.DamageArea{ Code = "17" },
+                                 Type = new DamageItem.DamageType{ Code = "14" },
+                                 Severity = new DamageItem.DamageSeverity{ Code = "1" },
+                                 Description = "17:Quarter Panel/Pick-Up Box-Right > 14:Dented-Paint/Chrome not damaged > 1:Less than 1 inch"
+                             },
+                             new DamageItem
+                             {
+                                 Area = new DamageItem.DamageArea{ Code = "03" },
+                                 Type = new DamageItem.DamageType{ Code = "07" },
+                                 Severity = new DamageItem.DamageSeverity{ Code = "1" },
+                                 Description = "03:Bumper/Cover/Ext-Front > 07:Gouged > 1:Less than 1 inch"
+                             }
+                         }
+                    },
+                    new CdxVehicle
+                    {
+                         Vin = "3GNAXKEV6KS604220",
+                         Status = VehicleStatus.NotPickedUp,
+                         NonCompletionReason = "Not Available",
+                         SignedBy = "Mike Thorby",
+                         Signature = "https://go.cardeliverynetwork.com/us/Proof.aspx?uid=327110:C003F94",
+                         SignoffComment = "SignoffComment"
+                    }
+                }
+            };
+
+            cdsstr = cdxStop.ToString(MessageFormat.Xml);
+            xml = File.ReadAllText("TestFiles\\CdxStop.xml");
+            var deserialisedStop = CdxStop.FromString(xml, MessageFormat.Xml);
         }
 
         private static Job GetTestJob(string loadId = null)

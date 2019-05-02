@@ -34,16 +34,15 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         {
             var flatFile = new StringBuilder();
 
-            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\",\"{4}\"{5}",
+            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\"{4}",
                 "CDXSTOP",
                 eventDateTime,
                 _job.CdxExchangeId,
                 _job.LoadId,
-                _shipment.ExchangeId,
                 Eol
                 );
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\"{18}",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\"{15}",
                 "SHIPMENT",
                 _shipment.SenderScac,
                 _shipment.ReceiverScac,
@@ -59,9 +58,6 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 _job.AssignedTruckRemoteId,
                 null, // Lat
                 null, // Lon
-                forEvent,
-                null, // EtaDateTime
-                null, // Gate Code
                 Eol
                 );
 

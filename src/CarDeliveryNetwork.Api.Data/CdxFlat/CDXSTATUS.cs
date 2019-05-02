@@ -34,12 +34,11 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         {
             var flatFile = new StringBuilder();
 
-            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\",\"{4}\"{5}",
+            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\"{4}",
                 "CDXSTATUS",
-                eventDateTime, 
-                _job.CdxExchangeId, 
+                eventDateTime,
+                _job.CdxExchangeId,
                 _job.LoadId, 
-                _shipment.ExchangeId,
                 Eol
                 );
 
