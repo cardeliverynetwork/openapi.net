@@ -24,5 +24,6 @@ namespace CarDeliveryNetwork.Api.Data
         {
             return Serialization.Deserialise<CdxStop>(serializedObject, format, KnownTypes);
         }
+
     }
 }
