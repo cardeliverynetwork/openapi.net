@@ -133,12 +133,11 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// Attempts to create the specified CdxVehicleExchange on Car Delivery Network.
         /// </summary>
         /// <param name="vehicleExchange">The CdxVehicleExchange to create.</param>
-        /// <returns>The successfully created CdxVehicleExchange.</returns>
-        public virtual CdxVehicleExchange CreateCdxVehicleExchange(CdxVehicleExchange vehicleExchange)
+        public virtual void CreateCdxVehicleExchange(CdxVehicleExchange vehicleExchange)
         {
             if (vehicleExchange == null)
                 throw new ArgumentException("CdxVehicleExchange was null");
-            return CdxVehicleExchange.FromString(CallWithRetry("cdxvehicleexchange", "POST", false, vehicleExchange), _interfaceFormat);
+            CallWithRetry("cdxvehicleexchange", "POST", false, vehicleExchange);
         }
 
         /// <summary>
