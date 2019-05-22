@@ -32,11 +32,6 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string LoadId { get; set; }
 
         /// <summary>
-        /// Readonly - A unique identifier for the CdnExchange this job is part of
-        /// </summary>
-        public virtual int? CdxExchangeId { get; set; }
-
-        /// <summary>
         /// Optional (API2) - A suffix to apply to the generated job number
         /// </summary>
         /// <remarks>
