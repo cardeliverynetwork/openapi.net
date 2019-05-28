@@ -167,6 +167,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual Dictionary<string, string> Paperwork { get; set; }
 
         /// <summary>
+        /// Readonly - If part of a CDx shipment, its ID
+        /// </summary>
+        public virtual int? CdxShipmentId { get; set; }
+
+        /// <summary>
         /// Readonly - Indicates that the vehicle has been picked up (or delivered)
         /// </summary>
         public bool IsPickedUp

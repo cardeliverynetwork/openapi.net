@@ -1,5 +1,6 @@
 ﻿using CarDeliveryNetwork.Types;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace CarDeliveryNetwork.Api.Data.CdxFlat
@@ -9,17 +10,17 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// </summary>
     public class CDXSTOP : CDxMessageBase
     {
-        private Job _job;
+        private List<Vehicle> _vehicles;
         private CdxShipment _shipment;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="job"></param>
         /// <param name="shipment"></param>
-        public CDXSTOP(Job job, CdxShipment shipment)
+        /// <param name="vehicles"></param>
+        public CDXSTOP(CdxShipment shipment, List<Vehicle> vehicles)
         {
-            _job = job;
+            _vehicles = vehicles;
             _shipment = shipment;
         }
 
@@ -37,7 +38,12 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\"{4}",
                 "CDXSTOP",
                 eventDateTime,
+<<<<<<< Updated upstream
                 _job.LoadId,
+=======
+                _shipment.ExchangeId,
+                _shipment.SenderLoadId,
+>>>>>>> Stashed changes
                 Eol
                 );
 
@@ -52,9 +58,9 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 _shipment.ReceiverLoadId,
                 _shipment.ReceiverTripId,
                 _shipment.DriverId,
-                _job.AssignedDriverRemoteId,
+                _shipment.DriverId,
                 _shipment.TruckId,
-                _job.AssignedTruckRemoteId,
+                _shipment.TruckId,
                 null, // Lat
                 null, // Lon
                 Eol
@@ -73,7 +79,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 Eol
                 );
 
-            foreach (var v in _job.Vehicles)
+            foreach (var v in _vehicles)
             {
                 flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"{7}",
                     "VEHICLE",
@@ -106,7 +112,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
 
             flatFile.Append("\"CDXEND\"");
 
-            fileName = string.Format("CDXSTOP_{0}_{1}_{2}_{3:s}.IN", forEvent, _shipment.ExchangeId, _job.JobNumber, DateTime.UtcNow);
+            fileName = string.Format("CDXSTOP_{0}_{1}_{2}_{3:s}.IN", forEvent, _shipment.ExchangeId, _shipment.SenderJobNumber, DateTime.UtcNow);
 
             return flatFile.ToString();
         }

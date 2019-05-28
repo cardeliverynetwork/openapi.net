@@ -60,6 +60,7 @@
     <Compile Include="VehicleLoadDirection.cs" />
     <Compile Include="VehicleLoadLevel.cs" />
     <Compile Include="VehicleStatus.cs" />
+    <Compile Include="WebHookGranularity.cs" />
     <Compile Include="WebHookSchema.cs" />
     <Compile Include="WebHookStatus.cs" />
     <Compile Include="Interfaces\IAllocatable.cs" />

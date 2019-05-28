@@ -32,6 +32,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string LoadId { get; set; }
 
         /// <summary>
+        /// Readonly - A unique identifier for the CdnExchange this job is part of
+        /// </summary>
+        public virtual int? CdxExchangeId { get; set; }
+
+        /// <summary>
         /// Optional (API2) - A suffix to apply to the generated job number
         /// </summary>
         /// <remarks>
@@ -384,11 +389,6 @@ namespace CarDeliveryNetwork.Api.Data
                     fileName = r41.FileName;
                     return r41.ToString();
 
-                case WebHookSchema.CdxStatus:
-                    return forEvent == WebHookEvent.PickupStop || forEvent == WebHookEvent.DropoffStop
-                        ? new CDXSTOP(this, null).ToString(forEvent, timeStamp, out fileName)
-                        : new CDXSTATUS(this, null).ToString(forEvent, timeStamp, out fileName);
-
                 case WebHookSchema.CdxVechicles:
                     throw new ArgumentException(string.Format("Schema {0} is a per shipment schema", schema), "schema");
 
@@ -431,14 +431,62 @@ namespace CarDeliveryNetwork.Api.Data
                 case WebHookSchema.TmwV1:
                 case WebHookSchema.PodUrl:
                 case WebHookSchema.IclR41:
-                case WebHookSchema.CdxStatus:
                     throw new ArgumentException(string.Format("Schema {0} is a per job schema", schema), "schema");
 
                 case WebHookSchema.CdxVechicles:
+                case WebHookSchema.CdxStatus:
                     throw new ArgumentException(string.Format("Schema {0} is a per shipment schema", schema), "schema");
 
                 case WebHookSchema.Ford:
                     return new Otr214(this, contractedCarrier).ToString(vehicleIndex, forEvent, timeStamp, hookId.ToString(), deviceTime, false, out fileName);
+
+                default:
+                    throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
+            }
+        }
+
+        /// <summary>
+        /// Returns a serial representation of the job in the specified format and schema.
+        /// </summary>
+        /// <param name="shipment">Shipment to process</param>
+        /// <param name="vehicles">List of vehicles from the specified shipment to process</param>
+        /// <param name="schema">Schema to serialize to.</param>
+        /// <param name="forEvent">The WebHookEvent that this message represents.</param>
+        /// <param name="timeStamp">Time in UTC that this message was created</param>
+        /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
+        /// <param name="deviceTime">Time in UTC that the associated message was created on the device</param>
+        /// <returns>The serialized object.</returns>
+        public string ToShipmentHookString(
+            CdxShipment shipment,
+            List<Vehicle> vehicles,
+            WebHookSchema schema,
+            WebHookEvent forEvent,
+            DateTime timeStamp,
+            out string fileName,
+            DateTime? deviceTime)
+        {
+            fileName = string.Empty;
+
+            switch (schema)
+            {
+                case WebHookSchema.Cdn:
+                case WebHookSchema.Fenkell02:
+                case WebHookSchema.Fenkell05:
+                case WebHookSchema.TmwV1:
+                case WebHookSchema.PodUrl:
+                case WebHookSchema.IclR41:
+                    throw new ArgumentException(string.Format("Schema {0} is a per job schema", schema), "schema");
+
+                case WebHookSchema.CdxVechicles:
+                    throw new ArgumentException(string.Format("Schema {0} can't be fired from here", schema), "schema");
+
+                case WebHookSchema.CdxStatus:
+                    return forEvent == WebHookEvent.PickupStop || forEvent == WebHookEvent.DropoffStop
+                        ? new CDXSTOP(shipment, vehicles).ToString(forEvent, timeStamp, out fileName)
+                        : new CDXSTATUS(shipment, vehicles).ToString(forEvent, timeStamp, out fileName);
+
+                case WebHookSchema.Ford:
+                    throw new ArgumentException(string.Format("Schema {0} is a per vehicle schema", schema), "schema");
 
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
