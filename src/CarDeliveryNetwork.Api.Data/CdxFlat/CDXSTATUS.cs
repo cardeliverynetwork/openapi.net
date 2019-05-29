@@ -38,12 +38,8 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\"{4}",
                 "CDXSTATUS",
                 eventDateTime,
-<<<<<<< Updated upstream
-                _job.LoadId, 
-=======
                 _shipment.ExchangeId,
                 _shipment.SenderLoadId,
->>>>>>> Stashed changes
                 Eol
                 );
 
