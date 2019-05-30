@@ -141,6 +141,28 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         }
 
         /// <summary>
+        /// Processes the specified CdxStatus message
+        /// </summary>
+        /// <param name="status">The CdxStatus message to process.</param>
+        public virtual void ProcessCdxStatus(CdxStatus status)
+        {
+            if (status == null)
+                throw new ArgumentException("CdxStatus was null");
+            CallWithRetry("cdxstatus", "POST", false, status);
+        }
+
+        /// <summary>
+        /// Processes the specified CdxStop message
+        /// </summary>
+        /// <param name="stop">The CdxStop message to process.</param>
+        public virtual void ProcessCdxStop(CdxStop stop)
+        {
+            if (stop == null)
+                throw new ArgumentException("CdxStop was null");
+            CallWithRetry("cdxstop", "POST", false, stop);
+        }
+
+        /// <summary>
         /// Gets the job of the specified LoadId from Car Delivery Network.
         /// </summary>
         /// <param name="loadId">LoadId of the job to get.</param>
