@@ -41,6 +41,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <typeparam name="T">Type to deserialise to</typeparam>
         /// <param name="serialisedObject">Serialised object</param>
         /// <param name="format">Format that the serialised object</param>
+        /// <param name="knownTypes">An System.Collections.Generic.IEnumerable`1 of System.Type that contains the types that may be present in the object graph</param>
         /// <returns>An instance of type T</returns>
         public static T Deserialise<T>(string serialisedObject, MessageFormat format, IEnumerable<Type> knownTypes = null)
         {
