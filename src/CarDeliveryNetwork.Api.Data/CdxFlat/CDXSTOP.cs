@@ -20,6 +20,12 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         /// <param name="vehicles"></param>
         public CDXSTOP(CdxShipment shipment, List<Vehicle> vehicles)
         {
+            if (shipment == null)
+                throw new ArgumentException("CDXSTOP: Shipment cannot be null");
+
+            if (vehicles == null)
+                throw new ArgumentException("CDXSTOP: Vehicle collection cannot be null");
+
             _vehicles = vehicles;
             _shipment = shipment;
         }
@@ -92,17 +98,20 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                     ? v.DamageAtPickup
                     : v.DamageAtDropoff;
 
-                foreach (var d in damage)
+                if (damage != null)
                 {
-                    flatFile.AppendFormat("\"{0}\",\"{1}{2}{3}\",\"{4}\",\"{5}\"{6}",
-                        "DAMAGE",
-                        d.Area.Code, 
-                        d.Type.Code, 
-                        d.Severity.Code, 
-                        "",  // TODO - Photo URL
-                        d.Description,
-                        Eol
-                        );
+                    foreach (var d in damage)
+                    {
+                        flatFile.AppendFormat("\"{0}\",\"{1}{2}{3}\",\"{4}\",\"{5}\"{6}",
+                            "DAMAGE",
+                            d.Area.Code,
+                            d.Type.Code,
+                            d.Severity.Code,
+                            "",  // TODO - Photo URL
+                            d.Description,
+                            Eol
+                            );
+                    }
                 }
             }
 

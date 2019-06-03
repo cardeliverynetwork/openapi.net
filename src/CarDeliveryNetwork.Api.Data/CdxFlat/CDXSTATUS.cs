@@ -20,6 +20,12 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         /// <param name="vehicles"></param>
         public CDXSTATUS(CdxShipment shipment, List<Vehicle> vehicles)
         {
+            if (shipment == null)
+                throw new ArgumentException("CDXSTATUS: Shipment cannot be null");
+
+            if (vehicles == null)
+                throw new ArgumentException("CDXSTATUS: Vehicle collection cannot be null");
+
             _vehicles = vehicles;
             _shipment = shipment;
         }
