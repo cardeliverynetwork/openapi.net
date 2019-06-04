@@ -45,6 +45,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         /// <returns></returns>
         public string ToString(WebHookEvent forEvent, DateTime eventDateTime, out string fileName)
         {
+            var endPoint = forEvent == WebHookEvent.PickupStop ? _job.Pickup : _job.Dropoff;
             var flatFile = new StringBuilder();
 
             flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\"{4}",
@@ -74,7 +75,6 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 Eol
                 );
 
-            var endPoint = forEvent == WebHookEvent.PickupStop ? _job.Pickup : _job.Dropoff;
             var notSignedReasons = new StringBuilder();
 
             if (endPoint.Signoff.NotSignedReasons != null)
