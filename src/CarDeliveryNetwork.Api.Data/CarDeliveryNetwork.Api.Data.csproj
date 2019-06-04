@@ -51,7 +51,6 @@
     <Compile Include="CdxFlat\CDXSTATUS.cs" />
     <Compile Include="CdxFlat\CDXSTOP.cs" />
     <Compile Include="CdxShipment.cs" />
-    <Compile Include="CdxShipmentStatus.cs" />
     <Compile Include="CdxSignatureType.cs" />
     <Compile Include="CdxStatus.cs" />
     <Compile Include="CdxStop.cs" />

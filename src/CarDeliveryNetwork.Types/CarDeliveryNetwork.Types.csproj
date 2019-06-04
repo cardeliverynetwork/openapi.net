@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="AlertType.cs" />
     <Compile Include="AllocateType.cs" />
+    <Compile Include="CdxShipmentStatus.cs" />
     <Compile Include="Interfaces\IWebHook.cs" />
     <Compile Include="PaymentTerms.cs" />
     <Compile Include="ContractStatus.cs" />
