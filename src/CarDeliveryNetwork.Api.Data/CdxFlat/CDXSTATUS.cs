@@ -10,24 +10,30 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// </summary>
     public class CDXSTATUS : CDxMessageBase
     {
-        private List<Vehicle> _vehicles;
         private CdxShipment _shipment;
+        private Job _job;
+        private List<Vehicle> _shipmentVehicles;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="shipment"></param>
-        /// <param name="vehicles"></param>
-        public CDXSTATUS(CdxShipment shipment, List<Vehicle> vehicles)
+        /// <param name="job"></param>
+        /// <param name="shipmentVehicles"></param>
+        public CDXSTATUS(CdxShipment shipment, Job job, List<Vehicle> shipmentVehicles)
         {
             if (shipment == null)
                 throw new ArgumentException("CDXSTATUS: Shipment cannot be null");
 
-            if (vehicles == null)
+            if (job == null)
+                throw new ArgumentException("CDXSTATUS: Job cannot be null");
+
+            if (shipmentVehicles == null)
                 throw new ArgumentException("CDXSTATUS: Vehicle collection cannot be null");
 
-            _vehicles = vehicles;
             _shipment = shipment;
+            _job = job;
+            _shipmentVehicles = shipmentVehicles;
         }
 
         /// <summary>
@@ -39,6 +45,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         /// <returns></returns>
         public string ToString(WebHookEvent forEvent, DateTime eventDateTime, out string fileName)
         {
+            var endPoint = forEvent == WebHookEvent.PickupStop ? _job.Pickup : _job.Dropoff;
             var flatFile = new StringBuilder();
 
             flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\"{4}",
@@ -49,7 +56,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 Eol
                 );
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\"{18}",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16:yyyy-MM-dd hh:mm}\",\"{17}\"{18}",
                 "SHIPMENT",
                 _shipment.SenderScac,
                 _shipment.ReceiverScac,
@@ -66,12 +73,12 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 null, // Lat
                 null, // Lon
                 forEvent,
-                null, // EtaDateTime
-                null,  // Gate Code
+                endPoint.Eta,
+                endPoint.GateOutCode,  // Gate Code
                 Eol
                 );
 
-            foreach (var v in _vehicles)
+            foreach (var v in _shipmentVehicles)
             {
                 flatFile.AppendFormat("\"{0}\",\"{1}\"{2}", 
                     "VEHICLE",
