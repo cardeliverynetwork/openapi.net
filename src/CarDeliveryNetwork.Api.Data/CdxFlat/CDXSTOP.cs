@@ -10,24 +10,30 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// </summary>
     public class CDXSTOP : CDxMessageBase
     {
-        private List<Vehicle> _vehicles;
         private CdxShipment _shipment;
+        private Job _job;
+        private List<Vehicle> _shipmentVehicles;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="shipment"></param>
-        /// <param name="vehicles"></param>
-        public CDXSTOP(CdxShipment shipment, List<Vehicle> vehicles)
+        /// <param name="job"></param>
+        /// <param name="shipmentVehicles"></param>
+        public CDXSTOP(CdxShipment shipment, Job job, List<Vehicle> shipmentVehicles)
         {
             if (shipment == null)
                 throw new ArgumentException("CDXSTOP: Shipment cannot be null");
 
-            if (vehicles == null)
+            if (job == null)
+                throw new ArgumentException("CDXSTOP: Job cannot be null");
+
+            if (shipmentVehicles == null)
                 throw new ArgumentException("CDXSTOP: Vehicle collection cannot be null");
 
-            _vehicles = vehicles;
             _shipment = shipment;
+            _job = job;
+            _shipmentVehicles = shipmentVehicles;
         }
 
         /// <summary>
@@ -68,20 +74,32 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 Eol
                 );
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\"{9}",
+            var endPoint = forEvent == WebHookEvent.PickupStop ? _job.Pickup : _job.Dropoff;
+            var notSignedReasons = new StringBuilder();
+
+            if (endPoint.Signoff.NotSignedReasons != null)
+            {
+                foreach (var reason in endPoint.Signoff.NotSignedReasons)
+                {
+                    notSignedReasons.AppendFormat("{0}, ", reason);
+                }
+            }
+
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\"{10}",
                 "STOP",
-                forEvent, 
-                "", 
-                "", 
-                "", 
-                "", 
-                "", 
-                "", 
-                "",
+                forEvent,
+                _shipmentVehicles.Count,
+                endPoint.ProofDocUrl,
+                endPoint.Destination.Email, 
+                endPoint.Signoff.NotSignedReasons == null ? 0 : 1,
+                endPoint.Signoff.SignedBy,
+                notSignedReasons.ToString().TrimEnd(' ').TrimEnd(','),
+                endPoint.Signoff.Comment,
+                endPoint.Signoff.Url,
                 Eol
                 );
 
-            foreach (var v in _vehicles)
+            foreach (var v in _shipmentVehicles)
             {
                 flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"{7}",
                     "VEHICLE",

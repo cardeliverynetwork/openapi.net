@@ -10,24 +10,30 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
     /// </summary>
     public class CDXSTATUS : CDxMessageBase
     {
-        private List<Vehicle> _vehicles;
         private CdxShipment _shipment;
+        private Job _job;
+        private List<Vehicle> _shipmentVehicles;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="shipment"></param>
-        /// <param name="vehicles"></param>
-        public CDXSTATUS(CdxShipment shipment, List<Vehicle> vehicles)
+        /// <param name="job"></param>
+        /// <param name="shipmentVehicles"></param>
+        public CDXSTATUS(CdxShipment shipment, Job job, List<Vehicle> shipmentVehicles)
         {
             if (shipment == null)
                 throw new ArgumentException("CDXSTATUS: Shipment cannot be null");
 
-            if (vehicles == null)
+            if (job == null)
+                throw new ArgumentException("CDXSTATUS: Job cannot be null");
+
+            if (shipmentVehicles == null)
                 throw new ArgumentException("CDXSTATUS: Vehicle collection cannot be null");
 
-            _vehicles = vehicles;
             _shipment = shipment;
+            _job = job;
+            _shipmentVehicles = shipmentVehicles;
         }
 
         /// <summary>
@@ -71,7 +77,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 Eol
                 );
 
-            foreach (var v in _vehicles)
+            foreach (var v in _shipmentVehicles)
             {
                 flatFile.AppendFormat("\"{0}\",\"{1}\"{2}", 
                     "VEHICLE",
