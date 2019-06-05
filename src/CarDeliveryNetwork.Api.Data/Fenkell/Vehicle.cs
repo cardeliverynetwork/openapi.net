@@ -37,20 +37,19 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
         {
             VIN = vehicle.Vin;
 
-            if (atPickup)
-            {
-                Damage = vehicle.DamageAtPickup.Select(d => new Damage(d)).ToList();
-                Photo = vehicle.Photos.Where(p => p.Url.Contains("CollectionDamage"))
-                    .Select(p => new HostedDocument(p))
-                    .ToList();
-            }
-            else
-            {
-                Damage = vehicle.DamageAtDropoff.Select(d => new Damage(d)).ToList();
-                Photo = vehicle.Photos.Where(p => p.Url.Contains("DeliveryDamage"))
-                    .Select(p => new HostedDocument(p))
-                    .ToList();
-            }
+            var damage = atPickup
+                ? vehicle.DamageAtPickup
+                : vehicle.DamageAtDropoff;
+
+            Damage = damage != null
+                ? damage.Select(d => new Damage(d)).ToList()
+                : new List<Damage>();
+
+            Photo = vehicle.Photos != null
+                ? vehicle.Photos.Where(p => p.Url.Contains(atPickup ? "CollectionDamage" : "DeliveryDamage"))
+                        .Select(p => new HostedDocument(p))
+                        .ToList()
+                : new List<HostedDocument>();
         }
     }
 }
