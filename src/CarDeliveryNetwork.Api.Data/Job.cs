@@ -230,6 +230,14 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string AssignedDriverRemoteId { get; set; }
 
         /// <summary>
+        /// ReadOnly - The Name of the assigned driver
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        public virtual string AssignedDriverName { get; set; }
+
+        /// <summary>
         /// Optional - The Id of the assigned driver
         /// </summary>
         /// <remarks>
@@ -461,6 +469,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="schema">Schema to serialize to.</param>
         /// <param name="forEvent">The WebHookEvent that this message represents.</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
+        /// <param name="position"></param>
         /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
         /// <param name="deviceTime">Time in UTC that the associated message was created on the device</param>
         /// <returns>The serialized object.</returns>
@@ -470,6 +479,7 @@ namespace CarDeliveryNetwork.Api.Data
             WebHookSchema schema,
             WebHookEvent forEvent,
             DateTime timeStamp,
+            Position position,
             out string fileName,
             DateTime? deviceTime)
         {
@@ -490,8 +500,8 @@ namespace CarDeliveryNetwork.Api.Data
 
                 case WebHookSchema.CdxStatus:
                     return forEvent == WebHookEvent.PickupStop || forEvent == WebHookEvent.DropoffStop
-                        ? new CDXSTOP(shipment, this, vehicles).ToString(forEvent, timeStamp, out fileName)
-                        : new CDXSTATUS(shipment, this, vehicles).ToString(forEvent, timeStamp, out fileName);
+                        ? new CDXSTOP(shipment, this, vehicles).ToString(forEvent, timeStamp, position, out fileName)
+                        : new CDXSTATUS(shipment, this, vehicles).ToString(forEvent, timeStamp, position, out fileName);
 
                 case WebHookSchema.Ford:
                     throw new ArgumentException(string.Format("Schema {0} is a per vehicle schema", schema), "schema");

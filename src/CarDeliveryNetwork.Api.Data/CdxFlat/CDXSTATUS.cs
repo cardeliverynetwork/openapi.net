@@ -42,10 +42,15 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         /// <param name="forEvent"></param>
         /// <param name="eventDateTime"></param>
         /// <param name="fileName"></param>
+        /// <param name="position"></param>
         /// <returns></returns>
-        public string ToString(WebHookEvent forEvent, DateTime eventDateTime, out string fileName)
+        public string ToString(WebHookEvent forEvent, DateTime eventDateTime, Position position, out string fileName)
         {
-            var endPoint = forEvent == WebHookEvent.PickupStop ? _job.Pickup : _job.Dropoff;
+            var cdxEvent = Map.WebHookEventToCdxJobStatus(forEvent);
+            var endPoint = cdxEvent < CdxShipmentStatus.OnWayToDeliver
+                ? _job.Pickup
+                : _job.Dropoff;
+
             var flatFile = new StringBuilder();
 
             flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd HH:mm:ss}\",\"{2}\",\"{3}\"{4}",
@@ -66,13 +71,13 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 _shipment.ReceiverJobNumber,
                 _shipment.ReceiverLoadId,
                 _shipment.ReceiverTripId,
-                _job.AssignedDriverRemoteId,
+                _job.AssignedDriverName,
                 _job.AssignedDriverRemoteId,
                 _job.AssignedTruckRemoteId,
                 _job.AssignedTruckRemoteId,
-                null, // Lat
-                null, // Lon
-                forEvent,
+                position == null ? "" : position.Latitude.ToString(),
+                position == null ? "" : position.Longitude.ToString(),
+                cdxEvent,
                 endPoint.Eta,
                 endPoint.GateOutCode,  // Gate Code
                 Eol
@@ -89,7 +94,12 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
 
             flatFile.Append("\"CDXEND\"");
 
-            fileName = string.Format("CDXSTATUS_{0}_{1}_{2}_{3:s}.IN", forEvent, _shipment.ExchangeId, _shipment.SenderJobNumber, DateTime.UtcNow);
+            fileName = string.Format(
+                "CDXSTATUS_{0}_{1}_{2}_{3:s}.IN",
+                cdxEvent, 
+                _shipment.ExchangeId, 
+                _shipment.SenderJobNumber, 
+                DateTime.UtcNow);
 
             return flatFile.ToString();
         }

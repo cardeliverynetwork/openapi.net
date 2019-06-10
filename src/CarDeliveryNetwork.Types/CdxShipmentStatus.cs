@@ -10,9 +10,10 @@
         PickedUp = 50,
         NotPickedUp = 60,
         OnWayToDeliver = 70,
-        DeliveryOnHold = 80,
-        Delivered = 90,
-        NotDelivered = 100,
-        Tracking = 110
+        AtDelivery = 80,
+        DeliveryOnHold = 90,
+        Delivered = 100,
+        NotDelivered = 110,
+        Tracking = 120
     }
 }

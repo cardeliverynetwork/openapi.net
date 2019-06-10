@@ -41,6 +41,7 @@
     <Compile Include="AllocateType.cs" />
     <Compile Include="CdxShipmentStatus.cs" />
     <Compile Include="Interfaces\IWebHook.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="PaymentTerms.cs" />
     <Compile Include="ContractStatus.cs" />
     <Compile Include="CreditStateResult.cs" />
