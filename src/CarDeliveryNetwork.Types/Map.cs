@@ -7,6 +7,42 @@ namespace CarDeliveryNetwork.Types
     public class Map
     {
         /// <summary>
+        /// Maps a WebHookEvent to a JobStatus
+        /// </summary>
+        /// <param name="webHookEvent"></param>
+        /// <returns></returns>
+        public static JobStatus WebHookEventToJobStatus(WebHookEvent webHookEvent)
+        {
+            switch (webHookEvent)
+            {
+                case WebHookEvent.PickupStop:
+                    return JobStatus.Collected;
+                case WebHookEvent.PickupDamageRecorded:
+                    return JobStatus.Collected;
+                case WebHookEvent.DropoffStop:
+                    return JobStatus.Complete;
+                case WebHookEvent.CarrierClaimApproved:
+                    return JobStatus.Complete;
+                case WebHookEvent.AssignedToDriver:
+                    return JobStatus.Assigned;
+                case WebHookEvent.OnWayPickup:
+                    return JobStatus.OnWayToCollect;
+                case WebHookEvent.OnWayDeliver:
+                    return JobStatus.OnWayToDeliver;
+                case WebHookEvent.AtPickup:
+                    return JobStatus.AtCollection;
+                case WebHookEvent.AtDelivery:
+                    return JobStatus.AtDelivery;
+                case WebHookEvent.JobCreated:
+                    return JobStatus.Created;
+
+                default:
+                    return JobStatus.Quote;
+            }
+
+        }
+
+        /// <summary>
         /// Maps a WebHookEvent to a CdxShipmentStatus
         /// </summary>
         /// <param name="webHookEvent"></param>
