@@ -120,7 +120,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 {
                     foreach (var d in damage)
                     {
-                        flatFile.AppendFormat("\"{0}\",\"{1}{2}{3}\",\"{4}\",\"{5}\"{6}",
+                        flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"{6}",
                             "DAMAGE",
                             d.Area.Code,
                             d.Type.Code,
