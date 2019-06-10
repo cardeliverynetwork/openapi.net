@@ -48,7 +48,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             var endPoint = forEvent == WebHookEvent.PickupStop ? _job.Pickup : _job.Dropoff;
             var flatFile = new StringBuilder();
 
-            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\"{4}",
+            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd HH:mm:ss}\",\"{2}\",\"{3}\"{4}",
                 "CDXSTATUS",
                 eventDateTime,
                 _shipment.ExchangeId,
@@ -56,7 +56,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 Eol
                 );
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16:yyyy-MM-dd hh:mm}\",\"{17}\"{18}",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16:yyyy-MM-dd HH:mm}\",\"{17}\"{18}",
                 "SHIPMENT",
                 _shipment.SenderScac,
                 _shipment.ReceiverScac,
@@ -66,10 +66,10 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 _shipment.ReceiverJobNumber,
                 _shipment.ReceiverLoadId,
                 _shipment.ReceiverTripId,
-                _shipment.DriverId,
-                _shipment.DriverId,
-                _shipment.TruckId,
-                _shipment.TruckId,
+                _job.AssignedDriverRemoteId,
+                _job.AssignedDriverRemoteId,
+                _job.AssignedTruckRemoteId,
+                _job.AssignedTruckRemoteId,
                 null, // Lat
                 null, // Lon
                 forEvent,

@@ -98,7 +98,7 @@ namespace CarDeliveryNetwork.Api.Data
 
             DateTime.TryParseExact(
                 EventDateTime,
-                "yyyy-MM-dd hh:mm:ss",
+                "yyyy-MM-dd HH:mm:ss",
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None, 
                 out eventDateTime);

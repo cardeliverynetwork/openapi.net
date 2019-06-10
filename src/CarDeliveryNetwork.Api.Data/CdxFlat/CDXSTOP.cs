@@ -1,7 +1,9 @@
 ﻿using CarDeliveryNetwork.Types;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+
 
 namespace CarDeliveryNetwork.Api.Data.CdxFlat
 {
@@ -48,7 +50,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             var endPoint = forEvent == WebHookEvent.PickupStop ? _job.Pickup : _job.Dropoff;
             var flatFile = new StringBuilder();
 
-            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\"{4}",
+            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd HH:mm:ss}\",\"{2}\",\"{3}\"{4}",
                 "CDXSTOP",
                 eventDateTime,
                 _shipment.ExchangeId,
@@ -66,10 +68,10 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 _shipment.ReceiverJobNumber,
                 _shipment.ReceiverLoadId,
                 _shipment.ReceiverTripId,
-                _shipment.DriverId,
-                _shipment.DriverId,
-                _shipment.TruckId,
-                _shipment.TruckId,
+                _job.AssignedDriverRemoteId,
+                _job.AssignedDriverRemoteId,
+                _job.AssignedTruckRemoteId,
+                _job.AssignedTruckRemoteId,
                 null, // Lat
                 null, // Lon
                 Eol
@@ -120,15 +122,22 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 {
                     foreach (var d in damage)
                     {
-                        flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"{6}",
-                            "DAMAGE",
-                            d.Area.Code,
-                            d.Type.Code,
-                            d.Severity.Code,
-                            "",  // TODO - Photo URL
-                            d.Description,
-                            Eol
-                            );
+                        var photos = v.Photos.Where(p => p.Url != null && p.Url.Contains(string.Format("/damage/{0}", d.Id)));
+                        if (photos != null)
+                        {
+                            foreach (var p in photos)
+                            {
+                                flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"{6}",
+                               "DAMAGE",
+                               d.Area.Code,
+                               d.Type.Code,
+                               d.Severity.Code,
+                               p.Url,
+                               d.Description,
+                               Eol
+                               );
+                            }
+                        }
                     }
                 }
             }

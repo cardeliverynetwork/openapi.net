@@ -29,7 +29,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             var flatFile = new StringBuilder();
             var shipment = _vehicleExchange.Shipment;
 
-            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd hh:mm:ss}\",\"{2}\",\"{3}\"{4}",
+            flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd HH:mm:ss}\",\"{2}\",\"{3}\"{4}",
                 "CDXVEHICLES",
                 shipment.EventDateTime,
                 shipment.SenderInventoryId,
