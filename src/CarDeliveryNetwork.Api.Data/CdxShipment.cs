@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using CarDeliveryNetwork.Types;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -86,7 +87,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// Status
         /// </summary>
-        public int? Status { get; set; }
+        public CdxShipmentStatus? Status { get; set; }
 
         /// <summary>
         ///  Gets a DateTime representation of the EventDateTime string
