@@ -198,7 +198,7 @@ namespace console
                     ReceiverTripId = "ReceiverTripId",
                     DriverId = "DriverId",
                     TruckId = "TruckId",
-                    Status = (int)JobStatus.OnWayToCollect,
+                    Status = CdxShipmentStatus.OnWayToPickup,
                 },
                 CdxVehicles = new List<CdxVehicle>
                 {
@@ -247,7 +247,7 @@ namespace console
                     ReceiverTripId = "ReceiverTripId",
                     DriverId = "DriverId",
                     TruckId = "TruckId",
-                    Status = (int)JobStatus.OnWayToCollect,
+                    Status = CdxShipmentStatus.OnWayToPickup
                 },
                 CdxVehicles = new List<CdxVehicle>
                 {
