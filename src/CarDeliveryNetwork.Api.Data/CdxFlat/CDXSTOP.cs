@@ -58,8 +58,8 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd HH:mm:ss}\",\"{2}\",\"{3}\"{4}",
                 "CDXSTOP",
                 eventDateTime,
-                _shipment.ExchangeId,
                 _shipment.SenderLoadId,
+                _shipment.ExchangeId,
                 Eol
                 );
 
