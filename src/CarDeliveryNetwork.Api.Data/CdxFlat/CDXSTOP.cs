@@ -108,10 +108,19 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
 
             foreach (var v in _shipmentVehicles)
             {
+                var inventoryStatus = cdxEvent;
+
+                if (!string.IsNullOrWhiteSpace(v.NonCompletionReason))
+                {
+                    inventoryStatus = cdxEvent == CdxShipmentStatus.PickedUp
+                        ? CdxShipmentStatus.NotPickedUp
+                        : CdxShipmentStatus.NotDelivered;
+                }
+
                 flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"{7}",
                     "VEHICLE",
-                    v.Vin, 
-                    v.Status, 
+                    v.Vin,
+                    inventoryStatus, 
                     v.NonCompletionReason, 
                     v.SignedBy, 
                     v.Signature, 
