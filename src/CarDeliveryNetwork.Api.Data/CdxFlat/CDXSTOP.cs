@@ -49,6 +49,11 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         public string ToString(WebHookEvent forEvent, DateTime eventDateTime, Position position, out string fileName)
         {
             var cdxEvent = Map.WebHookEventToCdxJobStatus(forEvent);
+
+            var stopType = cdxEvent < CdxShipmentStatus.OnWayToDeliver
+                ? EndPointType.Collection
+                : EndPointType.Delivery;
+
             var endPoint = cdxEvent < CdxShipmentStatus.OnWayToDeliver
                 ? _job.Pickup 
                 : _job.Dropoff;
@@ -94,7 +99,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
 
             flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\"{10}",
                 "STOP",
-                cdxEvent,
+                stopType,
                 _shipmentVehicles.Count,
                 endPoint.ProofDocUrl,
                 endPoint.Destination.Email, 
