@@ -49,7 +49,8 @@ namespace CarDeliveryNetwork.Api.Data
             serialisedObject = serialisedObject.Replace("\"id\":", "\"Id\":")
                                                .Replace("\"jobNumber\":", "\"JobNumber\":")
                                                .Replace("\"allocatedCarrierId\":", "\"AllocatedCarrierId\":")
-                                               .Replace("\"isVinDispatchJob\":", "\"IsVinDispatchJob\":");
+                                               .Replace("\"isVinDispatchJob\":", "\"IsVinDispatchJob\":")
+                                               .Replace("\"scac\":", "\"Scac\":");
 
             var serializer = format == MessageFormat.Json
                 ? new DataContractJsonSerializer(typeof(T), knownTypes) as XmlObjectSerializer
