@@ -77,7 +77,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 _shipment.SenderJobNumber,
                 _shipment.SenderLoadId,
                 _shipment.SenderTripId,
-                isFullShipment,
+                isFullShipment ? 1 : 0,
                 Eol
                 );
 
