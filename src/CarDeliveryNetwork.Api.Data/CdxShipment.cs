@@ -90,6 +90,11 @@ namespace CarDeliveryNetwork.Api.Data
         public CdxShipmentStatus? Status { get; set; }
 
         /// <summary>
+        /// The number of vehicles on this shipment
+        /// </summary>
+        public int VehicleCount { get; set; }
+
+        /// <summary>
         ///  Gets a DateTime representation of the EventDateTime string
         /// </summary>
         /// <returns></returns>

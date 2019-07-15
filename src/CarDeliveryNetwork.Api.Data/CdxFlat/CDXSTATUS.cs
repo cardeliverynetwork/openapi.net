@@ -51,6 +51,8 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 ? _job.Pickup
                 : _job.Dropoff;
 
+            var isFullShipment = _shipment.VehicleCount == _shipmentVehicles.Count;
+
             var flatFile = new StringBuilder();
 
             flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd HH:mm:ss}\",\"{2}\",\"{3}\"{4}",
@@ -61,33 +63,35 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 Eol
                 );
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16:yyyy-MM-dd HH:mm}\",\"{17}\"{18}",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\"{8}",
                 "SHIPMENT",
                 _shipment.SenderScac,
                 _shipment.ReceiverScac,
                 _shipment.SenderJobNumber,
                 _shipment.SenderLoadId,
                 _shipment.SenderTripId,
-                _shipment.ReceiverJobNumber,
-                _shipment.ReceiverLoadId,
-                _shipment.ReceiverTripId,
-                _job.AssignedDriverName,
-                _job.AssignedDriverRemoteId,
-                _job.AssignedTruckRemoteId,
-                _job.AssignedTruckRemoteId,
-                position == null ? "" : position.Latitude.ToString(),
-                position == null ? "" : position.Longitude.ToString(),
+                isFullShipment,
                 cdxEvent,
-                endPoint.Eta,
-                endPoint.GateOutCode,  // Gate Code
                 Eol
                 );
 
             foreach (var v in _shipmentVehicles)
             {
-                flatFile.AppendFormat("\"{0}\",\"{1}\"{2}", 
+                flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12:yyyy-MM-dd HH:mm}\",\"{13}\"{14}",
                     "VEHICLE",
                     v.Vin,
+                    cdxEvent,
+                    _shipment.ReceiverJobNumber,
+                    _shipment.ReceiverLoadId,
+                    _shipment.ReceiverTripId,
+                    _job.AssignedDriverName,
+                    _job.AssignedDriverRemoteId,
+                    _job.AssignedTruckRemoteId,
+                    _job.AssignedTruckRemoteId,
+                    position == null ? "" : position.Latitude.ToString(),
+                    position == null ? "" : position.Longitude.ToString(),
+                    endPoint.Eta,
+                    endPoint.GateOutCode,  // Gate Code
                     Eol
                     );
             }
@@ -96,9 +100,9 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
 
             fileName = string.Format(
                 "CDXSTATUS_{0}_{1}_{2}_{3:s}.IN",
-                cdxEvent, 
-                _shipment.ExchangeId, 
-                _shipment.SenderJobNumber, 
+                cdxEvent,
+                _shipment.ExchangeId,
+                _shipment.SenderJobNumber,
                 DateTime.UtcNow);
 
             return flatFile.ToString();

@@ -55,8 +55,10 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 : EndPointType.Delivery;
 
             var endPoint = cdxEvent < CdxShipmentStatus.OnWayToDeliver
-                ? _job.Pickup 
+                ? _job.Pickup
                 : _job.Dropoff;
+
+            var isFullShipment = _shipment.VehicleCount == _shipmentVehicles.Count;
 
             var flatFile = new StringBuilder();
 
@@ -68,22 +70,14 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 Eol
                 );
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\"{15}",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"{7}",
                 "SHIPMENT",
                 _shipment.SenderScac,
                 _shipment.ReceiverScac,
                 _shipment.SenderJobNumber,
                 _shipment.SenderLoadId,
                 _shipment.SenderTripId,
-                _shipment.ReceiverJobNumber,
-                _shipment.ReceiverLoadId,
-                _shipment.ReceiverTripId,
-                _job.AssignedDriverName,
-                _job.AssignedDriverRemoteId,
-                _job.AssignedTruckRemoteId,
-                _job.AssignedTruckRemoteId,
-                position == null ? "" : position.Latitude.ToString(),
-                position == null ? "" : position.Longitude.ToString(),
+                isFullShipment,
                 Eol
                 );
 
@@ -102,7 +96,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 stopType,
                 _shipmentVehicles.Count,
                 endPoint.ProofDocUrl,
-                endPoint.Destination.Email, 
+                endPoint.Destination.Email,
                 endPoint.Signoff.NotSignedReasons == null ? 0 : 1,
                 endPoint.Signoff.SignedBy,
                 notSignedReasons.ToString().TrimEnd(' ').TrimEnd(','),
@@ -122,14 +116,23 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                         : CdxShipmentStatus.NotDelivered;
                 }
 
-                flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"{7}",
+                flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\"{16}",
                     "VEHICLE",
                     v.Vin,
-                    inventoryStatus, 
-                    v.NonCompletionReason, 
-                    v.SignedBy, 
-                    v.Signature, 
+                    inventoryStatus,
+                    v.NonCompletionReason,
+                    v.SignedBy,
+                    v.Signature,
                     v.SignoffComment,
+                    _shipment.ReceiverJobNumber,
+                    _shipment.ReceiverLoadId,
+                    _shipment.ReceiverTripId,
+                    _job.AssignedDriverName,
+                    _job.AssignedDriverRemoteId,
+                    _job.AssignedTruckRemoteId,
+                    _job.AssignedTruckRemoteId,
+                    position == null ? "" : position.Latitude.ToString(),
+                    position == null ? "" : position.Longitude.ToString(),
                     Eol
                     );
 
@@ -165,9 +168,9 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
 
             fileName = string.Format(
                 "CDXSTOP_{0}_{1}_{2}_{3:s}.IN",
-                cdxEvent, 
-                _shipment.ExchangeId, 
-                _shipment.SenderJobNumber, 
+                cdxEvent,
+                _shipment.ExchangeId,
+                _shipment.SenderJobNumber,
                 DateTime.UtcNow);
 
             return flatFile.ToString();
