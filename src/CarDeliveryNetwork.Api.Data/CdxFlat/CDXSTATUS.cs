@@ -81,9 +81,9 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                     "VEHICLE",
                     v.Vin,
                     cdxEvent,
-                    _shipment.ReceiverJobNumber,
-                    _shipment.ReceiverLoadId,
-                    _shipment.ReceiverTripId,
+                    _job.JobNumber,
+                    _job.LoadId,
+                    _job.TripId,
                     _job.AssignedDriverName,
                     _job.AssignedDriverRemoteId,
                     _job.AssignedTruckRemoteId,
@@ -102,7 +102,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 "CDXSTATUS_{0}_{1}_{2}_{3:s}.IN",
                 cdxEvent,
                 _shipment.ExchangeId,
-                _shipment.SenderJobNumber,
+                _job.JobNumber,
                 DateTime.UtcNow);
 
             return flatFile.ToString();
