@@ -22,9 +22,10 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="useRealShipper"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public string ToString(out string fileName)
+        public string ToString(bool useRealShipper, out string fileName)
         {
             var flatFile = new StringBuilder();
             var shipment = _vehicleExchange.Shipment;
@@ -73,7 +74,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             {
                 flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\",\"{18:yyyy-MM-dd}\",\"{19}\",\"{20}\",\"{21}\",\"{22}\",\"{23}\",\"{24}\",\"{25}\",\"{26}\",\"{27}\",\"{28}\",\"{29}\"{30}",
                     "VEHICLE",
-                    "CDX",
+                    useRealShipper ? v.ShipperScac : "CDX",
                     v.Vin,
                     v.Make,
                     v.Model,
