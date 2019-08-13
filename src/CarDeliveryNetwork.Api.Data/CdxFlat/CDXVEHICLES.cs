@@ -109,7 +109,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
 
             flatFile.Append("\"CDXEND\"");
 
-            fileName = string.Format("CDXVEHICLES_{0}_{1:s}.IN", _vehicleExchange.Id, DateTime.UtcNow);
+            fileName = string.Format("CDXVEHICLES_{0}_{1:yyyyMMddHHmmss}.IN", _vehicleExchange.Id, DateTime.UtcNow);
 
             return flatFile.ToString();
         }

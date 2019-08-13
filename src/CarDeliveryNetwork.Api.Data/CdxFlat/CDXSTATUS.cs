@@ -99,7 +99,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             flatFile.Append("\"CDXEND\"");
 
             fileName = string.Format(
-                "CDXSTATUS_{0}_{1}_{2}_{3:s}.IN",
+                "CDXSTATUS_{0}_{1}_{2}_{3:yyyyMMddHHmmss}.IN",
                 cdxEvent,
                 _shipment.ExchangeId,
                 _job.JobNumber,
