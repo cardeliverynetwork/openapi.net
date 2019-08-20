@@ -85,16 +85,14 @@ namespace CarDeliveryNetwork.Api.Data
         /// <returns></returns>
         public DateTime GetEventDateTime()
         {
-            DateTime eventDateTime = DateTime.UtcNow;
+            DateTime eventDateTime;
 
-            DateTime.TryParseExact(
+            return DateTime.TryParseExact(
                 EventDateTime,
                 "yyyy-MM-dd HH:mm:ss",
                 CultureInfo.InvariantCulture,
-                DateTimeStyles.None, 
-                out eventDateTime);
-
-            return eventDateTime;
+                DateTimeStyles.None,
+                out eventDateTime) ? eventDateTime : DateTime.UtcNow;
         }
     }
 }
