@@ -101,6 +101,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// Dealer delivery claim photos
         /// </summary>
-        DeliveryClaimPhoto = 22
+        DeliveryClaimPhoto = 22,
+
+        /// <summary>
+        /// Photo of users driving licence
+        /// </summary>
+        LicencePhoto = 23
     }
 }
