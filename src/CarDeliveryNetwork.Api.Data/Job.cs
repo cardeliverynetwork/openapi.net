@@ -336,6 +336,7 @@ namespace CarDeliveryNetwork.Api.Data
             Pickup = new EndPoint();
             Dropoff = new EndPoint();
             Vehicles = new List<Vehicle>();
+            Tranships = new List<Tranship>();
             History = new List<JobStatusHistoryItem>();
             Documents = new List<Document>();
         }

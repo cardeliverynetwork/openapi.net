@@ -57,10 +57,13 @@ namespace CdnLink
     partial void InsertCdnSendVehicle(CdnSendVehicle instance);
     partial void UpdateCdnSendVehicle(CdnSendVehicle instance);
     partial void DeleteCdnSendVehicle(CdnSendVehicle instance);
+    partial void InsertCdnSendTranship(CdnSendTranship instance);
+    partial void UpdateCdnSendTranship(CdnSendTranship instance);
+    partial void DeleteCdnSendTranship(CdnSendTranship instance);
     #endregion
 		
 		public CdnLinkDataContext() : 
-				base(global::CdnLink.Settings.Default.CdnLinkConnectionString1, mappingSource)
+				base(global::CdnLink.Settings.Default.CdnLinkConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -158,6 +161,14 @@ namespace CdnLink
 			get
 			{
 				return this.GetTable<CdnSendVehicle>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CdnSendTranship> CdnSendTranships
+		{
+			get
+			{
+				return this.GetTable<CdnSendTranship>();
 			}
 		}
 	}
@@ -3671,6 +3682,8 @@ namespace CdnLink
 		
 		private EntitySet<CdnSendVehicle> _CdnSendVehicles;
 		
+		private EntitySet<CdnSendTranship> _CdnSendTranships;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -3795,6 +3808,7 @@ namespace CdnLink
 		{
 			this._CdnSend = default(EntityRef<CdnSend>);
 			this._CdnSendVehicles = new EntitySet<CdnSendVehicle>(new Action<CdnSendVehicle>(this.attach_CdnSendVehicles), new Action<CdnSendVehicle>(this.detach_CdnSendVehicles));
+			this._CdnSendTranships = new EntitySet<CdnSendTranship>(new Action<CdnSendTranship>(this.attach_CdnSendTranships), new Action<CdnSendTranship>(this.detach_CdnSendTranships));
 			OnCreated();
 		}
 		
@@ -4980,6 +4994,19 @@ namespace CdnLink
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnSendLoad_CdnSendTranship", Storage="_CdnSendTranships", ThisKey="LoadId", OtherKey="LoadId")]
+		public EntitySet<CdnSendTranship> CdnSendTranships
+		{
+			get
+			{
+				return this._CdnSendTranships;
+			}
+			set
+			{
+				this._CdnSendTranships.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -5007,6 +5034,18 @@ namespace CdnLink
 		}
 		
 		private void detach_CdnSendVehicles(CdnSendVehicle entity)
+		{
+			this.SendPropertyChanging();
+			entity.CdnSendLoad = null;
+		}
+		
+		private void attach_CdnSendTranships(CdnSendTranship entity)
+		{
+			this.SendPropertyChanging();
+			entity.CdnSendLoad = this;
+		}
+		
+		private void detach_CdnSendTranships(CdnSendTranship entity)
 		{
 			this.SendPropertyChanging();
 			entity.CdnSendLoad = null;
@@ -5619,6 +5658,589 @@ namespace CdnLink
 					if ((value != null))
 					{
 						value.CdnSendVehicles.Add(this);
+						this._LoadId = value.LoadId;
+					}
+					else
+					{
+						this._LoadId = default(string);
+					}
+					this.SendPropertyChanged("CdnSendLoad");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CdnSendTranships")]
+	public partial class CdnSendTranship : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _LoadId;
+		
+		private System.Nullable<int> _TranshipNumber;
+		
+		private string _TripId;
+		
+		private string _AssignedDriverRemoteId;
+		
+		private string _AssignedTruckRemoteId;
+		
+		private string _AddressLines;
+		
+		private string _City;
+		
+		private string _Contact;
+		
+		private string _Email;
+		
+		private string _Fax;
+		
+		private string _MobilePhone;
+		
+		private string _Notes;
+		
+		private string _OrganisationName;
+		
+		private string _OtherPhone;
+		
+		private string _Phone;
+		
+		private string _QuickCode;
+		
+		private string _StateRegion;
+		
+		private string _ZipPostCode;
+		
+		private System.Nullable<System.DateTime> _RequestedDate;
+		
+		private System.Nullable<bool> _RequestedDateIsExact;
+		
+		private EntityRef<CdnSendLoad> _CdnSendLoad;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnLoadIdChanging(string value);
+    partial void OnLoadIdChanged();
+    partial void OnTranshipNumberChanging(System.Nullable<int> value);
+    partial void OnTranshipNumberChanged();
+    partial void OnTripIdChanging(string value);
+    partial void OnTripIdChanged();
+    partial void OnAssignedDriverRemoteIdChanging(string value);
+    partial void OnAssignedDriverRemoteIdChanged();
+    partial void OnAssignedTruckRemoteIdChanging(string value);
+    partial void OnAssignedTruckRemoteIdChanged();
+    partial void OnAddressLinesChanging(string value);
+    partial void OnAddressLinesChanged();
+    partial void OnCityChanging(string value);
+    partial void OnCityChanged();
+    partial void OnContactChanging(string value);
+    partial void OnContactChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnFaxChanging(string value);
+    partial void OnFaxChanged();
+    partial void OnMobilePhoneChanging(string value);
+    partial void OnMobilePhoneChanged();
+    partial void OnNotesChanging(string value);
+    partial void OnNotesChanged();
+    partial void OnOrganisationNameChanging(string value);
+    partial void OnOrganisationNameChanged();
+    partial void OnOtherPhoneChanging(string value);
+    partial void OnOtherPhoneChanged();
+    partial void OnPhoneChanging(string value);
+    partial void OnPhoneChanged();
+    partial void OnQuickCodeChanging(string value);
+    partial void OnQuickCodeChanged();
+    partial void OnStateRegionChanging(string value);
+    partial void OnStateRegionChanged();
+    partial void OnZipPostCodeChanging(string value);
+    partial void OnZipPostCodeChanged();
+    partial void OnRequestedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnRequestedDateChanged();
+    partial void OnRequestedDateIsExactChanging(System.Nullable<bool> value);
+    partial void OnRequestedDateIsExactChanged();
+    #endregion
+		
+		public CdnSendTranship()
+		{
+			this._CdnSendLoad = default(EntityRef<CdnSendLoad>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadId", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string LoadId
+		{
+			get
+			{
+				return this._LoadId;
+			}
+			set
+			{
+				if ((this._LoadId != value))
+				{
+					if (this._CdnSendLoad.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnLoadIdChanging(value);
+					this.SendPropertyChanging();
+					this._LoadId = value;
+					this.SendPropertyChanged("LoadId");
+					this.OnLoadIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TranshipNumber", DbType="Int")]
+		public System.Nullable<int> TranshipNumber
+		{
+			get
+			{
+				return this._TranshipNumber;
+			}
+			set
+			{
+				if ((this._TranshipNumber != value))
+				{
+					this.OnTranshipNumberChanging(value);
+					this.SendPropertyChanging();
+					this._TranshipNumber = value;
+					this.SendPropertyChanged("TranshipNumber");
+					this.OnTranshipNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TripId", DbType="NVarChar(20)")]
+		public string TripId
+		{
+			get
+			{
+				return this._TripId;
+			}
+			set
+			{
+				if ((this._TripId != value))
+				{
+					this.OnTripIdChanging(value);
+					this.SendPropertyChanging();
+					this._TripId = value;
+					this.SendPropertyChanged("TripId");
+					this.OnTripIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedDriverRemoteId", DbType="NVarChar(40)")]
+		public string AssignedDriverRemoteId
+		{
+			get
+			{
+				return this._AssignedDriverRemoteId;
+			}
+			set
+			{
+				if ((this._AssignedDriverRemoteId != value))
+				{
+					this.OnAssignedDriverRemoteIdChanging(value);
+					this.SendPropertyChanging();
+					this._AssignedDriverRemoteId = value;
+					this.SendPropertyChanged("AssignedDriverRemoteId");
+					this.OnAssignedDriverRemoteIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedTruckRemoteId", DbType="NVarChar(40)")]
+		public string AssignedTruckRemoteId
+		{
+			get
+			{
+				return this._AssignedTruckRemoteId;
+			}
+			set
+			{
+				if ((this._AssignedTruckRemoteId != value))
+				{
+					this.OnAssignedTruckRemoteIdChanging(value);
+					this.SendPropertyChanging();
+					this._AssignedTruckRemoteId = value;
+					this.SendPropertyChanged("AssignedTruckRemoteId");
+					this.OnAssignedTruckRemoteIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressLines", DbType="NVarChar(300)")]
+		public string AddressLines
+		{
+			get
+			{
+				return this._AddressLines;
+			}
+			set
+			{
+				if ((this._AddressLines != value))
+				{
+					this.OnAddressLinesChanging(value);
+					this.SendPropertyChanging();
+					this._AddressLines = value;
+					this.SendPropertyChanged("AddressLines");
+					this.OnAddressLinesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="NVarChar(300)")]
+		public string City
+		{
+			get
+			{
+				return this._City;
+			}
+			set
+			{
+				if ((this._City != value))
+				{
+					this.OnCityChanging(value);
+					this.SendPropertyChanging();
+					this._City = value;
+					this.SendPropertyChanged("City");
+					this.OnCityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contact", DbType="NVarChar(100)")]
+		public string Contact
+		{
+			get
+			{
+				return this._Contact;
+			}
+			set
+			{
+				if ((this._Contact != value))
+				{
+					this.OnContactChanging(value);
+					this.SendPropertyChanging();
+					this._Contact = value;
+					this.SendPropertyChanged("Contact");
+					this.OnContactChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(1000)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(30)")]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this.OnFaxChanging(value);
+					this.SendPropertyChanging();
+					this._Fax = value;
+					this.SendPropertyChanged("Fax");
+					this.OnFaxChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MobilePhone", DbType="NVarChar(30)")]
+		public string MobilePhone
+		{
+			get
+			{
+				return this._MobilePhone;
+			}
+			set
+			{
+				if ((this._MobilePhone != value))
+				{
+					this.OnMobilePhoneChanging(value);
+					this.SendPropertyChanging();
+					this._MobilePhone = value;
+					this.SendPropertyChanged("MobilePhone");
+					this.OnMobilePhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(1000)")]
+		public string Notes
+		{
+			get
+			{
+				return this._Notes;
+			}
+			set
+			{
+				if ((this._Notes != value))
+				{
+					this.OnNotesChanging(value);
+					this.SendPropertyChanging();
+					this._Notes = value;
+					this.SendPropertyChanged("Notes");
+					this.OnNotesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganisationName", DbType="NVarChar(100)")]
+		public string OrganisationName
+		{
+			get
+			{
+				return this._OrganisationName;
+			}
+			set
+			{
+				if ((this._OrganisationName != value))
+				{
+					this.OnOrganisationNameChanging(value);
+					this.SendPropertyChanging();
+					this._OrganisationName = value;
+					this.SendPropertyChanged("OrganisationName");
+					this.OnOrganisationNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OtherPhone", DbType="NVarChar(30)")]
+		public string OtherPhone
+		{
+			get
+			{
+				return this._OtherPhone;
+			}
+			set
+			{
+				if ((this._OtherPhone != value))
+				{
+					this.OnOtherPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._OtherPhone = value;
+					this.SendPropertyChanged("OtherPhone");
+					this.OnOtherPhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(30)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this.OnPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._Phone = value;
+					this.SendPropertyChanged("Phone");
+					this.OnPhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuickCode", DbType="NVarChar(255)")]
+		public string QuickCode
+		{
+			get
+			{
+				return this._QuickCode;
+			}
+			set
+			{
+				if ((this._QuickCode != value))
+				{
+					this.OnQuickCodeChanging(value);
+					this.SendPropertyChanging();
+					this._QuickCode = value;
+					this.SendPropertyChanged("QuickCode");
+					this.OnQuickCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StateRegion", DbType="NVarChar(255)")]
+		public string StateRegion
+		{
+			get
+			{
+				return this._StateRegion;
+			}
+			set
+			{
+				if ((this._StateRegion != value))
+				{
+					this.OnStateRegionChanging(value);
+					this.SendPropertyChanging();
+					this._StateRegion = value;
+					this.SendPropertyChanged("StateRegion");
+					this.OnStateRegionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZipPostCode", DbType="NVarChar(10)")]
+		public string ZipPostCode
+		{
+			get
+			{
+				return this._ZipPostCode;
+			}
+			set
+			{
+				if ((this._ZipPostCode != value))
+				{
+					this.OnZipPostCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ZipPostCode = value;
+					this.SendPropertyChanged("ZipPostCode");
+					this.OnZipPostCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> RequestedDate
+		{
+			get
+			{
+				return this._RequestedDate;
+			}
+			set
+			{
+				if ((this._RequestedDate != value))
+				{
+					this.OnRequestedDateChanging(value);
+					this.SendPropertyChanging();
+					this._RequestedDate = value;
+					this.SendPropertyChanged("RequestedDate");
+					this.OnRequestedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestedDateIsExact", DbType="Bit")]
+		public System.Nullable<bool> RequestedDateIsExact
+		{
+			get
+			{
+				return this._RequestedDateIsExact;
+			}
+			set
+			{
+				if ((this._RequestedDateIsExact != value))
+				{
+					this.OnRequestedDateIsExactChanging(value);
+					this.SendPropertyChanging();
+					this._RequestedDateIsExact = value;
+					this.SendPropertyChanged("RequestedDateIsExact");
+					this.OnRequestedDateIsExactChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnSendLoad_CdnSendTranship", Storage="_CdnSendLoad", ThisKey="LoadId", OtherKey="LoadId", IsForeignKey=true)]
+		public CdnSendLoad CdnSendLoad
+		{
+			get
+			{
+				return this._CdnSendLoad.Entity;
+			}
+			set
+			{
+				CdnSendLoad previousValue = this._CdnSendLoad.Entity;
+				if (((previousValue != value) 
+							|| (this._CdnSendLoad.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CdnSendLoad.Entity = null;
+						previousValue.CdnSendTranships.Remove(this);
+					}
+					this._CdnSendLoad.Entity = value;
+					if ((value != null))
+					{
+						value.CdnSendTranships.Add(this);
 						this._LoadId = value.LoadId;
 					}
 					else

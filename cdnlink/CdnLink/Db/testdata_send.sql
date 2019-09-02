@@ -153,6 +153,43 @@ VALUES
     'SAC'
 );
 
+INSERT INTO CdnSendTranships
+(
+	LoadId,
+	TranshipNumber,
+	TripId,
+	AssignedDriverRemoteId,
+	AssignedTruckRemoteId,
+	AddressLines,
+	City,
+	Contact,
+	Email,
+	Notes,
+	OrganisationName,
+	Phone,
+	QuickCode,
+	StateRegion,
+	ZipPostCode
+)
+VALUES 
+(
+	@nextLoaid,
+    1,
+	'123',
+	'', -- Driver 
+	'',
+	'2800 Lumber River Trail',
+	'Apex', 
+	'',
+	'',
+	'Place of tranship',
+	'',
+	'555 1234',
+	'LRT',
+	'NC',
+	'27502'
+)
+
 INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
 VALUES (@nextLoaid, 'Ford', 'Cortina', 'C123456789123456C');
 

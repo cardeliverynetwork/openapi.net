@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CdnLink" Class="CdnLinkDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=iny-chuyer;Initial Catalog=CdnLink;Integrated Security=True" SettingsObjectName="CdnLink.Settings" SettingsPropertyName="CdnLinkConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-NA1EG62;Initial Catalog=CdnLink;Integrated Security=True" SettingsObjectName="CdnLink.Settings" SettingsPropertyName="CdnLinkConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.CdnReceivedDamage" Member="CdnReceivedDamages">
     <Type Name="CdnReceivedDamage">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -114,7 +114,7 @@
       <Column Name="PickupTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="PickupUrl" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Column Name="PickupProofDocUrl" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
-      <Column Member="GateOutCode" Type="System.String" CanBeNull="false" />
+      <Column Name="GateOutCode" Type="System.String" CanBeNull="false" />
       <Association Name="CdnReceivedLoad_CdnReceivedDocument" Member="CdnReceivedDocuments" ThisKey="Id" OtherKey="ReceivedLoadId" Type="CdnReceivedDocument" />
       <Association Name="CdnReceivedLoad_CdnReceivedVehicle" Member="CdnReceivedVehicles" ThisKey="Id" OtherKey="ReceivedLoadId" Type="CdnReceivedVehicle" />
       <Association Name="CdnReceivedFtpFile_CdnReceivedLoad" Member="CdnReceivedFtpFile" ThisKey="FtpFileId" OtherKey="Id" Type="CdnReceivedFtpFile" IsForeignKey="true" />
@@ -212,6 +212,7 @@
       <Column Name="PickupRequestedDateIsExact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="CdnSendLoad_CdnSend" Member="CdnSend" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSend" Cardinality="One" />
       <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendVehicles" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendVehicle" />
+      <Association Name="CdnSendLoad_CdnSendTranship" Member="CdnSendTranships" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendTranship" />
     </Type>
   </Table>
   <Table Name="dbo.CdnSends" Member="CdnSends">
@@ -242,6 +243,32 @@
       <Column Name="Variant" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Vin" Type="System.String" DbType="NVarChar(17) NOT NULL" CanBeNull="false" />
       <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendLoad" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendLoad" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnSendTranships" Member="CdnSendTranships">
+    <Type Name="CdnSendTranship">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="TranshipNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TripId" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="AssignedDriverRemoteId" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="AssignedTruckRemoteId" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="AddressLines" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Contact" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="MobilePhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="OrganisationName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="OtherPhone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="QuickCode" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="StateRegion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ZipPostCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="RequestedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RequestedDateIsExact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="CdnSendLoad_CdnSendTranship" Member="CdnSendLoad" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendLoad" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
