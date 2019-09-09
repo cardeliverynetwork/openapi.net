@@ -137,3 +137,32 @@ ADD
 	[GateOutCode] [nvarchar](25) NULL
 END
 GO
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'CdnSendTranships')
+BEGIN
+	CREATE TABLE [dbo].[CdnSendTranships] 
+	(
+		[Id] [int] IDENTITY (1, 1) NOT NULL,
+		[LoadId] [nvarchar] (40) NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (LoadId),
+		[TranshipNumber] [int]  NULL,
+		[TripId] [nvarchar] (20) NULL,
+		[AssignedDriverRemoteId] [nvarchar] (40) NULL,
+		[AssignedTruckRemoteId] [nvarchar] (40) NULL,
+		[AddressLines] [nvarchar] (300) NULL,
+		[City] [nvarchar] (300) NULL,
+		[Contact] [nvarchar] (100) NULL,
+		[Email] [nvarchar] (1000) NULL,
+		[Fax] [nvarchar] (30) NULL,
+		[MobilePhone] [nvarchar] (30) NULL,
+		[Notes] [nvarchar] (1000) NULL,
+		[OrganisationName] [nvarchar] (100) NULL,
+		[OtherPhone] [nvarchar] (30) NULL,
+		[Phone] [nvarchar] (30) NULL,
+		[QuickCode] [nvarchar] (255) NULL,
+		[StateRegion] [nvarchar] (255) NULL,
+		[ZipPostCode] [nvarchar] (10) NULL,
+		[RequestedDate] [datetime] NULL,
+		[RequestedDateIsExact] [bit] NULL,
+		PRIMARY KEY CLUSTERED (Id)
+	)
+END

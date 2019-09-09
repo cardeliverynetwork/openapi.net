@@ -76,6 +76,32 @@ CREATE TABLE [dbo].[CdnSendVehicles]
 	PRIMARY KEY CLUSTERED (Id)
 )
 
+CREATE TABLE [dbo].[CdnSendTranships] 
+(
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
+	[LoadId] [varchar] (40) NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (LoadId),
+	[TranshipNumber] [int]  NULL,
+	[TripId] [varchar] (20) NULL,
+	[AssignedDriverRemoteId] [varchar] (40) NULL,
+	[AssignedTruckRemoteId] [varchar] (40) NULL,
+	[AddressLines] [varchar] (300) NULL,
+	[City] [varchar] (300) NULL,
+	[Contact] [varchar] (100) NULL,
+	[Email] [varchar] (1000) NULL,
+	[Fax] [varchar] (30) NULL,
+	[MobilePhone] [varchar] (30) NULL,
+	[Notes] [varchar] (1000) NULL,
+	[OrganisationName] [varchar] (100) NULL,
+	[OtherPhone] [varchar] (30) NULL,
+	[Phone] [varchar] (30) NULL,
+	[QuickCode] [varchar] (255) NULL,
+	[StateRegion] [varchar] (255) NULL,
+	[ZipPostCode] [varchar] (10) NULL,
+	[RequestedDate] [datetime] NULL,
+	[RequestedDateIsExact] [bit] NULL,
+	PRIMARY KEY CLUSTERED (Id)
+)
+
 CREATE TABLE [dbo].[CdnSends] 
 (
     [LoadId] [varchar] (40) NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (LoadId),
