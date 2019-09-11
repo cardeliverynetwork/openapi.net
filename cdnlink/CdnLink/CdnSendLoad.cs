@@ -89,6 +89,10 @@ namespace CdnLink
                 {
                     job.Vehicles.Add(new Vehicle
                     {
+                        Color = vehicle.Color,
+                        LoadDirection = (VehicleLoadDirection)vehicle.LoadDirection,
+                        LoadLevel = (VehicleLoadLevel)vehicle.LoadLevel,
+                        LoadPosition = vehicle.LoadPosition.GetValueOrDefault(0),
                         Location = vehicle.Location,
                         Make = vehicle.Make,
                         Model = vehicle.Model,
@@ -96,7 +100,8 @@ namespace CdnLink
                         Notes = vehicle.Notes,
                         Registration = vehicle.Registration,
                         Variant = vehicle.Variant,
-                        Vin = vehicle.Vin
+                        Vin = vehicle.Vin,
+                        Weight = vehicle.Weight.GetValueOrDefault(0)
                     });
                 }
             }

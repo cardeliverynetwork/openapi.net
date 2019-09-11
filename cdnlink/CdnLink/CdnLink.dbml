@@ -12,7 +12,7 @@
       <Column Name="SeverityDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="TypeCode" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
       <Column Name="TypeDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="CdnReceivedVehicle_CdnReceivedDamage" Member="CdnReceivedVehicle" ThisKey="ReceivedVehicleId" OtherKey="Id" Type="CdnReceivedVehicle" IsForeignKey="true" />
+      <Association Name="CdnReceivedVehicle1_CdnReceivedDamage" Member="CdnReceivedVehicle" ThisKey="ReceivedVehicleId" OtherKey="Id" Type="CdnReceivedVehicle" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.CdnReceivedDocuments" Member="CdnReceivedDocuments">
@@ -116,27 +116,8 @@
       <Column Name="PickupProofDocUrl" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Column Name="GateOutCode" Type="System.String" CanBeNull="false" />
       <Association Name="CdnReceivedLoad_CdnReceivedDocument" Member="CdnReceivedDocuments" ThisKey="Id" OtherKey="ReceivedLoadId" Type="CdnReceivedDocument" />
-      <Association Name="CdnReceivedLoad_CdnReceivedVehicle" Member="CdnReceivedVehicles" ThisKey="Id" OtherKey="ReceivedLoadId" Type="CdnReceivedVehicle" />
+      <Association Name="CdnReceivedLoad_CdnReceivedVehicle1" Member="CdnReceivedVehicles" ThisKey="Id" OtherKey="ReceivedLoadId" Type="CdnReceivedVehicle" />
       <Association Name="CdnReceivedFtpFile_CdnReceivedLoad" Member="CdnReceivedFtpFile" ThisKey="FtpFileId" OtherKey="Id" Type="CdnReceivedFtpFile" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CdnReceivedVehicles" Member="CdnReceivedVehicles">
-    <Type Name="CdnReceivedVehicle">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CdnVehicleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ReceivedLoadId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Make" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Model" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="MovementNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="NonCompletionReason" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Notes" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Registration" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Variant" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Vin" Type="System.String" DbType="NVarChar(17) NOT NULL" CanBeNull="false" />
-      <Association Name="CdnReceivedVehicle_CdnReceivedDamage" Member="CdnReceivedDamages" ThisKey="Id" OtherKey="ReceivedVehicleId" Type="CdnReceivedDamage" />
-      <Association Name="CdnReceivedLoad_CdnReceivedVehicle" Member="CdnReceivedLoad" ThisKey="ReceivedLoadId" OtherKey="Id" Type="CdnReceivedLoad" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.CdnReceives" Member="CdnReceives">
@@ -211,8 +192,8 @@
       <Column Name="PickupRequestedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="PickupRequestedDateIsExact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="CdnSendLoad_CdnSend" Member="CdnSend" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSend" Cardinality="One" />
-      <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendVehicles" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendVehicle" />
       <Association Name="CdnSendLoad_CdnSendTranship" Member="CdnSendTranships" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendTranship" />
+      <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendVehicles" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendVehicle" />
     </Type>
   </Table>
   <Table Name="dbo.CdnSends" Member="CdnSends">
@@ -228,21 +209,6 @@
       <Column Name="ErrorMessage" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Column Name="ErrorCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="CdnSendLoad_CdnSend" Member="CdnSendLoad" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendLoad" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CdnSendVehicles" Member="CdnSendVehicles">
-    <Type Name="CdnSendVehicle">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
-      <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Make" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Model" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="MovementNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Notes" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Registration" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="Variant" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Vin" Type="System.String" DbType="NVarChar(17) NOT NULL" CanBeNull="false" />
-      <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendLoad" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendLoad" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.CdnSendTranships" Member="CdnSendTranships">
@@ -269,6 +235,50 @@
       <Column Name="RequestedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="RequestedDateIsExact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="CdnSendLoad_CdnSendTranship" Member="CdnSendLoad" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendLoad" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnReceivedVehicles" Member="CdnReceivedVehicles">
+    <Type Name="CdnReceivedVehicle">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CdnVehicleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReceivedLoadId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Make" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Model" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MovementNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NonCompletionReason" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Registration" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Variant" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Vin" Type="System.String" DbType="NVarChar(17)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="LoadDirection" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoadLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoadPosition" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Weight" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="CdnReceivedVehicle1_CdnReceivedDamage" Member="CdnReceivedDamages" ThisKey="Id" OtherKey="ReceivedVehicleId" Type="CdnReceivedDamage" />
+      <Association Name="CdnReceivedLoad_CdnReceivedVehicle1" Member="CdnReceivedLoad" ThisKey="ReceivedLoadId" OtherKey="Id" Type="CdnReceivedLoad" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CdnSendVehicles" Member="CdnSendVehicles">
+    <Type Name="CdnSendVehicle">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LoadId" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Make" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Model" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MovementNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Registration" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Variant" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Vin" Type="System.String" DbType="NVarChar(17) NOT NULL" CanBeNull="false" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="LoadDirection" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoadLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoadPosition" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Weight" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="CdnSendLoad_CdnSendVehicle" Member="CdnSendLoad" ThisKey="LoadId" OtherKey="LoadId" Type="CdnSendLoad" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

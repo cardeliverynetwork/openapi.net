@@ -42,9 +42,6 @@ namespace CdnLink
     partial void InsertCdnReceivedLoad(CdnReceivedLoad instance);
     partial void UpdateCdnReceivedLoad(CdnReceivedLoad instance);
     partial void DeleteCdnReceivedLoad(CdnReceivedLoad instance);
-    partial void InsertCdnReceivedVehicle(CdnReceivedVehicle instance);
-    partial void UpdateCdnReceivedVehicle(CdnReceivedVehicle instance);
-    partial void DeleteCdnReceivedVehicle(CdnReceivedVehicle instance);
     partial void InsertCdnReceive(CdnReceive instance);
     partial void UpdateCdnReceive(CdnReceive instance);
     partial void DeleteCdnReceive(CdnReceive instance);
@@ -54,12 +51,15 @@ namespace CdnLink
     partial void InsertCdnSend(CdnSend instance);
     partial void UpdateCdnSend(CdnSend instance);
     partial void DeleteCdnSend(CdnSend instance);
-    partial void InsertCdnSendVehicle(CdnSendVehicle instance);
-    partial void UpdateCdnSendVehicle(CdnSendVehicle instance);
-    partial void DeleteCdnSendVehicle(CdnSendVehicle instance);
     partial void InsertCdnSendTranship(CdnSendTranship instance);
     partial void UpdateCdnSendTranship(CdnSendTranship instance);
     partial void DeleteCdnSendTranship(CdnSendTranship instance);
+    partial void InsertCdnReceivedVehicle(CdnReceivedVehicle instance);
+    partial void UpdateCdnReceivedVehicle(CdnReceivedVehicle instance);
+    partial void DeleteCdnReceivedVehicle(CdnReceivedVehicle instance);
+    partial void InsertCdnSendVehicle(CdnSendVehicle instance);
+    partial void UpdateCdnSendVehicle(CdnSendVehicle instance);
+    partial void DeleteCdnSendVehicle(CdnSendVehicle instance);
     #endregion
 		
 		public CdnLinkDataContext() : 
@@ -124,14 +124,6 @@ namespace CdnLink
 			}
 		}
 		
-		public System.Data.Linq.Table<CdnReceivedVehicle> CdnReceivedVehicles
-		{
-			get
-			{
-				return this.GetTable<CdnReceivedVehicle>();
-			}
-		}
-		
 		public System.Data.Linq.Table<CdnReceive> CdnReceives
 		{
 			get
@@ -156,19 +148,27 @@ namespace CdnLink
 			}
 		}
 		
-		public System.Data.Linq.Table<CdnSendVehicle> CdnSendVehicles
-		{
-			get
-			{
-				return this.GetTable<CdnSendVehicle>();
-			}
-		}
-		
 		public System.Data.Linq.Table<CdnSendTranship> CdnSendTranships
 		{
 			get
 			{
 				return this.GetTable<CdnSendTranship>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CdnReceivedVehicle> CdnReceivedVehicles
+		{
+			get
+			{
+				return this.GetTable<CdnReceivedVehicle>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CdnSendVehicle> CdnSendVehicles
+		{
+			get
+			{
+				return this.GetTable<CdnSendVehicle>();
 			}
 		}
 	}
@@ -437,7 +437,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedVehicle_CdnReceivedDamage", Storage="_CdnReceivedVehicle", ThisKey="ReceivedVehicleId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedVehicle1_CdnReceivedDamage", Storage="_CdnReceivedVehicle", ThisKey="ReceivedVehicleId", OtherKey="Id", IsForeignKey=true)]
 		public CdnReceivedVehicle CdnReceivedVehicle
 		{
 			get
@@ -2800,7 +2800,7 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedVehicle", Storage="_CdnReceivedVehicles", ThisKey="Id", OtherKey="ReceivedLoadId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedVehicle1", Storage="_CdnReceivedVehicles", ThisKey="Id", OtherKey="ReceivedLoadId")]
 		public EntitySet<CdnReceivedVehicle> CdnReceivedVehicles
 		{
 			get
@@ -2889,425 +2889,6 @@ namespace CdnLink
 		{
 			this.SendPropertyChanging();
 			entity.CdnReceivedLoad = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CdnReceivedVehicles")]
-	public partial class CdnReceivedVehicle : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _CdnVehicleId;
-		
-		private int _ReceivedLoadId;
-		
-		private string _Location;
-		
-		private string _Make;
-		
-		private string _Model;
-		
-		private string _MovementNumber;
-		
-		private string _NonCompletionReason;
-		
-		private string _Notes;
-		
-		private string _Registration;
-		
-		private int _Status;
-		
-		private string _Variant;
-		
-		private string _Vin;
-		
-		private EntitySet<CdnReceivedDamage> _CdnReceivedDamages;
-		
-		private EntityRef<CdnReceivedLoad> _CdnReceivedLoad;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnCdnVehicleIdChanging(int value);
-    partial void OnCdnVehicleIdChanged();
-    partial void OnReceivedLoadIdChanging(int value);
-    partial void OnReceivedLoadIdChanged();
-    partial void OnLocationChanging(string value);
-    partial void OnLocationChanged();
-    partial void OnMakeChanging(string value);
-    partial void OnMakeChanged();
-    partial void OnModelChanging(string value);
-    partial void OnModelChanged();
-    partial void OnMovementNumberChanging(string value);
-    partial void OnMovementNumberChanged();
-    partial void OnNonCompletionReasonChanging(string value);
-    partial void OnNonCompletionReasonChanged();
-    partial void OnNotesChanging(string value);
-    partial void OnNotesChanged();
-    partial void OnRegistrationChanging(string value);
-    partial void OnRegistrationChanged();
-    partial void OnStatusChanging(int value);
-    partial void OnStatusChanged();
-    partial void OnVariantChanging(string value);
-    partial void OnVariantChanged();
-    partial void OnVinChanging(string value);
-    partial void OnVinChanged();
-    #endregion
-		
-		public CdnReceivedVehicle()
-		{
-			this._CdnReceivedDamages = new EntitySet<CdnReceivedDamage>(new Action<CdnReceivedDamage>(this.attach_CdnReceivedDamages), new Action<CdnReceivedDamage>(this.detach_CdnReceivedDamages));
-			this._CdnReceivedLoad = default(EntityRef<CdnReceivedLoad>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CdnVehicleId", DbType="Int NOT NULL")]
-		public int CdnVehicleId
-		{
-			get
-			{
-				return this._CdnVehicleId;
-			}
-			set
-			{
-				if ((this._CdnVehicleId != value))
-				{
-					this.OnCdnVehicleIdChanging(value);
-					this.SendPropertyChanging();
-					this._CdnVehicleId = value;
-					this.SendPropertyChanged("CdnVehicleId");
-					this.OnCdnVehicleIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceivedLoadId", DbType="Int NOT NULL")]
-		public int ReceivedLoadId
-		{
-			get
-			{
-				return this._ReceivedLoadId;
-			}
-			set
-			{
-				if ((this._ReceivedLoadId != value))
-				{
-					if (this._CdnReceivedLoad.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnReceivedLoadIdChanging(value);
-					this.SendPropertyChanging();
-					this._ReceivedLoadId = value;
-					this.SendPropertyChanged("ReceivedLoadId");
-					this.OnReceivedLoadIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="NVarChar(50)")]
-		public string Location
-		{
-			get
-			{
-				return this._Location;
-			}
-			set
-			{
-				if ((this._Location != value))
-				{
-					this.OnLocationChanging(value);
-					this.SendPropertyChanging();
-					this._Location = value;
-					this.SendPropertyChanged("Location");
-					this.OnLocationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="NVarChar(50)")]
-		public string Make
-		{
-			get
-			{
-				return this._Make;
-			}
-			set
-			{
-				if ((this._Make != value))
-				{
-					this.OnMakeChanging(value);
-					this.SendPropertyChanging();
-					this._Make = value;
-					this.SendPropertyChanged("Make");
-					this.OnMakeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(50)")]
-		public string Model
-		{
-			get
-			{
-				return this._Model;
-			}
-			set
-			{
-				if ((this._Model != value))
-				{
-					this.OnModelChanging(value);
-					this.SendPropertyChanging();
-					this._Model = value;
-					this.SendPropertyChanged("Model");
-					this.OnModelChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MovementNumber", DbType="NVarChar(50)")]
-		public string MovementNumber
-		{
-			get
-			{
-				return this._MovementNumber;
-			}
-			set
-			{
-				if ((this._MovementNumber != value))
-				{
-					this.OnMovementNumberChanging(value);
-					this.SendPropertyChanging();
-					this._MovementNumber = value;
-					this.SendPropertyChanged("MovementNumber");
-					this.OnMovementNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NonCompletionReason", DbType="NVarChar(255)")]
-		public string NonCompletionReason
-		{
-			get
-			{
-				return this._NonCompletionReason;
-			}
-			set
-			{
-				if ((this._NonCompletionReason != value))
-				{
-					this.OnNonCompletionReasonChanging(value);
-					this.SendPropertyChanging();
-					this._NonCompletionReason = value;
-					this.SendPropertyChanged("NonCompletionReason");
-					this.OnNonCompletionReasonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(255)")]
-		public string Notes
-		{
-			get
-			{
-				return this._Notes;
-			}
-			set
-			{
-				if ((this._Notes != value))
-				{
-					this.OnNotesChanging(value);
-					this.SendPropertyChanging();
-					this._Notes = value;
-					this.SendPropertyChanged("Notes");
-					this.OnNotesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Registration", DbType="NVarChar(10)")]
-		public string Registration
-		{
-			get
-			{
-				return this._Registration;
-			}
-			set
-			{
-				if ((this._Registration != value))
-				{
-					this.OnRegistrationChanging(value);
-					this.SendPropertyChanging();
-					this._Registration = value;
-					this.SendPropertyChanged("Registration");
-					this.OnRegistrationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int NOT NULL")]
-		public int Status
-		{
-			get
-			{
-				return this._Status;
-			}
-			set
-			{
-				if ((this._Status != value))
-				{
-					this.OnStatusChanging(value);
-					this.SendPropertyChanging();
-					this._Status = value;
-					this.SendPropertyChanged("Status");
-					this.OnStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Variant", DbType="NVarChar(50)")]
-		public string Variant
-		{
-			get
-			{
-				return this._Variant;
-			}
-			set
-			{
-				if ((this._Variant != value))
-				{
-					this.OnVariantChanging(value);
-					this.SendPropertyChanging();
-					this._Variant = value;
-					this.SendPropertyChanged("Variant");
-					this.OnVariantChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vin", DbType="NVarChar(17) NOT NULL", CanBeNull=false)]
-		public string Vin
-		{
-			get
-			{
-				return this._Vin;
-			}
-			set
-			{
-				if ((this._Vin != value))
-				{
-					this.OnVinChanging(value);
-					this.SendPropertyChanging();
-					this._Vin = value;
-					this.SendPropertyChanged("Vin");
-					this.OnVinChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedVehicle_CdnReceivedDamage", Storage="_CdnReceivedDamages", ThisKey="Id", OtherKey="ReceivedVehicleId")]
-		public EntitySet<CdnReceivedDamage> CdnReceivedDamages
-		{
-			get
-			{
-				return this._CdnReceivedDamages;
-			}
-			set
-			{
-				this._CdnReceivedDamages.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedVehicle", Storage="_CdnReceivedLoad", ThisKey="ReceivedLoadId", OtherKey="Id", IsForeignKey=true)]
-		public CdnReceivedLoad CdnReceivedLoad
-		{
-			get
-			{
-				return this._CdnReceivedLoad.Entity;
-			}
-			set
-			{
-				CdnReceivedLoad previousValue = this._CdnReceivedLoad.Entity;
-				if (((previousValue != value) 
-							|| (this._CdnReceivedLoad.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CdnReceivedLoad.Entity = null;
-						previousValue.CdnReceivedVehicles.Remove(this);
-					}
-					this._CdnReceivedLoad.Entity = value;
-					if ((value != null))
-					{
-						value.CdnReceivedVehicles.Add(this);
-						this._ReceivedLoadId = value.Id;
-					}
-					else
-					{
-						this._ReceivedLoadId = default(int);
-					}
-					this.SendPropertyChanged("CdnReceivedLoad");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_CdnReceivedDamages(CdnReceivedDamage entity)
-		{
-			this.SendPropertyChanging();
-			entity.CdnReceivedVehicle = this;
-		}
-		
-		private void detach_CdnReceivedDamages(CdnReceivedDamage entity)
-		{
-			this.SendPropertyChanging();
-			entity.CdnReceivedVehicle = null;
 		}
 	}
 	
@@ -3680,9 +3261,9 @@ namespace CdnLink
 		
 		private EntityRef<CdnSend> _CdnSend;
 		
-		private EntitySet<CdnSendVehicle> _CdnSendVehicles;
-		
 		private EntitySet<CdnSendTranship> _CdnSendTranships;
+		
+		private EntitySet<CdnSendVehicle> _CdnSendVehicles;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3807,8 +3388,8 @@ namespace CdnLink
 		public CdnSendLoad()
 		{
 			this._CdnSend = default(EntityRef<CdnSend>);
-			this._CdnSendVehicles = new EntitySet<CdnSendVehicle>(new Action<CdnSendVehicle>(this.attach_CdnSendVehicles), new Action<CdnSendVehicle>(this.detach_CdnSendVehicles));
 			this._CdnSendTranships = new EntitySet<CdnSendTranship>(new Action<CdnSendTranship>(this.attach_CdnSendTranships), new Action<CdnSendTranship>(this.detach_CdnSendTranships));
+			this._CdnSendVehicles = new EntitySet<CdnSendVehicle>(new Action<CdnSendVehicle>(this.attach_CdnSendVehicles), new Action<CdnSendVehicle>(this.detach_CdnSendVehicles));
 			OnCreated();
 		}
 		
@@ -4981,19 +4562,6 @@ namespace CdnLink
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnSendLoad_CdnSendVehicle", Storage="_CdnSendVehicles", ThisKey="LoadId", OtherKey="LoadId")]
-		public EntitySet<CdnSendVehicle> CdnSendVehicles
-		{
-			get
-			{
-				return this._CdnSendVehicles;
-			}
-			set
-			{
-				this._CdnSendVehicles.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnSendLoad_CdnSendTranship", Storage="_CdnSendTranships", ThisKey="LoadId", OtherKey="LoadId")]
 		public EntitySet<CdnSendTranship> CdnSendTranships
 		{
@@ -5004,6 +4572,19 @@ namespace CdnLink
 			set
 			{
 				this._CdnSendTranships.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnSendLoad_CdnSendVehicle", Storage="_CdnSendVehicles", ThisKey="LoadId", OtherKey="LoadId")]
+		public EntitySet<CdnSendVehicle> CdnSendVehicles
+		{
+			get
+			{
+				return this._CdnSendVehicles;
+			}
+			set
+			{
+				this._CdnSendVehicles.Assign(value);
 			}
 		}
 		
@@ -5027,18 +4608,6 @@ namespace CdnLink
 			}
 		}
 		
-		private void attach_CdnSendVehicles(CdnSendVehicle entity)
-		{
-			this.SendPropertyChanging();
-			entity.CdnSendLoad = this;
-		}
-		
-		private void detach_CdnSendVehicles(CdnSendVehicle entity)
-		{
-			this.SendPropertyChanging();
-			entity.CdnSendLoad = null;
-		}
-		
 		private void attach_CdnSendTranships(CdnSendTranship entity)
 		{
 			this.SendPropertyChanging();
@@ -5046,6 +4615,18 @@ namespace CdnLink
 		}
 		
 		private void detach_CdnSendTranships(CdnSendTranship entity)
+		{
+			this.SendPropertyChanging();
+			entity.CdnSendLoad = null;
+		}
+		
+		private void attach_CdnSendVehicles(CdnSendVehicle entity)
+		{
+			this.SendPropertyChanging();
+			entity.CdnSendLoad = this;
+		}
+		
+		private void detach_CdnSendVehicles(CdnSendVehicle entity)
 		{
 			this.SendPropertyChanging();
 			entity.CdnSendLoad = null;
@@ -5339,325 +4920,6 @@ namespace CdnLink
 					if ((value != null))
 					{
 						value.CdnSend = this;
-						this._LoadId = value.LoadId;
-					}
-					else
-					{
-						this._LoadId = default(string);
-					}
-					this.SendPropertyChanged("CdnSendLoad");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CdnSendVehicles")]
-	public partial class CdnSendVehicle : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _LoadId;
-		
-		private string _Location;
-		
-		private string _Make;
-		
-		private string _Model;
-		
-		private string _MovementNumber;
-		
-		private string _Notes;
-		
-		private string _Registration;
-		
-		private string _Variant;
-		
-		private string _Vin;
-		
-		private EntityRef<CdnSendLoad> _CdnSendLoad;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnLoadIdChanging(string value);
-    partial void OnLoadIdChanged();
-    partial void OnLocationChanging(string value);
-    partial void OnLocationChanged();
-    partial void OnMakeChanging(string value);
-    partial void OnMakeChanged();
-    partial void OnModelChanging(string value);
-    partial void OnModelChanged();
-    partial void OnMovementNumberChanging(string value);
-    partial void OnMovementNumberChanged();
-    partial void OnNotesChanging(string value);
-    partial void OnNotesChanged();
-    partial void OnRegistrationChanging(string value);
-    partial void OnRegistrationChanged();
-    partial void OnVariantChanging(string value);
-    partial void OnVariantChanged();
-    partial void OnVinChanging(string value);
-    partial void OnVinChanged();
-    #endregion
-		
-		public CdnSendVehicle()
-		{
-			this._CdnSendLoad = default(EntityRef<CdnSendLoad>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadId", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
-		public string LoadId
-		{
-			get
-			{
-				return this._LoadId;
-			}
-			set
-			{
-				if ((this._LoadId != value))
-				{
-					if (this._CdnSendLoad.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnLoadIdChanging(value);
-					this.SendPropertyChanging();
-					this._LoadId = value;
-					this.SendPropertyChanged("LoadId");
-					this.OnLoadIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="NVarChar(50)")]
-		public string Location
-		{
-			get
-			{
-				return this._Location;
-			}
-			set
-			{
-				if ((this._Location != value))
-				{
-					this.OnLocationChanging(value);
-					this.SendPropertyChanging();
-					this._Location = value;
-					this.SendPropertyChanged("Location");
-					this.OnLocationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="NVarChar(50)")]
-		public string Make
-		{
-			get
-			{
-				return this._Make;
-			}
-			set
-			{
-				if ((this._Make != value))
-				{
-					this.OnMakeChanging(value);
-					this.SendPropertyChanging();
-					this._Make = value;
-					this.SendPropertyChanged("Make");
-					this.OnMakeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(50)")]
-		public string Model
-		{
-			get
-			{
-				return this._Model;
-			}
-			set
-			{
-				if ((this._Model != value))
-				{
-					this.OnModelChanging(value);
-					this.SendPropertyChanging();
-					this._Model = value;
-					this.SendPropertyChanged("Model");
-					this.OnModelChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MovementNumber", DbType="NVarChar(50)")]
-		public string MovementNumber
-		{
-			get
-			{
-				return this._MovementNumber;
-			}
-			set
-			{
-				if ((this._MovementNumber != value))
-				{
-					this.OnMovementNumberChanging(value);
-					this.SendPropertyChanging();
-					this._MovementNumber = value;
-					this.SendPropertyChanged("MovementNumber");
-					this.OnMovementNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(255)")]
-		public string Notes
-		{
-			get
-			{
-				return this._Notes;
-			}
-			set
-			{
-				if ((this._Notes != value))
-				{
-					this.OnNotesChanging(value);
-					this.SendPropertyChanging();
-					this._Notes = value;
-					this.SendPropertyChanged("Notes");
-					this.OnNotesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Registration", DbType="NVarChar(10)")]
-		public string Registration
-		{
-			get
-			{
-				return this._Registration;
-			}
-			set
-			{
-				if ((this._Registration != value))
-				{
-					this.OnRegistrationChanging(value);
-					this.SendPropertyChanging();
-					this._Registration = value;
-					this.SendPropertyChanged("Registration");
-					this.OnRegistrationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Variant", DbType="NVarChar(50)")]
-		public string Variant
-		{
-			get
-			{
-				return this._Variant;
-			}
-			set
-			{
-				if ((this._Variant != value))
-				{
-					this.OnVariantChanging(value);
-					this.SendPropertyChanging();
-					this._Variant = value;
-					this.SendPropertyChanged("Variant");
-					this.OnVariantChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vin", DbType="NVarChar(17) NOT NULL", CanBeNull=false)]
-		public string Vin
-		{
-			get
-			{
-				return this._Vin;
-			}
-			set
-			{
-				if ((this._Vin != value))
-				{
-					this.OnVinChanging(value);
-					this.SendPropertyChanging();
-					this._Vin = value;
-					this.SendPropertyChanged("Vin");
-					this.OnVinChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnSendLoad_CdnSendVehicle", Storage="_CdnSendLoad", ThisKey="LoadId", OtherKey="LoadId", IsForeignKey=true)]
-		public CdnSendLoad CdnSendLoad
-		{
-			get
-			{
-				return this._CdnSendLoad.Entity;
-			}
-			set
-			{
-				CdnSendLoad previousValue = this._CdnSendLoad.Entity;
-				if (((previousValue != value) 
-							|| (this._CdnSendLoad.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CdnSendLoad.Entity = null;
-						previousValue.CdnSendVehicles.Remove(this);
-					}
-					this._CdnSendLoad.Entity = value;
-					if ((value != null))
-					{
-						value.CdnSendVehicles.Add(this);
 						this._LoadId = value.LoadId;
 					}
 					else
@@ -6241,6 +5503,984 @@ namespace CdnLink
 					if ((value != null))
 					{
 						value.CdnSendTranships.Add(this);
+						this._LoadId = value.LoadId;
+					}
+					else
+					{
+						this._LoadId = default(string);
+					}
+					this.SendPropertyChanged("CdnSendLoad");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CdnReceivedVehicles")]
+	public partial class CdnReceivedVehicle : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _CdnVehicleId;
+		
+		private int _ReceivedLoadId;
+		
+		private string _Location;
+		
+		private string _Make;
+		
+		private string _Model;
+		
+		private string _MovementNumber;
+		
+		private string _NonCompletionReason;
+		
+		private string _Notes;
+		
+		private string _Registration;
+		
+		private int _Status;
+		
+		private string _Variant;
+		
+		private string _Vin;
+		
+		private string _Color;
+		
+		private System.Nullable<int> _LoadDirection;
+		
+		private System.Nullable<int> _LoadLevel;
+		
+		private System.Nullable<int> _LoadPosition;
+		
+		private System.Nullable<int> _Weight;
+		
+		private EntitySet<CdnReceivedDamage> _CdnReceivedDamages;
+		
+		private EntityRef<CdnReceivedLoad> _CdnReceivedLoad;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnCdnVehicleIdChanging(int value);
+    partial void OnCdnVehicleIdChanged();
+    partial void OnReceivedLoadIdChanging(int value);
+    partial void OnReceivedLoadIdChanged();
+    partial void OnLocationChanging(string value);
+    partial void OnLocationChanged();
+    partial void OnMakeChanging(string value);
+    partial void OnMakeChanged();
+    partial void OnModelChanging(string value);
+    partial void OnModelChanged();
+    partial void OnMovementNumberChanging(string value);
+    partial void OnMovementNumberChanged();
+    partial void OnNonCompletionReasonChanging(string value);
+    partial void OnNonCompletionReasonChanged();
+    partial void OnNotesChanging(string value);
+    partial void OnNotesChanged();
+    partial void OnRegistrationChanging(string value);
+    partial void OnRegistrationChanged();
+    partial void OnStatusChanging(int value);
+    partial void OnStatusChanged();
+    partial void OnVariantChanging(string value);
+    partial void OnVariantChanged();
+    partial void OnVinChanging(string value);
+    partial void OnVinChanged();
+    partial void OnColorChanging(string value);
+    partial void OnColorChanged();
+    partial void OnLoadDirectionChanging(System.Nullable<int> value);
+    partial void OnLoadDirectionChanged();
+    partial void OnLoadLevelChanging(System.Nullable<int> value);
+    partial void OnLoadLevelChanged();
+    partial void OnLoadPositionChanging(System.Nullable<int> value);
+    partial void OnLoadPositionChanged();
+    partial void OnWeightChanging(System.Nullable<int> value);
+    partial void OnWeightChanged();
+    #endregion
+		
+		public CdnReceivedVehicle()
+		{
+			this._CdnReceivedDamages = new EntitySet<CdnReceivedDamage>(new Action<CdnReceivedDamage>(this.attach_CdnReceivedDamages), new Action<CdnReceivedDamage>(this.detach_CdnReceivedDamages));
+			this._CdnReceivedLoad = default(EntityRef<CdnReceivedLoad>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CdnVehicleId", DbType="Int NOT NULL")]
+		public int CdnVehicleId
+		{
+			get
+			{
+				return this._CdnVehicleId;
+			}
+			set
+			{
+				if ((this._CdnVehicleId != value))
+				{
+					this.OnCdnVehicleIdChanging(value);
+					this.SendPropertyChanging();
+					this._CdnVehicleId = value;
+					this.SendPropertyChanged("CdnVehicleId");
+					this.OnCdnVehicleIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceivedLoadId", DbType="Int NOT NULL")]
+		public int ReceivedLoadId
+		{
+			get
+			{
+				return this._ReceivedLoadId;
+			}
+			set
+			{
+				if ((this._ReceivedLoadId != value))
+				{
+					if (this._CdnReceivedLoad.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReceivedLoadIdChanging(value);
+					this.SendPropertyChanging();
+					this._ReceivedLoadId = value;
+					this.SendPropertyChanged("ReceivedLoadId");
+					this.OnReceivedLoadIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="NVarChar(50)")]
+		public string Location
+		{
+			get
+			{
+				return this._Location;
+			}
+			set
+			{
+				if ((this._Location != value))
+				{
+					this.OnLocationChanging(value);
+					this.SendPropertyChanging();
+					this._Location = value;
+					this.SendPropertyChanged("Location");
+					this.OnLocationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="NVarChar(50)")]
+		public string Make
+		{
+			get
+			{
+				return this._Make;
+			}
+			set
+			{
+				if ((this._Make != value))
+				{
+					this.OnMakeChanging(value);
+					this.SendPropertyChanging();
+					this._Make = value;
+					this.SendPropertyChanged("Make");
+					this.OnMakeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(50)")]
+		public string Model
+		{
+			get
+			{
+				return this._Model;
+			}
+			set
+			{
+				if ((this._Model != value))
+				{
+					this.OnModelChanging(value);
+					this.SendPropertyChanging();
+					this._Model = value;
+					this.SendPropertyChanged("Model");
+					this.OnModelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MovementNumber", DbType="NVarChar(50)")]
+		public string MovementNumber
+		{
+			get
+			{
+				return this._MovementNumber;
+			}
+			set
+			{
+				if ((this._MovementNumber != value))
+				{
+					this.OnMovementNumberChanging(value);
+					this.SendPropertyChanging();
+					this._MovementNumber = value;
+					this.SendPropertyChanged("MovementNumber");
+					this.OnMovementNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NonCompletionReason", DbType="NVarChar(255)")]
+		public string NonCompletionReason
+		{
+			get
+			{
+				return this._NonCompletionReason;
+			}
+			set
+			{
+				if ((this._NonCompletionReason != value))
+				{
+					this.OnNonCompletionReasonChanging(value);
+					this.SendPropertyChanging();
+					this._NonCompletionReason = value;
+					this.SendPropertyChanged("NonCompletionReason");
+					this.OnNonCompletionReasonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(255)")]
+		public string Notes
+		{
+			get
+			{
+				return this._Notes;
+			}
+			set
+			{
+				if ((this._Notes != value))
+				{
+					this.OnNotesChanging(value);
+					this.SendPropertyChanging();
+					this._Notes = value;
+					this.SendPropertyChanged("Notes");
+					this.OnNotesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Registration", DbType="NVarChar(10)")]
+		public string Registration
+		{
+			get
+			{
+				return this._Registration;
+			}
+			set
+			{
+				if ((this._Registration != value))
+				{
+					this.OnRegistrationChanging(value);
+					this.SendPropertyChanging();
+					this._Registration = value;
+					this.SendPropertyChanged("Registration");
+					this.OnRegistrationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int NOT NULL")]
+		public int Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Variant", DbType="NVarChar(50)")]
+		public string Variant
+		{
+			get
+			{
+				return this._Variant;
+			}
+			set
+			{
+				if ((this._Variant != value))
+				{
+					this.OnVariantChanging(value);
+					this.SendPropertyChanging();
+					this._Variant = value;
+					this.SendPropertyChanged("Variant");
+					this.OnVariantChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vin", DbType="NVarChar(17)")]
+		public string Vin
+		{
+			get
+			{
+				return this._Vin;
+			}
+			set
+			{
+				if ((this._Vin != value))
+				{
+					this.OnVinChanging(value);
+					this.SendPropertyChanging();
+					this._Vin = value;
+					this.SendPropertyChanged("Vin");
+					this.OnVinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color", DbType="NVarChar(25)")]
+		public string Color
+		{
+			get
+			{
+				return this._Color;
+			}
+			set
+			{
+				if ((this._Color != value))
+				{
+					this.OnColorChanging(value);
+					this.SendPropertyChanging();
+					this._Color = value;
+					this.SendPropertyChanged("Color");
+					this.OnColorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadDirection", DbType="Int")]
+		public System.Nullable<int> LoadDirection
+		{
+			get
+			{
+				return this._LoadDirection;
+			}
+			set
+			{
+				if ((this._LoadDirection != value))
+				{
+					this.OnLoadDirectionChanging(value);
+					this.SendPropertyChanging();
+					this._LoadDirection = value;
+					this.SendPropertyChanged("LoadDirection");
+					this.OnLoadDirectionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadLevel", DbType="Int")]
+		public System.Nullable<int> LoadLevel
+		{
+			get
+			{
+				return this._LoadLevel;
+			}
+			set
+			{
+				if ((this._LoadLevel != value))
+				{
+					this.OnLoadLevelChanging(value);
+					this.SendPropertyChanging();
+					this._LoadLevel = value;
+					this.SendPropertyChanged("LoadLevel");
+					this.OnLoadLevelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadPosition", DbType="Int")]
+		public System.Nullable<int> LoadPosition
+		{
+			get
+			{
+				return this._LoadPosition;
+			}
+			set
+			{
+				if ((this._LoadPosition != value))
+				{
+					this.OnLoadPositionChanging(value);
+					this.SendPropertyChanging();
+					this._LoadPosition = value;
+					this.SendPropertyChanged("LoadPosition");
+					this.OnLoadPositionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Weight", DbType="Int")]
+		public System.Nullable<int> Weight
+		{
+			get
+			{
+				return this._Weight;
+			}
+			set
+			{
+				if ((this._Weight != value))
+				{
+					this.OnWeightChanging(value);
+					this.SendPropertyChanging();
+					this._Weight = value;
+					this.SendPropertyChanged("Weight");
+					this.OnWeightChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedVehicle1_CdnReceivedDamage", Storage="_CdnReceivedDamages", ThisKey="Id", OtherKey="ReceivedVehicleId")]
+		public EntitySet<CdnReceivedDamage> CdnReceivedDamages
+		{
+			get
+			{
+				return this._CdnReceivedDamages;
+			}
+			set
+			{
+				this._CdnReceivedDamages.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnReceivedLoad_CdnReceivedVehicle1", Storage="_CdnReceivedLoad", ThisKey="ReceivedLoadId", OtherKey="Id", IsForeignKey=true)]
+		public CdnReceivedLoad CdnReceivedLoad
+		{
+			get
+			{
+				return this._CdnReceivedLoad.Entity;
+			}
+			set
+			{
+				CdnReceivedLoad previousValue = this._CdnReceivedLoad.Entity;
+				if (((previousValue != value) 
+							|| (this._CdnReceivedLoad.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CdnReceivedLoad.Entity = null;
+						previousValue.CdnReceivedVehicles.Remove(this);
+					}
+					this._CdnReceivedLoad.Entity = value;
+					if ((value != null))
+					{
+						value.CdnReceivedVehicles.Add(this);
+						this._ReceivedLoadId = value.Id;
+					}
+					else
+					{
+						this._ReceivedLoadId = default(int);
+					}
+					this.SendPropertyChanged("CdnReceivedLoad");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_CdnReceivedDamages(CdnReceivedDamage entity)
+		{
+			this.SendPropertyChanging();
+			entity.CdnReceivedVehicle = this;
+		}
+		
+		private void detach_CdnReceivedDamages(CdnReceivedDamage entity)
+		{
+			this.SendPropertyChanging();
+			entity.CdnReceivedVehicle = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CdnSendVehicles")]
+	public partial class CdnSendVehicle : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _LoadId;
+		
+		private string _Location;
+		
+		private string _Make;
+		
+		private string _Model;
+		
+		private string _MovementNumber;
+		
+		private string _Notes;
+		
+		private string _Registration;
+		
+		private string _Variant;
+		
+		private string _Vin;
+		
+		private string _Color;
+		
+		private System.Nullable<int> _LoadDirection;
+		
+		private System.Nullable<int> _LoadLevel;
+		
+		private System.Nullable<int> _LoadPosition;
+		
+		private System.Nullable<int> _Weight;
+		
+		private EntityRef<CdnSendLoad> _CdnSendLoad;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnLoadIdChanging(string value);
+    partial void OnLoadIdChanged();
+    partial void OnLocationChanging(string value);
+    partial void OnLocationChanged();
+    partial void OnMakeChanging(string value);
+    partial void OnMakeChanged();
+    partial void OnModelChanging(string value);
+    partial void OnModelChanged();
+    partial void OnMovementNumberChanging(string value);
+    partial void OnMovementNumberChanged();
+    partial void OnNotesChanging(string value);
+    partial void OnNotesChanged();
+    partial void OnRegistrationChanging(string value);
+    partial void OnRegistrationChanged();
+    partial void OnVariantChanging(string value);
+    partial void OnVariantChanged();
+    partial void OnVinChanging(string value);
+    partial void OnVinChanged();
+    partial void OnColorChanging(string value);
+    partial void OnColorChanged();
+    partial void OnLoadDirectionChanging(System.Nullable<int> value);
+    partial void OnLoadDirectionChanged();
+    partial void OnLoadLevelChanging(System.Nullable<int> value);
+    partial void OnLoadLevelChanged();
+    partial void OnLoadPositionChanging(System.Nullable<int> value);
+    partial void OnLoadPositionChanged();
+    partial void OnWeightChanging(System.Nullable<int> value);
+    partial void OnWeightChanged();
+    #endregion
+		
+		public CdnSendVehicle()
+		{
+			this._CdnSendLoad = default(EntityRef<CdnSendLoad>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadId", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string LoadId
+		{
+			get
+			{
+				return this._LoadId;
+			}
+			set
+			{
+				if ((this._LoadId != value))
+				{
+					if (this._CdnSendLoad.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnLoadIdChanging(value);
+					this.SendPropertyChanging();
+					this._LoadId = value;
+					this.SendPropertyChanged("LoadId");
+					this.OnLoadIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="NVarChar(50)")]
+		public string Location
+		{
+			get
+			{
+				return this._Location;
+			}
+			set
+			{
+				if ((this._Location != value))
+				{
+					this.OnLocationChanging(value);
+					this.SendPropertyChanging();
+					this._Location = value;
+					this.SendPropertyChanged("Location");
+					this.OnLocationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="NVarChar(50)")]
+		public string Make
+		{
+			get
+			{
+				return this._Make;
+			}
+			set
+			{
+				if ((this._Make != value))
+				{
+					this.OnMakeChanging(value);
+					this.SendPropertyChanging();
+					this._Make = value;
+					this.SendPropertyChanged("Make");
+					this.OnMakeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(50)")]
+		public string Model
+		{
+			get
+			{
+				return this._Model;
+			}
+			set
+			{
+				if ((this._Model != value))
+				{
+					this.OnModelChanging(value);
+					this.SendPropertyChanging();
+					this._Model = value;
+					this.SendPropertyChanged("Model");
+					this.OnModelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MovementNumber", DbType="NVarChar(50)")]
+		public string MovementNumber
+		{
+			get
+			{
+				return this._MovementNumber;
+			}
+			set
+			{
+				if ((this._MovementNumber != value))
+				{
+					this.OnMovementNumberChanging(value);
+					this.SendPropertyChanging();
+					this._MovementNumber = value;
+					this.SendPropertyChanged("MovementNumber");
+					this.OnMovementNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NVarChar(255)")]
+		public string Notes
+		{
+			get
+			{
+				return this._Notes;
+			}
+			set
+			{
+				if ((this._Notes != value))
+				{
+					this.OnNotesChanging(value);
+					this.SendPropertyChanging();
+					this._Notes = value;
+					this.SendPropertyChanged("Notes");
+					this.OnNotesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Registration", DbType="NVarChar(10)")]
+		public string Registration
+		{
+			get
+			{
+				return this._Registration;
+			}
+			set
+			{
+				if ((this._Registration != value))
+				{
+					this.OnRegistrationChanging(value);
+					this.SendPropertyChanging();
+					this._Registration = value;
+					this.SendPropertyChanged("Registration");
+					this.OnRegistrationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Variant", DbType="NVarChar(50)")]
+		public string Variant
+		{
+			get
+			{
+				return this._Variant;
+			}
+			set
+			{
+				if ((this._Variant != value))
+				{
+					this.OnVariantChanging(value);
+					this.SendPropertyChanging();
+					this._Variant = value;
+					this.SendPropertyChanged("Variant");
+					this.OnVariantChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vin", DbType="NVarChar(17) NOT NULL", CanBeNull=false)]
+		public string Vin
+		{
+			get
+			{
+				return this._Vin;
+			}
+			set
+			{
+				if ((this._Vin != value))
+				{
+					this.OnVinChanging(value);
+					this.SendPropertyChanging();
+					this._Vin = value;
+					this.SendPropertyChanged("Vin");
+					this.OnVinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color", DbType="NVarChar(25)")]
+		public string Color
+		{
+			get
+			{
+				return this._Color;
+			}
+			set
+			{
+				if ((this._Color != value))
+				{
+					this.OnColorChanging(value);
+					this.SendPropertyChanging();
+					this._Color = value;
+					this.SendPropertyChanged("Color");
+					this.OnColorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadDirection", DbType="Int")]
+		public System.Nullable<int> LoadDirection
+		{
+			get
+			{
+				return this._LoadDirection;
+			}
+			set
+			{
+				if ((this._LoadDirection != value))
+				{
+					this.OnLoadDirectionChanging(value);
+					this.SendPropertyChanging();
+					this._LoadDirection = value;
+					this.SendPropertyChanged("LoadDirection");
+					this.OnLoadDirectionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadLevel", DbType="Int")]
+		public System.Nullable<int> LoadLevel
+		{
+			get
+			{
+				return this._LoadLevel;
+			}
+			set
+			{
+				if ((this._LoadLevel != value))
+				{
+					this.OnLoadLevelChanging(value);
+					this.SendPropertyChanging();
+					this._LoadLevel = value;
+					this.SendPropertyChanged("LoadLevel");
+					this.OnLoadLevelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoadPosition", DbType="Int")]
+		public System.Nullable<int> LoadPosition
+		{
+			get
+			{
+				return this._LoadPosition;
+			}
+			set
+			{
+				if ((this._LoadPosition != value))
+				{
+					this.OnLoadPositionChanging(value);
+					this.SendPropertyChanging();
+					this._LoadPosition = value;
+					this.SendPropertyChanged("LoadPosition");
+					this.OnLoadPositionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Weight", DbType="Int")]
+		public System.Nullable<int> Weight
+		{
+			get
+			{
+				return this._Weight;
+			}
+			set
+			{
+				if ((this._Weight != value))
+				{
+					this.OnWeightChanging(value);
+					this.SendPropertyChanging();
+					this._Weight = value;
+					this.SendPropertyChanged("Weight");
+					this.OnWeightChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CdnSendLoad_CdnSendVehicle", Storage="_CdnSendLoad", ThisKey="LoadId", OtherKey="LoadId", IsForeignKey=true)]
+		public CdnSendLoad CdnSendLoad
+		{
+			get
+			{
+				return this._CdnSendLoad.Entity;
+			}
+			set
+			{
+				CdnSendLoad previousValue = this._CdnSendLoad.Entity;
+				if (((previousValue != value) 
+							|| (this._CdnSendLoad.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CdnSendLoad.Entity = null;
+						previousValue.CdnSendVehicles.Remove(this);
+					}
+					this._CdnSendLoad.Entity = value;
+					if ((value != null))
+					{
+						value.CdnSendVehicles.Add(this);
 						this._LoadId = value.LoadId;
 					}
 					else

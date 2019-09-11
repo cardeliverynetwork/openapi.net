@@ -166,3 +166,94 @@ BEGIN
 		PRIMARY KEY CLUSTERED (Id)
 	)
 END
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'Color' and Object_ID = Object_ID(N'CdnSendVehicles'))
+BEGIN
+   ALTER TABLE CdnSendVehicles
+ADD 
+	[Color] [nvarchar] (25) NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'LoadDirection' and Object_ID = Object_ID(N'CdnSendVehicles'))
+BEGIN
+   ALTER TABLE CdnSendVehicles
+ADD 
+	[LoadDirection] [int] NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'LoadLevel' and Object_ID = Object_ID(N'CdnSendVehicles'))
+BEGIN
+   ALTER TABLE CdnSendVehicles
+ADD 
+	[LoadLevel] [int] NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'LoadPosition' and Object_ID = Object_ID(N'CdnSendVehicles'))
+BEGIN
+   ALTER TABLE CdnSendVehicles
+ADD 
+	[LoadPosition] [int] NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'Weight' and Object_ID = Object_ID(N'CdnSendVehicles'))
+BEGIN
+   ALTER TABLE CdnSendVehicles
+ADD 
+	[Weight] [int] NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'Color' and Object_ID = Object_ID(N'CdnReceivedVehicles'))
+BEGIN
+   ALTER TABLE CdnReceivedVehicles
+ADD 
+	[Color] [nvarchar] (25) NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'LoadDirection' and Object_ID = Object_ID(N'CdnReceivedVehicles'))
+BEGIN
+   ALTER TABLE CdnReceivedVehicles
+ADD 
+	[LoadDirection] [int] NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'LoadLevel' and Object_ID = Object_ID(N'CdnReceivedVehicles'))
+BEGIN
+   ALTER TABLE CdnReceivedVehicles
+ADD 
+	[LoadLevel] [int] NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'LoadPosition' and Object_ID = Object_ID(N'CdnReceivedVehicles'))
+BEGIN
+   ALTER TABLE CdnReceivedVehicles
+ADD 
+	[LoadPosition] [int] NULL
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns 
+            WHERE Name = N'Weight' and Object_ID = Object_ID(N'CdnReceivedVehicles'))
+BEGIN
+   ALTER TABLE CdnReceivedVehicles
+ADD 
+	[Weight] [int] NULL
+END
+GO
+

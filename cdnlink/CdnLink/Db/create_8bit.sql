@@ -64,7 +64,11 @@
 CREATE TABLE [dbo].[CdnSendVehicles] 
 (
 	[Id] [int] IDENTITY (1, 1) NOT NULL,
+	[Color] [varchar] (25) NULL,
+	[LoadDirection] [int] NULL,
 	[LoadId] [varchar] (40) NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (LoadId),
+	[LoadLevel] [int] NULL,
+	[LoadPosition] [int] NULL,
 	[Location] [varchar] (50) NULL,
 	[Make] [varchar] (50) NULL,
 	[Model] [varchar] (50) NULL,
@@ -73,6 +77,7 @@ CREATE TABLE [dbo].[CdnSendVehicles]
 	[Registration] [varchar] (10) NULL,
 	[Variant] [varchar] (50) NULL,
 	[Vin] [varchar] (17) NOT NULL,
+	[Weight] [int] NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
 
@@ -234,17 +239,22 @@ CREATE TABLE [dbo].[CdnReceivedVehicles]
 (
 	[Id] [int] IDENTITY (1, 1) NOT NULL,
 	[CdnVehicleId] [int] NOT NULL,
-	[ReceivedLoadId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (Id),
+	[Color] [varchar] (25) NULL,
+	[LoadDirection] [int] NULL,
+	[LoadLevel] [int] NULL,
+	[LoadPosition] [int] NULL,
 	[Location] [varchar] (50) NULL,
 	[Make] [varchar] (50) NULL,
 	[Model] [varchar] (50) NULL,
 	[MovementNumber] [varchar] (50) NULL,
 	[NonCompletionReason] [varchar] (255) NULL,
 	[Notes] [varchar] (255) NULL,
+	[ReceivedLoadId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (Id),
 	[Registration] [varchar] (10) NULL,
 	[Status] [int] NOT NULL,
 	[Variant] [varchar] (50) NULL,
 	[Vin] [varchar] (17) NULL,
+	[Weight] [int] NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
 
