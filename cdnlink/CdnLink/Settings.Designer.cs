@@ -12,7 +12,7 @@ namespace CdnLink {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,8 +26,7 @@ namespace CdnLink {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=CdnLink;uid=thedbusername;pwd=thedbpassword" +
-            "")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=CdnLink;uid=CdnUsr;pwd=UrsaMaj0r")]
         public string CDNLINK_CONNECTIONSTRING {
             get {
                 return ((string)(this["CDNLINK_CONNECTIONSTRING"]));
@@ -37,7 +36,7 @@ namespace CdnLink {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/cdn/openapi")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/vindeliver/api/vind2/openapi")]
         public string CDNLINK_API_URL {
             get {
                 return ((string)(this["CDNLINK_API_URL"]));
@@ -46,7 +45,7 @@ namespace CdnLink {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4e5ffc39-95a2-4285-a7ca-40a2ba3c5715")]
+        [global::System.Configuration.DefaultSettingValueAttribute("F6743D98-A126-4F34-A1FC-2C37FB5A85AD")]
         public string CDNLINK_API_KEY {
             get {
                 return ((string)(this["CDNLINK_API_KEY"]));
@@ -101,10 +100,20 @@ namespace CdnLink {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=iny-chuyer;Initial Catalog=CdnLink;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=CdnLink;uid=CdnUsr;pwd=UrsaMaj0r")]
         public string CdnLinkConnectionString1 {
             get {
                 return ((string)(this["CdnLinkConnectionString1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-NA1EG62;Initial Catalog=CdnLink;Integrated Security=True")]
+        public string CdnLinkConnectionString {
+            get {
+                return ((string)(this["CdnLinkConnectionString"]));
             }
         }
     }

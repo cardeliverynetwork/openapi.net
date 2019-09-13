@@ -78,11 +78,55 @@ VALUES
 --	, 'henry1234'                             -- Driver to assign to
 );
 
-INSERT INTO CdnSendVehicles(LoadId, Make, Model, Variant, Vin)
-VALUES (@nextLoaid, 'Ford', 'Capri', '123i', 'A123456789123456A');
+INSERT INTO CdnSendVehicles(
+	LoadId, 
+	Color,
+	Make, 
+	Model, 
+	Variant, 
+	Vin,
+	LoadDirection,
+	LoadLevel,
+	LoadPosition,
+	[Weight]
+)
+VALUES (
+	@nextLoaid,
+	'Elephant Breath', 
+	'Ford', 
+	'Capri', 
+	'123i', 
+	'A123456789123456A',
+	1, -- Forward
+	1, -- Top
+	3, -- Position 3
+	3479 -- Lbs
+);
 
-INSERT INTO CdnSendVehicles(LoadId, Make, Model, Variant, Vin)
-VALUES (@nextLoaid, 'Renault', '5', '456 Turbo', 'B123456789123456B');
+INSERT INTO CdnSendVehicles(
+	LoadId, 
+	Color,
+	Make, 
+	Model, 
+	Variant, 
+	Vin,
+	LoadDirection,
+	LoadLevel,
+	LoadPosition,
+	[Weight]
+)
+VALUES (
+	@nextLoaid,
+	'Nacho Cheese', 
+	'Renault', 
+	'5', 
+	'456 Turbo', 
+	'B123456789123456B',
+	2, -- Reverse
+	2, -- Bottom
+	4, -- Position 4
+	3125 -- Lbs
+);
 
 INSERT INTO CdnSends(LoadId, QueuedDate, [Status], [Action])
 VALUES (@nextLoaid, GETDATE(), 10, 0);
@@ -152,6 +196,43 @@ VALUES
     0,
     'SAC'
 );
+
+INSERT INTO CdnSendTranships
+(
+	LoadId,
+	TranshipNumber,
+	TripId,
+	AssignedDriverRemoteId,
+	AssignedTruckRemoteId,
+	AddressLines,
+	City,
+	Contact,
+	Email,
+	Notes,
+	OrganisationName,
+	Phone,
+	QuickCode,
+	StateRegion,
+	ZipPostCode
+)
+VALUES 
+(
+	@nextLoaid,
+    1,
+	'123',
+	'', -- Driver 
+	'',
+	'2800 Lumber River Trail',
+	'Apex', 
+	'',
+	'',
+	'Place of tranship',
+	'',
+	'555 1234',
+	'LRT',
+	'NC',
+	'27502'
+)
 
 INSERT INTO CdnSendVehicles(LoadId, Make, Model, Vin)
 VALUES (@nextLoaid, 'Ford', 'Cortina', 'C123456789123456C');

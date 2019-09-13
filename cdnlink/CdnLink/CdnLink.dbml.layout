@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 16.75, 21" name="CdnLink">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17, 21" name="CdnLink">
   <DataContextMoniker Name="/CdnLinkDataContext" />
   <nestedChildShapes>
     <classShape Id="2c275104-ccc1-4edc-92c5-67bdfd6f23f5" absoluteBounds="9, 11.625, 2, 2.7324039713541666">
@@ -26,12 +26,6 @@
         <elementListCompartment Id="c5f7babd-f352-4eb1-8ca0-8ade426827e5" absoluteBounds="3.64, 5.835, 1.9700000000000002, 14.864298502604166" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="6ecaac64-0472-4293-821f-8972f3cbf685" absoluteBounds="6.25, 11.375, 2, 3.3093082682291666">
-      <DataClassMoniker Name="/CdnLinkDataContext/CdnReceivedVehicle" />
-      <nestedChildShapes>
-        <elementListCompartment Id="8957335d-b6b0-4d81-b711-612489661a33" absoluteBounds="6.265, 11.835, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="95f27adb-927e-4194-9bd6-9a800aaf1c00" absoluteBounds="3.5, 1.625, 2, 2.1554996744791666">
       <DataClassMoniker Name="/CdnLinkDataContext/CdnReceive" />
       <nestedChildShapes>
@@ -50,12 +44,6 @@
         <elementListCompartment Id="3897c876-d489-46f3-a1b4-5a44908ae0a6" absoluteBounds="14.515, 4.585, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="bcdeae0d-6c26-4e5f-95a9-44ae9def5294" absoluteBounds="14.5, 7.25, 2, 2.7324039713541666">
-      <DataClassMoniker Name="/CdnLinkDataContext/CdnSendVehicle" />
-      <nestedChildShapes>
-        <elementListCompartment Id="146f60d0-0049-40e5-a410-fdfc77d05e6f" absoluteBounds="14.515, 7.71, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <associationConnector edgePoints="[(5.625 : 9.79890055338542); (6.25 : 9.79890055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CdnLinkDataContext/CdnReceivedLoad/CdnReceivedLoad_CdnReceivedDocument" />
       <nodes>
@@ -63,28 +51,14 @@
         <classShapeMoniker Id="b4ce3e26-8ff7-45bd-98ff-0050b1371354" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 10.1931469726562); (3.625 : 10.1931469726562)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 10.1931469726562); (3.625 : 10.1931469726562)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CdnLinkDataContext/CdnReceivedFtpFile/CdnReceivedFtpFile_CdnReceivedLoad" />
       <nodes>
         <classShapeMoniker Id="c47f68a9-3f05-41d1-92a6-ac31b455759d" />
         <classShapeMoniker Id="b88545af-2209-4e22-a2c4-f331f5a38615" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 12.9912019856771); (9 : 12.9912019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/CdnLinkDataContext/CdnReceivedVehicle/CdnReceivedVehicle_CdnReceivedDamage" />
-      <nodes>
-        <classShapeMoniker Id="6ecaac64-0472-4293-821f-8972f3cbf685" />
-        <classShapeMoniker Id="2c275104-ccc1-4edc-92c5-67bdfd6f23f5" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5.625 : 13.0296541341146); (6.25 : 13.0296541341146)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/CdnLinkDataContext/CdnReceivedLoad/CdnReceivedLoad_CdnReceivedVehicle" />
-      <nodes>
-        <classShapeMoniker Id="b88545af-2209-4e22-a2c4-f331f5a38615" />
-        <classShapeMoniker Id="6ecaac64-0472-4293-821f-8972f3cbf685" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 9.5); (1.75 : 2.70274983723958); (3.5 : 2.70274983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.75 : 9.5); (1.75 : 2.70274983723958); (3.5 : 2.70274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CdnLinkDataContext/CdnReceivedFtpFile/CdnReceivedFtpFile_CdnReceive" />
       <nodes>
         <classShapeMoniker Id="c47f68a9-3f05-41d1-92a6-ac31b455759d" />
@@ -98,11 +72,50 @@
         <classShapeMoniker Id="955634c2-ed9f-405c-8607-480a5dee0407" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(13.75 : 8.61620198567708); (14.5 : 8.61620198567708)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <classShape Id="55a5b461-295e-4ed6-a034-b98bb44febea" absoluteBounds="6.75, 15.25, 2, 4.8477197265625">
+      <DataClassMoniker Name="/CdnLinkDataContext/CdnSendTranship" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d877b33c-7037-496d-a2b8-efc19768ad8f" absoluteBounds="6.765, 15.71, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(12.75 : 13.1455712890625); (12.75 : 17.6738598632813); (8.75 : 17.6738598632813)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CdnLinkDataContext/CdnSendLoad/CdnSendLoad_CdnSendTranship" />
+      <nodes>
+        <classShapeMoniker Id="050d7e73-e93a-4236-92d8-6c49c6c531a7" />
+        <classShapeMoniker Id="55a5b461-295e-4ed6-a034-b98bb44febea" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="8d27d005-68ca-4d7b-88db-6721e48d0d95" absoluteBounds="6.375, 11.625, 2, 4.2708154296875">
+      <DataClassMoniker Name="/CdnLinkDataContext/CdnReceivedVehicle" />
+      <nestedChildShapes>
+        <elementListCompartment Id="085e600e-c6fa-41db-8940-52a63278736a" absoluteBounds="6.39, 12.085, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.375 : 12.9912019856771); (9 : 12.9912019856771)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CdnLinkDataContext/CdnReceivedVehicle/CdnReceivedVehicle1_CdnReceivedDamage" />
+      <nodes>
+        <classShapeMoniker Id="8d27d005-68ca-4d7b-88db-6721e48d0d95" />
+        <classShapeMoniker Id="2c275104-ccc1-4edc-92c5-67bdfd6f23f5" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.625 : 13.7604077148437); (6.375 : 13.7604077148437)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CdnLinkDataContext/CdnReceivedLoad/CdnReceivedLoad_CdnReceivedVehicle1" />
+      <nodes>
+        <classShapeMoniker Id="b88545af-2209-4e22-a2c4-f331f5a38615" />
+        <classShapeMoniker Id="8d27d005-68ca-4d7b-88db-6721e48d0d95" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="15bb7ab6-4007-4ebb-92d5-62426a806977" absoluteBounds="14.75, 8.125, 2, 3.6939111328124996">
+      <DataClassMoniker Name="/CdnLinkDataContext/CdnSendVehicle" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f8c129b4-a50e-4982-bbf6-4ef47cc9a45b" absoluteBounds="14.765, 8.585, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(13.75 : 9.97195556640625); (14.75 : 9.97195556640625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CdnLinkDataContext/CdnSendLoad/CdnSendLoad_CdnSendVehicle" />
       <nodes>
         <classShapeMoniker Id="050d7e73-e93a-4236-92d8-6c49c6c531a7" />
-        <classShapeMoniker Id="bcdeae0d-6c26-4e5f-95a9-44ae9def5294" />
+        <classShapeMoniker Id="15bb7ab6-4007-4ebb-92d5-62426a806977" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

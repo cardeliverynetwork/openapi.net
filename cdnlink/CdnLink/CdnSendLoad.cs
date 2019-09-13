@@ -83,18 +83,70 @@ namespace CdnLink
                 }
             };
 
-            foreach (var vehicle in CdnSendVehicles)
-                job.Vehicles.Add(new Vehicle
+            if (CdnSendVehicles != null)
+            {
+                foreach (var vehicle in CdnSendVehicles)
                 {
-                    Location = vehicle.Location,
-                    Make = vehicle.Make,
-                    Model = vehicle.Model,
-                    MovementNumber = vehicle.MovementNumber,
-                    Notes = vehicle.Notes,
-                    Registration = vehicle.Registration,
-                    Variant = vehicle.Variant,
-                    Vin = vehicle.Vin
-                });
+                    job.Vehicles.Add(new Vehicle
+                    {
+                        Color = vehicle.Color,
+                        LoadDirection = (VehicleLoadDirection)vehicle.LoadDirection,
+                        LoadLevel = (VehicleLoadLevel)vehicle.LoadLevel,
+                        LoadPosition = vehicle.LoadPosition.GetValueOrDefault(0),
+                        Location = vehicle.Location,
+                        Make = vehicle.Make,
+                        Model = vehicle.Model,
+                        MovementNumber = vehicle.MovementNumber,
+                        Notes = vehicle.Notes,
+                        Registration = vehicle.Registration,
+                        Variant = vehicle.Variant,
+                        Vin = vehicle.Vin,
+                        Weight = vehicle.Weight.GetValueOrDefault(0)
+                    });
+                }
+            }
+
+            if (CdnSendTranships != null)
+            {
+                foreach (var tranship in CdnSendTranships)
+                {
+                    job.Tranships.Add(new Tranship
+                    {
+                        AssignedDriverRemoteId = tranship.AssignedDriverRemoteId,
+                        AssignedTruckRemoteId = tranship.AssignedTruckRemoteId,
+                        RequestedDate = tranship.RequestedDate,
+
+                        RequestedDateIsExact = tranship.RequestedDateIsExact.HasValue
+                            ? tranship.RequestedDateIsExact.Value
+                            : false,
+
+                        ScheduledDate = tranship.RequestedDate,
+
+                        TranshipNumber = tranship.TranshipNumber.HasValue
+                            ? tranship.TranshipNumber.Value
+                            : 0,
+
+                        TripId = tranship.TripId,
+
+                        Destination = new ContactDetails
+                        {
+                            QuickCode = tranship.QuickCode,
+                            Contact = tranship.Contact,
+                            OrganisationName = tranship.OrganisationName,
+                            AddressLines = tranship.AddressLines,
+                            City = tranship.City,
+                            StateRegion = tranship.StateRegion,
+                            ZipPostCode = tranship.ZipPostCode,
+                            Phone = tranship.Phone,
+                            MobilePhone = tranship.MobilePhone,
+                            OtherPhone = tranship.OtherPhone,
+                            Fax = tranship.Fax,
+                            Email = tranship.Email,
+                            Notes = tranship.Notes
+                        }
+                    });
+                }
+            }
 
             return job;
         }

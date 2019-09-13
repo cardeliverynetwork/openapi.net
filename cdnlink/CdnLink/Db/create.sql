@@ -64,7 +64,11 @@
 CREATE TABLE [dbo].[CdnSendVehicles] 
 (
 	[Id] [int] IDENTITY (1, 1) NOT NULL,
+	[Color] [nvarchar] (25) NULL,
+	[LoadDirection] [int] NULL,
 	[LoadId] [nvarchar] (40) NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (LoadId),
+	[LoadLevel] [int] NULL,
+	[LoadPosition] [int] NULL,
 	[Location] [nvarchar] (50) NULL,
 	[Make] [nvarchar] (50) NULL,
 	[Model] [nvarchar] (50) NULL,
@@ -73,6 +77,33 @@ CREATE TABLE [dbo].[CdnSendVehicles]
 	[Registration] [nvarchar] (10) NULL,
 	[Variant] [nvarchar] (50) NULL,
 	[Vin] [nvarchar] (17) NOT NULL,
+	[Weight] [int] NULL,
+	PRIMARY KEY CLUSTERED (Id)
+)
+
+CREATE TABLE [dbo].[CdnSendTranships] 
+(
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
+	[LoadId] [nvarchar] (40) NOT NULL FOREIGN KEY REFERENCES CdnSendLoads (LoadId),
+	[TranshipNumber] [int]  NULL,
+	[TripId] [nvarchar] (20) NULL,
+	[AssignedDriverRemoteId] [nvarchar] (40) NULL,
+	[AssignedTruckRemoteId] [nvarchar] (40) NULL,
+	[AddressLines] [nvarchar] (300) NULL,
+	[City] [nvarchar] (300) NULL,
+	[Contact] [nvarchar] (100) NULL,
+	[Email] [nvarchar] (1000) NULL,
+	[Fax] [nvarchar] (30) NULL,
+	[MobilePhone] [nvarchar] (30) NULL,
+	[Notes] [nvarchar] (1000) NULL,
+	[OrganisationName] [nvarchar] (100) NULL,
+	[OtherPhone] [nvarchar] (30) NULL,
+	[Phone] [nvarchar] (30) NULL,
+	[QuickCode] [nvarchar] (255) NULL,
+	[StateRegion] [nvarchar] (255) NULL,
+	[ZipPostCode] [nvarchar] (10) NULL,
+	[RequestedDate] [datetime] NULL,
+	[RequestedDateIsExact] [bit] NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
 
@@ -208,17 +239,22 @@ CREATE TABLE [dbo].[CdnReceivedVehicles]
 (
 	[Id] [int] IDENTITY (1, 1) NOT NULL,
 	[CdnVehicleId] [int] NOT NULL,
-	[ReceivedLoadId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (Id),
+	[Color] [nvarchar] (25) NULL,
+	[LoadDirection] [int] NULL,
+	[LoadLevel] [int] NULL,
+	[LoadPosition] [int] NULL,
 	[Location] [nvarchar] (50) NULL,
 	[Make] [nvarchar] (50) NULL,
 	[Model] [nvarchar] (50) NULL,
 	[MovementNumber] [nvarchar] (50) NULL,
 	[NonCompletionReason] [nvarchar] (255) NULL,
 	[Notes] [nvarchar] (255) NULL,
+	[ReceivedLoadId] [int] NOT NULL FOREIGN KEY REFERENCES CdnReceivedLoads (Id),
 	[Registration] [nvarchar] (10) NULL,
 	[Status] [int] NOT NULL,
 	[Variant] [nvarchar] (50) NULL,
 	[Vin] [nvarchar] (17) NULL,
+	[Weight] [int] NULL,
 	PRIMARY KEY CLUSTERED (Id)
 )
 

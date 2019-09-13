@@ -8,6 +8,10 @@ namespace CdnLink
             : this()
         {
             CdnVehicleId = vehicle.Id;
+            Color = vehicle.Color;
+            LoadDirection = (int)vehicle.LoadDirection;
+            LoadLevel = (int)vehicle.LoadLevel;
+            LoadPosition = vehicle.LoadPosition;
             Location = vehicle.Location;
             Make = vehicle.Make;
             Model = vehicle.Model;
@@ -18,6 +22,7 @@ namespace CdnLink
             Status = (int)vehicle.Status;
             Variant = vehicle.Variant;
             Vin = vehicle.Vin;
+            Weight = vehicle.Weight;
 
             if (vehicle.DamageAtPickup != null)
                 foreach (var damage in vehicle.DamageAtPickup)
