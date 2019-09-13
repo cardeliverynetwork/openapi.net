@@ -246,6 +246,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual int? AssignedDriverId { get; set; }
 
         /// <summary>
+        /// Optional - The Id of the Last or Default Journey
+        /// </summary>
+        public virtual int? LastJourneyId { get; set; }
+
+        /// <summary>
         /// Optional - The RemoteId of the assigned truck
         /// </summary>
         /// <remarks>
