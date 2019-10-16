@@ -47,9 +47,9 @@ namespace CarDeliveryNetwork.Types
         Ford = 60,
 
         /// <summary>
-        /// CdxVechicles
+        /// CdxVehicles
         /// </summary>
-        CdxVechicles = 70,
+        CdxVehicles = 70,
 
         /// <summary>
         /// CdxStatus

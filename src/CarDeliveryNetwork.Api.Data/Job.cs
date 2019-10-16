@@ -411,7 +411,7 @@ namespace CarDeliveryNetwork.Api.Data
                     fileName = r41.FileName;
                     return r41.ToString();
 
-                case WebHookSchema.CdxVechicles:
+                case WebHookSchema.CdxVehicles:
                     throw new ArgumentException(string.Format("Schema {0} is a per shipment schema", schema), "schema");
 
                 case WebHookSchema.Ford:
@@ -455,7 +455,7 @@ namespace CarDeliveryNetwork.Api.Data
                 case WebHookSchema.IclR41:
                     throw new ArgumentException(string.Format("Schema {0} is a per job schema", schema), "schema");
 
-                case WebHookSchema.CdxVechicles:
+                case WebHookSchema.CdxVehicles:
                 case WebHookSchema.CdxStatus:
                     throw new ArgumentException(string.Format("Schema {0} is a per shipment schema", schema), "schema");
 
@@ -501,7 +501,7 @@ namespace CarDeliveryNetwork.Api.Data
                 case WebHookSchema.IclR41:
                     throw new ArgumentException(string.Format("Schema {0} is a per job schema", schema), "schema");
 
-                case WebHookSchema.CdxVechicles:
+                case WebHookSchema.CdxVehicles:
                     throw new ArgumentException(string.Format("Schema {0} can't be fired from here", schema), "schema");
 
                 case WebHookSchema.CdxStatus:
