@@ -42,6 +42,34 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="serialisedObject">Serialised object</param>
         /// <param name="format">Format that the serialised object</param>
         /// <param name="knownTypes">An System.Collections.Generic.IEnumerable`1 of System.Type that contains the types that may be present in the object graph</param>
+        /// <param name="output">on success, the deserialised object</param>
+        /// <returns>true, on successful deserialisation</returns>
+        public static bool TryDeserialise<T>(
+            string serialisedObject, 
+            MessageFormat format, 
+            IEnumerable<Type> knownTypes, 
+            out T output) where T : class
+        {
+            try
+            {
+                output = Deserialise<T>(serialisedObject, format, knownTypes);
+            }
+            catch (Exception)
+            {
+
+                output = null;
+            }
+
+            return output != null;
+        }
+
+        /// <summary>
+        /// Deserialises the specified serialised object into instance of T
+        /// </summary>
+        /// <typeparam name="T">Type to deserialise to</typeparam>
+        /// <param name="serialisedObject">Serialised object</param>
+        /// <param name="format">Format that the serialised object</param>
+        /// <param name="knownTypes">An System.Collections.Generic.IEnumerable`1 of System.Type that contains the types that may be present in the object graph</param>
         /// <returns>An instance of type T</returns>
         public static T Deserialise<T>(string serialisedObject, MessageFormat format, IEnumerable<Type> knownTypes = null)
         {
