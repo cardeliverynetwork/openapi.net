@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarDeliveryNetwork.Types;
+using System;
 using System.Collections.Generic;
 
 namespace CarDeliveryNetwork.Api.Data
@@ -52,5 +53,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// Sign off comment
         /// </summary>
         public string SignOffComment { get; set; }
+
+        /// <summary>
+        /// CdxShipmentStatus of this CDX vehicle
+        /// </summary>
+        public CdxShipmentStatus? CdxDeliveryStatus { get; set; }
     }
 }

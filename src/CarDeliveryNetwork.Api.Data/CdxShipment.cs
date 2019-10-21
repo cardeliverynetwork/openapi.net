@@ -70,11 +70,6 @@ namespace CarDeliveryNetwork.Api.Data
         public string DriverId { get; set; }
 
         /// <summary>
-        /// Status
-        /// </summary>
-        public CdxShipmentStatus? Status { get; set; }
-
-        /// <summary>
         /// The number of vehicles on this shipment
         /// </summary>
         public int VehicleCount { get; set; }
