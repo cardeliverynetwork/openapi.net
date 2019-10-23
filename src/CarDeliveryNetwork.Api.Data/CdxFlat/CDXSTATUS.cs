@@ -63,7 +63,7 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 Eol
                 );
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\"{8}",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\"{7}",
                 "SHIPMENT",
                 _shipment.SenderScac,
                 _shipment.ReceiverScac,
@@ -71,7 +71,6 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 _shipment.SenderLoadId,
                 _shipment.SenderTripId,
                 isFullShipment ? 1 : 0,
-                cdxEvent,
                 Eol
                 );
 
