@@ -50,8 +50,8 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                 shipment.SenderTripId,
                 shipment.Price,
                 shipment.Notes,
-                shipment.TruckId,
-                shipment.DriverId,
+                "",  // TruckId - Obsolete in CDXVEHICLES
+                "",  // DriverId - Obsolete in CDXVEHICLES
                 firstVehicle.Origin.QuickCode,
                 firstVehicle.Origin.InternalQuickCode,
                 firstVehicle.Origin.LocationCode,

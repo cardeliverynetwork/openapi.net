@@ -60,16 +60,6 @@ namespace CarDeliveryNetwork.Api.Data
         public string Notes { get; set; }
 
         /// <summary>
-        /// TruckId
-        /// </summary>
-        public string TruckId { get; set; }
-
-        /// <summary>
-        /// DriverId 
-        /// </summary>
-        public string DriverId { get; set; }
-
-        /// <summary>
         /// The number of vehicles on this shipment
         /// </summary>
         public int VehicleCount { get; set; }
