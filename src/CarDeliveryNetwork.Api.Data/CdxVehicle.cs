@@ -97,6 +97,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// The gate out code for PickedUp /OnWayToDeliver events
         /// </summary>
-        public double GateCode { get; set; }
+        public string GateCode { get; set; }
     }
 }
