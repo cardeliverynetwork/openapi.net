@@ -115,9 +115,7 @@ namespace console
                     SenderLoadId = "USAA-8333306-00052-G1316414",
                     SenderTripId = "8333306",
                     Price = 12312,
-                    Notes = "shipmentnotes",
-                    TruckId = "Unknown",
-                    DriverId = "Unknown",
+                    Notes = "shipmentnotes"
                 },
                 CdxVehicles = new List<CdxVehicle>
                 {
@@ -190,9 +188,6 @@ namespace console
                     SenderJobNumber = "SenderJobNumber",
                     SenderLoadId = "USAA-8333306-00052-G1316414",
                     SenderTripId = "8333306",
-                    DriverId = "DriverId",
-                    TruckId = "TruckId",
-                    Status = CdxShipmentStatus.OnWayToPickup,
                 },
                 CdxVehicles = new List<CdxVehicle>
                 {
@@ -235,10 +230,7 @@ namespace console
                     ReceiverScac = "ReceiverScac",
                     SenderJobNumber = "SenderJobNumber",
                     SenderLoadId = "USAA-8333306-00052-G1316414",
-                    SenderTripId = "8333306",
-                    DriverId = "DriverId",
-                    TruckId = "TruckId",
-                    Status = CdxShipmentStatus.OnWayToPickup
+                    SenderTripId = "8333306"
                 },
                 CdxVehicles = new List<CdxVehicle>
                 {
