@@ -1,8 +1,11 @@
-﻿namespace CarDeliveryNetwork.Types
+﻿using System;
+
+namespace CarDeliveryNetwork.Types
 {
     /// <summary>
     /// Enum of Car Delivery Network WebHook status'.
     /// </summary>
+    [Flags] // Not really flags - forces serialisation to int in ServiceStack DTOs
     public enum WebHookEvent
     {
         /// <summary>

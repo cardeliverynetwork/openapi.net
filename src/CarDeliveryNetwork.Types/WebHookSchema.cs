@@ -1,9 +1,11 @@
-﻿
+﻿using System;
+
 namespace CarDeliveryNetwork.Types
 {
     /// <summary>
     /// CDN Data schemes
     /// </summary>
+    [Flags] // Not really flags - forces serialisation to int in ServiceStack DTOs
     public enum WebHookSchema
     {
         /// <summary>
