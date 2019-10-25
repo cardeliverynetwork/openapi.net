@@ -3,20 +3,13 @@ using System.Text;
 
 namespace CarDeliveryNetwork.Api.Data.CdxFlat
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CDXVEHICLES : CDxMessageBase
+    public class CDXCHANGE : CDxMessageBase
     {
-        private CdxVehicleExchange _vehicleExchange;
+        private CdxChange _cdxChange;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="vehicleExchange"></param>
-        public CDXVEHICLES(CdxVehicleExchange vehicleExchange)
+        public CDXCHANGE(CdxChange cdxChange)
         {
-            _vehicleExchange = vehicleExchange;
+            _cdxChange = cdxChange;
         }
 
         /// <summary>
@@ -28,45 +21,26 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
         public string ToString(bool useRealShipper, out string fileName)
         {
             var flatFile = new StringBuilder();
-            var shipment = _vehicleExchange.Shipment;
+
+            fileName = string.Format("CDXCHANGE_{0}_{1:yyyyMMddHHmmss}.IN", _cdxChange.Shipment.ExchangeId, DateTime.UtcNow);
 
             flatFile.AppendFormat("\"{0}\",\"{1:yyyy-MM-dd HH:mm:ss}\",\"{2}\",\"{3}\"{4}",
-                "CDXVEHICLES",
-                shipment.EventDateTime,
-                shipment.SenderInventoryId,
-                shipment.ExchangeId,
+                "CDXCHNAGE",
+                _cdxChange.Shipment.EventDateTime,
+                _cdxChange.Shipment.SenderInventoryId,
+                _cdxChange.Shipment.ExchangeId,
                 Eol
                 );
 
-            var vehicles = _vehicleExchange.CdxVehicles;
-            var firstVehicle = vehicles[0];
+            var vehicles = _cdxChange.CdxVehicles;
 
-            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\",\"{13:yyyy-MM-dd}\",\"{14}\",\"{15}\",\"{16}\",\"{17}\",\"{18}\",\"{19}\",\"{20}\",\"{21}\",\"{22}\",\"{23}\",\"{24}\"{25}",
+            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"{6}",
                 "SHIPMENT",
-                shipment.SenderScac,
-                shipment.ReceiverScac,
-                shipment.SenderJobNumber,
-                shipment.SenderLoadId,
-                shipment.SenderTripId,
-                shipment.Price,
-                shipment.Notes,
-                "",  // TruckId - Obsolete in CDXVEHICLES
-                "",  // DriverId - Obsolete in CDXVEHICLES
-                firstVehicle.Origin.QuickCode,
-                firstVehicle.Origin.InternalQuickCode,
-                firstVehicle.Origin.LocationCode,
-                firstVehicle.ScheduledPickupDate,
-                firstVehicle.Origin.OrganizationName,
-                firstVehicle.Origin.AddressLines,
-                "", // Address lines 2
-                firstVehicle.Origin.City,
-                firstVehicle.Origin.StateRegion,
-                firstVehicle.Origin.ZipPostCode,
-                firstVehicle.Origin.Contact,
-                firstVehicle.Origin.Email,
-                firstVehicle.Origin.Phone,
-                firstVehicle.Origin.Notes,
-                firstVehicle.Origin.CountryCode,
+                _cdxChange.Shipment.SenderScac,
+                _cdxChange.Shipment.ReceiverScac,
+                _cdxChange.Shipment.SenderJobNumber,
+                _cdxChange.Shipment.SenderLoadId,
+                _cdxChange.Shipment.SenderTripId,
                 Eol
                 );
 
@@ -108,8 +82,6 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
             }
 
             flatFile.Append("\"CDXEND\"");
-
-            fileName = string.Format("CDXVEHICLES_{0}_{1:yyyyMMddHHmmss}.IN", _vehicleExchange.Shipment.ExchangeId, DateTime.UtcNow);
 
             return flatFile.ToString();
         }

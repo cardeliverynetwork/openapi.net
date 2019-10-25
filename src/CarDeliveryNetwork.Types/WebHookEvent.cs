@@ -63,6 +63,11 @@
         /// <summary>
         /// WebHook Event for CDx Shipment creation
         /// </summary>
-        CdxShipmentCreated = 100
+        CdxShipmentCreated = 100,
+
+        /// <summary>
+        /// WebHook Event for Cdx Shipment changes
+        /// </summary>
+        CdxShipmentChanged = 110
     }
 }

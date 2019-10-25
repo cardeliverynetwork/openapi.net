@@ -1,6 +1,5 @@
 ﻿using CarDeliveryNetwork.Types;
 using System;
-using System.Collections.Generic;
 
 namespace CarDeliveryNetwork.Api.Data
 {
