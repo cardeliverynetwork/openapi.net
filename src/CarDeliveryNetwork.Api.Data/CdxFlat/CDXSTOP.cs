@@ -140,25 +140,38 @@ namespace CarDeliveryNetwork.Api.Data.CdxFlat
                     ? v.DamageAtPickup
                     : v.DamageAtDropoff;
 
+
                 if (damage != null)
                 {
                     foreach (var d in damage)
                     {
                         var photos = v.Photos.Where(p => p.Url != null && p.Url.Contains(string.Format("/damage/{0}", d.Id)));
-                        if (photos != null)
+                        if (photos != null && photos.Count() > 0)
                         {
+                            // Photos were found for this damage item
                             foreach (var p in photos)
                             {
                                 flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"{6}",
-                               "DAMAGE",
-                               d.Area.Code,
-                               d.Type.Code,
-                               d.Severity.Code,
-                               p.Url,
-                               d.Description,
-                               Eol
-                               );
+                                   "DAMAGE",
+                                   d.Area.Code,
+                                   d.Type.Code,
+                                   d.Severity.Code,
+                                   p.Url,
+                                   d.Description,
+                                   Eol);
                             }
+                        }
+                        else
+                        {
+                            // Photos were not found for this damage item
+                            flatFile.AppendFormat("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"{6}",
+                                "DAMAGE",
+                                d.Area.Code,
+                                d.Type.Code,
+                                d.Severity.Code,
+                                "",
+                                d.Description,
+                                Eol);
                         }
                     }
                 }
