@@ -69,6 +69,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual JobStatus Status { get; set; }
 
         /// <summary>
+        /// Readonly - The time the current status occurred
+        /// </summary>
+        public virtual DateTime? StatusDeviceTime { get; set; }
+
+        /// <summary>
         /// Optional (20) - An id representing the trip this job is part of
         /// </summary>
         public virtual string TripId { get; set; }
@@ -356,7 +361,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="hookId">The id of the hook this that will send this data</param>
         /// <param name="receiverId">Receiver identifier for ICL R41 schemas</param>
         /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
-        /// <param name="deviceTime">Time in UTC that the associated message was created on the device</param>
         /// <param name="sequenceNumber">Sequential output id for ICL R41</param>
         /// <param name="senderId">Sender identifier for ICL R41</param>
         /// <returns>The serialized object.</returns>
@@ -369,8 +373,7 @@ namespace CarDeliveryNetwork.Api.Data
             short sequenceNumber,
             string senderId,
             string receiverId,
-            out string fileName,
-            DateTime? deviceTime = null)
+            out string fileName)
         {
             fileName = string.Empty;
            
@@ -383,7 +386,7 @@ namespace CarDeliveryNetwork.Api.Data
                 case WebHookSchema.Fenkell05:
                     return new Delivery(this, false).ToString();
                 case WebHookSchema.TmwV1:
-                    return new Stop(this).ToString(forEvent, timeStamp, hookId.ToString(), deviceTime);
+                    return new Stop(this).ToString(forEvent, timeStamp, hookId.ToString(), StatusDeviceTime);
                 case WebHookSchema.PodUrl:
                 {
                     var prefix = (forEvent == WebHookEvent.PickupStop ? "C" : "D");
@@ -432,7 +435,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="hookId">The id of the hook this that will send this data</param>
         /// <param name="contractedCarrier">The carrier fleet</param>
         /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
-        /// <param name="deviceTime">Time in UTC that the associated message was created on the device</param>
         /// <returns>The serialized object.</returns>
         public string ToVehicleHookString(
             int vehicleIndex,
@@ -441,8 +443,7 @@ namespace CarDeliveryNetwork.Api.Data
             DateTime timeStamp,
             int hookId,
             Fleet contractedCarrier,
-            out string fileName,
-            DateTime? deviceTime)
+            out string fileName)
         {
             fileName = string.Empty;
 
@@ -462,7 +463,7 @@ namespace CarDeliveryNetwork.Api.Data
                     throw new ArgumentException(string.Format("Schema {0} is a per shipment schema", schema), "schema");
 
                 case WebHookSchema.Ford:
-                    return new Otr214(this, contractedCarrier).ToString(vehicleIndex, forEvent, timeStamp, hookId.ToString(), deviceTime, false, out fileName);
+                    return new Otr214(this, contractedCarrier).ToString(vehicleIndex, forEvent, timeStamp, hookId.ToString(), StatusDeviceTime, false, out fileName);
 
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
@@ -479,7 +480,6 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <param name="position"></param>
         /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
-        /// <param name="deviceTime">Time in UTC that the associated message was created on the device</param>
         /// <returns>The serialized object.</returns>
         public string ToShipmentHookString(
             CdxShipment shipment,
@@ -488,8 +488,7 @@ namespace CarDeliveryNetwork.Api.Data
             WebHookEvent forEvent,
             DateTime timeStamp,
             Position position,
-            out string fileName,
-            DateTime? deviceTime)
+            out string fileName)
         {
             fileName = string.Empty;
 
