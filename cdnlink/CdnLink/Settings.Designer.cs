@@ -26,7 +26,8 @@ namespace CdnLink {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=CdnLink;uid=CdnUsr;pwd=UrsaMaj0r")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=CdnLink;uid=theDbUsername;pwd=theDbPassword" +
+            "")]
         public string CDNLINK_CONNECTIONSTRING {
             get {
                 return ((string)(this["CDNLINK_CONNECTIONSTRING"]));
@@ -94,16 +95,6 @@ namespace CdnLink {
         public bool ENVIRONMENT_FIRST {
             get {
                 return ((bool)(this["ENVIRONMENT_FIRST"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=CdnLink;uid=CdnUsr;pwd=UrsaMaj0r")]
-        public string CdnLinkConnectionString1 {
-            get {
-                return ((string)(this["CdnLinkConnectionString1"]));
             }
         }
         
