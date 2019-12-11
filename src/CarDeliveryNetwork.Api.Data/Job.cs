@@ -310,6 +310,11 @@ namespace CarDeliveryNetwork.Api.Data
         }
 
         /// <summary>
+        /// Readonly - The id of the fleet that needs to be invoiced
+        /// </summary>
+        public virtual int? InvoiceFleetId { get; set; }
+
+        /// <summary>
         /// Does the job originate from the vinDispatch marketplace
         /// </summary>
         public virtual bool IsVinDispatchJob { get; set; }
