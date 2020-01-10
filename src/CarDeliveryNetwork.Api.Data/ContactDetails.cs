@@ -109,7 +109,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// Readonly - BestGeoLookupString
         /// </summary>
         public virtual string BestGeoLookupString { get; set; }
-        
+
         /// <summary>
         /// Optional (ntext) - The email address associated with this contact.
         /// </summary>
@@ -277,12 +277,81 @@ namespace CarDeliveryNetwork.Api.Data
             if (includePhones && !string.IsNullOrWhiteSpace(MobilePhone))
                 result.AppendFormat("{0}<br />", MobilePhone);
             if (includeFax && !string.IsNullOrWhiteSpace(Fax))
-                result.AppendFormat("Fax: {0}<br />", Fax);
+                result.AppendFormat("{0}<br />", Fax);
             if (includeEmail && !string.IsNullOrWhiteSpace(Email))
                 result.AppendFormat("{0}<br />", Email);
             if (includeNotes && !string.IsNullOrWhiteSpace(Notes))
                 result.AppendFormat("<br />{0}<br />", Notes);
             return result.ToString();
+        }
+
+        /// <summary>
+        /// Gets a web friendly address string 
+        /// </summary>
+        /// <param name="includeQuickCode">Indicates that the QuickCode label should be included</param>
+        /// <param name="includeContact">Indicates that the Contact label should be included</param>
+        /// <param name="includeOrganisation">Indicates that the Organisation label should be included</param>
+        /// <param name="includeAddressLines">Indicates that the AddressLines label should be included</param>
+        /// <param name="includeCity">Indicates that the City label should be included</param>
+        /// <param name="includeStateRegion">Indicates that the StateRegion label should be included</param>
+        /// <param name="includeZipPostcode">Indicates that the ZipPostCode label should be included</param>
+        /// <param name="includePhones">Indicates that the various Phone number labels should be included</param>
+        /// <param name="includeFax">Indicates that the Fax label should be included</param>
+        /// <param name="includeEmail">Indicates that the Email label should be included</param>
+        /// <param name="includeNotes">Indicates that the Notes label should be included</param>
+        /// <param name="isUSFormat">Indicates that the address should be in US format</param>
+        /// <returns>A web friendly string of Labels that match the address</returns>
+        public string CreateWebStringAddressLabels(
+                bool includeQuickCode = false,
+                bool includeContact = true,
+                bool includeOrganisation = true,
+                bool includeAddressLines = true,
+                bool includeCity = true,
+                bool includeStateRegion = true,
+                bool includeZipPostcode = true,
+                bool includePhones = true,
+                bool includeFax = true,
+                bool includeEmail = true,
+                bool includeNotes = true,
+                bool isUSFormat = true)
+        {
+            var labels = new StringBuilder();
+            if (includeQuickCode && !string.IsNullOrWhiteSpace(QuickCode))
+                labels.AppendFormat("Quick code:<br />");
+            if (includeContact && !string.IsNullOrWhiteSpace(Contact))
+                labels.AppendFormat("Contact name:<br />");
+            if (includeOrganisation && !string.IsNullOrWhiteSpace(OrganisationName))
+                labels.AppendFormat("Organisation name:<br />"); // Check region
+            if (includeAddressLines && !string.IsNullOrWhiteSpace(AddressLines))
+                labels.AppendFormat("Address:<br />");
+
+            if (isUSFormat && !string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(StateRegion) && !string.IsNullOrWhiteSpace(ZipPostCode))
+            {
+                labels.AppendFormat("<br />");
+            }
+            else
+            {
+                if (includeCity && !string.IsNullOrWhiteSpace(City))
+                    labels.AppendFormat("City:<br />");
+                if (includeStateRegion && !string.IsNullOrWhiteSpace(StateRegion))
+                    labels.AppendFormat("{0}:<br />", isUSFormat ? "State" : "Region");
+                if (includeZipPostcode && !string.IsNullOrWhiteSpace(ZipPostCode))
+                    labels.AppendFormat("{0} code:<br />", isUSFormat ? "Zip" : "Post");
+            }
+
+            if (includePhones && !string.IsNullOrWhiteSpace(Phone))
+                labels.AppendFormat("Phone:<br />");
+            if (includePhones && !string.IsNullOrWhiteSpace(OtherPhone))
+                labels.AppendFormat("Alternative phone:<br />");
+            if (includePhones && !string.IsNullOrWhiteSpace(MobilePhone))
+                labels.AppendFormat("Mobile:<br />");
+            if (includeFax && !string.IsNullOrWhiteSpace(Fax))
+                labels.AppendFormat("Fax:<br />");
+            if (includeEmail && !string.IsNullOrWhiteSpace(Email))
+                labels.AppendFormat("Email:<br />");
+            if (includeNotes && !string.IsNullOrWhiteSpace(Notes))
+                labels.AppendFormat("<br />Notes:<br />");
+            return labels.ToString();
         }
     }
 
