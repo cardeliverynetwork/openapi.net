@@ -288,7 +288,8 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// Gets a web friendly address string 
         /// </summary>
-        /// <param name="includeQuickCode">Indicates that the QuickCode label should be included</param>
+        /// <param name="includeCollectionQuickCode"></param>
+        /// <param name="includeDeliveryQuickCode"></param>
         /// <param name="includeContact">Indicates that the Contact label should be included</param>
         /// <param name="includeOrganisation">Indicates that the Organisation label should be included</param>
         /// <param name="includeAddressLines">Indicates that the AddressLines label should be included</param>
@@ -302,7 +303,8 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="isUSFormat">Indicates that the address should be in US format</param>
         /// <returns>A web friendly string of Labels that match the address</returns>
         public string CreateWebStringAddressLabels(
-                bool includeQuickCode = false,
+                bool includeCollectionQuickCode = false,
+                bool includeDeliveryQuickCode = false,
                 bool includeContact = true,
                 bool includeOrganisation = true,
                 bool includeAddressLines = true,
@@ -316,12 +318,14 @@ namespace CarDeliveryNetwork.Api.Data
                 bool isUSFormat = true)
         {
             var labels = new StringBuilder();
-            if (includeQuickCode && !string.IsNullOrWhiteSpace(QuickCode))
-                labels.AppendFormat("Quick code:<br />");
+            if (includeCollectionQuickCode && !string.IsNullOrWhiteSpace(QuickCode))
+                labels.AppendFormat("Origin Id:<br />");
+            if (includeDeliveryQuickCode && !string.IsNullOrWhiteSpace(QuickCode))
+                labels.AppendFormat("Destination Id:<br />");
             if (includeContact && !string.IsNullOrWhiteSpace(Contact))
                 labels.AppendFormat("Contact name:<br />");
             if (includeOrganisation && !string.IsNullOrWhiteSpace(OrganisationName))
-                labels.AppendFormat("Organisation name:<br />"); // Check region
+                labels.AppendFormat("Company:<br />"); // Check region
             if (includeAddressLines && !string.IsNullOrWhiteSpace(AddressLines))
                 labels.AppendFormat("Address:<br />");
 
