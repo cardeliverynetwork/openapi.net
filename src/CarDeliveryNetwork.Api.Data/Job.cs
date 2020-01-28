@@ -268,7 +268,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         public virtual string AssignedAppId { get; set; }
 
-
+        /// <summary>
+        /// Optional - Where the job was created
+        /// </summary>
+        public virtual JobSource? Source { get; set; }
 
         /// <summary>
         /// Readonly - The number of vehicles on this job
