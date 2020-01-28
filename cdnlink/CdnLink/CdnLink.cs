@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using CarDeliveryNetwork.Api.ClientProxy;
 using CarDeliveryNetwork.Api.Data;
+using CarDeliveryNetwork.Types;
 using log4net;
 
 namespace CdnLink
@@ -76,6 +77,7 @@ namespace CdnLink
                         {
                             case null:
                             case (int)CdnSend.SendAction.Create:
+                                theJob.Source = JobSource.CdnLink;
                                 Log.InfoFormat("Creating Job with LoadId: {0} ...", theJob.LoadId ?? "");
                                 var createdJob = Api.CreateJob(theJob);
                                 if (createdJob != null)
