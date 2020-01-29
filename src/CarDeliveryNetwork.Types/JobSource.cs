@@ -33,6 +33,16 @@
         /// <summary>
         /// Job was imported using a Central Dispatch Bill Of Lading
         /// </summary>
-        CentralDispatchBOL
+        CentralDispatchBOL,
+
+        /// <summary>
+        /// Job was created from VinDispatch
+        /// </summary>
+        VinDispatch,
+
+        /// <summary>
+        /// Job was imported using a Manheim Gate Pass
+        /// </summary>
+        ManheimGatePass
     }
 }
