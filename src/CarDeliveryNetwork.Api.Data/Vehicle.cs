@@ -172,6 +172,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual int? CdxShipmentId { get; set; }
 
         /// <summary>
+        /// Readonly - If part of a CDx shipment, it will have a sender trip ID
+        /// </summary>
+        public virtual string SenderTripId { get; set; }
+
+        /// <summary>
         /// Readonly - Indicates that the vehicle has been picked up (or delivered)
         /// </summary>
         public bool IsPickedUp
