@@ -38,6 +38,11 @@
         /// <summary>
         /// Job was created from VinDispatch
         /// </summary>
-        VinDispatch
+        VinDispatch,
+
+        /// <summary>
+        /// Job was imported using a Manheim Gate Pass
+        /// </summary>
+        ManheimGatePass
     }
 }
