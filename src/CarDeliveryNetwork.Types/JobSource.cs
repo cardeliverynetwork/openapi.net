@@ -43,6 +43,11 @@
         /// <summary>
         /// Job was imported using a Manheim Gate Pass
         /// </summary>
-        ManheimGatePass
+        ManheimGatePass,
+
+        /// <summary>
+        /// Job was imported using a Cars Arrive Bill Of Lading
+        /// </summary>
+        CarsArriveBOL
     }
 }
