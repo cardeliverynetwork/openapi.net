@@ -48,6 +48,11 @@
         /// <summary>
         /// Job was imported using a Cars Arrive Bill Of Lading
         /// </summary>
-        CarsArriveBOL
+        CarsArriveBOL,
+
+        /// <summary>
+        /// Job was imported using a 1Dispatch Transport Order
+        /// </summary>
+        OneDispatchTransportOrder
     }
 }
