@@ -25,7 +25,7 @@ namespace CarDeliveryNetwork.Types.Interfaces
         /// <summary>
         /// The gender of the person associated with this contact.
         /// </summary>
-        Gender Gender { get; }
+        Gender? Gender { get; }
 
         /// <summary>
         /// The age of the person associated with this contact.

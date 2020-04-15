@@ -66,7 +66,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <summary>
         /// Optional - The gender of the person associated with this contact.
         /// </summary>
-        public virtual Gender Gender { get; set; }
+        public virtual Gender? Gender { get; set; }
 
         /// <summary>
         /// Optional - The age of the person associated with this contact.
