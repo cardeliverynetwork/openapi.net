@@ -274,6 +274,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual JobSource? Source { get; set; }
 
         /// <summary>
+        /// Optional (Reach Community Only) (50) - Code for the request's funder/sponsor
+        /// </summary>
+        public virtual string FunderCode { get; set; }
+
+        /// <summary>
+        /// Optional (Reach Community Only) (50) - Code for the request's referrer
+        /// </summary>
+        public virtual string ReferrerCode { get; set; }
+
+        /// <summary>
         /// Readonly - The number of vehicles on this job
         /// </summary>
         public virtual int VehicleCount
