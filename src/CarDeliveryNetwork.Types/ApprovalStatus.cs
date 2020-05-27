@@ -5,10 +5,24 @@ using System.Text;
 
 namespace CarDeliveryNetwork.Types
 {
+    /// <summary>
+    /// Approval status
+    /// </summary>
     public enum ApprovalStatus
     {
-        Refused = 0,
+        /// <summary>
+        /// Pending approval
+        /// </summary>
         Pending = 10,
-        Approved = 20
+
+        /// <summary>
+        /// Approved
+        /// </summary>
+        Approved = 20,
+
+        /// <summary>
+        /// Refused
+        /// </summary>
+        Refused = 30,
     }
 }
