@@ -24,6 +24,16 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// Service type will be decided based on other factors. SHOULD NEVER BE SAVED AT THIS TYPE.
         /// </summary>
-        Auto
+        Auto,
+
+        /// <summary>
+        /// A job of type other service.
+        /// </summary>
+        OtherService1,
+
+        /// <summary>
+        /// A job of type other service.
+        /// </summary>
+        OtherService2
     }
 }
