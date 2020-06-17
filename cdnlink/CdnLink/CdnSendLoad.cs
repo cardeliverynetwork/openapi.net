@@ -90,8 +90,8 @@ namespace CdnLink
                     job.Vehicles.Add(new Vehicle
                     {
                         Color = vehicle.Color,
-                        LoadDirection = (VehicleLoadDirection)vehicle.LoadDirection,
-                        LoadLevel = (VehicleLoadLevel)vehicle.LoadLevel,
+                        LoadDirection = (VehicleLoadDirection)vehicle.LoadDirection.GetValueOrDefault((int)VehicleLoadDirection.NotRecorded),
+                        LoadLevel = (VehicleLoadLevel)vehicle.LoadLevel.GetValueOrDefault((int)VehicleLoadLevel.NotRecorded),
                         LoadPosition = vehicle.LoadPosition.GetValueOrDefault(0),
                         Location = vehicle.Location,
                         Make = vehicle.Make,
@@ -115,17 +115,9 @@ namespace CdnLink
                         AssignedDriverRemoteId = tranship.AssignedDriverRemoteId,
                         AssignedTruckRemoteId = tranship.AssignedTruckRemoteId,
                         RequestedDate = tranship.RequestedDate,
-
-                        RequestedDateIsExact = tranship.RequestedDateIsExact.HasValue
-                            ? tranship.RequestedDateIsExact.Value
-                            : false,
-
+                        RequestedDateIsExact = tranship.RequestedDateIsExact.GetValueOrDefault(false),
                         ScheduledDate = tranship.RequestedDate,
-
-                        TranshipNumber = tranship.TranshipNumber.HasValue
-                            ? tranship.TranshipNumber.Value
-                            : 0,
-
+                        TranshipNumber = tranship.TranshipNumber.GetValueOrDefault(0),
                         TripId = tranship.TripId,
 
                         Destination = new ContactDetails
