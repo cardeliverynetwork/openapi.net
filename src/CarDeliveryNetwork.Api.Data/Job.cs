@@ -347,6 +347,17 @@ namespace CarDeliveryNetwork.Api.Data
         }
 
         /// <summary>
+        /// Optional - Identifier of the Loadboard to advertise job to.
+        /// Can be either integer ID or RemoteID
+        /// </summary>
+        public virtual string LoadboardLookupId { get; set; }
+
+        /// <summary>
+        /// Optional - Should it be advertised for carriers to claim at a fixed price, to quote or both
+        /// </summary>
+        public virtual AdvertiseType AdvertiseType { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class.
         /// </summary>
         public Job()
