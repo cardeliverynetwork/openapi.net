@@ -34,9 +34,9 @@ namespace CarDeliveryNetwork.Types
         DriverLogin = 30,
 
         /// <summary>
-        /// WebHook Event for load allocated to fleet
+        /// WebHook Event for load allocated to carrier
         /// </summary>
-        AllocatedToFleet = 35,
+        AllocatedToCarrier = 35,
 
         /// <summary>
         /// WebHook Event for load assigned to driver

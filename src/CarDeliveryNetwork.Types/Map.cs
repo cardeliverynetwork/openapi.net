@@ -23,6 +23,8 @@ namespace CarDeliveryNetwork.Types
                     return JobStatus.Complete;
                 case WebHookEvent.CarrierClaimApproved:
                     return JobStatus.Complete;
+                case WebHookEvent.AllocatedToCarrier:
+                    return JobStatus.Allocated;
                 case WebHookEvent.AssignedToDriver:
                     return JobStatus.Assigned;
                 case WebHookEvent.OnWayPickup:
