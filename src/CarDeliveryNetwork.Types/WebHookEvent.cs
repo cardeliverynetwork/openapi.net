@@ -76,6 +76,17 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// WebHook Event for Cdx Shipment changes
         /// </summary>
-        CdxShipmentChanged = 110
+        CdxShipmentChanged = 110,
+
+        /// <summary>
+        /// WebHook Event for vinDISPATCH bid received event 
+        /// </summary>
+        BidReceived = 1000,
+
+        /// <summary>
+        /// WebHook Event for vinDISPATCH bid request claimed 
+        /// subject to contract event
+        /// </summary>
+        ClaimedSubjectToContract = 1010
     }
 }
