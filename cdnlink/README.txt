@@ -1,10 +1,10 @@
 Getting the software
 ====================
 Latest stable build:
-http://build1.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/cdnopen_CdnLink/.lastPinned/artifacts.zip
+http://build2.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/cdnopen_CdnLink/.lastPinned/artifacts.zip
 
 Latest development build:
-http://build1.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/cdnopen_CdnLink/.lastSuccessful/artifacts.zip
+http://build2.cardeliverynetwork.com:8080/guestAuth/repository/downloadAll/cdnopen_CdnLink/.lastSuccessful/artifacts.zip
 
 Overview
 ========
