@@ -11,6 +11,11 @@ namespace CarDeliveryNetwork.Api.Data
     public class Bid : ApiEntityBase<Bid>
     {
         /// <summary>
+        /// The id of the request associated with this bid
+        /// </summary>
+        public virtual int RequestId { get; set; }
+
+        /// <summary>
         /// BidNumber
         /// </summary>
         public virtual string BidNumber { get; set; }
@@ -84,6 +89,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// AcceptUrl
         /// </summary>
         public virtual string AcceptUrl { get; set; }
+
+        /// <summary>
+        /// IsClaimedSubjectToContract
+        /// </summary>
+        public virtual bool IsClaimedSubjectToContract { get; set; }
 
         /// <summary>
         /// IsExpired

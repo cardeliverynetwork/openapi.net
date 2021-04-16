@@ -79,14 +79,8 @@ namespace CarDeliveryNetwork.Types
         CdxShipmentChanged = 110,
 
         /// <summary>
-        /// WebHook Event for vinDISPATCH bid received event 
+        /// WebHook Event for vinDISPATCH bid received or claimed STC 
         /// </summary>
-        BidReceived = 1000,
-
-        /// <summary>
-        /// WebHook Event for vinDISPATCH bid request claimed 
-        /// subject to contract event
-        /// </summary>
-        ClaimedSubjectToContract = 1010
+        MarketplaceEvent = 120,
     }
 }
