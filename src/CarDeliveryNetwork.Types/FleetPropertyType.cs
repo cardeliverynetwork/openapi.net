@@ -250,5 +250,15 @@
         ///Enclosed Transportation
         /// </summary>
         EnclosedTransportation,
+
+        /// <summary>
+        ///In Operation
+        /// </summary>
+        InOp,
+
+        /// <summary>
+        /// Can Advertise Load
+        /// </summary>
+        CanAdvertiseLoads,
     }
 }
