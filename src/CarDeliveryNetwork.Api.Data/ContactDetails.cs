@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
+using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
 
 namespace CarDeliveryNetwork.Api.Data
@@ -60,6 +62,16 @@ namespace CarDeliveryNetwork.Api.Data
         /// Optional (100) - The name of the person associated with this contact.
         /// </summary>
         public virtual string Contact { get; set; }
+
+        /// <summary>
+        /// Optional - The gender of the person associated with this contact.
+        /// </summary>
+        public virtual Gender? Gender { get; set; }
+
+        /// <summary>
+        /// Optional - The age of the person associated with this contact.
+        /// </summary>
+        public virtual DateTime? DateOfBirth { get; set; }
 
         /// <summary>
         /// Optional (100) - The organisation name associated with this contact.
@@ -196,6 +208,8 @@ namespace CarDeliveryNetwork.Api.Data
             QuickCode = c.QuickCode;
             LocationCode = c.LocationCode;
             Contact = c.Contact;
+            Gender = c.Gender;
+            DateOfBirth = c.DateOfBirth;
             OrganisationName = c.OrganisationName;
             AddressLines = c.AddressLines;
             City = c.City;

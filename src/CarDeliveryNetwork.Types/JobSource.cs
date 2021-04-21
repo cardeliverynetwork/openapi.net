@@ -6,12 +6,12 @@
     public enum JobSource
     {
         /// <summary>
-        /// Job was created on go.cardeliverynetwork.com
+        /// Job was created on vinDELIVER Office
         /// </summary>
         VinDeliverOffice,
 
         /// <summary>
-        /// Job was created on go.vincarrier.com
+        /// Job was created on vinCARRIER Office
         /// </summary>
         VinCarrierOffice,
 
@@ -43,6 +43,16 @@
         /// <summary>
         /// Job was imported using a Manheim Gate Pass
         /// </summary>
-        ManheimGatePass
+        ManheimGatePass,
+
+        /// <summary>
+        /// Job was imported using a Cars Arrive Bill Of Lading
+        /// </summary>
+        CarsArriveBOL,
+
+        /// <summary>
+        /// Job was imported using a 1Dispatch Transport Order
+        /// </summary>
+        OneDispatchTransportOrder
     }
 }

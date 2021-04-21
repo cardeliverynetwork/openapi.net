@@ -34,6 +34,11 @@ namespace CarDeliveryNetwork.Types
         DriverLogin = 30,
 
         /// <summary>
+        /// WebHook Event for load allocated to carrier
+        /// </summary>
+        AllocatedToCarrier = 35,
+
+        /// <summary>
         /// WebHook Event for load assigned to driver
         /// </summary>
         AssignedToDriver = 40,
@@ -71,6 +76,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// WebHook Event for Cdx Shipment changes
         /// </summary>
-        CdxShipmentChanged = 110
+        CdxShipmentChanged = 110,
+
+        /// <summary>
+        /// WebHook Event for vinDISPATCH bid received or claimed STC 
+        /// </summary>
+        MarketplaceEvent = 120,
     }
 }

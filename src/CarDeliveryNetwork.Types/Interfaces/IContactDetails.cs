@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace CarDeliveryNetwork.Types.Interfaces
 {
     /// <summary>
@@ -20,6 +21,16 @@ namespace CarDeliveryNetwork.Types.Interfaces
         ///  The name of the person associated with this contact.
         /// </summary>
         string Contact { get; }
+
+        /// <summary>
+        /// The gender of the person associated with this contact.
+        /// </summary>
+        Gender? Gender { get; }
+
+        /// <summary>
+        /// The age of the person associated with this contact.
+        /// </summary>
+        DateTime? DateOfBirth { get; }
 
         /// <summary>
         /// The organization name associated with this contact.

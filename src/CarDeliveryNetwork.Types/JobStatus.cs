@@ -191,9 +191,10 @@ namespace CarDeliveryNetwork.Types
         /// </summary>
         Claimed = 2010,
 
+        // Reach specific status 
         /// <summary>
         /// Legacy - For job history only, Never applied to Job
         /// </summary>
-        Declined = 2020,
+        Declined = 2021,
     };
 }

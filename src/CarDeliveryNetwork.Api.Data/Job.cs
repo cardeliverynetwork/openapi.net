@@ -274,6 +274,16 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual JobSource? Source { get; set; }
 
         /// <summary>
+        /// Optional (Reach Community Only) (50) - Code for the request's funder/sponsor
+        /// </summary>
+        public virtual string FunderCode { get; set; }
+
+        /// <summary>
+        /// Optional (Reach Community Only) (50) - Code for the request's referrer
+        /// </summary>
+        public virtual string ReferrerCode { get; set; }
+
+        /// <summary>
         /// Readonly - The number of vehicles on this job
         /// </summary>
         public virtual int VehicleCount
@@ -335,6 +345,17 @@ namespace CarDeliveryNetwork.Api.Data
         {
             get { return string.Format("{0}:{1}", JobNumber, LoadId); }
         }
+
+        /// <summary>
+        /// Optional - Identifier of the Loadboard to advertise job to.
+        /// Can be either integer ID or RemoteID
+        /// </summary>
+        public virtual string LoadboardLookupId { get; set; }
+
+        /// <summary>
+        /// Optional - Should it be advertised for carriers to claim at a fixed price, to quote or both
+        /// </summary>
+        public virtual AdvertiseType AdvertiseType { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class.
