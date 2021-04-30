@@ -44,6 +44,8 @@
     <Compile Include="Alert.cs" />
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="ApiError.cs" />
+    <Compile Include="PriceCheckServiceResult.cs" />
+    <Compile Include="PriceCheck.cs" />
     <Compile Include="Bid.cs" />
     <Compile Include="CdxChange.cs" />
     <Compile Include="CdxFlat\CDXCHANGE.cs" />
