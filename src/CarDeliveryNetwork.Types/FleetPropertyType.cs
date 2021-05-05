@@ -260,5 +260,10 @@
         /// Can Advertise Load
         /// </summary>
         CanAdvertiseLoads,
+
+        /// <summary>
+        /// Can Find Loads
+        /// </summary>
+        CanFindLoads
     }
 }
