@@ -44,6 +44,10 @@
     <Compile Include="Alert.cs" />
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="ApiError.cs" />
+    <Compile Include="Glovis\MtmsHead.cs" />
+    <Compile Include="Glovis\MtmsLoadUnloadVehicle.cs" />
+    <Compile Include="Glovis\MtmsLoadUnload.cs" />
+    <Compile Include="Glovis\MtmsLoadUnloadBody.cs" />
     <Compile Include="PriceCheckServiceResult.cs" />
     <Compile Include="PriceCheck.cs" />
     <Compile Include="Bid.cs" />

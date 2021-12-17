@@ -9,6 +9,7 @@ using CarDeliveryNetwork.Api.Data.TmwV1;
 using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
 using CarDeliveryNetwork.Api.Data.CdxFlat;
+using CarDeliveryNetwork.Api.Data.Glovis;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -438,10 +439,24 @@ namespace CarDeliveryNetwork.Api.Data
                             return null;
                     }
                 }
+
                 case WebHookSchema.IclR41:
                     var r41 = new R41(this, sequenceNumber, senderId, receiverId);
                     fileName = r41.FileName;
                     return r41.ToString();
+
+                case WebHookSchema.Glovis:
+                    switch (forEvent)
+                    {
+                        case WebHookEvent.PickupStop:
+                            return new MtmsLoadUnload(this, true, senderId, receiverId).ToString();
+                        case WebHookEvent.DropoffStop:
+                            return new MtmsLoadUnload(this, false, senderId, receiverId).ToString();
+
+                        // Other events should not be subscribed to
+                        default:
+                            return null;
+                    }
 
                 case WebHookSchema.CdxVehicleExchange:
                 case WebHookSchema.CdxVehicles:
