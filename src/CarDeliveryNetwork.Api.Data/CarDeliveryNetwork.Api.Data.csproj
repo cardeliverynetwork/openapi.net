@@ -45,6 +45,9 @@
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="ApiError.cs" />
     <Compile Include="Glovis\MtmsHead.cs" />
+    <Compile Include="Glovis\MtmsExceptionReport.cs" />
+    <Compile Include="Glovis\MtmsExceptionReportBody.cs" />
+    <Compile Include="Glovis\MtmsDamageItem.cs" />
     <Compile Include="Glovis\MtmsLoadUnloadVehicle.cs" />
     <Compile Include="Glovis\MtmsLoadUnload.cs" />
     <Compile Include="Glovis\MtmsLoadUnloadBody.cs" />

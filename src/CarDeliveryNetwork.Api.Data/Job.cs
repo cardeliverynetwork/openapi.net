@@ -389,10 +389,10 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="forEvent">The WebHookEvent that this message represents.</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <param name="hookId">The id of the hook this that will send this data</param>
-        /// <param name="receiverId">Receiver identifier for ICL R41 schemas</param>
-        /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
         /// <param name="sequenceNumber">Sequential output id for ICL R41</param>
-        /// <param name="senderId">Sender identifier for ICL R41</param>
+        /// <param name="senderId">Sender identifier for ICL R41 and Glovis</param>
+        /// <param name="receiverId">Receiver identifier for ICL R41 and Glovis schemas</param>
+        /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
         /// <returns>The serialized object.</returns>
         public string ToHookString(
             MessageFormat format, 
@@ -477,6 +477,8 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="forEvent">The WebHookEvent that this message represents.</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <param name="hookId">The id of the hook this that will send this data</param>
+        /// <param name="senderId">Sender identifier for ICL R41 and Glovis</param>
+        /// <param name="receiverId">Receiver identifier for ICL R41 and Glovis schemas</param>
         /// <param name="contractedCarrier">The carrier fleet</param>
         /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
         /// <returns>The serialized object.</returns>
@@ -486,6 +488,8 @@ namespace CarDeliveryNetwork.Api.Data
             WebHookEvent forEvent,
             DateTime timeStamp,
             int hookId,
+            string senderId,
+            string receiverId,
             Fleet contractedCarrier,
             out string fileName)
         {
@@ -508,6 +512,20 @@ namespace CarDeliveryNetwork.Api.Data
 
                 case WebHookSchema.Ford:
                     return new Otr214(this, contractedCarrier).ToString(vehicleIndex, forEvent, timeStamp, hookId.ToString(), StatusDeviceTime, false, out fileName);
+
+                case WebHookSchema.GlovisExceptionReport:
+                    var vehicle = this.Vehicles[vehicleIndex]; 
+                    switch (forEvent)
+                    {
+                        case WebHookEvent.PickupStop:
+                            return new MtmsExceptionReport(this, vehicle, true, senderId, receiverId).ToString();
+                        case WebHookEvent.DropoffStop:
+                            return new MtmsExceptionReport(this, vehicle, false, senderId, receiverId).ToString();
+
+                        // Other events should not be subscribed to
+                        default:
+                            return null;
+                    }
 
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
