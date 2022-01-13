@@ -522,7 +522,9 @@ namespace CarDeliveryNetwork.Api.Data
                     switch (forEvent)
                     {
                         case WebHookEvent.PickupStop:
+                        case WebHookEvent.PickupDamageRecorded:
                             return new MtmsExceptionReport(this, vehicle, true, thirdPartyUserId, senderId, receiverId).ToString();
+
                         case WebHookEvent.DropoffStop:
                             return new MtmsExceptionReport(this, vehicle, false, thirdPartyUserId, senderId, receiverId).ToString();
 
