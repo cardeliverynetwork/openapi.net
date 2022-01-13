@@ -390,6 +390,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <param name="hookId">The id of the hook this that will send this data</param>
         /// <param name="sequenceNumber">Sequential output id for ICL R41</param>
+        /// <param name="thirdPartyUserId">User Id for the receiving system</param>
         /// <param name="senderId">Sender identifier for ICL R41 and Glovis</param>
         /// <param name="receiverId">Receiver identifier for ICL R41 and Glovis schemas</param>
         /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
@@ -401,6 +402,7 @@ namespace CarDeliveryNetwork.Api.Data
             DateTime timeStamp, 
             int hookId, 
             short sequenceNumber,
+            string thirdPartyUserId,
             string senderId,
             string receiverId,
             out string fileName)
@@ -449,9 +451,9 @@ namespace CarDeliveryNetwork.Api.Data
                     switch (forEvent)
                     {
                         case WebHookEvent.PickupStop:
-                            return new MtmsLoadUnload(this, true, senderId, receiverId).ToString();
+                            return new MtmsLoadUnload(this, true, thirdPartyUserId, senderId, receiverId).ToString();
                         case WebHookEvent.DropoffStop:
-                            return new MtmsLoadUnload(this, false, senderId, receiverId).ToString();
+                            return new MtmsLoadUnload(this, false, thirdPartyUserId, senderId, receiverId).ToString();
 
                         // Other events should not be subscribed to
                         default:
@@ -477,6 +479,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="forEvent">The WebHookEvent that this message represents.</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <param name="hookId">The id of the hook this that will send this data</param>
+        /// <param name="thirdPartyUserId">User Id for the receiving system</param>
         /// <param name="senderId">Sender identifier for ICL R41 and Glovis</param>
         /// <param name="receiverId">Receiver identifier for ICL R41 and Glovis schemas</param>
         /// <param name="contractedCarrier">The carrier fleet</param>
@@ -488,6 +491,7 @@ namespace CarDeliveryNetwork.Api.Data
             WebHookEvent forEvent,
             DateTime timeStamp,
             int hookId,
+            string thirdPartyUserId,
             string senderId,
             string receiverId,
             Fleet contractedCarrier,
@@ -518,9 +522,9 @@ namespace CarDeliveryNetwork.Api.Data
                     switch (forEvent)
                     {
                         case WebHookEvent.PickupStop:
-                            return new MtmsExceptionReport(this, vehicle, true, senderId, receiverId).ToString();
+                            return new MtmsExceptionReport(this, vehicle, true, thirdPartyUserId, senderId, receiverId).ToString();
                         case WebHookEvent.DropoffStop:
-                            return new MtmsExceptionReport(this, vehicle, false, senderId, receiverId).ToString();
+                            return new MtmsExceptionReport(this, vehicle, false, thirdPartyUserId, senderId, receiverId).ToString();
 
                         // Other events should not be subscribed to
                         default:

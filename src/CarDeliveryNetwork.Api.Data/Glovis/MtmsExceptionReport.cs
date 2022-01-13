@@ -31,9 +31,10 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
         /// <param name="job"></param>
         /// <param name="vehicle"></param>
         /// <param name="isPickup"></param>
+        /// <param name="userId"></param>
         /// <param name="carrierUuid"></param>
         /// <param name="carrierKey"></param>
-        public MtmsExceptionReport(Job job, Vehicle vehicle, bool isPickup, string carrierUuid, string carrierKey)
+        public MtmsExceptionReport(Job job, Vehicle vehicle, bool isPickup, string userId, string carrierUuid, string carrierKey)
         {
             var timestamp = job.StatusDeviceTime.HasValue
                 ? job.StatusDeviceTime.Value
@@ -51,7 +52,7 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
 
             BODY = new MtmsExceptionReportBody
             {
-                USER_ID = job.AssignedDriverRemoteId,
+                USER_ID = userId,
                 EVT_TYPE = "R",
                 EVT_DT = timestamp.ToString("yyyMMdd"),
                 EVT_TM = timestamp.ToString("HHmmss"),

@@ -30,9 +30,10 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
         /// </summary>
         /// <param name="job"></param>
         /// <param name="isPickup"></param>
+        /// <param name="userId"></param>
         /// <param name="carrierUuid"></param>
         /// <param name="carrierKey"></param>
-        public MtmsLoadUnload(Job job, bool isPickup, string carrierUuid, string carrierKey)
+        public MtmsLoadUnload(Job job, bool isPickup, string userId, string carrierUuid, string carrierKey)
         {
             var timestamp = job.StatusDeviceTime.HasValue
                 ? job.StatusDeviceTime.Value
@@ -50,7 +51,7 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
 
             BODY = new MtmsLoadUnloadBody
             {
-                USER_ID = job.AssignedDriverRemoteId,
+                USER_ID = userId,
                 EVT_TYPE = isPickup ? "L" : "U",
                 EVT_DT = timestamp.ToString("yyyMMdd"),
                 EVT_TM = timestamp.ToString("HHmmss"),

@@ -58,6 +58,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// Identifier of the receiver
         /// </summary>
         public virtual string ReceiverId { get; set; }
+
+        /// <summary>
+        /// A user Id for the receiving system
+        /// </summary>
+        public virtual string ThirdPartyUserId { get; set; }
     }
 
     /// <summary>
