@@ -37,7 +37,7 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Surname { get { return LastName; } set { LastName = value; } }
 
         /// <summary>
-        /// Username
+        /// Username. Generated for Drivers
         /// </summary>
         public virtual string Username { get; set; }
 
@@ -110,6 +110,31 @@ namespace CarDeliveryNetwork.Api.Data
         /// ReadOnly - The date in unix time that this use accepted the CDN Privacy Policy
         /// </summary>
         public virtual double? PrivacyPolicyAccepted { get; set; }
+
+        /// <summary>
+        /// Optional - State drivers license was issued by
+        /// </summary>
+        public virtual string LicenseIssuingState { get; set; }
+
+        /// <summary>
+        /// Optional - Country drivers license was issued by
+        /// </summary>
+        public virtual string LicenseIssuingCountry { get; set; }
+
+        /// <summary>
+        /// Indicates if the driver receives Prood of Delivery email
+        /// </summary>
+        public virtual bool ReceivePODMail { get; set; }
+
+        /// <summary>
+        /// Optional - Drivers preferred timezone as Windows timezone ID e.g. Central Standard Time
+        /// </summary>
+        public virtual string TimeZone { get; set; }
+
+        /// <summary>
+        /// Indicates if the driver profile is in use
+        /// </summary>
+        public virtual bool IsActive { get; set; }
 
         /// <summary>
         /// The user's full name
