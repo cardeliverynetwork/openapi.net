@@ -111,6 +111,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// Photo/Scan of a pickup relase form
         /// </summary>
-        PickupReleaseForm = 24
+        PickupReleaseForm = 24,
+
+        /// <summary>
+        /// A pre-pickup photo of a vehicle
+        /// </summary>
+        PrePickupPhoto = 25
     }
 }
