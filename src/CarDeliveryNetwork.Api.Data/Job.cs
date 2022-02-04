@@ -359,6 +359,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual AdvertiseType AdvertiseType { get; set; }
 
         /// <summary>
+        /// Optional - Determines app behaviour for this job. NULL enables default behaviour. 0 deactivates all.
+        /// </summary>
+        public virtual JobFunctionalityFlags? FunctionalityFlags { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class.
         /// </summary>
         public Job()
