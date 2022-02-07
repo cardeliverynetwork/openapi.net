@@ -9,6 +9,7 @@ using CarDeliveryNetwork.Api.Data.TmwV1;
 using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
 using CarDeliveryNetwork.Api.Data.CdxFlat;
+using CarDeliveryNetwork.Api.Data.Glovis;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -347,6 +348,22 @@ namespace CarDeliveryNetwork.Api.Data
         }
 
         /// <summary>
+        /// Optional - Identifier of the Loadboard to advertise job to.
+        /// Can be either integer ID or RemoteID
+        /// </summary>
+        public virtual string LoadboardLookupId { get; set; }
+
+        /// <summary>
+        /// Optional - Should it be advertised for carriers to claim at a fixed price, to quote or both
+        /// </summary>
+        public virtual AdvertiseType AdvertiseType { get; set; }
+
+        /// <summary>
+        /// Optional - Determines app behaviour for this job. NULL enables default behaviour. 0 deactivates all.
+        /// </summary>
+        public virtual JobFunctionalityFlags? FunctionalityFlags { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class.
         /// </summary>
         public Job()
@@ -377,10 +394,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="forEvent">The WebHookEvent that this message represents.</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <param name="hookId">The id of the hook this that will send this data</param>
-        /// <param name="receiverId">Receiver identifier for ICL R41 schemas</param>
-        /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
         /// <param name="sequenceNumber">Sequential output id for ICL R41</param>
-        /// <param name="senderId">Sender identifier for ICL R41</param>
+        /// <param name="thirdPartyUserId">User Id for the receiving system</param>
+        /// <param name="senderId">Sender identifier for ICL R41 and Glovis</param>
+        /// <param name="receiverId">Receiver identifier for ICL R41 and Glovis schemas</param>
+        /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
         /// <returns>The serialized object.</returns>
         public string ToHookString(
             MessageFormat format, 
@@ -389,6 +407,7 @@ namespace CarDeliveryNetwork.Api.Data
             DateTime timeStamp, 
             int hookId, 
             short sequenceNumber,
+            string thirdPartyUserId,
             string senderId,
             string receiverId,
             out string fileName)
@@ -427,10 +446,24 @@ namespace CarDeliveryNetwork.Api.Data
                             return null;
                     }
                 }
+
                 case WebHookSchema.IclR41:
                     var r41 = new R41(this, sequenceNumber, senderId, receiverId);
                     fileName = r41.FileName;
                     return r41.ToString();
+
+                case WebHookSchema.Glovis:
+                    switch (forEvent)
+                    {
+                        case WebHookEvent.PickupStop:
+                            return new MtmsLoadUnload(this, true, thirdPartyUserId, senderId, receiverId).ToString();
+                        case WebHookEvent.DropoffStop:
+                            return new MtmsLoadUnload(this, false, thirdPartyUserId, senderId, receiverId).ToString();
+
+                        // Other events should not be subscribed to
+                        default:
+                            return null;
+                    }
 
                 case WebHookSchema.CdxVehicleExchange:
                 case WebHookSchema.CdxVehicles:
@@ -451,6 +484,9 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="forEvent">The WebHookEvent that this message represents.</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
         /// <param name="hookId">The id of the hook this that will send this data</param>
+        /// <param name="thirdPartyUserId">User Id for the receiving system</param>
+        /// <param name="senderId">Sender identifier for ICL R41 and Glovis</param>
+        /// <param name="receiverId">Receiver identifier for ICL R41 and Glovis schemas</param>
         /// <param name="contractedCarrier">The carrier fleet</param>
         /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
         /// <returns>The serialized object.</returns>
@@ -460,6 +496,9 @@ namespace CarDeliveryNetwork.Api.Data
             WebHookEvent forEvent,
             DateTime timeStamp,
             int hookId,
+            string thirdPartyUserId,
+            string senderId,
+            string receiverId,
             Fleet contractedCarrier,
             out string fileName)
         {
@@ -482,6 +521,22 @@ namespace CarDeliveryNetwork.Api.Data
 
                 case WebHookSchema.Ford:
                     return new Otr214(this, contractedCarrier).ToString(vehicleIndex, forEvent, timeStamp, hookId.ToString(), StatusDeviceTime, false, out fileName);
+
+                case WebHookSchema.GlovisExceptionReport:
+                    var vehicle = this.Vehicles[vehicleIndex]; 
+                    switch (forEvent)
+                    {
+                        case WebHookEvent.PickupStop:
+                        case WebHookEvent.PickupDamageRecorded:
+                            return new MtmsExceptionReport(this, vehicle, true, thirdPartyUserId, senderId, receiverId).ToString();
+
+                        case WebHookEvent.DropoffStop:
+                            return new MtmsExceptionReport(this, vehicle, false, thirdPartyUserId, senderId, receiverId).ToString();
+
+                        // Other events should not be subscribed to
+                        default:
+                            return null;
+                    }
 
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");

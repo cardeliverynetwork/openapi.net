@@ -6,12 +6,12 @@
     public enum JobSource
     {
         /// <summary>
-        /// Job was created on go.cardeliverynetwork.com
+        /// Job was created on vinDELIVER Office
         /// </summary>
         VinDeliverOffice,
 
         /// <summary>
-        /// Job was created on go.vincarrier.com
+        /// Job was created on vinCARRIER Office
         /// </summary>
         VinCarrierOffice,
 

@@ -27,13 +27,8 @@ namespace CarDeliveryNetwork.Types
         Auto,
 
         /// <summary>
-        /// A job of type other service.
+        /// A job where the vehicle is moved on a closed transporter.
         /// </summary>
-        OtherService1,
-
-        /// <summary>
-        /// A job of type other service.
-        /// </summary>
-        OtherService2
+        TransportedEnclosed
     }
 }

@@ -106,6 +106,16 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// Photo of users driving licence
         /// </summary>
-        LicencePhoto = 23
+        LicencePhoto = 23,
+
+        /// <summary>
+        /// Photo/Scan of a pickup relase form
+        /// </summary>
+        PickupReleaseForm = 24,
+
+        /// <summary>
+        /// A pre-pickup photo of a vehicle
+        /// </summary>
+        PrePickupPhoto = 25
     }
 }

@@ -119,7 +119,13 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// Driver's out of GeoFence
         /// </summary>
-        GeoFence
+        GeoFence,
+
+        // Reach specific Alert Type
+        /// <summary>
+        /// The request is Declined 
+        /// </summary>
+        Declined
 
     }
 }

@@ -71,6 +71,16 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// CdxChange
         /// </summary>
-        CdxChange = 100
+        CdxChange = 100,
+
+        /// <summary>
+        /// The Glovis Schema
+        /// </summary>
+        Glovis = 110,
+
+        /// <summary>
+        /// The Glovis Exception Report Schema
+        /// </summary>
+        GlovisExceptionReport = 120,
     }
 }

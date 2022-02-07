@@ -152,7 +152,7 @@ namespace CarDeliveryNetwork.Api.Data
         //public virtual List<Document> DamageClaimDocuments { get; set; }
 
         /// <summary>
-        /// Readonly - A collection of photos assocated with this vehicle
+        /// A collection of photos assocated with this vehicle
         /// </summary>
         public virtual List<Document> Photos { get; set; }
 

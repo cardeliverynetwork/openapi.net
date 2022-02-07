@@ -40,10 +40,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvertiseType.cs" />
     <Compile Include="AlertType.cs" />
     <Compile Include="AllocateType.cs" />
     <Compile Include="ApprovalStatus.cs" />
     <Compile Include="CdxShipmentStatus.cs" />
+    <Compile Include="JobFunctionalityFlags.cs" />
     <Compile Include="Gender.cs" />
     <Compile Include="Interfaces\IWebHook.cs" />
     <Compile Include="JobSource.cs" />
