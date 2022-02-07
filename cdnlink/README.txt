@@ -27,7 +27,7 @@ CdnLink exists as an executable file that can be called from you application
 Prerequsites
 ============
 - Windows XP/Server 2003 or later
-- .NET Framework 4
+- .NET Framework 4.5.2
 - SQL Server 2005 or later (earlier versions and other databases are untested but may function)
 
 Installation

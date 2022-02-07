@@ -109,11 +109,11 @@ INSERT INTO CdnSendVehicles(
 	Make, 
 	Model, 
 	Variant, 
-	Vin,
-	LoadDirection,
-	LoadLevel,
-	LoadPosition,
-	[Weight]
+	Vin
+	--LoadDirection,
+	--LoadLevel,
+	--LoadPosition,
+	--[Weight]
 )
 VALUES (
 	@nextLoaid,
@@ -121,11 +121,11 @@ VALUES (
 	'Renault', 
 	'5', 
 	'456 Turbo', 
-	'B123456789123456B',
-	2, -- Reverse
-	2, -- Bottom
-	4, -- Position 4
-	3125 -- Lbs
+	'B123456789123456B'
+	--2, -- Reverse
+	--2, -- Bottom
+	--4, -- Position 4
+	--3125 -- Lbs
 );
 
 INSERT INTO CdnSends(LoadId, QueuedDate, [Status], [Action])
