@@ -116,6 +116,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// A pre-pickup photo of a vehicle
         /// </summary>
-        PrePickupPhoto = 25
+        PrePickupPhoto = 25,
+
+        /// <summary>
+        /// A photo of damage sustained pre-pickup
+        /// </summary>
+        PrePickupDamagePhoto = 26
     }
 }

@@ -125,6 +125,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string NonCompletionReason { get; set; }
 
         /// <summary>
+        /// ReadOnly - A collection of damage items recorded before pickup
+        /// </summary>
+        public virtual List<DamageItem> PrePickupDamage { get; set; }
+
+        /// <summary>
         /// Readonly - A collection of damage items recorded at pickup
         /// </summary>
         public virtual List<DamageItem> DamageAtPickup { get; set; }
