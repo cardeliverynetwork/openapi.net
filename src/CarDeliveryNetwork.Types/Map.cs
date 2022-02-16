@@ -16,13 +16,13 @@ namespace CarDeliveryNetwork.Types
             switch (webHookEvent)
             {
                 case WebHookEvent.PickupStop:
-                    return JobStatus.Collected;
                 case WebHookEvent.PickupDamageRecorded:
                     return JobStatus.Collected;
+                
                 case WebHookEvent.DropoffStop:
-                    return JobStatus.Complete;
                 case WebHookEvent.CarrierClaimApproved:
                     return JobStatus.Complete;
+
                 case WebHookEvent.AllocatedToCarrier:
                     return JobStatus.Allocated;
                 case WebHookEvent.AssignedToDriver:

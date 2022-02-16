@@ -393,6 +393,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="schema">Schema to serialize to.</param>
         /// <param name="forEvent">The WebHookEvent that this message represents.</param>
         /// <param name="timeStamp">Time in UTC that this message was created</param>
+        /// <param name="position"></param>
         /// <param name="hookId">The id of the hook this that will send this data</param>
         /// <param name="sequenceNumber">Sequential output id for ICL R41</param>
         /// <param name="thirdPartyUserId">User Id for the receiving system</param>
@@ -404,7 +405,8 @@ namespace CarDeliveryNetwork.Api.Data
             MessageFormat format, 
             WebHookSchema schema, 
             WebHookEvent forEvent, 
-            DateTime timeStamp, 
+            DateTime timeStamp,
+            Position position,
             int hookId, 
             short sequenceNumber,
             string thirdPartyUserId,
@@ -456,9 +458,12 @@ namespace CarDeliveryNetwork.Api.Data
                     switch (forEvent)
                     {
                         case WebHookEvent.PickupStop:
-                            return new MtmsLoadUnload(this, true, thirdPartyUserId, senderId, receiverId).ToString();
+                            return new MtmsLoadUnload(this, true, thirdPartyUserId, 
+                                senderId, receiverId, position).ToString();
+
                         case WebHookEvent.DropoffStop:
-                            return new MtmsLoadUnload(this, false, thirdPartyUserId, senderId, receiverId).ToString();
+                            return new MtmsLoadUnload(this, false, thirdPartyUserId, 
+                                senderId, receiverId, position).ToString();
 
                         // Other events should not be subscribed to
                         default:

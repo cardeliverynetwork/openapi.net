@@ -1,5 +1,6 @@
 ﻿using CarDeliveryNetwork.Types;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CarDeliveryNetwork.Api.Data.Glovis
 {
@@ -33,7 +34,8 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
         /// <param name="userId"></param>
         /// <param name="carrierUuid"></param>
         /// <param name="carrierKey"></param>
-        public MtmsLoadUnload(Job job, bool isPickup, string userId, string carrierUuid, string carrierKey)
+        /// <param name="position"></param>
+        public MtmsLoadUnload(Job job, bool isPickup, string userId, string carrierUuid, string carrierKey, Position position)
         {
             var timestamp = job.StatusDeviceTime.HasValue
                 ? job.StatusDeviceTime.Value
@@ -44,8 +46,8 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
                 DEVICE_UUID = carrierUuid,
                 SECURE_KEY = carrierKey,
                 REQ_SID = "158984645841701251263641",
-                GEO_LAT = "0",
-                GEO_LNG = "0",
+                GEO_LAT = position == null ? "0" : position.Latitude.ToString(),
+                GEO_LNG = position == null ? "0" : position.Longitude.ToString(),
                 TIME_ZONE = "UTC"
             };
 
