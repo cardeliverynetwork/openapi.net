@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -47,6 +48,11 @@ namespace CarDeliveryNetwork.Api.Data
         /// ReadOnly - The URL of the proof document associated with this EndPoint ()
         /// </summary>
         public virtual string ProofDocUrl { get; set; }
+
+        /// <summary>
+        /// Optional - Collection of documents associated with this end point
+        /// </summary>
+        public virtual List<Document> Documents { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.EndPoint"/> class.
