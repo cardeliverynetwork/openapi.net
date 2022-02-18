@@ -1,138 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{64A29309-7DD4-426D-A677-8D8A2C0A351D}</ProjectGuid>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CarDeliveryNetwork.Api.Data</RootNamespace>
-    <AssemblyName>CarDeliveryNetwork.Api.Data</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\CarDeliveryNetwork.Api.Data.XML</DocumentationFile>
     <LangVersion>5</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>True</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\CarDeliveryNetwork.Api.Data.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\CarDeliveryNetwork.Types\CarDeliveryNetwork.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountCode.cs" />
-    <Compile Include="Action.cs" />
-    <Compile Include="Alert.cs" />
-    <Compile Include="ApiEntityCollectionBase.cs" />
-    <Compile Include="ApiError.cs" />
-    <Compile Include="Glovis\MtmsHead.cs" />
-    <Compile Include="Glovis\MtmsExceptionReport.cs" />
-    <Compile Include="Glovis\MtmsExceptionReportBody.cs" />
-    <Compile Include="Glovis\MtmsDamageItem.cs" />
-    <Compile Include="Glovis\MtmsLoadUnloadVehicle.cs" />
-    <Compile Include="Glovis\MtmsLoadUnload.cs" />
-    <Compile Include="Glovis\MtmsLoadUnloadBody.cs" />
-    <Compile Include="PriceCheckServiceResult.cs" />
-    <Compile Include="PriceCheck.cs" />
-    <Compile Include="Bid.cs" />
-    <Compile Include="CdxChange.cs" />
-    <Compile Include="CdxFlat\CDXCHANGE.cs" />
-    <Compile Include="CdxFlat\CDxMessageBase.cs" />
-    <Compile Include="CdxMessage.cs" />
-    <Compile Include="CdxFlat\CDXVEHICLES.cs" />
-    <Compile Include="CdxFlat\CDXSTATUS.cs" />
-    <Compile Include="CdxFlat\CDXSTOP.cs" />
-    <Compile Include="CdxShipment.cs" />
-    <Compile Include="CdxSignatureType.cs" />
-    <Compile Include="CdxStatus.cs" />
-    <Compile Include="CdxStop.cs" />
-    <Compile Include="CdxStopType.cs" />
-    <Compile Include="CdxVehicle.cs" />
-    <Compile Include="CdxVehicleChange.cs" />
-    <Compile Include="CdxVehicleExchange.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="DeliveryDamageClaim.cs" />
-    <Compile Include="Tranship.cs" />
-    <Compile Include="Ford\Otr214.cs" />
-    <Compile Include="Icl\R41.cs" />
-    <Compile Include="Truck.cs" />
-    <Compile Include="CustomerUser.cs" />
-    <Compile Include="DamageItem.cs" />
-    <Compile Include="DeviceRegistration.cs" />
-    <Compile Include="EndPoint.cs" />
-    <Compile Include="Export.cs" />
-    <Compile Include="Contract.cs" />
-    <Compile Include="Device.cs" />
-    <Compile Include="Fenkell\HostedDocument.cs" />
-    <Compile Include="Fenkell\Damage.cs" />
-    <Compile Include="Fenkell\Shipment.cs" />
-    <Compile Include="Fenkell\Delivery.cs" />
-    <Compile Include="Fenkell\Carrier.cs" />
-    <Compile Include="Fenkell\Vehicle.cs" />
-    <Compile Include="Fleet.cs" />
-    <Compile Include="FoundJob.cs" />
-    <Compile Include="Insurance.cs" />
-    <Compile Include="Ledger.cs" />
-    <Compile Include="Payment.cs" />
-    <Compile Include="Position.cs" />
-    <Compile Include="HttpResourceFaultException.cs" />
-    <Compile Include="IApiEntity.cs" />
-    <Compile Include="ApiEntityBase.cs" />
-    <Compile Include="ContactDetails.cs" />
-    <Compile Include="Document.cs" />
-    <Compile Include="Job.cs" />
-    <Compile Include="JobStatusHistoryItem.cs" />
-    <Compile Include="Journey.cs" />
-    <Compile Include="NamespaceDoc.cs" />
-    <Compile Include="Network.cs" />
-    <Compile Include="Proof.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegionSettings.cs" />
-    <Compile Include="Report.cs" />
-    <Compile Include="Serialization.cs" />
-    <Compile Include="Signature.cs" />
-    <Compile Include="TmwV1\DriverLogin.cs" />
-    <Compile Include="TmwV1\Stop.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="Vehicle.cs" />
-    <Compile Include="WebHook.cs" />
-    <Compile Include="WebHookSubscription.cs" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.310801">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CarDeliveryNetwork.Types\CarDeliveryNetwork.Types.csproj">
-      <Project>{DF771B50-D3D9-4BE7-896D-467CFB9920DB}</Project>
-      <Name>CarDeliveryNetwork.Types</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
