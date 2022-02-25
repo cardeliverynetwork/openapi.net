@@ -6,10 +6,11 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DocumentationFile>bin\Debug\CarDeliveryNetwork.Api.Data.XML</DocumentationFile>
-    <LangVersion>5</LangVersion>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DocumentationFile>bin\Release\CarDeliveryNetwork.Api.Data.XML</DocumentationFile>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\CarDeliveryNetwork.Types\CarDeliveryNetwork.Types.csproj" />
