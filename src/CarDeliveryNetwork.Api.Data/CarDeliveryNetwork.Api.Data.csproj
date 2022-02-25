@@ -55,6 +55,7 @@
     <Compile Include="Glovis\MtmsLoadUnloadVehicle.cs" />
     <Compile Include="Glovis\MtmsLoadUnload.cs" />
     <Compile Include="Glovis\MtmsLoadUnloadBody.cs" />
+    <Compile Include="OpeningHours.cs" />
     <Compile Include="PriceCheckServiceResult.cs" />
     <Compile Include="PriceCheck.cs" />
     <Compile Include="Bid.cs" />

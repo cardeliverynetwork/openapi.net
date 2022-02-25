@@ -153,6 +153,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string Notes { get; set; }
 
         /// <summary>
+        /// Optional - Hours location is available for pickups/deliveries
+        /// </summary>
+        public virtual List<OpeningHours> OpeningHours { get; set; }
+
+        /// <summary>
         /// Returns a guess at country code for this contact, looked up using StateRegion
         /// </summary>
         public string CountryCode
