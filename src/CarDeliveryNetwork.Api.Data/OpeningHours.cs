@@ -3,15 +3,15 @@
     public class OpeningHours
     {
         /// <summary>
-        /// The day(s) these hours apply
+        /// (50) The day(s) these hours apply
         /// </summary>
         public string Day { get; set; }
         /// <summary>
-        /// Time open
+        /// (10) Time open
         /// </summary>
         public string Open { get; set; }
         /// <summary>
-        /// Time close
+        /// (10) Time close
         /// </summary>
         public string Close { get; set; }
         /// <summary>
