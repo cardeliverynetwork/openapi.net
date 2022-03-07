@@ -65,6 +65,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual string JobNumber { get; set; }
 
         /// <summary>
+        /// Optional (10) - Registration number required to own and administer heavy vehicles within province of Quebec
+        /// </summary>
+        public virtual string NIRNumber { get; set; }
+
+        /// <summary>
         /// Readonly - The job's current status
         /// </summary>
         public virtual JobStatus Status { get; set; }
