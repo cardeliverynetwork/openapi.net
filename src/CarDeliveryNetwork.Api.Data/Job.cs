@@ -369,6 +369,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual JobFunctionalityFlags? FunctionalityFlags { get; set; }
 
         /// <summary>
+        /// Optional
+        /// </summary>
+        public virtual ContactDetails TerminalContact { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class.
         /// </summary>
         public Job()
