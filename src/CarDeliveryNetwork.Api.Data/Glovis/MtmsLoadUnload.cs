@@ -65,16 +65,20 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
 
             foreach (var v in job.Vehicles)
             {
-                var hasDamage =
-                    (v.DamageAtPickup != null && v.DamageAtPickup.Count > 0) ||
-                    (v.DamageAtDropoff != null && v.DamageAtDropoff.Count > 0);
-
-                BODY.VIN_LIST.Add(new MtmsLoadUnloadVehicle
+                var includeThisVehicle = (isPickup && v.IsPickedUp) || v.IsDelivered;
+                if (includeThisVehicle)
                 {
-                    VIN = v.Vin,
-                    MODL_CD = v.Model,
-                    DAMG_YN = hasDamage ? "Y" : "N"
-                });
+                    var hasDamage =
+                        (v.DamageAtPickup != null && v.DamageAtPickup.Count > 0) ||
+                        (v.DamageAtDropoff != null && v.DamageAtDropoff.Count > 0);
+
+                    BODY.VIN_LIST.Add(new MtmsLoadUnloadVehicle
+                    {
+                        VIN = v.Vin,
+                        MODL_CD = v.Model,
+                        DAMG_YN = hasDamage ? "Y" : "N"
+                    });
+                }
             }
         }
 
