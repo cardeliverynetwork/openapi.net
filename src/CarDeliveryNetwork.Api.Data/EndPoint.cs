@@ -55,6 +55,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<Document> Documents { get; set; }
 
         /// <summary>
+        /// Optional - Sequence number of this endpoint
+        /// </summary>
+        public virtual int? SequenceNumber { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.EndPoint"/> class.
         /// </summary>
         public EndPoint()

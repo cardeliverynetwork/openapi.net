@@ -379,6 +379,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual List<string> FrequentDamage { get; set; }
 
         /// <summary>
+        /// Optional - The sequnce number of this load
+        /// </summary>
+        public virtual int? LoadSequenceNumber { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class.
         /// </summary>
         public Job()
