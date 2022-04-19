@@ -374,6 +374,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual ContactDetails TerminalContact { get; set; }
 
         /// <summary>
+        /// Optional - Collection of frequent damage 
+        /// </summary>
+        public virtual List<string> FrequentDamage { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class.
         /// </summary>
         public Job()
