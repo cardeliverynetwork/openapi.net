@@ -198,7 +198,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// Optional - The SCAC of the entity contracted by the shipper.
         /// </summary>
         /// <remarks>
-        /// To be specified when a different carrier will be carrying out the job.  Must be specified 
+        /// (Overrides ContractedCarrierDOTNumber) To be specified when a different carrier will be carrying out the job.  Must be specified 
         /// in conjunction with a ShipperScac and AllocatedCarrierScac.  Only specifiable in API calls
         /// made BY the contracted carrier.
         /// </remarks>
@@ -208,17 +208,27 @@ namespace CarDeliveryNetwork.Api.Data
         /// Optional - The CDN Id of the entity contracted by the shipper.
         /// </summary>
         /// <remarks>
-        /// (Overrides ContractedCarrierId) To be specified when a different carrier will be carrying out the job.  Must be specified 
+        /// (Overrides ContractedCarrierId and ContractedCarrierDOTNumber) To be specified when a different carrier will be carrying out the job.  Must be specified 
         /// in conjunction with a ShipperId and AllocatedCarrierId.  Only specifiable in API calls
         /// made BY the contracted carrier.
         /// </remarks>
         public virtual int ContractedCarrierId { get; set; }
 
         /// <summary>
+        /// Optional - The D.O.T number of the  entity contracted carrier
+        /// </summary>
+        /// <remarks>
+        /// To be specified when a different carrier will be carrying out the job.  Must be specified 
+        /// in conjunction with a ShipperId and AllocatedCarrierId.  Only specifiable in API calls
+        /// made BY the contracted carrier.
+        /// </remarks>
+        public virtual int? ContractedCarrierDOTNumber { get; set; }
+
+        /// <summary>
         /// Optional - The SCAC of the allocated carrier
         /// </summary>
         /// <remarks>
-        /// Specifying AllocatedCarrierScac during job creation will ignore the Status field and attempt to 
+        /// (Overrides AllocatedCarrierDOTNumber)Specifying AllocatedCarrierScac during job creation will ignore the Status field and attempt to 
         /// allocate the job directly to this carrier.  Status will be set to 'Allocated'
         /// </remarks>
         public virtual string AllocatedCarrierScac { get; set; }
@@ -227,10 +237,19 @@ namespace CarDeliveryNetwork.Api.Data
         /// Optional - The CDN Id of the allocated carrier
         /// </summary>
         /// <remarks>
-        /// (Overrides AllocatedCarrierScac) Specifying AllocatedCarrierId during job creation will ignore the Status field and attempt to 
+        /// (Overrides AllocatedCarrierScac and AllocatedCarrierDOTNumber) Specifying AllocatedCarrierId during job creation will ignore the Status field and attempt to 
         /// allocate the job directly to this carrier.  Status will be set to 'Allocated'
         /// </remarks>
         public virtual int AllocatedCarrierId { get; set; }
+
+        /// <summary>
+        /// Optional - The D.O.T number of the allocated carrier
+        /// </summary>
+        /// <remarks>
+        /// Specifying AllocatedCarrierDOTNumber during job creation will ignore the Status field and attempt to 
+        /// allocate the job directly to this carrier.  Status will be set to 'Allocated'
+        /// </remarks>
+        public virtual int? AllocatedCarrierDOTNumber { get; set; }
 
         /// <summary>
         /// Optional - The RemoteId of the assigned driver
