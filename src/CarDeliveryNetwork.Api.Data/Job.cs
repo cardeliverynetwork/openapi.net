@@ -403,6 +403,11 @@ namespace CarDeliveryNetwork.Api.Data
         public virtual int? LoadSequenceNumber { get; set; }
 
         /// <summary>
+        /// Optional - flag to indicate relay status
+        /// </summary>
+        public virtual bool? IsRelay { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CarDeliveryNetwork.Api.Data.Job"/> class.
         /// </summary>
         public Job()
