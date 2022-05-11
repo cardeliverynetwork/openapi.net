@@ -34,7 +34,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// Surname
         /// </summary>
         [Obsolete("Please use LastName")]
-        public virtual string Surname { get { return LastName; } set { LastName = value; } }
+        public virtual string Surname { get { return string.Empty;  } set {  } }
 
         /// <summary>
         /// Username. Generated for Drivers
