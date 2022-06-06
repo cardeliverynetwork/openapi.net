@@ -264,6 +264,11 @@
         /// <summary>
         /// Can Find Loads
         /// </summary>
-        CanFindLoads
+        CanFindLoads,
+
+        /// <summary>
+        /// Fet Id provided by Central Dispatch
+        /// </summary>
+        CentralDispatchUniqueId
     }
 }
