@@ -269,6 +269,11 @@
         /// <summary>
         /// Fet Id provided by Central Dispatch
         /// </summary>
-        CentralDispatchUniqueId
+        CentralDispatchUniqueId,
+
+        /// <summary>
+        /// Is Dealer Portal enabled
+        /// </summary>
+        IsDealerPortalEnabled
     }
 }
