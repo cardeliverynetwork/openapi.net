@@ -24,7 +24,7 @@ namespace CdnHookToFtp
             : base("/jobs")
         {
             // GET - Just to show the service is up
-            Get["/"] = _ => "Jobs";
+            Get("/", _ => "Jobs");
 
             // PUT - To put a job update to server-configured FTP
             // Example: http://example.com/jobs
@@ -42,9 +42,9 @@ namespace CdnHookToFtp
             // Use FTPS
             // Example: http://build.cardeliverynetwork.com/jobs?ftphost=ftp://ftp.example.com/dir&ftpuser=theuser&ftppass=thepass&ftptype=ftps
 
-            Put["/"] = UpdateJob;
+            Put("/", _ => UpdateJob(_));
 
-            Post["/"] = UpdateJob;
+            Post("/", _ => UpdateJob(_));
         }
 
         private Response UpdateJob(dynamic _)
@@ -339,7 +339,7 @@ namespace CdnHookToFtp
         /// <returns>The request type</returns>
         private RequestType GetRequestType(Request request)
         {
-            return request.Headers.ContentType.Contains("json")
+            return request.Headers.ContentType.Matches("application/json")
                 ? RequestType.Json
                 : RequestType.Xml;
         }
