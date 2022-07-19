@@ -272,8 +272,13 @@
         CentralDispatchUniqueId,
 
         /// <summary>
-        /// Is Dealer Portal enabled
+        /// Dealer Portal feature enabled
         /// </summary>
-        IsDealerPortalEnabled
+        IsDealerPortalEnabled,
+
+        /// <summary>
+        /// Dispatch board feature enabled
+        /// </summary>
+        IsDispatchBoardEnabled
     }
 }
