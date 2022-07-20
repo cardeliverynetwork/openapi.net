@@ -212,27 +212,27 @@
         FleetConnectMultiDayBasis,
 
         /// <summary>
-        /// Requires Driver Handover
+        /// Requires Driver Handover - overrides VinDispatch request setting
         /// </summary>
         RequiresDriverHandover,
 
         /// <summary>
-        /// Requires Model
+        /// Requires Model - overrides VinDispatch request setting
         /// </summary>
         RequiresModel,
 
         /// <summary>
-        /// Requires tracking
+        /// Requires tracking - overrides VinDispatch request setting
         /// </summary>
         RequiresTracking,
 
         /// <summary>
-        /// Requires Epod
+        /// Requires Epod - overrides VinDispatch request setting
         /// </summary>
         RequiresEpod,
 
         /// <summary>
-        /// Requires lease paperwork
+        /// Requires lease paperwork - overrides VinDispatch request setting
         /// </summary>
         RequiresLeasePaperwork,
 
@@ -242,12 +242,12 @@
         IsRoadLegal,
 
         /// <summary>
-        /// Fuel is inclusive
+        /// Fuel is inclusive - overrides VinDispatch request setting
         /// </summary>
         FuelInclusive,
 
         /// <summary>
-        ///Enclosed Transportation
+        ///Enclosed Transportation - overrides VinDispatch request setting
         /// </summary>
         EnclosedTransportation,
 
@@ -279,6 +279,11 @@
         /// <summary>
         /// Dispatch board feature enabled
         /// </summary>
-        IsDispatchBoardEnabled
+        IsDispatchBoardEnabled,
+
+        /// <summary>
+        /// Driver devices should track movements
+        /// </summary>        
+        RequireTracking
     }
 }
