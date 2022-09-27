@@ -284,6 +284,11 @@
         /// <summary>
         /// Driver devices should track movements
         /// </summary>        
-        RequireTracking
+        RequireTracking,
+
+        /// <summary>
+        /// Show buttons that allow manual job Pickup and Delivery
+        /// </summary>
+        ShowManualPickupDeliveryButtons
     }
 }
