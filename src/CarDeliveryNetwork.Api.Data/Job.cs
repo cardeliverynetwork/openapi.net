@@ -509,6 +509,9 @@ namespace CarDeliveryNetwork.Api.Data
                             return new MtmsLoadUnload(this, false, thirdPartyUserId, 
                                 senderId, receiverId, position).ToString();
 
+                        case WebHookEvent.GpsTracking:
+                            return new MtmsTracking(this, thirdPartyUserId, senderId, receiverId, position).ToString();
+
                         // Other events should not be subscribed to
                         default:
                             return null;

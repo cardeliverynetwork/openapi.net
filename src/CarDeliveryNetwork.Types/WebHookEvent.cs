@@ -82,5 +82,10 @@ namespace CarDeliveryNetwork.Types
         /// WebHook Event for vinDISPATCH bid received or claimed STC 
         /// </summary>
         MarketplaceEvent = 120,
+
+        /// <summary>
+        /// WebHook Event for vehicle tracking
+        /// </summary>
+        GpsTracking = 130
     }
 }

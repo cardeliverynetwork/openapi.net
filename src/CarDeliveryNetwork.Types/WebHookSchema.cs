@@ -82,5 +82,10 @@ namespace CarDeliveryNetwork.Types
         /// The Glovis Exception Report Schema
         /// </summary>
         GlovisExceptionReport = 120,
+
+        /// <summary>
+        /// The Glovis GPS Tracking Schema
+        /// </summary>
+        GlovisGpsTracking = 130
     }
 }
