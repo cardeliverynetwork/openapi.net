@@ -51,7 +51,7 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
                 VIN_LIST = new List<MtmsTrackingVehicle>()
             };
 
-            foreach (var v in job.Vehicles.Where(v => v.IsPickedUp))
+            foreach (var v in job.Vehicles)
             {
                 BODY.VIN_LIST.Add(new MtmsTrackingVehicle
                 {
