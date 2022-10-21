@@ -46,8 +46,8 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
             BODY = new MtmsTrackingBody
             {
                 USER_ID = userId,
-                LOC_CD = "PH",
-                TRUK_NO = job.AssignedTruckRemoteId,
+                LOC_CD = job.Pickup?.Destination?.QuickCode,
+                TRUK_NO = job.AssignedTruckRemoteId ?? job.AssignedAppId,
                 VIN_LIST = new List<MtmsTrackingVehicle>()
             };
 
@@ -56,7 +56,7 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
                 BODY.VIN_LIST.Add(new MtmsTrackingVehicle
                 {
                     VIN = v.Vin,
-                    LOAD_LOC_CD = "PH"
+                    LOAD_LOC_CD = job.Pickup?.Destination?.QuickCode
                 });
             }
         }
