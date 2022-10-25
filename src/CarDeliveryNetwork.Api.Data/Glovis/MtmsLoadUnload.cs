@@ -57,9 +57,9 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
                 EVT_TYPE = isPickup ? "L" : "U",
                 EVT_DT = timestamp.ToString("yyyMMdd"),
                 EVT_TM = timestamp.ToString("HHmmss"),
-                LOC_TYPE = "PORT",
-                LOC_CD = "PH",
-                TRUK_NO = job.AssignedTruckRemoteId,
+                LOC_TYPE = "RAMP",
+                LOC_CD = job.Pickup?.Destination?.QuickCode,
+                TRUK_NO = job.AssignedTruckRemoteId ?? job.AssignedAppId,
                 VIN_LIST = new List<MtmsLoadUnloadVehicle>()
             };
 

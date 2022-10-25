@@ -56,8 +56,8 @@ namespace CarDeliveryNetwork.Api.Data.Glovis
                 EVT_TYPE = "R",
                 EVT_DT = timestamp.ToString("yyyMMdd"),
                 EVT_TM = timestamp.ToString("HHmmss"),
-                LOC_CD = "PH",
-                TRUK_NO = job.AssignedTruckRemoteId,
+                LOC_CD = job.Pickup?.Destination?.QuickCode,
+                TRUK_NO = job.AssignedTruckRemoteId ?? job.AssignedAppId,
                 VIN = vehicle.Vin,
                 CONTENTS = "damage report",
                 DAMAGE_LIST = new List<MtmsDamageItem>()
