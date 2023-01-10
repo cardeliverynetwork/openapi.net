@@ -86,6 +86,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// WebHook Event for vehicle tracking
         /// </summary>
-        GpsTracking = 130
+        GpsTracking = 130,
+
+        /// <summary>
+        /// WebHook Event for vinDispatch job alloction - auto claim, shipper approved claim, shipper bid accepted
+        /// </summary>
+        MarketplaceAllocation = 140
     }
 }
