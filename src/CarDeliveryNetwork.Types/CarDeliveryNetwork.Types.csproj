@@ -65,7 +65,6 @@
     <Compile Include="Interfaces\IContactDetails.cs" />
     <Compile Include="Interfaces\NamespaceDoc.cs" />
     <Compile Include="JobAction.cs" />
-    <Compile Include="JobAllocationActivity.cs" />
     <Compile Include="JourneyType.cs" />
     <Compile Include="VehicleLoadDirection.cs" />
     <Compile Include="VehicleLoadLevel.cs" />
