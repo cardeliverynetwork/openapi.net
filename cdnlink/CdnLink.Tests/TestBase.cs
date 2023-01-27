@@ -24,7 +24,7 @@ namespace CdnLink.Tests
             mock.Setup(s => s.Uri)
                 .Returns("http://example.com/openapi");
 
-            mock.Setup(s => s.CreateJob(It.IsAny<Job>()))
+            mock.Setup(s => s.CreateJob(It.IsAny<Job>(), It.IsAny<string>()))
                  .Returns((Job j) => j);
 
             return mock.Object;
