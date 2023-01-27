@@ -234,10 +234,11 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// Create the specified job on Car Delivery Network.
         /// </summary>
         /// <param name="job">The job to create.</param>
+        /// <param name="queryStringParameters">Additional parameters: isClaimJob and allowUpdate</param>
         /// <returns>The successfully created job.</returns>
-        public Job CreateJob(Job job)
+        public Job CreateJob(Job job, string queryStringParameters = null)
         {
-            var createdJobs = CreateJobs(new Jobs { job });
+            var createdJobs = CreateJobs(new Jobs { job }, queryStringParameters);
             return createdJobs != null && createdJobs.Count > 0
                 ? createdJobs[0]
                 : null;
@@ -247,12 +248,13 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// Attempts to create the specified jobs on Car Delivery Network.
         /// </summary>
         /// <param name="jobs">The collection of jobs to create.</param>
+        /// <param name="queryStringParameters">Additional parameters: isClaimJob and allowUpdate</param>
         /// <returns>A collection of the successfully created jobs.</returns>
-        public virtual Jobs CreateJobs(Jobs jobs)
+        public virtual Jobs CreateJobs(Jobs jobs, string queryStringParameters = null)
         {
             if (jobs == null || jobs.Count == 0)
                 throw new ArgumentException("Jobs collection was null or empty");
-            return Jobs.FromString(CallWithRetry("jobs", "POST", false, jobs), _interfaceFormat);
+            return Jobs.FromString(CallWithRetry("jobs", "POST", false, jobs, queryStringParameters), _interfaceFormat);
         }
 
         /// <summary>

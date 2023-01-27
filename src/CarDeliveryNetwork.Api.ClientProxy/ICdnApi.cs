@@ -35,8 +35,9 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// Creates the specified job on Car Delivery Network.
         /// </summary>
         /// <param name="job">The job to create.</param>
+        /// <param name="queryStringParameters">Additional parameters: isClaimJob and allowUpdate</param>
         /// <returns>The successfully created job.</returns>
-        Job CreateJob(Job job);
+        Job CreateJob(Job job, string queryStringParameters = null);
 
         /// <summary>
         /// Cancels the job of the specified Id giving the specified reason.
@@ -86,8 +87,9 @@ namespace CarDeliveryNetwork.Api.ClientProxy
         /// Attempts to create the specified jobs on Car Delivery Network.
         /// </summary>
         /// <param name="jobs">The collection of jobs to create.</param>
+        /// <param name="queryStringParameters">Additional parameters: isClaimJob and allowUpdate</param>
         /// <returns>A collection of the successfully created jobs.</returns>
-        Jobs CreateJobs(Jobs jobs);
+        Jobs CreateJobs(Jobs jobs, string queryStringParameters = null);
 
         /// <summary>
         /// Release the job back to owner
