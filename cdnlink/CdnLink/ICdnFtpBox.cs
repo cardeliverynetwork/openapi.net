@@ -11,5 +11,6 @@ namespace CdnLink
         List<string> GetFileList();
         string GetFileContents(string filename);
         void DeleteFile(string filename);
+        void MarkFileAsBad(string filename);
     }
 }

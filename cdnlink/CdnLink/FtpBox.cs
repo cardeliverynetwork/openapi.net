@@ -67,7 +67,7 @@ namespace CdnLink
                 var filename = reader.ReadLine();
                 while (!string.IsNullOrWhiteSpace(filename))
                 {
-                    if (filename != "." && filename != ".." && !filename.ToLower().EndsWith("incomplete"))
+                    if (filename != "." && filename != ".." && !filename.ToLower().EndsWith("incomplete") && !filename.ToLower().EndsWith(".bad"))
                     {
                         fileList.Add(filename);
                     }
@@ -107,6 +107,14 @@ namespace CdnLink
             request.Method = method;
             request.Credentials = new NetworkCredential(User, Pass);
             return request;
+        }
+
+        public void MarkFileAsBad(string filename)
+        {
+            var request = GetFtpRequest(WebRequestMethods.Ftp.Rename, filename);
+
+            request.RenameTo = filename + ".bad";
+            using (request.GetResponse()) { }
         }
     }
 }
