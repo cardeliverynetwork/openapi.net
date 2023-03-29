@@ -10,6 +10,7 @@ using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
 using CarDeliveryNetwork.Api.Data.CdxFlat;
 using CarDeliveryNetwork.Api.Data.Glovis;
+using CarDeliveryNetwork.Api.Data.Csx;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -541,6 +542,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="receiverId">Receiver identifier for ICL R41 and Glovis schemas</param>
         /// <param name="contractedCarrier">The carrier fleet</param>
         /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
+        /// <param name="additonalData">Optional parameter for any additional data</param>
         /// <returns>The serialized object.</returns>
         public string ToVehicleHookString(
             int vehicleIndex,
@@ -589,6 +591,48 @@ namespace CarDeliveryNetwork.Api.Data
                         default:
                             return null;
                     }
+
+                default:
+                    throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
+            }
+        }
+
+        public string ToVehicleDamageHookString(
+            Vehicle vehicle,
+            DamageItem damage,
+            WebHookSchema schema,
+            WebHookEvent forEvent,
+            DateTime timeStamp,
+            int hookId,
+            string thirdPartyUserId,
+            string senderId,
+            string receiverId,
+            Fleet contractedCarrier,
+            string additonalData = null,
+            string terminalId = null,
+            string terminalName = null)
+        {
+            switch (schema)
+            {
+                case WebHookSchema.Cdn:
+                case WebHookSchema.Fenkell02:
+                case WebHookSchema.Fenkell05:
+                case WebHookSchema.TmwV1:
+                case WebHookSchema.PodUrl:
+                case WebHookSchema.IclR41:
+                    throw new ArgumentException(string.Format("Schema {0} is a per job schema", schema), "schema");
+
+                case WebHookSchema.CdxVehicleExchange:
+                case WebHookSchema.CdxVehicles:
+                case WebHookSchema.CdxStatus:
+                    throw new ArgumentException(string.Format("Schema {0} is a per shipment schema", schema), "schema");
+
+                case WebHookSchema.Ford:
+                case WebHookSchema.GlovisExceptionReport:
+                    throw new ArgumentException(string.Format("Schema {0} is a per vehicle schema", schema), "schema");
+
+                case WebHookSchema.CSXDamageInspection:
+                    return new DamageInspection(this, vehicle, damage, additonalData, contractedCarrier, terminalId, terminalName).ToString();
 
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");

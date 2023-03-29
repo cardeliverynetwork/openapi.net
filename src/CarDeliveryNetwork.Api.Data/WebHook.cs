@@ -63,5 +63,15 @@ namespace CarDeliveryNetwork.Api.Data
         /// LastError
         /// </summary>
         public virtual string LastError { get; set; }
+
+        /// <summary>
+        /// CDN certificate thumbprint for mutual auth
+        /// </summary>
+        public string SenderCertificateThumbprint { get; set; }
+
+        /// <summary>
+        /// Receiver certificate thumbprint for mutual auth
+        /// </summary>
+        public string ReceiverCertificateThumbprint { get; set; }
     }
 }

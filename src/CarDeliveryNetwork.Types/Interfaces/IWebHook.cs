@@ -9,5 +9,7 @@ namespace CarDeliveryNetwork.Types.Interfaces
         string HttpMethod { get; set; }
         string Headers { get; set; }
         string RequestBody { get; set; }
+        string SenderCertificateThumbprint { get; set; }
+        string ReceiverCertificateThumbprint { get; set; }
     }
 }
