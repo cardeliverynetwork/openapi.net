@@ -81,6 +81,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// The Glovis Exception Report Schema
         /// </summary>
-        GlovisExceptionReport = 120
+        GlovisExceptionReport = 120,
+
+        /// <summary>
+        /// CSX Inspection data
+        /// </summary>
+        CSXDamageInspection = 130
     }
 }

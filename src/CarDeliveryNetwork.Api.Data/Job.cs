@@ -10,6 +10,7 @@ using CarDeliveryNetwork.Types;
 using CarDeliveryNetwork.Types.Interfaces;
 using CarDeliveryNetwork.Api.Data.CdxFlat;
 using CarDeliveryNetwork.Api.Data.Glovis;
+using CarDeliveryNetwork.Api.Data.Csx;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -541,6 +542,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// <param name="receiverId">Receiver identifier for ICL R41 and Glovis schemas</param>
         /// <param name="contractedCarrier">The carrier fleet</param>
         /// <param name="fileName">Filename generated for Pod Url and ICL R41 schemas</param>
+        /// <param name="additonalData">Optional parameter for any additional data</param>
         /// <returns>The serialized object.</returns>
         public string ToVehicleHookString(
             int vehicleIndex,
@@ -552,7 +554,8 @@ namespace CarDeliveryNetwork.Api.Data
             string senderId,
             string receiverId,
             Fleet contractedCarrier,
-            out string fileName)
+            out string fileName,
+            string additonalData = null)
         {
             fileName = string.Empty;
 
@@ -589,6 +592,9 @@ namespace CarDeliveryNetwork.Api.Data
                         default:
                             return null;
                     }
+
+                case WebHookSchema.CSXDamageInspection:
+                    return new DamageInspection(this, this.Vehicles[vehicleIndex], additonalData, thirdPartyUserId, senderId, receiverId).ToString();
 
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
