@@ -14,12 +14,12 @@ namespace CarDeliveryNetwork.Api.Data.Csx
         public Driver driver { get; set; }
         public Vehicle[] vehicles { get; set; }
 
-        public DamageInspection(Job job, Data.Vehicle vehicle, string damagePhotoBase64, string userId, string carrierUuid, string carrierKey) 
+        public DamageInspection(Job job, Data.Vehicle vehicle, Data.DamageItem damageItem, string damagePhotoBase64, string userId, string carrierUuid, string carrierKey)
         {
             source = job.AllocatedCarrierScac;
             haulawayTransactionId = job.JobNumber;
-            rampID = job.Pickup?.Destination?.QuickCode;
-            terminalName = job.Pickup?.Destination?.OrganizationName;
+            //rampID = ??
+            //terminalName = ??
             inspectionDatetime = DateTime.UtcNow;
 
             driver = new Driver
@@ -29,14 +29,31 @@ namespace CarDeliveryNetwork.Api.Data.Csx
                 driverName = job.AssignedDriverName
             };
 
-            vehicles = new Vehicle[] 
-            { 
-                new Vehicle 
-                { 
+            vehicles = new Vehicle[]
+            {
+                new Vehicle
+                {
                     vin = vehicle.Vin,
-                    previousDamage = "NO"
-                } 
+                    previousDamage = "NO",
+                    verificationReminder = "NO",
+                    inspectionType = "04",
+                    damages = new Damage[]
+                    {
+                        new Damage
+                        {
+                            damageType = damageItem?.Type?.Code,
+                            damageItem = damageItem?.Area?.Code,
+                            damageSeverity = damageItem?.Severity?.Code,
+                            damageExcInd = "F"
+                        }
+                    },
+                    images = new string[]
+                    {
+                        damagePhotoBase64
+                    }
+                }
             };
+
         }
 
 
@@ -46,7 +63,7 @@ namespace CarDeliveryNetwork.Api.Data.Csx
         /// <returns>The serialized object.</returns>
         public override string ToString()
         {
-            return Serialization.Serialize(new DamageInspectionRoot {  inspection = this}, MessageFormat.Json);
+            return Serialization.Serialize(new DamageInspectionRoot { inspection = this }, MessageFormat.Json);
         }
     }
 

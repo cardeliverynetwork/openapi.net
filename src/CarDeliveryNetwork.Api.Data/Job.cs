@@ -554,8 +554,7 @@ namespace CarDeliveryNetwork.Api.Data
             string senderId,
             string receiverId,
             Fleet contractedCarrier,
-            out string fileName,
-            string additonalData = null)
+            out string fileName)
         {
             fileName = string.Empty;
 
@@ -593,8 +592,45 @@ namespace CarDeliveryNetwork.Api.Data
                             return null;
                     }
 
+                default:
+                    throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
+            }
+        }
+
+        public string ToVehicleDamageHookString(
+            Vehicle vehicle,
+            DamageItem damage,
+            WebHookSchema schema,
+            WebHookEvent forEvent,
+            DateTime timeStamp,
+            int hookId,
+            string thirdPartyUserId,
+            string senderId,
+            string receiverId,
+            Fleet contractedCarrier,
+            string additonalData = null)
+        {
+            switch (schema)
+            {
+                case WebHookSchema.Cdn:
+                case WebHookSchema.Fenkell02:
+                case WebHookSchema.Fenkell05:
+                case WebHookSchema.TmwV1:
+                case WebHookSchema.PodUrl:
+                case WebHookSchema.IclR41:
+                    throw new ArgumentException(string.Format("Schema {0} is a per job schema", schema), "schema");
+
+                case WebHookSchema.CdxVehicleExchange:
+                case WebHookSchema.CdxVehicles:
+                case WebHookSchema.CdxStatus:
+                    throw new ArgumentException(string.Format("Schema {0} is a per shipment schema", schema), "schema");
+
+                case WebHookSchema.Ford:
+                case WebHookSchema.GlovisExceptionReport:
+                    throw new ArgumentException(string.Format("Schema {0} is a per vehicle schema", schema), "schema");
+
                 case WebHookSchema.CSXDamageInspection:
-                    return new DamageInspection(this, this.Vehicles[vehicleIndex], additonalData, thirdPartyUserId, senderId, receiverId).ToString();
+                    return new DamageInspection(this, vehicle, damage, additonalData, thirdPartyUserId, senderId, receiverId).ToString();
 
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
