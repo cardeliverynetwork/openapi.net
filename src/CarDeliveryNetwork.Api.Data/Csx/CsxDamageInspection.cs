@@ -14,18 +14,21 @@ namespace CarDeliveryNetwork.Api.Data.Csx
         public Driver driver { get; set; }
         public Vehicle[] vehicles { get; set; }
 
-        public DamageInspection(Job job, Data.Vehicle vehicle, Data.DamageItem damageItem, string damagePhotoBase64, string userId, string carrierUuid, string carrierKey)
+        public DamageInspection() { }
+
+        public DamageInspection(Job job, Data.Vehicle vehicle, Data.DamageItem damageItem, string damagePhotoBase64, Fleet contractedCarrier,
+            string rampId, string rampName)
         {
             source = job.AllocatedCarrierScac;
             haulawayTransactionId = job.JobNumber;
-            //rampID = ??
-            //terminalName = ??
+            rampID = rampId;
+            terminalName = rampName;
             inspectionDatetime = DateTime.UtcNow;
 
             driver = new Driver
             {
-                companySCAC = job.AllocatedCarrierScac,
-                companyName = job.Pickup?.Destination?.OrganizationName,
+                companySCAC = contractedCarrier?.Scac,
+                companyName = contractedCarrier?.Name,
                 driverName = job.AssignedDriverName
             };
 
@@ -47,9 +50,9 @@ namespace CarDeliveryNetwork.Api.Data.Csx
                             damageExcInd = "F"
                         }
                     },
-                    images = new string[]
+                    images = new Images
                     {
-                        damagePhotoBase64
+                        image = new string[] { damagePhotoBase64 }
                     }
                 }
             };
@@ -86,7 +89,7 @@ namespace CarDeliveryNetwork.Api.Data.Csx
         public string verificationReminder { get; set; }
         public string inspectionType { get; set; }
         public Damage[] damages { get; set; }
-        public string[] images { get; set; }
+        public Images images { get; set; }
     }
 
     public class Railcar
@@ -101,6 +104,11 @@ namespace CarDeliveryNetwork.Api.Data.Csx
         public string damageItem { get; set; }
         public string damageSeverity { get; set; }
         public string damageExcInd { get; set; }
+    }
+
+    public class Images
+    {
+        public string[] image { get; set; }
     }
 
     public class DamageInspectionRoot

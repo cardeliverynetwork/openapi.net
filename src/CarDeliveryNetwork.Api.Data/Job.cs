@@ -608,7 +608,9 @@ namespace CarDeliveryNetwork.Api.Data
             string senderId,
             string receiverId,
             Fleet contractedCarrier,
-            string additonalData = null)
+            string additonalData = null,
+            string terminalId = null,
+            string terminalName = null)
         {
             switch (schema)
             {
@@ -630,7 +632,7 @@ namespace CarDeliveryNetwork.Api.Data
                     throw new ArgumentException(string.Format("Schema {0} is a per vehicle schema", schema), "schema");
 
                 case WebHookSchema.CSXDamageInspection:
-                    return new DamageInspection(this, vehicle, damage, additonalData, thirdPartyUserId, senderId, receiverId).ToString();
+                    return new DamageInspection(this, vehicle, damage, additonalData, contractedCarrier, terminalId, terminalName).ToString();
 
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
