@@ -19,8 +19,8 @@ namespace CarDeliveryNetwork.Api.Data.Csx
         public DamageInspection(Job job, Data.Vehicle vehicle, Data.DamageItem damageItem, string damagePhotoBase64, Fleet contractedCarrier,
             string rampId, string rampName)
         {
-            source = job.AllocatedCarrierScac;
-            haulawayTransactionId = job.JobNumber;
+            source = "HAULAWAY";
+            haulawayTransactionId = $"{job.JobNumber}_{damageItem.Id}";
             rampID = rampId;
             terminalName = rampName;
             inspectionDatetime = DateTime.UtcNow;
