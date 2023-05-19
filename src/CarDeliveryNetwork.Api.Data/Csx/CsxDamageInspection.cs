@@ -12,7 +12,7 @@ namespace CarDeliveryNetwork.Api.Data.Csx
         public string terminalName { get; set; }
         public DateTime inspectionDatetime { get; set; }
         public Driver driver { get; set; }
-        public Vehicle[] vehicles { get; set; }
+        public Vehicles vehicles { get; set; }
 
         public DamageInspection() { }
 
@@ -32,27 +32,33 @@ namespace CarDeliveryNetwork.Api.Data.Csx
                 driverName = job.AssignedDriverName
             };
 
-            vehicles = new Vehicle[]
+            vehicles = new Vehicles
             {
-                new Vehicle
+                vehicle = new Vehicle[]
                 {
-                    vin = vehicle.Vin,
-                    previousDamage = "NO",
-                    verificationReminder = "NO",
-                    inspectionType = "04",
-                    damages = new Damage[]
+                    new Vehicle
                     {
-                        new Damage
+                        vin = vehicle.Vin,
+                        previousDamage = "NO",
+                        verificationReminder = "NO",
+                        inspectionType = "04",
+                        damages = new Damages
                         {
-                            damageType = damageItem?.Type?.Code,
-                            damageItem = damageItem?.Area?.Code,
-                            damageSeverity = damageItem?.Severity?.Code,
-                            damageExcInd = "F"
+                            damage = new Damage[]
+                            {
+                                new Damage
+                                {
+                                    damageType = damageItem?.Type?.Code,
+                                    damageItem = damageItem?.Area?.Code,
+                                    damageSeverity = damageItem?.Severity?.Code,
+                                    damageExcInd = "F"
+                                }
+                            },
+                        },
+                        images = new Images
+                        {
+                            image = new string[] { damagePhotoBase64 }
                         }
-                    },
-                    images = new Images
-                    {
-                        image = new string[] { damagePhotoBase64 }
                     }
                 }
             };
@@ -79,6 +85,11 @@ namespace CarDeliveryNetwork.Api.Data.Csx
         public string emailAddress { get; set; }
     }
 
+    public class Vehicles
+    {
+        public Vehicle[] vehicle { get; set; }
+    }
+
     public class Vehicle
     {
         public string vin { get; set; }
@@ -88,7 +99,7 @@ namespace CarDeliveryNetwork.Api.Data.Csx
         public string haulawayComments { get; set; }
         public string verificationReminder { get; set; }
         public string inspectionType { get; set; }
-        public Damage[] damages { get; set; }
+        public Damages damages { get; set; }
         public Images images { get; set; }
     }
 
@@ -96,6 +107,11 @@ namespace CarDeliveryNetwork.Api.Data.Csx
     {
         public string carInitial { get; set; }
         public string carNumber { get; set; }
+    }
+
+    public class Damages
+    {
+        public Damage[] damage { get; set; }
     }
 
     public class Damage
