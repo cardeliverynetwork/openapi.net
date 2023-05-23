@@ -1,5 +1,7 @@
 ﻿using CarDeliveryNetwork.Types;
 using System;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 namespace CarDeliveryNetwork.Api.Data.Csx
 {
@@ -72,7 +74,12 @@ namespace CarDeliveryNetwork.Api.Data.Csx
         /// <returns>The serialized object.</returns>
         public override string ToString()
         {
-            return Serialization.Serialize(new DamageInspectionRoot { inspection = this }, MessageFormat.Json);
+            var settings = new DataContractJsonSerializerSettings
+            {
+                DateTimeFormat = new DateTimeFormat("yyyy-MM-dd'T'HH:mm:ss.fff'Z'")
+            };
+
+            return Serialization.SerializeAsJson(new DamageInspectionRoot { inspection = this }, settings);
         }
     }
 

@@ -36,6 +36,25 @@ namespace CarDeliveryNetwork.Api.Data
         }
 
         /// <summary>
+        /// Serialised the specified object in the specified format
+        /// </summary>
+        /// <param name="o">The object to serialise</param>
+        /// <param name="settings">Settings for the serialiser to use</param>
+        /// <returns>The serialised message</returns>
+        public static string SerializeAsJson(object o, DataContractJsonSerializerSettings settings = null)
+        {
+            var serializer = new DataContractJsonSerializer(o.GetType(), settings) as XmlObjectSerializer;
+
+            using (var stream = new MemoryStream())
+            using (var reader = new StreamReader(stream))
+            {
+                serializer.WriteObject(stream, o);
+                stream.Position = 0;
+                return reader.ReadToEnd();
+            }
+        }
+
+        /// <summary>
         /// Deserialises the specified serialised object into instance of T
         /// </summary>
         /// <typeparam name="T">Type to deserialise to</typeparam>
