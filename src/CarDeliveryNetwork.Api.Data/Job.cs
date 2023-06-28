@@ -597,6 +597,24 @@ namespace CarDeliveryNetwork.Api.Data
             }
         }
 
+        /// <summary>
+        /// Returns a serial representation of the job in the specified format and schema.
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <param name="damage"></param>
+        /// <param name="schema"></param>
+        /// <param name="forEvent"></param>
+        /// <param name="timeStamp"></param>
+        /// <param name="hookId"></param>
+        /// <param name="thirdPartyUserId"></param>
+        /// <param name="senderId"></param>
+        /// <param name="receiverId"></param>
+        /// <param name="contractedCarrier"></param>
+        /// <param name="additonalData"></param>
+        /// <param name="terminalId"></param>
+        /// <param name="terminalName"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public string ToVehicleDamageHookString(
             Vehicle vehicle,
             DamageItem damage,

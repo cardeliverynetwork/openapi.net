@@ -21,17 +21,28 @@ namespace CarDeliveryNetwork.Api.Data.Csx
         public DamageInspection(Job job, Data.Vehicle vehicle, Data.DamageItem damageItem, string damagePhotoBase64, Fleet contractedCarrier,
             string rampId, string rampName)
         {
+            if(string.IsNullOrWhiteSpace(rampId))
+            {
+                throw new ArgumentException("CSX Damage Inspection requires a valid ramp Id");
+            }
+
+            if (string.IsNullOrWhiteSpace(rampName))
+            {
+                throw new ArgumentException("CSX Damage Inspection requires a valid ramp name");
+            }
+
             source = "HAULAWAY";
             haulawayTransactionId = $"{job.JobNumber}_{damageItem.Id}";
             rampID = rampId;
             terminalName = rampName;
             inspectionDatetime = DateTime.UtcNow;
-
+            
             driver = new Driver
             {
                 companySCAC = contractedCarrier?.Scac,
                 companyName = contractedCarrier?.Name,
-                driverName = job.AssignedDriverName
+                driverName = job.AssignedDriverName,
+                emailAddress = ""
             };
 
             vehicles = new Vehicles
@@ -41,9 +52,16 @@ namespace CarDeliveryNetwork.Api.Data.Csx
                     new Vehicle
                     {
                         vin = vehicle.Vin,
+                        railCar = new Railcar
+                        {
+                            carInitial = "",
+                            carNumber = ""
+                        },
                         previousDamage = "NO",
                         verificationReminder = "NO",
                         inspectionType = "04",
+                        haulawayComments = "",
+                        mfrsCode = "",
                         damages = new Damages
                         {
                             damage = new Damage[]
