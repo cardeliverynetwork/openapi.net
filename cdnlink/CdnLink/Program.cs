@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using CarDeliveryNetwork.Api.ClientProxy;
@@ -16,6 +17,8 @@ namespace CdnLink
 
         public static int Main(string[] args)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12;
+
             try
             {
                 if (args == null || args.Length == 0)
@@ -42,6 +45,7 @@ namespace CdnLink
                     if (args.Contains("/receive"))
                         cdn.Receive();
                 }
+                Console.ReadKey();
                 return 0;
             }
             catch (ArgumentException ex)
