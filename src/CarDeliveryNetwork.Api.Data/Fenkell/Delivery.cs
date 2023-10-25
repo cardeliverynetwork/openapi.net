@@ -96,7 +96,15 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
             }
             else
             {
-                InspectionType = "05";
+                //If QC is 9 chars assume it's an SPLC and this is a ramp to ramp job
+                if (job?.Pickup?.Destination?.QuickCode != null && job.Pickup.Destination.QuickCode.Length == 9)
+                {
+                    InspectionType = "04";
+                }
+                else
+                {//Otherwise it's a dealer
+                    InspectionType = "05";
+                }
                 DeliveryReceipt.Title = "Proof of Delivery";
                 DeliveryReceipt.URL = job.Dropoff.ProofDocUrl;
                 SubjectToInspection = job.Dropoff.Signoff == null || job.Dropoff.Signoff.NotSignedReasons != null;
