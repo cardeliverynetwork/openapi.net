@@ -45,7 +45,6 @@ namespace CdnLink
                     if (args.Contains("/receive"))
                         cdn.Receive();
                 }
-                Console.ReadKey();
                 return 0;
             }
             catch (ArgumentException ex)
