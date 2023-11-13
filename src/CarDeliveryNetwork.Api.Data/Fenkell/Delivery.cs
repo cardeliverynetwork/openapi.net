@@ -97,7 +97,7 @@ namespace CarDeliveryNetwork.Api.Data.Fenkell
             else
             {
                 //If QC is 9 chars assume it's an SPLC and this is a ramp to ramp job
-                if (job?.Pickup?.Destination?.QuickCode != null && job.Pickup.Destination.QuickCode.Length == 9)
+                if (job?.Dropoff?.Destination?.QuickCode != null && job.Dropoff.Destination.QuickCode.Length == 9)
                 {
                     InspectionType = "04";
                 }
