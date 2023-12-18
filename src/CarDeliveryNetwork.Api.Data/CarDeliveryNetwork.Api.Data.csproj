@@ -49,6 +49,7 @@
     <Compile Include="Alert.cs" />
     <Compile Include="ApiEntityCollectionBase.cs" />
     <Compile Include="ApiError.cs" />
+    <Compile Include="BNSF\PreOutGate.cs" />
     <Compile Include="Csx\CsxDamageInspection.cs" />
     <Compile Include="Glovis\MtmsHead.cs" />
     <Compile Include="Glovis\MtmsExceptionReport.cs" />

@@ -86,6 +86,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// CSX Inspection data
         /// </summary>
-        CSXDamageInspection = 130
+        CSXDamageInspection = 130,
+
+        /// <summary>
+        /// BNSF Pre-out gate request
+        /// </summary>
+        BNSFPreOutGate = 140
     }
 }
