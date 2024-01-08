@@ -15,7 +15,7 @@ namespace CarDeliveryNetwork.Api.Data.BNSF
         public PreOutGate(Job apiJob, string driverLicenseNumber, string yardQuickCode)
         {
             carrierScac = apiJob.AllocatedCarrierScac;
-            driverLicense = driverLicenseNumber;
+            driverLicense = string.IsNullOrEmpty(driverLicenseNumber) ? "": driverLicenseNumber;
             outGateLocation = yardQuickCode;
             gatePassCode = string.IsNullOrWhiteSpace(apiJob.LoadId) ? Guid.NewGuid().ToString().Substring(0, 6).ToUpper() : apiJob.LoadId;
             loadNumber = apiJob.LoadId;
