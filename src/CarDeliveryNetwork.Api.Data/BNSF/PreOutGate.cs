@@ -15,11 +15,11 @@ namespace CarDeliveryNetwork.Api.Data.BNSF
         public PreOutGate(Job apiJob, string driverLicenseNumber, string yardQuickCode)
         {
             carrierScac = apiJob.AllocatedCarrierScac;
-            driverLicense = string.IsNullOrEmpty(driverLicenseNumber) ? "": driverLicenseNumber;
+            driverLicense = string.IsNullOrWhiteSpace(driverLicenseNumber) ? "" : driverLicenseNumber;
             outGateLocation = yardQuickCode;
             gatePassCode = string.IsNullOrWhiteSpace(apiJob.LoadId) ? Guid.NewGuid().ToString().Substring(0, 6).ToUpper() : apiJob.LoadId;
-            loadNumber = apiJob.LoadId;
-            truckNumber = apiJob.AssignedTruckRemoteId;
+            loadNumber = string.IsNullOrWhiteSpace(apiJob.LoadId) ? "" : apiJob.LoadId;
+            truckNumber = string.IsNullOrWhiteSpace(apiJob.AssignedTruckRemoteId) ? "" : apiJob.AssignedTruckRemoteId;
             vin = apiJob.Vehicles.Select(v => v.Vin).ToArray();
         }
 
@@ -28,7 +28,9 @@ namespace CarDeliveryNetwork.Api.Data.BNSF
         public string outGateLocation { get; set; }
         public string gatePassCode { get; set; }
         public string loadNumber { get; set; }
-        public string trailerNumber { get; set; }
+
+        //must have setter for serialise to work
+        public string trailerNumber { get { return ""; } set { } }
         public string truckNumber { get; set; }
         public string[] vin { get; set; }
 
