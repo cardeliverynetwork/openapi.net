@@ -11,6 +11,8 @@ using CarDeliveryNetwork.Types.Interfaces;
 using CarDeliveryNetwork.Api.Data.CdxFlat;
 using CarDeliveryNetwork.Api.Data.Glovis;
 using CarDeliveryNetwork.Api.Data.Csx;
+using CarDeliveryNetwork.Api.Data.FreightVerify;
+using CarDeliveryNetwork.Api.Data.FreightVerify.Honda_Canada;
 
 namespace CarDeliveryNetwork.Api.Data
 {
@@ -591,7 +593,10 @@ namespace CarDeliveryNetwork.Api.Data
                         default:
                             return null;
                     }
-
+                case WebHookSchema.FVHondaCanadaCarrierReceipt:
+                    return new CarrierReceipt(this.Vehicles[vehicleIndex], this, contractedCarrier).ToString();
+                case WebHookSchema.FVHondaCanadaTruckDelivered:
+                    return new TruckDelivered(this.Vehicles[vehicleIndex], this, contractedCarrier).ToString();
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
             }
@@ -602,6 +607,7 @@ namespace CarDeliveryNetwork.Api.Data
         /// </summary>
         /// <param name="vehicle"></param>
         /// <param name="damage"></param>
+        /// <param name="location"></param>
         /// <param name="schema"></param>
         /// <param name="forEvent"></param>
         /// <param name="timeStamp"></param>
@@ -618,6 +624,7 @@ namespace CarDeliveryNetwork.Api.Data
         public string ToVehicleDamageHookString(
             Vehicle vehicle,
             DamageItem damage,
+            ContactDetails location,
             WebHookSchema schema,
             WebHookEvent forEvent,
             DateTime timeStamp,
@@ -651,6 +658,9 @@ namespace CarDeliveryNetwork.Api.Data
 
                 case WebHookSchema.CSXDamageInspection:
                     return new DamageInspection(this, vehicle, damage, additonalData, contractedCarrier, terminalId, terminalName).ToString();
+
+                case WebHookSchema.FVHondaCanadaDamageRecorded:
+                    return new FreightVerify.Honda_Canada.DamageIdentified(vehicle, damage, location, this, contractedCarrier).ToString();
 
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");

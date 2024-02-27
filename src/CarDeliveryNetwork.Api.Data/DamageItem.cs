@@ -82,6 +82,8 @@ namespace CarDeliveryNetwork.Api.Data
         /// URLs of damage photos
         /// </summary>
         public virtual List<string> PhotoURL { get; set; }
+
+        public string AiagCode => $"{Area?.Code}{Type?.Code}{Severity?.Code}";
     }
 
     /// <summary>

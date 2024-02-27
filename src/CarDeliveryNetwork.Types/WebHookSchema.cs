@@ -91,6 +91,21 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// BNSF Pre-out gate request
         /// </summary>
-        BNSFPreOutGate = 140
+        BNSFPreOutGate = 140,
+
+        /// <summary>
+        /// Freight Verify Honda Canada carrier received vehicle
+        /// </summary>
+        FVHondaCanadaCarrierReceipt = 150,
+
+        /// <summary>
+        /// Freight Verify Honda Canada vehicle delivered
+        /// </summary>
+        FVHondaCanadaTruckDelivered = 160,
+
+        /// <summary>
+        /// Freight Verify Honda Canada vehicle damage identified
+        /// </summary>
+        FVHondaCanadaDamageRecorded = 170
     }
 }

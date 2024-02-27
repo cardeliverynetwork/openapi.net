@@ -24,6 +24,11 @@ namespace CarDeliveryNetwork.Types
         DropoffStop = 10,
 
         /// <summary>
+        /// WebHook Event for when damage was recorded at drop off
+        /// </summary>
+        DropoffDamageRecorded = 15,
+
+        /// <summary>
         /// WebHook Event for carrier claimed
         /// </summary>
         CarrierClaimApproved = 20,

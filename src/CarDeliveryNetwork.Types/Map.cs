@@ -20,6 +20,7 @@ namespace CarDeliveryNetwork.Types
                     return JobStatus.Collected;
                 
                 case WebHookEvent.DropoffStop:
+                case WebHookEvent.DropoffDamageRecorded:
                 case WebHookEvent.CarrierClaimApproved:
                     return JobStatus.Complete;
 
