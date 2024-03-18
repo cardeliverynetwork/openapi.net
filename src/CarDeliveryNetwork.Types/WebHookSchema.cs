@@ -106,6 +106,11 @@ namespace CarDeliveryNetwork.Types
         /// <summary>
         /// Freight Verify Honda Canada vehicle damage identified
         /// </summary>
-        FVHondaCanadaDamageRecorded = 170
+        FVHondaCanadaDamageRecorded = 170,
+
+        /// <summary>
+        /// Freight Verify Honda Canada vehicle departed pickup location
+        /// </summary>
+        FVHondaCanadaTruckDeparted = 180
     }
 }

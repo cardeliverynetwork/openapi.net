@@ -597,6 +597,8 @@ namespace CarDeliveryNetwork.Api.Data
                     return new CarrierReceipt(this.Vehicles[vehicleIndex], this, contractedCarrier).ToString();
                 case WebHookSchema.FVHondaCanadaTruckDelivered:
                     return new TruckDelivered(this.Vehicles[vehicleIndex], this, contractedCarrier).ToString();
+                case WebHookSchema.FVHondaCanadaTruckDeparted:
+                    return new TruckDeparted(this.Vehicles[vehicleIndex], this, contractedCarrier).ToString();
                 default:
                     throw new ArgumentException(string.Format("Schema {0} is not a valid WebHookSchema", schema), "schema");
             }

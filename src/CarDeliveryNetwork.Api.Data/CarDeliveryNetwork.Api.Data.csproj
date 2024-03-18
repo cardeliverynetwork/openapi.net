@@ -59,6 +59,7 @@
     <Compile Include="FreightVerify\Honda Canada\MilestoneBase.cs" />
     <Compile Include="FreightVerify\Honda Canada\ReferenceItem.cs" />
     <Compile Include="FreightVerify\Honda Canada\TruckDelivered.cs" />
+    <Compile Include="FreightVerify\Honda Canada\TruckDeparted.cs" />
     <Compile Include="Glovis\MtmsHead.cs" />
     <Compile Include="Glovis\MtmsExceptionReport.cs" />
     <Compile Include="Glovis\MtmsExceptionReportBody.cs" />
