@@ -9,7 +9,7 @@ namespace CarDeliveryNetwork.Api.Data.FreightVerify.Honda_Canada
         public DamageIdentified()
         { }
 
-        public DamageIdentified(Vehicle vehicle, DamageItem damage, ContactDetails location, Job job, Fleet contractedCarrier) : base(vehicle, job, contractedCarrier)
+        public DamageIdentified(Vehicle vehicle, DamageItem damage, ContactDetails location, Job job, Fleet contractedCarrier, string senderId) : base(vehicle, job, contractedCarrier, senderId)
         {
             code = "A9";
             ms1LocationCode = location?.QuickCode;

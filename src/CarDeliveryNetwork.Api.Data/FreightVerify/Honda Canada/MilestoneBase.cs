@@ -30,12 +30,13 @@ namespace CarDeliveryNetwork.Api.Data.FreightVerify.Honda_Canada
         {
         }
 
-        public MilestoneBase(Vehicle vehicle, Job job, Fleet contractedCarrier)
+        public MilestoneBase(Vehicle vehicle, Job job, Fleet contractedCarrier, string senderId)
         {
             vin = vehicle.Vin;
             statusUpdateTs = DateTime.UtcNow;
-            senderName = contractedCarrier.Name;
-            scac = contractedCarrier.Scac;
+            this.senderId = senderId;
+            senderName = contractedCarrier?.Name;
+            scac = contractedCarrier?.Scac;
 
             //If QC is 9 chars assume it's an SPLC and this is a ramp to ramp job
             if (job?.Dropoff?.Destination?.QuickCode != null && job.Dropoff.Destination.QuickCode.Length == 9)

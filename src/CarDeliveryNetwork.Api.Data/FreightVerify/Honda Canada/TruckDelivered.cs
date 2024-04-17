@@ -5,7 +5,7 @@
         public TruckDelivered()
         { }
 
-        public TruckDelivered(Vehicle vehicle, Job job, Fleet contractedCarrier) : base(vehicle, job, contractedCarrier)
+        public TruckDelivered(Vehicle vehicle, Job job, Fleet contractedCarrier, string senderId) : base(vehicle, job, contractedCarrier, senderId)
         {
             code = "TDELV";
             ms1LocationCode = job?.Dropoff?.Destination?.QuickCode;
