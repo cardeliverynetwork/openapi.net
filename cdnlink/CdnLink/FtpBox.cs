@@ -75,6 +75,8 @@ namespace CdnLink
                     filename = reader.ReadLine();
                 }
             }
+
+            fileList.Sort();
             return fileList;
         }
 
