@@ -68,7 +68,7 @@ namespace CdnHookToFtp
                 int.TryParse(ftpPortString, out ftpPort);
 
                 // Use passed filename from URL or create a unique one
-                var fileName = Request.Query.filename.Value ?? Guid.NewGuid().ToString();
+                var fileName = GetOrGenerateFileName(Request.Query.filename.Value);
 
                 // If explicitly specified as true, or unspecified, use a .incomplete extension during writing
                 var nameOnComplete = Request.Query.nameoncomplete.Value == "true" || Request.Query.nameoncomplete.Value == null;
@@ -342,6 +342,18 @@ namespace CdnHookToFtp
             return request.Headers.ContentType.Matches("application/json")
                 ? RequestType.Json
                 : RequestType.Xml;
+        }
+
+        private string GetOrGenerateFileName(string defaultFileName = null)
+        {
+            if(!string.IsNullOrWhiteSpace(defaultFileName))
+            {
+                return defaultFileName;
+            }
+
+            var filenamePrefix = DateTime.UtcNow.ToString("yyyyMMddHHmmssfff");
+
+            return $"{filenamePrefix}_{Guid.NewGuid()}";
         }
     }
 
